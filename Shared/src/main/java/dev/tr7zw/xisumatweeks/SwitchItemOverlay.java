@@ -1,5 +1,8 @@
 package dev.tr7zw.xisumatweeks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -34,22 +37,23 @@ public class SwitchItemOverlay extends Overlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         int slotSize = 22;
-        int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize - (slotSize / 2) - 1;
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize - (slotSize / 2);
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 - slotSize - (slotSize / 2) - 1;
+        List<Runnable> itemRenderList = new ArrayList<>();
         for (int i = 0; i < 3; i++) {
-            blit(poseStack, originX + i * slotSize, originY, 24, 22, 29, 24);
-            renderSelection(poseStack, i, originX + i * slotSize, originY);
-            blit(poseStack, originX + i * slotSize, originY + slotSize * 2, 24, 22, 29, 24);
-            renderSelection(poseStack, i + 3, originX + i * slotSize, originY + slotSize * 2);
+            renderSelection(poseStack, i, originX + i * slotSize, originY, itemRenderList);
+            renderSelection(poseStack, i + 3, originX + i * slotSize, originY + slotSize * 2, itemRenderList);
             if (i == 0 || i == 2) {
-                blit(poseStack, originX + i * slotSize, originY + slotSize, 24, 22, 29, 24);
-                renderSelection(poseStack, i == 0 ? 6 : 7, originX + i * slotSize, originY + slotSize);
+                renderSelection(poseStack, i == 0 ? 6 : 7, originX + i * slotSize, originY + slotSize, itemRenderList);
             }
         }
-  
+        itemRenderList.forEach(Runnable::run);
     }
     
-    private void renderSelection(PoseStack poseStack, int id, int x, int y) {
+    private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
+        blit(poseStack, x, y, 24, 22, 29, 24);
+        //dummy item code
+        itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(id), 1));
         if(selection != null && selection.ordinal() == id) {
             blit(poseStack, x, y, 0, 22, 24, 22);
         }
@@ -104,25 +108,11 @@ public class SwitchItemOverlay extends Overlay {
         System.out.println("Final: " + selection);
     }
 
-    private void renderSlot(int i, int j, float g, Player arg, ItemStack arg2, int k) {
+    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
-            PoseStack posestack = RenderSystem.getModelViewStack();
-            float f = arg2.getPopTime() - g;
-            if (f > 0.0F) {
-                float f1 = 1.0F + f / 5.0F;
-                posestack.pushPose();
-                posestack.translate((i + 8), (j + 12), 0.0D);
-                posestack.scale(1.0F / f1, (f1 + 1.0F) / 2.0F, 1.0F);
-                posestack.translate(-(i + 8), -(j + 12), 0.0D);
-                RenderSystem.applyModelViewMatrix();
-            }
-            this.itemRenderer.renderAndDecorateItem(arg, arg2, i, j, k);
+            this.itemRenderer.renderAndDecorateItem(arg, arg2, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            if (f > 0.0F) {
-                posestack.popPose();
-                RenderSystem.applyModelViewMatrix();
-            }
-            this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, i, j);
+            this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, x, y);
         }
     }
 
