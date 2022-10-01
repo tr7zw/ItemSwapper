@@ -10,11 +10,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class SwitchItemOverlay extends Overlay {
 
@@ -24,6 +27,8 @@ public class SwitchItemOverlay extends Overlay {
     private static final double handleResetCount = 50;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
+    private Item[] itemSelection;
+    private Item[] secondaryItemSelection;
 
     private double selectX = 0;
     private double selectY = 0;
@@ -32,6 +37,11 @@ public class SwitchItemOverlay extends Overlay {
     private double lastX, lastY;
     private int noMovement;
 
+    public SwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
+        this.itemSelection = selection;
+        this.secondaryItemSelection = selectionSecondary;
+    }
+    
     @Override
     public void render(PoseStack poseStack, int no1, int no2, float f) {
         RenderSystem.enableBlend();
@@ -55,7 +65,10 @@ public class SwitchItemOverlay extends Overlay {
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
         //dummy item code
-        itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(9+id), 1));
+        int slot = findSlotMatchingItem(itemSelection[id]);
+        if(slot != -1) {
+            itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(slot), 1));
+        }
         if(selection != null && selection.ordinal() == id) {
             blit(poseStack, x, y, 0, 22, 24, 22);
         }
@@ -78,6 +91,12 @@ public class SwitchItemOverlay extends Overlay {
         lastX = x;
         lastY = y;
         updateSelection();
+    }
+    
+    public void handleSwitchSelection() {
+        Item[] tmp = itemSelection;
+        itemSelection = secondaryItemSelection;
+        secondaryItemSelection = tmp;
     }
 
     private void updateSelection() {
@@ -107,10 +126,13 @@ public class SwitchItemOverlay extends Overlay {
     }
 
     public void onClose() {
-        System.out.println("Final: " + selection);
-        if(selection != null) {
-            this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, 9+selection.ordinal()/*hotbarslot*/, minecraft.player.getInventory().selected,
-                    ClickType.SWAP, this.minecraft.player);
+        if(selection != null && itemSelection[selection.ordinal()] != Items.AIR) {
+            int inventorySlot = findSlotMatchingItem(itemSelection[selection.ordinal()]);
+            if(inventorySlot != -1) {
+                int hudSlot = inventorySlotToHudSlot(inventorySlot);
+                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot, minecraft.player.getInventory().selected,
+                        ClickType.SWAP, this.minecraft.player);
+            }
         }
     }
 
@@ -124,6 +146,23 @@ public class SwitchItemOverlay extends Overlay {
 
     public enum Selection {
         TOP_LEFT, TOP, TOP_RIGHT, BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT, RIGHT, 
+    }
+    
+    private int inventorySlotToHudSlot(int slot) {
+        if(slot < 9) {
+            return 36+slot;
+        }
+        return slot;
+    }
+    
+    private int findSlotMatchingItem(Item item) {
+        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
+        for (int i = 0; i < items.size(); i++) {
+            if (!((ItemStack) items.get(i)).isEmpty()
+                    && items.get(i).getItem() == item)
+                return i;
+        }
+        return -1;
     }
 
 }

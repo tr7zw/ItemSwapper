@@ -24,11 +24,12 @@ public class MouseHandlerMixin {
     private double accumulatedDX;
     @Shadow
     private double accumulatedDY;
-    
+
+    private boolean middleIsPressed = false;
+
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)
     public void turnPlayer(CallbackInfo ci) {
-        Overlay overlay = Minecraft.getInstance().getOverlay();
-        if(overlay instanceof SwitchItemOverlay switcher) {
+        if (Minecraft.getInstance().getOverlay() instanceof SwitchItemOverlay switcher) {
             double d0 = Blaze3D.getTime();
             this.lastMouseEventTime = d0;
             if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {
@@ -52,10 +53,24 @@ public class MouseHandlerMixin {
             ci.cancel();
         }
     }
-    
+
+    @Inject(method = "onPress", at = @At("TAIL"))
+    private void onPress(long l, int i, int j, int k, CallbackInfo ci) {
+        if (this.minecraft.getOverlay() instanceof SwitchItemOverlay switcher) {
+            if (!middleIsPressed && i == 2) {
+                middleIsPressed = true;
+                switcher.handleSwitchSelection();
+            } else {
+                middleIsPressed = false;
+            }
+        } else {
+            middleIsPressed = false;
+        }
+    }
+
     @Shadow
     public boolean isMouseGrabbed() {
         return false;
     }
-    
+
 }

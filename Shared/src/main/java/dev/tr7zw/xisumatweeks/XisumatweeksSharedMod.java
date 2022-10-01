@@ -14,6 +14,7 @@ public abstract class XisumatweeksSharedMod {
     public static final Logger LOGGER = LogManager.getLogger("Xisumatweeks");
     public static XisumatweeksSharedMod instance;
     
+    private ItemGroupManager itemGroupManager = new ItemGroupManager();
     protected KeyMapping keybind = new KeyMapping("key.xisumatweeks.itemswitcher", InputConstants.KEY_R, "Xisumatweeks");
     protected boolean pressed = false;
     
@@ -27,8 +28,7 @@ public abstract class XisumatweeksSharedMod {
         Overlay overlay = Minecraft.getInstance().getOverlay();
         if (keybind.isDown()) {
             if (!pressed && overlay == null) {
-                Minecraft.getInstance().setOverlay(new SwitchItemOverlay());
-                return;
+                Minecraft.getInstance().setOverlay(new SwitchItemOverlay(itemGroupManager.getSelection(Minecraft.getInstance().player.getMainHandItem().getItem()), itemGroupManager.getSecondarySelection(Minecraft.getInstance().player.getMainHandItem().getItem())));
             }
         } else {
             pressed = false;
