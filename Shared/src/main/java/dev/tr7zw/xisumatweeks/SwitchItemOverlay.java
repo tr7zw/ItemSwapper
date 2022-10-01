@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 
 public class SwitchItemOverlay extends Overlay {
@@ -53,7 +54,7 @@ public class SwitchItemOverlay extends Overlay {
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
         //dummy item code
-        itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(id), 1));
+        itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(9+id), 1));
         if(selection != null && selection.ordinal() == id) {
             blit(poseStack, x, y, 0, 22, 24, 22);
         }
@@ -106,6 +107,10 @@ public class SwitchItemOverlay extends Overlay {
 
     public void onClose() {
         System.out.println("Final: " + selection);
+        if(selection != null) {
+            this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, 9+selection.ordinal()/*hotbarslot*/, minecraft.player.getInventory().selected,
+                    ClickType.SWAP, this.minecraft.player);
+        }
     }
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
