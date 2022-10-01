@@ -34,6 +34,7 @@ public class SwitchItemOverlay extends Overlay {
 
     @Override
     public void render(PoseStack poseStack, int no1, int no2, float f) {
+        RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
