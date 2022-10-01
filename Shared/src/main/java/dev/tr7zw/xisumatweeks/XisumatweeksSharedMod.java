@@ -3,6 +3,8 @@ package dev.tr7zw.xisumatweeks;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.mojang.blaze3d.platform.InputConstants;
+
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
@@ -12,7 +14,7 @@ public abstract class XisumatweeksSharedMod {
     public static final Logger LOGGER = LogManager.getLogger("Xisumatweeks");
     public static XisumatweeksSharedMod instance;
     
-    protected KeyMapping keybind = new KeyMapping("key.xisumatweeks.itemswitcher", -1, "Xisumatweeks");
+    protected KeyMapping keybind = new KeyMapping("key.xisumatweeks.itemswitcher", InputConstants.KEY_R, "Xisumatweeks");
     protected boolean pressed = false;
     
     public void init() {
