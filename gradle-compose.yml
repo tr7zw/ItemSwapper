@@ -1,0 +1,17 @@
+version: '0.0.1'
+source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19.2/"
+replacements:
+  group: "dev.tr7zw"
+  name: "Xisumatweeks"
+  id: "xisumatweeks"
+  version: "1.0.0"
+  author: "tr7zw"
+  dependencies: ""
+  licensename: "LICENSE"
+rootProject:
+  template: "."
+subProjects:
+  XTFabric:
+    template: "Fabric"
+  XTForge:
+    template: "Forge"

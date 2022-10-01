@@ -1,0 +1,34 @@
+# This is an example mods.toml file.
+# Any fields that aren't annotated with #optional are *required*!
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "GNU General Public License v3"
+
+# This is a URL to e.g. your GitHub or CurseForge issues page.
+# It will appear in any crash reports this mod is directly involved in.
+issueTrackerURL="https://github.com/tr7zw/Xisumatweeks/issues" #optional
+# A list of mods - how many allowed here is determined by the individual mod loader
+
+[[mods]]
+modId = "xisumatweeks"
+version = "${version}"
+displayName = "Xisumatweeks"
+logoFile="icon.png" #optional
+ authors="tr7zw" #optional
+description = '''
+Tweeks to the inventory system based on Xisumavoid's video.
+'''
+
+[[dependencies.xisumatweeks]]
+modId = "forge"
+mandatory = true # do you **need** this mod to be able to launch?
+versionRange = "[36,)" # This essentially means any forge >= 36
+ordering = "NONE" # Use this if you want your mod to be loaded specifically BEFORE or AFTER another mod
+side = "BOTH" # Specify where this mod is required: can be BOTH, CLIENT or SERVER
+
+[[dependencies.xisumatweeks]]
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.19,)"
+ordering = "NONE"
+side = "BOTH"
