@@ -8,10 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.Blaze3D;
 
-import dev.tr7zw.xisumatweeks.SwitchItemOverlay;
+import dev.tr7zw.xisumatweeks.overlay.XTOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
-import net.minecraft.client.gui.screens.Overlay;
 
 @Mixin(MouseHandler.class)
 public class MouseHandlerMixin {
@@ -29,7 +28,7 @@ public class MouseHandlerMixin {
 
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)
     public void turnPlayer(CallbackInfo ci) {
-        if (Minecraft.getInstance().getOverlay() instanceof SwitchItemOverlay switcher) {
+        if (Minecraft.getInstance().getOverlay() instanceof XTOverlay over) {
             double d0 = Blaze3D.getTime();
             this.lastMouseEventTime = d0;
             if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {
@@ -44,7 +43,7 @@ public class MouseHandlerMixin {
                 this.accumulatedDY = 0.0D;
 
                 if (this.minecraft.player != null) {
-                    switcher.handleInput(d2, d3);
+                    over.handleInput(d2, d3);
                 }
             } else {
                 this.accumulatedDX = 0.0D;
@@ -56,10 +55,10 @@ public class MouseHandlerMixin {
 
     @Inject(method = "onPress", at = @At("TAIL"))
     private void onPress(long l, int i, int j, int k, CallbackInfo ci) {
-        if (this.minecraft.getOverlay() instanceof SwitchItemOverlay switcher) {
+        if (this.minecraft.getOverlay() instanceof XTOverlay over) {
             if (!middleIsPressed && i == 2) {
                 middleIsPressed = true;
-                switcher.handleSwitchSelection();
+                over.handleSwitchSelection();
             } else {
                 middleIsPressed = false;
             }

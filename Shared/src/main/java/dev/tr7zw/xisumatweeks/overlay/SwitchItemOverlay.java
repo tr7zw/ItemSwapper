@@ -1,4 +1,4 @@
-package dev.tr7zw.xisumatweeks;
+package dev.tr7zw.xisumatweeks.overlay;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.core.NonNullList;
@@ -19,7 +18,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class SwitchItemOverlay extends Overlay {
+public class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
     private static final double limit = 100;
@@ -64,7 +63,6 @@ public class SwitchItemOverlay extends Overlay {
     
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
-        //dummy item code
         int slot = findSlotMatchingItem(itemSelection[id]);
         if(slot != -1) {
             itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(slot), 1));
@@ -158,7 +156,7 @@ public class SwitchItemOverlay extends Overlay {
     private int findSlotMatchingItem(Item item) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
         for (int i = 0; i < items.size(); i++) {
-            if (!((ItemStack) items.get(i)).isEmpty()
+            if (!(items.get(i)).isEmpty()
                     && items.get(i).getItem() == item)
                 return i;
         }
