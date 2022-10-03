@@ -21,4 +21,10 @@ public class XisumatweeksMod extends XisumatweeksSharedMod {
         init();
     }
 
+    @Override
+    public void initModloader() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
