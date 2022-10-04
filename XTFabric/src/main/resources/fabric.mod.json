@@ -1,29 +1,29 @@
 {
     "schemaVersion": 1,
-    "id": "xisumatweeks",
+    "id": "itemswapper",
     "version": "${version}",
   
-    "name": "Xisumatweeks",
+    "name": "ItemSwapper",
     "description": "Tweeks to the inventory system based on Xisumavoid's video",
     "authors": [
       "tr7zw"
     ],
     "contact": {
       "homepage": "https://github.com/tr7zw",
-      "sources": "https://github.com/tr7zw/Xisumatweeks"
+      "sources": "https://github.com/tr7zw/ItemSwapper"
     },
   
     "license": "GNU General Public License v3",
-    "icon": "assets/xisumatweeks/icon.png",
+    "icon": "assets/itemswapper/icon.png",
   
     "environment": "CLIENT",
     "entrypoints": {
       "main": [
-        "dev.tr7zw.xisumatweeks.XisumatweeksMod"
+        "dev.tr7zw.itemswapper.ItemSwapperMod"
       ]
     },
     "mixins": [
-      "xisumatweeks.mixins.json"
+      "itemswapper.mixins.json"
     ],
   
     "depends": {

@@ -1,4 +1,4 @@
-package dev.tr7zw.xisumatweeks.overlay;
+package dev.tr7zw.itemswapper.overlay;
 
 import java.util.ArrayList;
 import java.util.List;

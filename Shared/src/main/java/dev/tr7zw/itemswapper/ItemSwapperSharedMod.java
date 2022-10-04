@@ -1,31 +1,31 @@
-package dev.tr7zw.xisumatweeks;
+package dev.tr7zw.itemswapper;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
-import dev.tr7zw.xisumatweeks.overlay.ItemListOverlay;
-import dev.tr7zw.xisumatweeks.overlay.SwitchItemOverlay;
-import dev.tr7zw.xisumatweeks.overlay.XTOverlay;
+import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-public abstract class XisumatweeksSharedMod {
+public abstract class ItemSwapperSharedMod {
 
-    public static final Logger LOGGER = LogManager.getLogger("Xisumatweeks");
-    public static XisumatweeksSharedMod instance;
+    public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
+    public static ItemSwapperSharedMod instance;
     
     private ItemGroupManager itemGroupManager = new ItemGroupManager();
-    protected KeyMapping keybind = new KeyMapping("key.xisumatweeks.itemswitcher", InputConstants.KEY_R, "Xisumatweeks");
+    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
     protected boolean pressed = false;
     
     public void init() {
         instance = this;
-        LOGGER.info("Loading Xisumatweeks!");
+        LOGGER.info("Loading ItemSwapper!");
         initModloader();
     }
     

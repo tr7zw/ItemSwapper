@@ -1,17 +1,17 @@
-package dev.tr7zw.xisumatweeks;
+package dev.tr7zw.itemswapper;
 
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod("xisumatweeks")
-public class XisumatweeksMod extends XisumatweeksSharedMod {
+@Mod("itemswapper")
+public class ItemSwapperMod extends ItemSwapperSharedMod {
 
-    public XisumatweeksMod() {
+    public ItemSwapperMod() {
         try {
             Class clientClass = net.minecraft.client.Minecraft.class;
         }catch(Throwable ex) {
-            LOGGER.warn("Xisumatweeks Mod installed on a Server. Going to sleep.");
+            LOGGER.warn("ItemSwapper Mod installed on a Server. Going to sleep.");
             return;
         }
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class,

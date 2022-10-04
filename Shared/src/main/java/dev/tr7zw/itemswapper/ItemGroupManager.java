@@ -1,4 +1,4 @@
-package dev.tr7zw.xisumatweeks;
+package dev.tr7zw.itemswapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,7 +19,7 @@ public class ItemGroupManager {
     
     public void registerCollection(Item[] items) {
         if(items.length != 8) {
-            XisumatweeksSharedMod.LOGGER.warn("Tried to register invalid collection!");
+            ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
             return;
         }
         for(Item i : items) {
@@ -29,7 +29,7 @@ public class ItemGroupManager {
     
     public void registerSecondaryCollection(Item[] items) {
         if(items.length != 8) {
-            XisumatweeksSharedMod.LOGGER.warn("Tried to register invalid collection!");
+            ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
             return;
         }
         for(Item i : items) {

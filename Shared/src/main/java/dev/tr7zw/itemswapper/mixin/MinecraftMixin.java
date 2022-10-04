@@ -1,10 +1,10 @@
-package dev.tr7zw.xisumatweeks.mixin;
+package dev.tr7zw.itemswapper.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-import dev.tr7zw.xisumatweeks.overlay.XTOverlay;
+import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.server.IntegratedServer;
 

@@ -1,10 +1,10 @@
-package dev.tr7zw.xisumatweeks;
+package dev.tr7zw.itemswapper;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
-public class XisumatweeksMod extends XisumatweeksSharedMod implements ModInitializer {
+public class ItemSwapperMod extends ItemSwapperSharedMod implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
