@@ -16,7 +16,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class ItemListOverlay extends XTOverlay {
 
@@ -24,12 +23,13 @@ public class ItemListOverlay extends XTOverlay {
     private static final double entrySize = 33;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
-    private Item[] itemSelection = new Item[] {Items.SPYGLASS, Items.FISHING_ROD, Items.COMPASS, Items.CLOCK};
+    private Item[] itemSelection;
     private List<Integer> entries = new ArrayList<>();
     private int selectedEntry = 0;
     private double selectY = 0;
     
-    public ItemListOverlay() {
+    public ItemListOverlay(Item[] itemSelection) {
+        this.itemSelection = itemSelection;
         refreshList();
     }
     

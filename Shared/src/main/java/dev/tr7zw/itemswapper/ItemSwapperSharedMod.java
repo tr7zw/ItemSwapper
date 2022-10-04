@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
+import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
@@ -12,7 +13,6 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 
 public abstract class ItemSwapperSharedMod {
 
@@ -34,10 +34,20 @@ public abstract class ItemSwapperSharedMod {
         if (keybind.isDown()) {
             if (!pressed && overlay == null) {
                 Item itemInHand = Minecraft.getInstance().player.getMainHandItem().getItem();
-                if(itemInHand == Items.SPYGLASS) {
-                    Minecraft.getInstance().setOverlay(new ItemListOverlay());
-                }else {
-                    Minecraft.getInstance().setOverlay(new SwitchItemOverlay(itemGroupManager.getSelection(itemInHand), itemGroupManager.getSecondarySelection(itemInHand)));
+                Item[] entries = itemGroupManager.getList(itemInHand);
+                if(entries != null) {
+                    Minecraft.getInstance().setOverlay(new ItemListOverlay(entries));
+                } else {
+                    entries = itemGroupManager.getSelection(itemInHand);
+                    if(entries != null) {
+                        Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
+                    } else {
+                        // Fallback for if there is just a second set, no first set
+                        entries = itemGroupManager.getSecondarySelection(itemInHand);
+                        if(entries != null) {
+                            Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, null));
+                        }
+                    }
                 }
             }
         } else {
@@ -50,5 +60,9 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public abstract void initModloader();
+
+    public ItemGroupManager getItemGroupManager() {
+        return itemGroupManager;
+    }
     
 }

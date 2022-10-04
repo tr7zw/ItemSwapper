@@ -1,20 +1,22 @@
-package dev.tr7zw.itemswapper;
+package dev.tr7zw.itemswapper.manager;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class ItemGroupManager {
 
-    private final Item[] fallback = new Item[] {Items.AIR,Items.AIR,Items.AIR,Items.AIR,Items.AIR,Items.AIR,Items.AIR,Items.AIR};
     private Map<Item, Item[]> mapping = new HashMap<>();
     private Map<Item, Item[]> secondaryMapping = new HashMap<>();
+    private Map<Item, Item[]> listMapping = new HashMap<>();
     
-    public ItemGroupManager() {
-        registerCollection(new Item[] {Items.BIRCH_PLANKS, Items.BIRCH_SLAB, Items.BIRCH_STAIRS, Items.BIRCH_TRAPDOOR, Items.BIRCH_BUTTON, Items.BIRCH_FENCE, Items.BIRCH_PRESSURE_PLATE, Items.BIRCH_FENCE_GATE});
-        registerSecondaryCollection(new Item[] {Items.OAK_PLANKS, Items.BIRCH_PLANKS, Items.SPRUCE_PLANKS, Items.JUNGLE_PLANKS, Items.ACACIA_PLANKS, Items.DARK_OAK_PLANKS, Items.CRIMSON_PLANKS, Items.WARPED_PLANKS});
+    public void reset() {
+        mapping.clear();
+        secondaryMapping.clear();
+        listMapping.clear();
     }
     
     public void registerCollection(Item[] items) {
@@ -23,7 +25,9 @@ public class ItemGroupManager {
             return;
         }
         for(Item i : items) {
-            mapping.put(i, items);
+            if(i != Items.AIR) {
+                mapping.put(i, items);
+            }
         }
     }
     
@@ -33,7 +37,17 @@ public class ItemGroupManager {
             return;
         }
         for(Item i : items) {
-            secondaryMapping.put(i, items);
+            if(i != Items.AIR) {
+                secondaryMapping.put(i, items);
+            }
+        }
+    }
+    
+    public void registerListCollection(Item[] items) {
+        for(Item i : items) {
+            if(i != Items.AIR) {
+                listMapping.put(i, items);
+            }
         }
     }
     
@@ -41,14 +55,21 @@ public class ItemGroupManager {
         if(mapping.containsKey(item)) {
             return mapping.get(item);
         }
-        return fallback;
+        return null;
     }
     
     public Item[] getSecondarySelection(Item item) {
         if(secondaryMapping.containsKey(item)) {
             return secondaryMapping.get(item);
         }
-        return fallback;
+        return null;
+    }
+    
+    public Item[] getList(Item item) {
+        if(listMapping.containsKey(item)) {
+            return listMapping.get(item);
+        }
+        return null;
     }
     
 }

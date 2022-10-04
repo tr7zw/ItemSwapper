@@ -92,6 +92,10 @@ public class SwitchItemOverlay extends XTOverlay {
     }
     
     public void handleSwitchSelection() {
+        // Don't allow switching if there is no second set
+        if(secondaryItemSelection == null) {
+            return;
+        }
         Item[] tmp = itemSelection;
         itemSelection = secondaryItemSelection;
         secondaryItemSelection = tmp;
