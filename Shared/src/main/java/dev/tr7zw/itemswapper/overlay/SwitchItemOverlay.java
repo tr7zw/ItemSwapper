@@ -65,7 +65,7 @@ public class SwitchItemOverlay extends XTOverlay {
         blit(poseStack, x, y, 24, 22, 29, 24);
         int slot = findSlotMatchingItem(itemSelection[id]);
         if(slot != -1) {
-            itemRenderList.add(() -> renderSlot(x+3, y+3, minecraft.player, minecraft.player.getInventory().getItem(slot), 1));
+            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, minecraft.player.getInventory().getItem(slot), 1));
         }
         if(selection != null && selection.ordinal() == id) {
             blit(poseStack, x, y, 0, 22, 24, 22);
