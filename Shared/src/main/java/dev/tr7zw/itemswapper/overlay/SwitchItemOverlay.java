@@ -6,6 +6,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.util.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -28,6 +29,7 @@ public class SwitchItemOverlay extends XTOverlay {
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
     private Item[] secondaryItemSelection;
+    private RenderHelper renderHelper = new RenderHelper();
 
     private double selectX = 0;
     private double selectY = 0;
@@ -65,7 +67,9 @@ public class SwitchItemOverlay extends XTOverlay {
         blit(poseStack, x, y, 24, 22, 29, 24);
         int slot = findSlotMatchingItem(itemSelection[id]);
         if(slot != -1) {
-            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, minecraft.player.getInventory().getItem(slot), 1));
+            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, minecraft.player.getInventory().getItem(slot), 1, false));
+        } else {
+            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
         }
         if(selection != null && selection.ordinal() == id) {
             blit(poseStack, x, y, 0, 22, 24, 22);
@@ -138,8 +142,12 @@ public class SwitchItemOverlay extends XTOverlay {
         }
     }
 
-    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
+    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut) {
         if (!arg2.isEmpty()) {
+            if(grayOut) {
+                this.renderHelper.renderGrayedOutItem(arg, arg2, x, y, k);
+                return;
+            }
             this.itemRenderer.renderAndDecorateItem(arg, arg2, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, x, y);
