@@ -20,33 +20,34 @@ public abstract class ItemSwapperSharedMod {
     public static ItemSwapperSharedMod instance;
     private Minecraft minecraft = Minecraft.getInstance();
     private boolean enableShulkers = false;
-    
+
     private ItemGroupManager itemGroupManager = new ItemGroupManager();
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
     protected boolean pressed = false;
-    
+
     public void init() {
         instance = this;
         LOGGER.info("Loading ItemSwapper!");
         initModloader();
     }
-    
+
     public void clientTick() {
         Overlay overlay = Minecraft.getInstance().getOverlay();
         if (keybind.isDown()) {
             if (!pressed && overlay == null) {
                 Item itemInHand = minecraft.player.getMainHandItem().getItem();
                 Item[] entries = itemGroupManager.getList(itemInHand);
-                if(entries != null) {
+                if (entries != null) {
                     Minecraft.getInstance().setOverlay(new ItemListOverlay(entries));
                 } else {
                     entries = itemGroupManager.getSelection(itemInHand);
-                    if(entries != null) {
-                        Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
+                    if (entries != null) {
+                        Minecraft.getInstance().setOverlay(
+                                new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
                     } else {
                         // Fallback for if there is just a second set, no first set
                         entries = itemGroupManager.getSecondarySelection(itemInHand);
-                        if(entries != null) {
+                        if (entries != null) {
                             Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, null));
                         }
                     }
@@ -54,7 +55,7 @@ public abstract class ItemSwapperSharedMod {
             }
         } else {
             pressed = false;
-            if(overlay instanceof XTOverlay xtOverlay) {
+            if (overlay instanceof XTOverlay xtOverlay) {
                 xtOverlay.onClose();
                 Minecraft.getInstance().setOverlay(null);
             }
@@ -66,13 +67,13 @@ public abstract class ItemSwapperSharedMod {
     public ItemGroupManager getItemGroupManager() {
         return itemGroupManager;
     }
-    
+
     public void setEnableShulkers(boolean value) {
         this.enableShulkers = value;
     }
-    
+
     public boolean areShulkersEnabled() {
         return this.enableShulkers;
     }
-    
+
 }
