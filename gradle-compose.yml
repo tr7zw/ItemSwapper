@@ -13,5 +13,3 @@ rootProject:
 subProjects:
   XTFabric:
     template: "Fabric"
-  XTForge:
-    template: "Forge"

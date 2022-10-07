@@ -36,4 +36,3 @@ jobs:
           name: Artifacts
           path: |
             XTFabric/build/libs/*
-            XTForge/build/libs/*

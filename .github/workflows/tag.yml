@@ -31,4 +31,3 @@ jobs:
         with:
           files: |
             XTFabric/build/libs/*
-            XTForge/build/libs/*
