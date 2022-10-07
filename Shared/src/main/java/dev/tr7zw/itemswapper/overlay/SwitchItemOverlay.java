@@ -6,6 +6,8 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.util.ItemUtil;
+import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -65,9 +67,9 @@ public class SwitchItemOverlay extends XTOverlay {
     
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
-        int slot = findSlotMatchingItem(itemSelection[id]);
-        if(slot != -1) {
-            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, minecraft.player.getInventory().getItem(slot), 1, false));
+        List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[id]);
+        if(!slots.isEmpty()) {
+            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, slots.get(0).item(), 1, false));
         } else {
             itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
         }
@@ -133,11 +135,14 @@ public class SwitchItemOverlay extends XTOverlay {
 
     public void onClose() {
         if(selection != null && itemSelection[selection.ordinal()] != Items.AIR) {
-            int inventorySlot = findSlotMatchingItem(itemSelection[selection.ordinal()]);
-            if(inventorySlot != -1) {
-                int hudSlot = inventorySlotToHudSlot(inventorySlot);
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot, minecraft.player.getInventory().selected,
-                        ClickType.SWAP, this.minecraft.player);
+            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection.ordinal()]);
+            if(!slots.isEmpty()) {
+                Slot slot = slots.get(0);
+                if(slot.inventory() == -1) {
+                    int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
+                    this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot, minecraft.player.getInventory().selected,
+                            ClickType.SWAP, this.minecraft.player);
+                }
             }
         }
     }
@@ -156,23 +161,6 @@ public class SwitchItemOverlay extends XTOverlay {
 
     public enum Selection {
         TOP_LEFT, TOP, TOP_RIGHT, BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT, RIGHT, 
-    }
-    
-    private int inventorySlotToHudSlot(int slot) {
-        if(slot < 9) {
-            return 36+slot;
-        }
-        return slot;
-    }
-    
-    private int findSlotMatchingItem(Item item) {
-        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
-        for (int i = 0; i < items.size(); i++) {
-            if (!(items.get(i)).isEmpty()
-                    && items.get(i).getItem() == item)
-                return i;
-        }
-        return -1;
     }
 
 }

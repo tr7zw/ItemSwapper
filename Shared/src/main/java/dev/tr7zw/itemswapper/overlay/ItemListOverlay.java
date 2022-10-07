@@ -6,10 +6,11 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.util.ItemUtil;
+import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -26,7 +27,7 @@ public class ItemListOverlay extends XTOverlay {
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
-    private List<Integer> entries = new ArrayList<>();
+    private List<Slot> entries = new ArrayList<>();
     private int selectedEntry = 0;
     private double selectY = 0;
 
@@ -60,11 +61,11 @@ public class ItemListOverlay extends XTOverlay {
     private void refreshList() {
         entries.clear();
         // first slot is always the current item
-        entries.add(minecraft.player.getInventory().selected);
+        entries.add(new Slot(-1, minecraft.player.getInventory().selected, minecraft.player.getInventory().getSelected()));
         int limit = (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize;
         for (Item item : itemSelection) {
-            List<Integer> ids = findSlotsMatchingItem(item);
-            for (Integer id : ids) {
+            List<Slot> ids = ItemUtil.findSlotsMatchingItem(item);
+            for (Slot id : ids) {
                 if (!entries.contains(id)) {
                     entries.add(id);
                 }
@@ -88,9 +89,9 @@ public class ItemListOverlay extends XTOverlay {
     @Override
     public void onClose() {
         if (selectedEntry != 0) {
-            int inventorySlot = entries.get(selectedEntry);
-            if (inventorySlot != -1) {
-                int hudSlot = inventorySlotToHudSlot(inventorySlot);
+            Slot inventorySlot = entries.get(selectedEntry);
+            if(inventorySlot.inventory() == -1) {
+                int hudSlot = ItemUtil.inventorySlotToHudSlot(inventorySlot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
                         minecraft.player.getInventory().selected,
                         ClickType.SWAP, this.minecraft.player);
@@ -98,35 +99,15 @@ public class ItemListOverlay extends XTOverlay {
         }
     }
 
-    private List<Integer> findSlotsMatchingItem(Item item) {
-        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
-        List<Integer> ids = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
-            if (!(items.get(i)).isEmpty()
-                    && items.get(i).getItem() == item)
-                ids.add(i);
-        }
-        return ids;
-    }
-
-    private int inventorySlotToHudSlot(int slot) {
-        if (slot < 9) {
-            return 36 + slot;
-        }
-        return slot;
-    }
-
     private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
         // dummy item code
-        int slot = entries.get(id);
-        if (slot != -1) {
-            itemRenderList.add(() -> {
-                renderSlot(x + 3, y + 4, minecraft.player, minecraft.player.getInventory().getItem(slot), 1);
-                drawString(poseStack, minecraft.font, minecraft.player.getInventory().getItem(slot).getHoverName(),
-                        x + 25, y + 11, -1);
-            });
-        }
+        Slot slot = entries.get(id);
+        itemRenderList.add(() -> {
+            renderSlot(x + 3, y + 4, minecraft.player, slot.item(), 1);
+            drawString(poseStack, minecraft.font, slot.item().getHoverName(),
+                    x + 25, y + 11, -1);
+        });
         if (selectedEntry == id) {
             blit(poseStack, x, y, 0, 22, 24, 22);
         }
