@@ -45,6 +45,7 @@ public class RenderHelper {
         this.blitOffset = bakedModel.isGui3d() ? (this.blitOffset - 50.0F) : (this.blitOffset - 50.0F);
     }
     
+    @SuppressWarnings("deprecation")
     protected void renderGuiItem(ItemStack itemStack, int i, int j, BakedModel bakedModel) {
         this.textureManager.getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);

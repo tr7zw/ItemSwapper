@@ -4,10 +4,13 @@
   "package": "dev.tr7zw.itemswapper.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "PlayerListMixin",
+    "ServerGamePacketListenerImplMixin"
   ],
   "client": [
     "MouseHandlerMixin",
-    "MinecraftMixin"
+    "MinecraftMixin",
+    "ClientPacketListenerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -16,10 +16,13 @@
     "license": "GNU General Public License v3",
     "icon": "assets/itemswapper/icon.png",
   
-    "environment": "CLIENT",
+    "environment": "*",
     "entrypoints": {
-      "main": [
+      "client": [
         "dev.tr7zw.itemswapper.ItemSwapperMod"
+      ],
+      "server": [
+        "dev.tr7zw.itemswapper.ItemSwapperServerMod"
       ]
     },
     "mixins": [
