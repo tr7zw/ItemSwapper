@@ -7,6 +7,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.util.ItemUtil;
+import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import net.minecraft.client.Minecraft;
@@ -142,6 +143,8 @@ public class SwitchItemOverlay extends XTOverlay {
                     int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                     this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot, minecraft.player.getInventory().selected,
                             ClickType.SWAP, this.minecraft.player);
+                }else {
+                    NetworkLogic.swapItem(slot.inventory(), slot.slot());
                 }
             }
         }
