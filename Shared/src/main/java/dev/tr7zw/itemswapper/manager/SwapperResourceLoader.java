@@ -22,13 +22,14 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
     public SwapperResourceLoader() {
-        super(GSON, "itemswapper");
+        super(GSON, "itemgroups");
 
     }
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager,
             ProfilerFiller profilerFiller) {
+        ItemSwapperSharedMod.LOGGER.info("Processing item groups: " + map.keySet());
         ItemSwapperSharedMod.instance.getItemGroupManager().reset();
         for (Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             try {
