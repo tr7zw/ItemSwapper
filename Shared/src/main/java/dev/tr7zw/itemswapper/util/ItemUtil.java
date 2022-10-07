@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class ItemUtil {
+public final class ItemUtil {
 
     private static Minecraft minecraft = Minecraft.getInstance();
     private static Set<Item> shulkers = Sets.newHashSet(Items.SHULKER_BOX, Items.BLACK_SHULKER_BOX,
@@ -22,6 +22,10 @@ public class ItemUtil {
             Items.MAGENTA_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.PURPLE_SHULKER_BOX,
             Items.RED_SHULKER_BOX, Items.WHITE_SHULKER_BOX, Items.YELLOW_SHULKER_BOX);
 
+    private ItemUtil() {
+        // private
+    }
+    
     public static int inventorySlotToHudSlot(int slot) {
         if (slot < 9) {
             return 36 + slot;
@@ -38,10 +42,11 @@ public class ItemUtil {
                 ids.add(new Slot(-1, i, items.get(i)));
             }
             if (!(items.get(i)).isEmpty()
-                    && shulkers.contains(items.get(i).getItem())) {
+                    && shulkers.contains(items.get(i).getItem())
+                    && ItemSwapperSharedMod.instance.areShulkersEnabled()) {
                 List<ItemStack> shulkerItems = ShulkerHelper.getItems(items.get(i));
-                if(shulkerItems != null) {
-                    for(int x = 0; x < shulkerItems.size(); x++) {
+                if (shulkerItems != null) {
+                    for (int x = 0; x < shulkerItems.size(); x++) {
                         if (!(shulkerItems.get(x)).isEmpty()
                                 && shulkerItems.get(x).getItem() == item) {
                             ids.add(new Slot(i, x, shulkerItems.get(x)));
@@ -79,7 +84,7 @@ public class ItemUtil {
                 return false;
             return true;
         }
-        
+
     }
 
 }

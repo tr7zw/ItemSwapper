@@ -10,7 +10,8 @@
   "client": [
     "MouseHandlerMixin",
     "MinecraftMixin",
-    "ClientPacketListenerMixin"
+    "ClientPacketListenerMixin",
+    "ClientLevelMixin"
   ],
   "injectors": {
     "defaultRequire": 1

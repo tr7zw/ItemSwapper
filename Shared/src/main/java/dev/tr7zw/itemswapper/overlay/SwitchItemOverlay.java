@@ -7,13 +7,12 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
+import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -32,7 +31,6 @@ public class SwitchItemOverlay extends XTOverlay {
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
     private Item[] secondaryItemSelection;
-    private RenderHelper renderHelper = new RenderHelper();
 
     private double selectX = 0;
     private double selectY = 0;
@@ -153,7 +151,7 @@ public class SwitchItemOverlay extends XTOverlay {
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut) {
         if (!arg2.isEmpty()) {
             if(grayOut) {
-                this.renderHelper.renderGrayedOutItem(arg, arg2, x, y, k);
+                RenderHelper.renderGrayedOutItem(arg, arg2, x, y, k);
                 return;
             }
             this.itemRenderer.renderAndDecorateItem(arg, arg2, x, y, k);

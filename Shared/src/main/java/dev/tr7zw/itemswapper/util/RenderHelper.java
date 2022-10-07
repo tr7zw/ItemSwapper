@@ -11,26 +11,26 @@ import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlas;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
-public class RenderHelper {
+public final class RenderHelper {
 
-    private final ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-    private final TextureManager textureManager = Minecraft.getInstance().getTextureManager();
+    private static final Minecraft minecraft = Minecraft.getInstance();
+    private static float blitOffset;
     
-    private float blitOffset;
+    private RenderHelper() {
+        //private
+    }
     
-    public void renderGrayedOutItem(LivingEntity livingEntity, ItemStack itemStack, int i, int j, int k) {
+    public static void renderGrayedOutItem(LivingEntity livingEntity, ItemStack itemStack, int i, int j, int k) {
         if (itemStack.isEmpty())
             return;
-        BakedModel bakedModel = itemRenderer.getModel(itemStack, null, livingEntity, k);
-        this.blitOffset = bakedModel.isGui3d() ? (this.blitOffset + 50.0F) : (this.blitOffset + 50.0F);
+        BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
+        blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
         try {
             renderGuiItem(itemStack, i, j, bakedModel);
         } catch (Throwable throwable) {
@@ -42,19 +42,19 @@ public class RenderHelper {
             crashReportCategory.setDetail("Item Foil", () -> String.valueOf(itemStack.hasFoil()));
             throw new ReportedException(crashReport);
         }
-        this.blitOffset = bakedModel.isGui3d() ? (this.blitOffset - 50.0F) : (this.blitOffset - 50.0F);
+        blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
     
     @SuppressWarnings("deprecation")
-    protected void renderGuiItem(ItemStack itemStack, int i, int j, BakedModel bakedModel) {
-        this.textureManager.getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
+    private static void renderGuiItem(ItemStack itemStack, int i, int j, BakedModel bakedModel) {
+        minecraft.getTextureManager().getTexture(TextureAtlas.LOCATION_BLOCKS).setFilter(false, false);
         RenderSystem.setShaderTexture(0, TextureAtlas.LOCATION_BLOCKS);
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(0F, 0F, 0F, 0.5F);
         PoseStack poseStack = RenderSystem.getModelViewStack();
         poseStack.pushPose();
-        poseStack.translate(i, j, (100.0F + this.blitOffset));
+        poseStack.translate(i, j, (100.0F + blitOffset));
         poseStack.translate(8.0D, 8.0D, 0.0D);
         poseStack.scale(1.0F, -1.0F, 1.0F);
         poseStack.scale(16.0F, 16.0F, 16.0F);
@@ -64,7 +64,7 @@ public class RenderHelper {
         boolean bl = !bakedModel.usesBlockLight();
         if (bl)
             Lighting.setupForFlatItems();
-        itemRenderer.render(itemStack, ItemTransforms.TransformType.GUI, false, poseStack2, bufferSource, 0,
+        minecraft.getItemRenderer().render(itemStack, ItemTransforms.TransformType.GUI, false, poseStack2, bufferSource, 0,
                 OverlayTexture.NO_OVERLAY, bakedModel);
         bufferSource.endBatch();
         RenderSystem.enableDepthTest();

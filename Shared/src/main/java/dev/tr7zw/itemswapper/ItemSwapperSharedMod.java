@@ -9,7 +9,6 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Overlay;
@@ -20,6 +19,7 @@ public abstract class ItemSwapperSharedMod {
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
     public static ItemSwapperSharedMod instance;
     private Minecraft minecraft = Minecraft.getInstance();
+    private boolean enableShulkers = false;
     
     private ItemGroupManager itemGroupManager = new ItemGroupManager();
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
@@ -65,6 +65,14 @@ public abstract class ItemSwapperSharedMod {
 
     public ItemGroupManager getItemGroupManager() {
         return itemGroupManager;
+    }
+    
+    public void setEnableShulkers(boolean value) {
+        this.enableShulkers = value;
+    }
+    
+    public boolean areShulkersEnabled() {
+        return this.enableShulkers;
     }
     
 }
