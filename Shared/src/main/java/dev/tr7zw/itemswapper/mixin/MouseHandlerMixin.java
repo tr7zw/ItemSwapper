@@ -66,6 +66,13 @@ public class MouseHandlerMixin {
             middleIsPressed = false;
         }
     }
+    
+    @Inject(method = "onScroll", at = @At("TAIL"))
+    private void onScroll(long l, double d, double e, CallbackInfo ci) {
+        if (Minecraft.getInstance().getOverlay() instanceof XTOverlay over) {
+            over.onScroll(Math.signum(e));
+        }
+    }
 
     @Shadow
     public boolean isMouseGrabbed() {

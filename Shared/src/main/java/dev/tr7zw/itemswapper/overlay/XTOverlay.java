@@ -9,5 +9,9 @@ public abstract class XTOverlay extends Overlay {
     public abstract void handleSwitchSelection();
     
     public abstract void onClose();
+
+    public void onScroll(double signum) {
+        // nothing
+    }
     
 }

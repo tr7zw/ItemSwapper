@@ -58,6 +58,13 @@ public class ItemListOverlay extends XTOverlay {
         selectY = Mth.clamp(selectY, 0, entries.size() * entrySize - 1);
         refreshList();
     }
+    
+    @Override
+    public void onScroll(double signum) {
+        selectY += signum * entrySize;
+        selectY = Mth.clamp(selectY, 0, entries.size() * entrySize - 1);
+        refreshList();
+    }
 
     private void refreshList() {
         entries.clear();
