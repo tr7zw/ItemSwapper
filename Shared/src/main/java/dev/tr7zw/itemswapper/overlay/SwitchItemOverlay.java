@@ -73,7 +73,7 @@ public class SwitchItemOverlay extends XTOverlay {
             itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
         }
         if(selection != null && selection.ordinal() == id) {
-            blit(poseStack, x, y, 0, 22, 24, 22);
+            blit(poseStack, x, y, 0, 22, 24, 24);
         }
     }
 

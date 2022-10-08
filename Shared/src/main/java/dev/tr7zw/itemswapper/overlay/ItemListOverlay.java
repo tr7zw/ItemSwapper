@@ -119,7 +119,7 @@ public class ItemListOverlay extends XTOverlay {
                     x + 25, y + 11, -1);
         });
         if (selectedEntry == id) {
-            blit(poseStack, x, y, 0, 22, 24, 22);
+            blit(poseStack, x, y, 0, 22, 24, 24);
         }
     }
 
