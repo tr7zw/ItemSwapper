@@ -4,7 +4,7 @@ replacements:
   group: "dev.tr7zw"
   name: "ItemSwapper"
   id: "itemswapper"
-  version: "1.0.0"
+  version: "0.1.0"
   author: "tr7zw"
   dependencies: ""
   licensename: "LICENSE"
