@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
@@ -35,6 +36,10 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             try {
                 if (!entry.getKey().getNamespace().equals("itemswapper"))
                     continue;
+                if(entry.getKey().getPath().startsWith("wheel_combined")) {
+                    processCombined(entry.getValue());
+                    continue;
+                }
                 Item[] items = getItemArray(entry.getValue(), entry.getKey().getPath().startsWith("wheel"));
                 if(items != null) {
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
@@ -52,6 +57,22 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             }
         }
         
+    }
+    
+    private void processCombined(JsonElement json) {
+        if(!json.isJsonArray()) {
+            return;
+        }
+        JsonArray ar = json.getAsJsonArray();
+        if(ar.size() != 2) {
+            return;
+        }
+        Item[] primary = getItemArray(ar.get(0), true);
+        Item[] secondary = getItemArray(ar.get(1), true);
+        if(primary == null || secondary == null) {
+            return;
+        }
+        ItemSwapperSharedMod.instance.getItemGroupManager().registerDualCollection(primary, secondary);
     }
     
     private Item[] getItemArray(JsonElement json, boolean wheel) {

@@ -19,6 +19,25 @@ public class ItemGroupManager {
         listMapping.clear();
     }
     
+    public void registerDualCollection(Item[] primary, Item[] secondary) {
+        if(primary.length != 8 || secondary.length != 8 ) {
+            ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
+            return;
+        }
+        for(Item i : primary) {
+            if(i != Items.AIR) {
+                mapping.put(i, primary);
+                secondaryMapping.put(i, secondary);
+            }
+        }
+        for(Item i : secondary) {
+            if(i != Items.AIR) {
+                mapping.put(i, primary);
+                secondaryMapping.put(i, secondary);
+            }
+        }
+    }
+    
     public void registerCollection(Item[] items) {
         if(items.length != 8) {
             ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
