@@ -19,8 +19,8 @@ Adds an item switch interface triggered by pressing a hotkey(Default: `R`). Depe
 
 ## Images
 
-![Plank Types](./img/planktypes.png)
-![Wood Options](./img/woodoptions.png)
-![Dyes](./img/dyes.png)
-![Tools](./img/tools.png)
-![Potions](./img/potions.png)
+![Plank Types](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/planktypes.png)
+![Wood Options](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/woodoptions.png)
+![Dyes](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/dyes.png)
+![Tools](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/tools.png)
+![Potions](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/potions.png)
