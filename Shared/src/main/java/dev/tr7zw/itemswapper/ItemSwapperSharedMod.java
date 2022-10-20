@@ -39,19 +39,26 @@ public abstract class ItemSwapperSharedMod {
                 Item[] entries = itemGroupManager.getList(itemInHand);
                 if (entries != null) {
                     Minecraft.getInstance().setOverlay(new ItemListOverlay(entries));
+                    pressed = true;
                 } else {
                     entries = itemGroupManager.getSelection(itemInHand);
                     if (entries != null) {
                         Minecraft.getInstance().setOverlay(
                                 new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
+                        pressed = true;
                     } else {
                         // Fallback for if there is just a second set, no first set
                         entries = itemGroupManager.getSecondarySelection(itemInHand);
                         if (entries != null) {
                             Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, null));
+                            pressed = true;
                         }
                     }
                 }
+            } else if (!pressed && overlay instanceof XTOverlay xtOverlay) {
+                  xtOverlay.onClose();
+                  Minecraft.getInstance().setOverlay(null);
+                  pressed = true;
             }
         } else {
             pressed = false;
