@@ -1,3 +1,5 @@
 {
-    "key.itemswapper.itemswitcher": "Switch Item"
+    "key.itemswapper.itemswitcher": "Switch Item",
+    "text.itemswapper.title": "Item Swapper",
+    "text.itemswapper.toggleMode": "Toggle Mode"
   }
