@@ -123,12 +123,14 @@ public class SwitchItemOverlay extends XTOverlay {
             } else {
                 selection = Selection.BOTTOM;
             }
-        } else { // just left/right
+        } else if (Math.abs(selectX) > deadZone) { // just left/right
             if (selectX > deadZone) {
                 selection = Selection.RIGHT;
             } else if (selectX < -deadZone) {
                 selection = Selection.LEFT;
             }
+        } else {
+            selection = null;
         }
     }
 
