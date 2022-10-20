@@ -44,9 +44,11 @@ public class ItemListOverlay extends XTOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
+        int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize * 3;
-        int originY = minecraft.getWindow().getGuiScaledHeight() - yOffset;
-        for (int i = 0; i < entries.size(); i++) {
+        int originY = minecraft.getWindow().getGuiScaledHeight() - yOffset + (Math.max(0, selectedEntry - limit/2) * slotSize);
+        int start = Math.max(0, selectedEntry - limit/2);
+        for (int i = start; i < entries.size() && i < start + limit; i++) {
             renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList);
         }
         itemRenderList.forEach(Runnable::run);
@@ -70,19 +72,12 @@ public class ItemListOverlay extends XTOverlay {
         entries.clear();
         // first slot is always the current item
         entries.add(new Slot(-1, minecraft.player.getInventory().selected, minecraft.player.getInventory().getSelected()));
-        int limit = (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize;
         for (Item item : itemSelection) {
             List<Slot> ids = ItemUtil.findSlotsMatchingItem(item);
             for (Slot id : ids) {
                 if (!entries.contains(id)) {
                     entries.add(id);
                 }
-                if(entries.size() >= limit) {
-                    break;
-                }
-            }
-            if(entries.size() >= limit) {
-                break;
             }
         }
         selectY = Mth.clamp(selectY, 0, entries.size() * entrySize - 1);
