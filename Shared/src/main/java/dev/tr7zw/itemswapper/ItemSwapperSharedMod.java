@@ -55,10 +55,10 @@ public abstract class ItemSwapperSharedMod {
             }
         } else {
             pressed = false;
-            if (overlay instanceof XTOverlay xtOverlay) {
-                xtOverlay.onClose();
-                Minecraft.getInstance().setOverlay(null);
-            }
+//            if (overlay instanceof XTOverlay xtOverlay) {
+//                xtOverlay.onClose();
+//                Minecraft.getInstance().setOverlay(null);
+//            }
         }
     }
 
