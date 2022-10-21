@@ -26,22 +26,21 @@ public class SwitchItemOverlay extends XTOverlay {
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
     private static final double limit = 100;
     private static final double deadZone = limit / 3 / 2;
-    private static final double handleResetCount = 50;
+    private static final int slotSize = 22;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
     private Item[] secondaryItemSelection;
+    private GuiSlot[] guiSlots;
 
     private double selectX = 0;
     private double selectY = 0;
     private Selection selection = null;
 
-    private double lastX, lastY;
-    private int noMovement;
-
     public SwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
         this.itemSelection = selection;
         this.secondaryItemSelection = selectionSecondary;
+        setup8Slots();
     }
     
     @Override
@@ -50,16 +49,11 @@ public class SwitchItemOverlay extends XTOverlay {
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
-        int slotSize = 22;
-        int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize - (slotSize / 2);
-        int originY = minecraft.getWindow().getGuiScaledHeight() / 2 - slotSize - (slotSize / 2) - 1;
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         List<Runnable> itemRenderList = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            renderSelection(poseStack, i, originX + i * slotSize, originY, itemRenderList);
-            renderSelection(poseStack, i + 3, originX + i * slotSize, originY + slotSize * 2, itemRenderList);
-            if (i == 0 || i == 2) {
-                renderSelection(poseStack, i == 0 ? 6 : 7, originX + i * slotSize, originY + slotSize, itemRenderList);
-            }
+        for(int i = 0; i < guiSlots.length; i++) {
+            renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList);
         }
         itemRenderList.forEach(Runnable::run);
     }
@@ -78,21 +72,10 @@ public class SwitchItemOverlay extends XTOverlay {
     }
 
     public void handleInput(double x, double y) {
-        if (x == lastX && y == lastY) {
-            noMovement++;
-        } else {
-            if (noMovement > handleResetCount) {
-                selectX = 0;
-                selectY = 0;
-            }
-            noMovement = 0;
-        }
         selectX += x;
         selectY += y;
         selectX = Mth.clamp(selectX, -limit, limit);
         selectY = Mth.clamp(selectY, -limit, limit);
-        lastX = x;
-        lastY = y;
         updateSelection();
     }
     
@@ -162,6 +145,21 @@ public class SwitchItemOverlay extends XTOverlay {
         }
     }
 
+    private void setup8Slots() {
+        guiSlots = new GuiSlot[8];
+        int originX = -slotSize - (slotSize / 2);
+        int originY = -slotSize - (slotSize / 2) - 1;
+        for (int i = 0; i < 3; i++) {
+            guiSlots[i] = new GuiSlot(originX + i * slotSize, originY);
+            guiSlots[i + 3] = new GuiSlot(originX + i * slotSize, originY + slotSize * 2);
+            if (i == 0 || i == 2) {
+                guiSlots[i == 0 ? 6 : 7] = new GuiSlot(originX + i * slotSize, originY + slotSize);
+            }
+        }
+    }
+    
+    private record GuiSlot(int x, int y) {}
+    
     public enum Selection {
         TOP_LEFT, TOP, TOP_RIGHT, BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT, RIGHT, 
     }
