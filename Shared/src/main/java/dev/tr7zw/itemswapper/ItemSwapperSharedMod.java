@@ -119,6 +119,8 @@ public abstract class ItemSwapperSharedMod {
                 List<OptionInstance<?>> options = new ArrayList<>();
                 options.add(getOnOffOption("text.itemswapper.toggleMode", () -> config.toggleMode,
                         (b) -> config.toggleMode = b));
+                options.add(getOnOffOption("text.itemswapper.showCursor", () -> config.showCursor,
+                        (b) -> config.showCursor = b));
               
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
                 

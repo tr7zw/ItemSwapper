@@ -6,6 +6,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
@@ -24,8 +25,8 @@ import net.minecraft.world.item.Items;
 public class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
-    private static final double limit = 100;
-    private static final double deadZone = limit / 3 / 2;
+    private static final double limit = 33;
+    private static final double deadZone = 11;
     private static final int slotSize = 22;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
@@ -35,14 +36,14 @@ public class SwitchItemOverlay extends XTOverlay {
 
     private double selectX = 0;
     private double selectY = 0;
-    private Selection selection = null;
+    private int selection = -1;
 
     public SwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
         this.itemSelection = selection;
         this.secondaryItemSelection = selectionSecondary;
         setup8Slots();
     }
-    
+
     @Override
     public void render(PoseStack poseStack, int no1, int no2, float f) {
         RenderSystem.enableBlend();
@@ -52,22 +53,31 @@ public class SwitchItemOverlay extends XTOverlay {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         List<Runnable> itemRenderList = new ArrayList<>();
-        for(int i = 0; i < guiSlots.length; i++) {
+        for (int i = 0; i < guiSlots.length; i++) {
             renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList);
         }
         itemRenderList.forEach(Runnable::run);
+        if(ItemSwapperSharedMod.instance.config.showCursor) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+            poseStack.pushPose();
+            poseStack.translate(0, 0, 1000);
+            blit(poseStack, originX + (int)selectX - 8, originY + (int)selectY - 8, 240, 0, 15, 15);
+            poseStack.popPose();
+        }
     }
-    
+
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
         List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[id]);
-        if(!slots.isEmpty()) {
-            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, slots.get(0).item(), 1, false));
+        if (!slots.isEmpty()) {
+            itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
         } else {
-            itemRenderList.add(() -> renderSlot(x+3, y+4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
+            itemRenderList.add(
+                    () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
         }
-        if(selection != null && selection.ordinal() == id) {
-            blit(poseStack, x-1, y, 0, 22, 24, 24);
+        if (selection == id) {
+            blit(poseStack, x - 1, y, 0, 22, 24, 24);
         }
     }
 
@@ -78,10 +88,10 @@ public class SwitchItemOverlay extends XTOverlay {
         selectY = Mth.clamp(selectY, -limit, limit);
         updateSelection();
     }
-    
+
     public void handleSwitchSelection() {
         // Don't allow switching if there is no second set
-        if(secondaryItemSelection == null) {
+        if (secondaryItemSelection == null) {
             return;
         }
         Item[] tmp = itemSelection;
@@ -90,43 +100,34 @@ public class SwitchItemOverlay extends XTOverlay {
     }
 
     private void updateSelection() {
-        if (selectY < -deadZone) { // up(mc has the Y flipped)
-            if (selectX > deadZone) {
-                selection = Selection.TOP_RIGHT;
-            } else if (selectX < -deadZone) {
-                selection = Selection.TOP_LEFT;
-            } else {
-                selection = Selection.TOP;
+        selection = -1;
+        double centerDist = Math.sqrt(selectX * selectX + selectY * selectY);
+        if (centerDist < deadZone) {
+            return;
+        }
+        double best = Double.MAX_VALUE;
+        int halfSlot = slotSize / 2;
+        for (int i = 0; i < guiSlots.length; i++) {
+            double mouseDist = Math.sqrt((selectX - guiSlots[i].x - halfSlot) * (selectX - guiSlots[i].x - halfSlot)
+                    + (selectY - guiSlots[i].y - halfSlot) * (selectY - guiSlots[i].y - halfSlot));
+            if(mouseDist < best) {
+                best = mouseDist;
+                selection = i;
             }
-        } else if (selectY > deadZone) { // down(mc has the Y flipped)
-            if (selectX > deadZone) {
-                selection = Selection.BOTTOM_RIGHT;
-            } else if (selectX < -deadZone) {
-                selection = Selection.BOTTOM_LEFT;
-            } else {
-                selection = Selection.BOTTOM;
-            }
-        } else if (Math.abs(selectX) > deadZone) { // just left/right
-            if (selectX > deadZone) {
-                selection = Selection.RIGHT;
-            } else if (selectX < -deadZone) {
-                selection = Selection.LEFT;
-            }
-        } else {
-            selection = null;
         }
     }
 
     public void onClose() {
-        if(selection != null && itemSelection[selection.ordinal()] != Items.AIR) {
-            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection.ordinal()]);
-            if(!slots.isEmpty()) {
+        if (selection != -1 && itemSelection[selection] != Items.AIR) {
+            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection]);
+            if (!slots.isEmpty()) {
                 Slot slot = slots.get(0);
-                if(slot.inventory() == -1) {
+                if (slot.inventory() == -1) {
                     int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                    this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot, minecraft.player.getInventory().selected,
+                    this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
+                            hudSlot, minecraft.player.getInventory().selected,
                             ClickType.SWAP, this.minecraft.player);
-                }else {
+                } else {
                     NetworkLogic.swapItem(slot.inventory(), slot.slot());
                 }
             }
@@ -135,7 +136,7 @@ public class SwitchItemOverlay extends XTOverlay {
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut) {
         if (!arg2.isEmpty()) {
-            if(grayOut) {
+            if (grayOut) {
                 RenderHelper.renderGrayedOutItem(arg, arg2, x, y, k);
                 return;
             }
@@ -157,11 +158,8 @@ public class SwitchItemOverlay extends XTOverlay {
             }
         }
     }
-    
-    private record GuiSlot(int x, int y) {}
-    
-    public enum Selection {
-        TOP_LEFT, TOP, TOP_RIGHT, BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT, LEFT, RIGHT, 
+
+    private record GuiSlot(int x, int y) {
     }
 
 }
