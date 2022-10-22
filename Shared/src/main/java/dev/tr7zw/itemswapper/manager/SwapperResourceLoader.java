@@ -92,14 +92,11 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     }
                     return;
                 }
-                if(!itemList.contains(item) && (!wheel || itemList.size() < 8)) {
+                if(!itemList.contains(item)) {
                     itemList.add(item);
                 }
             }
         });
-        while(wheel && itemList.size() < 8) {
-            itemList.add(Items.AIR);
-        }
         if(!itemList.isEmpty()) {
             return itemList.toArray(new Item[0]);
         }

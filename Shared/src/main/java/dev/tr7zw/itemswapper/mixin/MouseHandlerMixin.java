@@ -25,6 +25,7 @@ public class MouseHandlerMixin {
     private double accumulatedDY;
 
     private boolean middleIsPressed = false;
+    private boolean leftIsPressed = false;
 
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)
     public void turnPlayer(CallbackInfo ci) {
@@ -56,6 +57,13 @@ public class MouseHandlerMixin {
     @Inject(method = "onPress", at = @At("TAIL"))
     private void onPress(long l, int i, int j, int k, CallbackInfo ci) {
         if (this.minecraft.getOverlay() instanceof XTOverlay over) {
+            if(!leftIsPressed && i == 0) {
+                over.onClose();
+                Minecraft.getInstance().setOverlay(null);
+                leftIsPressed = true;
+            } else {
+                leftIsPressed = false;
+            }
             if (!middleIsPressed && i == 2) {
                 middleIsPressed = true;
                 over.handleSwitchSelection();
@@ -64,6 +72,7 @@ public class MouseHandlerMixin {
             }
         } else {
             middleIsPressed = false;
+            leftIsPressed = false;
         }
     }
     

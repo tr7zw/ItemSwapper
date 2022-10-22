@@ -20,7 +20,7 @@ public class ItemGroupManager {
     }
     
     public void registerDualCollection(Item[] primary, Item[] secondary) {
-        if(primary.length != 8 || secondary.length != 8 ) {
+        if(primary.length == 0 || secondary.length == 0 ) {
             ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
             return;
         }
@@ -39,7 +39,7 @@ public class ItemGroupManager {
     }
     
     public void registerCollection(Item[] items) {
-        if(items.length != 8) {
+        if(items.length == 0) {
             ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
             return;
         }
@@ -51,7 +51,7 @@ public class ItemGroupManager {
     }
     
     public void registerSecondaryCollection(Item[] items) {
-        if(items.length != 8) {
+        if(items.length == 0) {
             ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
             return;
         }

@@ -23,6 +23,9 @@
       ],
       "server": [
         "dev.tr7zw.itemswapper.ItemSwapperServerMod"
+      ],
+      "modmenu": [
+        "dev.tr7zw.itemswapper.ItemSwapperModMenu"
       ]
     },
     "mixins": [
