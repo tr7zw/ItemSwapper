@@ -12,12 +12,18 @@ import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.util.StringUtil;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionUtils;
 
 public class ItemListOverlay extends XTOverlay {
 
@@ -110,12 +116,40 @@ public class ItemListOverlay extends XTOverlay {
         Slot slot = entries.get(id);
         itemRenderList.add(() -> {
             renderSlot(x + 3, y + 4, minecraft.player, slot.item(), 1);
-            drawString(poseStack, minecraft.font, slot.item().getHoverName(),
+            drawString(poseStack, minecraft.font, getDisplayname(slot.item()),
                     x + 25, y + 11, -1);
         });
         if (selectedEntry == id) {
             blit(poseStack, x-1, y, 0, 22, 24, 24);
         }
+    }
+    
+    private Component getDisplayname(ItemStack item) {
+        if(item.hasCustomHoverName()) {
+            return item.getHoverName();
+        }
+        if(item.getItem() == Items.POTION || item.getItem() == Items.SPLASH_POTION || item.getItem() == Items.LINGERING_POTION) {
+            List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
+            if(!effects.isEmpty()) {
+                MutableComponent comp = formatEffect(effects.get(0));
+                if(effects.size() >= 2) {
+                    comp.append(", ").append(formatEffect(effects.get(1)));
+                }
+                return comp;
+            }
+        }
+        return item.getHoverName();
+    }
+    
+    private MutableComponent formatEffect(MobEffectInstance effect) {
+        MutableComponent comp = Component.empty().append(effect.getEffect().getDisplayName());
+        if(effect.getAmplifier() > 1) {
+            comp.append(" ").append(Component.translatable("potion.potency." + effect.getAmplifier()));
+        }
+        if(effect.getDuration() > 1) {
+            comp.append(" (").append(Component.literal(StringUtil.formatTickDuration(effect.getDuration()))).append(")");
+        }
+        return comp;
     }
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
