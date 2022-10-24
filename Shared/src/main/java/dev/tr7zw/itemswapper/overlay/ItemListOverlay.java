@@ -6,10 +6,12 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.util.DummyScreen;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -27,6 +29,7 @@ public class ItemListOverlay extends XTOverlay {
     private static final int slotSize = 22;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
+    private final DummyScreen dummyScreen = new DummyScreen(); 
     private Item[] itemSelection;
     private List<Slot> entries = new ArrayList<>();
     private int selectedEntry = 0;
@@ -39,6 +42,7 @@ public class ItemListOverlay extends XTOverlay {
 
     @Override
     public void render(PoseStack poseStack, int paramInt1, int paramInt2, float paramFloat) {
+        dummyScreen.init(minecraft, minecraft.getWindow().getGuiScaledWidth(), minecraft.getWindow().getGuiScaledHeight());
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -115,6 +119,7 @@ public class ItemListOverlay extends XTOverlay {
         });
         if (selectedEntry == id) {
             blit(poseStack, x-1, y, 0, 22, 24, 24);
+            itemRenderList.add(() -> dummyScreen.renderTooltip(poseStack, slot.item(), x+25 + minecraft.font.width(slot.item().getHoverName()), y+5));
         }
     }
 
