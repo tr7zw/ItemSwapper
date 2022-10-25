@@ -33,13 +33,16 @@ public final class ItemUtil {
         return slot;
     }
 
-    public static List<Slot> findSlotsMatchingItem(Item item) {
+    public static List<Slot> findSlotsMatchingItem(Item item, boolean limit) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
         List<Slot> ids = new ArrayList<>();
         for (int i = 0; i < items.size(); i++) {
             if (!(items.get(i)).isEmpty()
                     && items.get(i).getItem() == item) {
-                ids.add(new Slot(-1, i, items.get(i)));
+                addUnstackableItems(ids, new Slot(-1, i, items.get(i)));
+                if(limit) {
+                    return ids;
+                }
             }
             if (!(items.get(i)).isEmpty()
                     && shulkers.contains(items.get(i).getItem())
@@ -49,13 +52,25 @@ public final class ItemUtil {
                     for (int x = 0; x < shulkerItems.size(); x++) {
                         if (!(shulkerItems.get(x)).isEmpty()
                                 && shulkerItems.get(x).getItem() == item) {
-                            ids.add(new Slot(i, x, shulkerItems.get(x)));
+                            addUnstackableItems(ids, new Slot(i, x, shulkerItems.get(x)));
+                            if(limit) {
+                                return ids;
+                            }
                         }
                     }
                 }
             }
         }
         return ids;
+    }
+    
+    private static void addUnstackableItems(List<Slot> ids, Slot slot) {
+        for(Slot s : ids) {
+            if(ItemStack.isSameItemSameTags(s.item, slot.item)) {
+                return;
+            }
+        }
+        ids.add(slot);
     }
 
     public static record Slot(int inventory, int slot, ItemStack item) {

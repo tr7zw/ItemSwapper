@@ -79,7 +79,7 @@ public class SwitchItemOverlay extends XTOverlay {
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
         List<Slot> slots = itemSelection.length < id ? Collections.emptyList()
-                : ItemUtil.findSlotsMatchingItem(itemSelection[id]);
+                : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
         if (!slots.isEmpty()) {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
         } else {
@@ -130,7 +130,7 @@ public class SwitchItemOverlay extends XTOverlay {
 
     public void onClose() {
         if (selection != -1 && itemSelection[selection] != Items.AIR) {
-            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection]);
+            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection], true);
             if (!slots.isEmpty()) {
                 Slot slot = slots.get(0);
                 if (slot.inventory() == -1) {

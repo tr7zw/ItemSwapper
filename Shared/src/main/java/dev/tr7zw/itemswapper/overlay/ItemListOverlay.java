@@ -79,7 +79,7 @@ public class ItemListOverlay extends XTOverlay {
         // first slot is always the current item
         entries.add(new Slot(-1, minecraft.player.getInventory().selected, minecraft.player.getInventory().getSelected()));
         for (Item item : itemSelection) {
-            List<Slot> ids = ItemUtil.findSlotsMatchingItem(item);
+            List<Slot> ids = ItemUtil.findSlotsMatchingItem(item, false);
             for (Slot id : ids) {
                 if (!entries.contains(id)) {
                     entries.add(id);
