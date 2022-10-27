@@ -2,5 +2,6 @@
     "key.itemswapper.itemswitcher": "Switch Item",
     "text.itemswapper.title": "Item Swapper",
     "text.itemswapper.toggleMode": "Toggle Mode",
-    "text.itemswapper.showCursor": "Show Cursor"
+    "text.itemswapper.showCursor": "Show Cursor",
+    "text.itemswapper.disabled": "The mod is disabled by the server!"
   }

@@ -7,6 +7,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.ConfigManager;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
@@ -26,6 +27,7 @@ import net.minecraft.world.item.Items;
 public class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    private final ConfigManager configManager = ConfigManager.getInstance();
     private double limit = 33;
     private double deadZone = 11;
     private static final int slotSize = 22;
@@ -66,7 +68,7 @@ public class SwitchItemOverlay extends XTOverlay {
             renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList);
         }
         itemRenderList.forEach(Runnable::run);
-        if (ItemSwapperSharedMod.instance.config.showCursor) {
+        if (configManager.getConfig().showCursor) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
             poseStack.pushPose();

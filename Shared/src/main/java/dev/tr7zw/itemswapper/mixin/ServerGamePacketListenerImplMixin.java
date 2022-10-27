@@ -8,6 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import dev.tr7zw.itemswapper.ConfigManager;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
@@ -20,14 +21,16 @@ import net.minecraft.world.item.ItemStack;
 @Mixin(ServerGamePacketListenerImpl.class)
 public class ServerGamePacketListenerImplMixin {
 
-    private static final Logger Network_logger = LogManager.getLogger("ItemSwapper-Network");
+    private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
+    private static final ConfigManager configManager = ConfigManager.getInstance();
     
     @Shadow
     public ServerPlayer player;
     
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(ServerboundCustomPayloadPacket serverboundCustomPayloadPacket, CallbackInfo ci) {
-        if(NetworkLogic.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier())) {
+        // Don't apply this logic, if the server has the mod disabled.
+        if(NetworkLogic.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier()) && !configManager.getConfig().serverPreventModUsage) {
             try {
                 FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
                 int inventory = buf.readInt();
@@ -41,7 +44,7 @@ public class ServerGamePacketListenerImplMixin {
                     ShulkerHelper.setItem(shulker, content);
                 }
             }catch(Throwable th) {
-                Network_logger.error("Error handeling network packet!", th);
+                network_logger.error("Error handeling network packet!", th);
             }
         }
     }

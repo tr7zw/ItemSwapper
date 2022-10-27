@@ -15,9 +15,16 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
-        if(NetworkLogic.enableMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
+        if(NetworkLogic.enableShulkerMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
             try {
                 ItemSwapperSharedMod.instance.setEnableShulkers(clientboundCustomPayloadPacket.getData().readBoolean());
+            }catch(Throwable th) {
+                ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+            }
+        }
+        if(NetworkLogic.disableModMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
+            try {
+                ItemSwapperSharedMod.instance.setModDisabled(clientboundCustomPayloadPacket.getData().readBoolean());
             }catch(Throwable th) {
                 ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
             }
