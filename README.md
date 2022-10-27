@@ -17,6 +17,11 @@ Adds an item switch interface triggered by pressing a hotkey(Default: `R`). Depe
 
 - FabricAPI
 
+## Credits
+
+- [Xisumavoid](https://www.youtube.com/xisumavoid) for the idea/video of the concept
+- [LizardOfOz](https://www.youtube.com/LizardOfOz) Designer
+
 ## Images
 
 ![Plank Types](./img/planktypes.png)

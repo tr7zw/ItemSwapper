@@ -6,11 +6,39 @@
     "name": "ItemSwapper",
     "description": "Tweeks to the inventory system based on Xisumavoid's video",
     "authors": [
-      "tr7zw"
+      {
+        "name": "tr7zw",
+        "contact": {
+          "twitter": "https://twitter.com/tr7zw",
+          "homepage": "https://tr7zw.dev",
+          "discord": "https://discord.gg/UdfNaDtbwb",
+          "youtube": "https://www.youtube.com/tr7zw",
+          "github": "https://github.com/tr7zw"
+        }
+      }
+    ],
+    "contributors": [
+      {
+        "name": "Xisumavoid",
+        "contact": {
+          "twitter": "https://twitter.com/xisumavoid",
+          "homepage": "http://www.xisumavoid.com",
+          "youtube": "https://www.youtube.com/xisumavoid"
+        }
+      },
+      {
+        "name": "LizardOfOz",
+        "contact": {
+          "twitter": "https://twitter.com/LizardOfOz_",
+          "youtube": "https://www.youtube.com/LizardOfOz",
+          "github": "https://github.com/lizard-of-oz"
+        }
+      }
     ],
     "contact": {
       "homepage": "https://github.com/tr7zw",
-      "sources": "https://github.com/tr7zw/ItemSwapper"
+      "sources": "https://github.com/tr7zw/ItemSwapper",
+      "issues": "https://github.com/tr7zw/ItemSwapper/issues"
     },
   
     "license": "GNU General Public License v3",
