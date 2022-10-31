@@ -1,14 +1,16 @@
 version: '0.0.1'
-source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19.2/"
+source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19.2-fabriconly-mcpublish/"
 replacements:
   group: "dev.tr7zw"
   name: "ItemSwapper"
   id: "itemswapper"
-  version: "0.1.0"
+  version: "0.2.0"
   author: "tr7zw"
   dependencies: ""
   relocationpackage: "dev.tr7zw.itemswapper"
   licensename: "LICENSE"
+  modrinthid: RPOSBQgq
+  curseforgeid: 694358
 rootProject:
   template: "."
 subProjects:
