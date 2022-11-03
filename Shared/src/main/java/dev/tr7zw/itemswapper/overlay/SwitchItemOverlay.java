@@ -80,11 +80,11 @@ public class SwitchItemOverlay extends XTOverlay {
 
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
         blit(poseStack, x, y, 24, 22, 29, 24);
-        List<Slot> slots = itemSelection.length < id ? Collections.emptyList()
+        List<Slot> slots = id > itemSelection.length - 1 ? Collections.emptyList()
                 : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
         if (!slots.isEmpty()) {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
-        } else {
+        } else if (id <= itemSelection.length - 1){
             itemRenderList.add(
                     () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
         }
