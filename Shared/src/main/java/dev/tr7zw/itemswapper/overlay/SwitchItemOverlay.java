@@ -26,7 +26,7 @@ import net.minecraft.world.item.Items;
 public class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
-    private static final ResourceLocation BACKGROUND_16_LOCATION = new ResourceLocation("itemswapper", "textures/gui/inv_wheel_16.png");
+    private static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper", "textures/gui/inv_wheel_20.png");
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limit = 33;
     private double deadZone = 11;
@@ -67,8 +67,10 @@ public class SwitchItemOverlay extends XTOverlay {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, BACKGROUND_16_LOCATION);
-        blit(poseStack, originX - 42, originY - 42, 0, 0, 84, 84, 96, 96);
+        if(guiSlots.length == 20) {
+            RenderSystem.setShaderTexture(0, BACKGROUND_20_LOCATION);
+            blit(poseStack, originX - 42, originY - 42, 0, 0, 84, 84, 96, 96);
+        }
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         for (int i = 0; i < guiSlots.length; i++) {
