@@ -8,7 +8,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ConfigManager;
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
@@ -27,10 +26,12 @@ import net.minecraft.world.item.Items;
 public class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    private static final ResourceLocation BACKGROUND_16_LOCATION = new ResourceLocation("itemswapper", "textures/gui/inv_wheel_16.png");
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limit = 33;
     private double deadZone = 11;
     private static final int slotSize = 22;
+    private static final int tinySlotSize = 16;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
@@ -52,17 +53,23 @@ public class SwitchItemOverlay extends XTOverlay {
             setup8Slots();
             return;
         }
-        setup16Slots();
+        if (itemSelection.length <= 16) {
+            setup16Slots();
+            return;
+        }
+        setup20Slots();
     }
 
     @Override
     public void render(PoseStack poseStack, int no1, int no2, float f) {
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, BACKGROUND_16_LOCATION);
+        blit(poseStack, originX - 42, originY - 42, 0, 0, 84, 84, 96, 96);
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
-        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
-        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         List<Runnable> itemRenderList = new ArrayList<>();
         for (int i = 0; i < guiSlots.length; i++) {
             renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList);
@@ -79,7 +86,9 @@ public class SwitchItemOverlay extends XTOverlay {
     }
 
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
-        blit(poseStack, x, y, 24, 22, 29, 24);
+        if(guiSlots.length != 20) {
+            blit(poseStack, x, y, 24, 22, 29, 24);
+        }
         List<Slot> slots = id > itemSelection.length - 1 ? Collections.emptyList()
                 : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
         if (!slots.isEmpty()) {
@@ -194,6 +203,29 @@ public class SwitchItemOverlay extends XTOverlay {
         for (int i = 0; i < 2; i++) {
             guiSlots[i * 2 + 12] = new GuiSlot(originX - slotSize, originY + i * slotSize + slotSize / 2);
             guiSlots[i * 2 + 13] = new GuiSlot(originX + 3 * slotSize, originY + i * slotSize + slotSize / 2);
+        }
+    }
+    
+    private void setup20Slots() {
+        limit = 44;
+        deadZone = 11;
+        guiSlots = new GuiSlot[20];
+        int originX = -tinySlotSize - (tinySlotSize / 2) - 3;
+        int originY = -tinySlotSize - (tinySlotSize / 2) - 1 - 3;
+        for (int i = 0; i < 3; i++) {
+            guiSlots[i] = new GuiSlot(originX + i * tinySlotSize, originY);
+            guiSlots[i + 3] = new GuiSlot(originX + i * tinySlotSize, originY + tinySlotSize * 2);
+            if (i == 0 || i == 2) {
+                guiSlots[i == 0 ? 6 : 7] = new GuiSlot(originX + i * tinySlotSize, originY + tinySlotSize);
+            }
+        }
+        for (int i = 0; i < 3; i++) {
+            guiSlots[8 + i] = new GuiSlot(originX + i * tinySlotSize, originY - tinySlotSize);
+            guiSlots[8 + i + 3] = new GuiSlot(originX + i * tinySlotSize, originY + tinySlotSize * 3);
+        }
+        for (int i = 0; i < 3; i++) {
+            guiSlots[14 + i] = new GuiSlot(originX - tinySlotSize, originY + i * tinySlotSize);
+            guiSlots[14 + i + 3] = new GuiSlot(originX + tinySlotSize * 3, originY + i * tinySlotSize);
         }
     }
 
