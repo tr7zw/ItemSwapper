@@ -31,7 +31,7 @@ public class SwitchItemOverlay extends XTOverlay {
     private double limit = 33;
     private double deadZone = 11;
     private static final int slotSize = 22;
-    private static final int tinySlotSize = 16;
+    private static final int tinySlotSize = 18;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
@@ -69,14 +69,20 @@ public class SwitchItemOverlay extends XTOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         if(guiSlots.length == 20) {
             RenderSystem.setShaderTexture(0, BACKGROUND_20_LOCATION);
-            blit(poseStack, originX - 42, originY - 42, 0, 0, 84, 84, 96, 96);
+            int size = 96;
+            blit(poseStack, originX - (size/2), originY - (size/2), 0, 0, size, size, 128, 128);
         }
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
+        List<Runnable> lateRenderList = new ArrayList<>();
         for (int i = 0; i < guiSlots.length; i++) {
-            renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList);
+            renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
+        float blit = this.itemRenderer.blitOffset;
+        this.itemRenderer.blitOffset += 300;
+        lateRenderList.forEach(Runnable::run);
+        this.itemRenderer.blitOffset = blit;
         if (configManager.getConfig().showCursor) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
@@ -87,20 +93,29 @@ public class SwitchItemOverlay extends XTOverlay {
         }
     }
 
-    private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
+    private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
         if(guiSlots.length != 20) {
             blit(poseStack, x, y, 24, 22, 29, 24);
         }
         List<Slot> slots = id > itemSelection.length - 1 ? Collections.emptyList()
                 : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
+        if(selection == id) {
+            itemRenderList = lateRenderList;
+            lateRenderList.add(() -> {
+                float blit = getBlitOffset();
+                setBlitOffset((int) this.itemRenderer.blitOffset);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+                blit(poseStack, x - 1, y, 0, 22, 24, 24);
+                setBlitOffset((int) blit);
+            });
+        }
+        
         if (!slots.isEmpty()) {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
         } else if (id <= itemSelection.length - 1){
             itemRenderList.add(
                     () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
-        }
-        if (selection == id) {
-            blit(poseStack, x - 1, y, 0, 22, 24, 24);
         }
     }
 
@@ -212,8 +227,8 @@ public class SwitchItemOverlay extends XTOverlay {
         limit = 44;
         deadZone = 11;
         guiSlots = new GuiSlot[20];
-        int originX = -tinySlotSize - (tinySlotSize / 2) - 3;
-        int originY = -tinySlotSize - (tinySlotSize / 2) - 1 - 3;
+        int originX = -tinySlotSize - (tinySlotSize / 2) - 2;
+        int originY = -tinySlotSize - (tinySlotSize / 2) - 1 - 2;
         for (int i = 0; i < 3; i++) {
             guiSlots[i] = new GuiSlot(originX + i * tinySlotSize, originY);
             guiSlots[i + 3] = new GuiSlot(originX + i * tinySlotSize, originY + tinySlotSize * 2);
