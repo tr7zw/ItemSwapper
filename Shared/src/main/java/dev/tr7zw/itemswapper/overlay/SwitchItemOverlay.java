@@ -172,7 +172,7 @@ public class SwitchItemOverlay extends XTOverlay {
     }
 
     public void onClose() {
-        if (selection != -1 && itemSelection[selection] != Items.AIR) {
+        if (selection != -1 && selection < itemSelection.length && itemSelection[selection] != Items.AIR) {
             List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection], true);
             if (!slots.isEmpty()) {
                 Slot slot = slots.get(0);
