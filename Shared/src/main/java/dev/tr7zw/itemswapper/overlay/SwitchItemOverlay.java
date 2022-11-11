@@ -26,7 +26,8 @@ import net.minecraft.world.item.Items;
 public class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
-    private static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper", "textures/gui/inv_wheel_20.png");
+    private static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_20.png");
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limit = 33;
     private double deadZone = 11;
@@ -67,16 +68,17 @@ public class SwitchItemOverlay extends XTOverlay {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        if(guiSlots.length == 20) {
+        if (guiSlots.length == 20) {
             RenderSystem.setShaderTexture(0, BACKGROUND_20_LOCATION);
             int size = 96;
-            blit(poseStack, originX - (size/2), originY - (size/2), 0, 0, size, size, 128, 128);
+            blit(poseStack, originX - (size / 2), originY - (size / 2), 0, 0, size, size, 128, 128);
         }
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         for (int i = 0; i < guiSlots.length; i++) {
-            renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList, lateRenderList);
+            renderSelection(poseStack, i, originX + guiSlots[i].x, originY + guiSlots[i].y, itemRenderList,
+                    lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
         float blit = this.itemRenderer.blitOffset;
@@ -93,13 +95,14 @@ public class SwitchItemOverlay extends XTOverlay {
         }
     }
 
-    private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
-        if(guiSlots.length != 20) {
+    private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
+            List<Runnable> lateRenderList) {
+        if (guiSlots.length != 20) {
             blit(poseStack, x, y, 24, 22, 29, 24);
         }
         List<Slot> slots = id > itemSelection.length - 1 ? Collections.emptyList()
                 : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
-        if(selection == id) {
+        if (selection == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
                 float blit = getBlitOffset();
@@ -110,10 +113,10 @@ public class SwitchItemOverlay extends XTOverlay {
                 setBlitOffset((int) blit);
             });
         }
-        
+
         if (!slots.isEmpty()) {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
-        } else if (id <= itemSelection.length - 1){
+        } else if (id <= itemSelection.length - 1) {
             itemRenderList.add(
                     () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
         }
@@ -222,7 +225,7 @@ public class SwitchItemOverlay extends XTOverlay {
             guiSlots[i * 2 + 13] = new GuiSlot(originX + 3 * slotSize, originY + i * slotSize + slotSize / 2);
         }
     }
-    
+
     private void setup20Slots() {
         limit = 44;
         deadZone = 11;
