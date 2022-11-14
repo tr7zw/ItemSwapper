@@ -6,5 +6,6 @@ public class Config {
     public boolean toggleMode = false;
     public boolean showCursor = false;
     public boolean serverPreventModUsage = false;
+    public WIPStyle wipStyle = WIPStyle.SQUARE;
     
 }

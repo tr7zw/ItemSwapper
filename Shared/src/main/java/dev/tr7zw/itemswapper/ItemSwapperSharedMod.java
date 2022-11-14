@@ -1,22 +1,17 @@
 package dev.tr7zw.itemswapper;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
+import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import net.minecraft.ChatFormatting;
@@ -40,20 +35,20 @@ public abstract class ItemSwapperSharedMod {
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
     protected boolean pressed = false;
 
-
     public void init() {
         instance = this;
         LOGGER.info("Loading ItemSwapper!");
 
         initModloader();
     }
-    
+
     public void clientTick() {
         Overlay overlay = Minecraft.getInstance().getOverlay();
         if (keybind.isDown()) {
             if (!pressed && isModDisabled()) {
                 pressed = true;
-                this.minecraft.gui.setOverlayMessage(Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+                this.minecraft.gui.setOverlayMessage(
+                        Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
                 return;
             }
             if (!pressed && overlay == null) {
@@ -65,22 +60,33 @@ public abstract class ItemSwapperSharedMod {
                 } else {
                     entries = itemGroupManager.getSelection(itemInHand);
                     if (entries != null) {
-                        Minecraft.getInstance().setOverlay(
-                                new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
+                        if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
+                            Minecraft.getInstance().setOverlay(
+                                    new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
+                        } else {
+                            Minecraft.getInstance().setOverlay(
+                                    new SquareSwitchItemOverlay(entries,
+                                            itemGroupManager.getSecondarySelection(itemInHand)));
+                        }
+
                         pressed = true;
                     } else {
                         // Fallback for if there is just a second set, no first set
                         entries = itemGroupManager.getSecondarySelection(itemInHand);
                         if (entries != null) {
-                            Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, null));
+                            if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
+                                Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, null));
+                            } else {
+                                Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(entries, null));
+                            }
                             pressed = true;
                         }
                     }
                 }
             } else if (!pressed && overlay instanceof XTOverlay xtOverlay) {
-                  xtOverlay.onClose();
-                  Minecraft.getInstance().setOverlay(null);
-                  pressed = true;
+                xtOverlay.onClose();
+                Minecraft.getInstance().setOverlay(null);
+                pressed = true;
             }
         } else {
             pressed = false;
@@ -90,7 +96,7 @@ public abstract class ItemSwapperSharedMod {
             }
         }
     }
-    
+
     public Screen createConfigScreen(Screen parent) {
         return new CustomConfigScreen(parent, "text.itemswapper.title") {
 
@@ -101,9 +107,12 @@ public abstract class ItemSwapperSharedMod {
                         (b) -> configManager.getConfig().toggleMode = b));
                 options.add(getOnOffOption("text.itemswapper.showCursor", () -> configManager.getConfig().showCursor,
                         (b) -> configManager.getConfig().showCursor = b));
-              
+                options.add(getEnumOption("text.itemswapper.wipstyle", WIPStyle.class,
+                        () -> configManager.getConfig().wipStyle,
+                        (b) -> configManager.getConfig().wipStyle = b));
+
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
-                
+
             }
 
             @Override
@@ -132,11 +141,11 @@ public abstract class ItemSwapperSharedMod {
     public boolean areShulkersEnabled() {
         return this.enableShulkers;
     }
-    
+
     public void setModDisabled(boolean value) {
         this.modDisabled = value;
     }
-    
+
     public boolean isModDisabled() {
         return this.modDisabled;
     }
