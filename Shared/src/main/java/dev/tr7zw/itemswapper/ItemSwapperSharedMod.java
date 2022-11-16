@@ -110,7 +110,8 @@ public abstract class ItemSwapperSharedMod {
                 options.add(getEnumOption("text.itemswapper.wipstyle", WIPStyle.class,
                         () -> configManager.getConfig().wipStyle,
                         (b) -> configManager.getConfig().wipStyle = b));
-
+                options.add(getOnOffOption("text.itemswapper.editMode", () -> configManager.getConfig().editMode,
+                        (b) -> configManager.getConfig().editMode = b));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
 
             }

@@ -11,7 +11,8 @@
     "MouseHandlerMixin",
     "MinecraftMixin",
     "ClientPacketListenerMixin",
-    "ClientLevelMixin"
+    "ClientLevelMixin",
+    "ContainerScreenMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -52,11 +52,13 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     private int backgroundSizeX = 0;
     private int backgroundSizeY = 0;
     private ResourceLocation backgroundTexture = null;
+    public int globalYOffset = 0;
+    public boolean forceAvailable = false;
 
     private double selectX = 0;
     private double selectY = 0;
     private int selection = -1;
-
+    
     public SquareSwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
         this.itemSelection = selection;
         this.secondaryItemSelection = selectionSecondary;
@@ -82,7 +84,7 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     @Override
     public void render(PoseStack poseStack, int no1, int no2, float f) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
-        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -132,11 +134,11 @@ public class SquareSwitchItemOverlay extends XTOverlay {
             });
         }
 
-        if (!slots.isEmpty()) {
+        if (!slots.isEmpty() && !forceAvailable) {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
         } else if (id <= itemSelection.length - 1) {
             itemRenderList.add(
-                    () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, true));
+                    () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, !forceAvailable));
         }
     }
 
