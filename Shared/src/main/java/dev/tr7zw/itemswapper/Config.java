@@ -8,5 +8,6 @@ public class Config {
     public boolean serverPreventModUsage = false;
     public WIPStyle wipStyle = WIPStyle.SQUARE;
     public boolean editMode = false;
+    public boolean creativeCheatMode = false;
     
 }

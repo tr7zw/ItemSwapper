@@ -112,6 +112,8 @@ public abstract class ItemSwapperSharedMod {
                         (b) -> configManager.getConfig().wipStyle = b));
                 options.add(getOnOffOption("text.itemswapper.editMode", () -> configManager.getConfig().editMode,
                         (b) -> configManager.getConfig().editMode = b));
+                options.add(getOnOffOption("text.itemswapper.creativeCheatMode", () -> configManager.getConfig().creativeCheatMode,
+                        (b) -> configManager.getConfig().creativeCheatMode = b));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
 
             }

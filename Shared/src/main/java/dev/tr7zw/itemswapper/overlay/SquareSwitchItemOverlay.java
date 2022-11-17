@@ -63,6 +63,9 @@ public class SquareSwitchItemOverlay extends XTOverlay {
         this.itemSelection = selection;
         this.secondaryItemSelection = selectionSecondary;
         setupSlots();
+        if(minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
+            forceAvailable = true;
+        }
     }
 
     private void setupSlots() {
@@ -181,6 +184,11 @@ public class SquareSwitchItemOverlay extends XTOverlay {
 
     public void onClose() {
         if (selection != -1 && selection < itemSelection.length && itemSelection[selection] != Items.AIR) {
+            if(minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
+                minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, 36 + minecraft.player.getInventory().selected);
+                minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[selection].getDefaultInstance().copy(), 36 + minecraft.player.getInventory().selected);
+                return;
+            }
             List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection], true);
             if (!slots.isEmpty()) {
                 Slot slot = slots.get(0);
