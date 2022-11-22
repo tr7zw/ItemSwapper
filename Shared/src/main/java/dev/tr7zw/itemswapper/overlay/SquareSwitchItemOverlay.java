@@ -185,7 +185,7 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     public void onClose() {
         if (selection != -1 && selection < itemSelection.length && itemSelection[selection] != Items.AIR) {
             if(minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
-                minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, 36 + minecraft.player.getInventory().selected);
+//                minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, 36 + minecraft.player.getInventory().selected);
                 minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[selection].getDefaultInstance().copy(), 36 + minecraft.player.getInventory().selected);
                 return;
             }
