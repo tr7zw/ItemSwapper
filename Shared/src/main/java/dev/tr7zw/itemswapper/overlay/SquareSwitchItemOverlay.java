@@ -69,18 +69,36 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     }
 
     private void setupSlots() {
-        if (itemSelection.length <= 4) {
+        if (itemSelection.length <= 3) {
+            setupSlots(3, 1, false, null);
+        }else if (itemSelection.length <= 4) {
             setupSlots(2, 2, false, BACKGROUND_4_LOCATION);
+        } else if (itemSelection.length <= 5) {
+            setupSlots(3, 3, true, null);
+        } else if (itemSelection.length <= 6) {
+            setupSlots(3, 2, false, null);
         } else if (itemSelection.length <= 8) {
             setupSlots(4, 2, false, BACKGROUND_8_LOCATION);
+        } else if (itemSelection.length <= 9) {
+            setupSlots(3, 3, false, null);
+        } else if (itemSelection.length <= 10) {
+            setupSlots(5, 2, false, null);
         } else if (itemSelection.length <= 12) {
             setupSlots(4, 4, true, BACKGROUND_12_LOCATION);
+        } else if (itemSelection.length <= 14) {
+            setupSlots(7, 2, false, null);
+        } else if (itemSelection.length <= 15) {
+            setupSlots(5, 3, false, null);
         } else if (itemSelection.length <= 16) {
             setupSlots(4, 4, false, BACKGROUND_16_LOCATION);
+        } else if (itemSelection.length <= 18) {
+            setupSlots(9, 2, false, null);
         } else if (itemSelection.length <= 20) {
             setupSlots(6, 4, true, BACKGROUND_20_LOCATION);
-        } else {
+        } else if (itemSelection.length <= 24) {
             setupSlots(6, 4, false, BACKGROUND_24_LOCATION);
+        } else {
+            setupSlots(5, 5, false, null);
         }
     }
 
@@ -220,13 +238,15 @@ public class SquareSwitchItemOverlay extends XTOverlay {
         backgroundTexture = texture;
         backgroundSizeX = width * tinySlotSize + 6;
         backgroundSizeY = height * tinySlotSize + 6;
-        limitX = width * 9;
-        limitY = height * 9;
+        int sz = texture == null ? slotSize : tinySlotSize;
+        int lz = texture == null ? 11 : 9;
+        limitX = width * lz;
+        limitY = height * lz;
         deadZone = 1;
         int slotAmount = width * height - (skipCorners ? 4 : 0);
         guiSlots = new GuiSlot[slotAmount];
-        int originX = -width / 2 * tinySlotSize - 2;
-        int originY = -height / 2 * tinySlotSize - 1 - 2;
+        int originX = (int) (-width / 2d * sz - 2);
+        int originY = (int) (-height / 2d * sz - 1 - 2);
         int slotId = 0;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -234,7 +254,7 @@ public class SquareSwitchItemOverlay extends XTOverlay {
                         && ((x == 0 && y == 0) || (x == 0 && y == height - 1) || (x == width - 1 && y == height - 1)
                                 || (x == width - 1 && y == 0));
                 if (!skip) {
-                    guiSlots[slotId++] = new GuiSlot(originX + x * tinySlotSize, originY + y * tinySlotSize);
+                    guiSlots[slotId++] = new GuiSlot(originX + x * sz, originY + y * sz);
                 }
             }
         }
