@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,14 +19,15 @@ import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
-import net.minecraft.client.gui.screens.inventory.MenuAccess;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 
 @Mixin(ContainerScreen.class)
-public abstract class ContainerScreenMixin extends AbstractContainerScreen<ChestMenu> implements MenuAccess<ChestMenu> {
+public abstract class ContainerScreenMixin extends AbstractContainerScreen<ChestMenu> {
 
     private Item[] lastItems = null;
     
@@ -45,7 +47,14 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
             
         }
         Item[] items = super.getMenu().getItems().stream()
-                .map(is -> is.getItem()).limit(limit).collect(Collectors.toList()).toArray(new Item[0]);
+                .map(is -> is.getItem()).limit(limit).toList().toArray(new Item[0]);
+        int lastItem = 0;
+        for(int x = 0; x < items.length; x++) {
+            if(items[x] != Items.AIR) {
+                lastItem = x;
+            }
+        }
+        items = Arrays.copyOf(items, lastItem + 1);
         SquareSwitchItemOverlay overlay = new SquareSwitchItemOverlay(items, null);
         overlay.globalYOffset = - 130;
         overlay.forceAvailable = true;
@@ -54,18 +63,19 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
             lastItems = items;
         } else if(!Arrays.equals(lastItems, items)) {
             lastItems = items;
-            copyString();
+            copyString(items);
         }
     }
 
-    private void copyString() {
+    private void copyString(Item[] itemArray) {
         int limit = 20;
         try {
             limit = Integer.parseInt(title.getString());
         }catch(Exception ex) {
         }
-        List<String> items = getMenu().getItems().stream()
-                .map(is -> is.getDescriptionId()).limit(limit).collect(Collectors.toList());
+        
+        List<String> items = Arrays.<Item>asList(itemArray).stream()
+                .map(is -> Registry.ITEM.getKey(is).toString()).limit(limit).toList();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(items));
         Minecraft.getInstance().keyboardHandler.setClipboard(gson.toJson(items));
