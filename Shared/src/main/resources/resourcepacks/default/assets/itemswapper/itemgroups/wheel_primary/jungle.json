@@ -1,10 +1,16 @@
 [
+    "minecraft:jungle_log",
+    "minecraft:jungle_wood",
+    "minecraft:stripped_jungle_log",
+    "minecraft:stripped_jungle_wood",
     "minecraft:jungle_planks",
-    "minecraft:jungle_slab",
     "minecraft:jungle_stairs",
-    "minecraft:jungle_trapdoor",	
-    "minecraft:jungle_button",
+    "minecraft:jungle_slab",
     "minecraft:jungle_fence",
+    "minecraft:jungle_fence_gate",
+    "minecraft:jungle_door",
+    "minecraft:jungle_trapdoor",
     "minecraft:jungle_pressure_plate",
-    "minecraft:jungle_fence_gate"
+    "minecraft:jungle_button",
+    "minecraft:jungle_sign"
 ]

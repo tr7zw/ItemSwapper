@@ -1,10 +1,16 @@
 [
+    "minecraft:warped_stem",
+    "minecraft:warped_hyphae",
+    "minecraft:stripped_warped_stem",
+    "minecraft:stripped_warped_hyphae",
     "minecraft:warped_planks",
-    "minecraft:warped_slab",
     "minecraft:warped_stairs",
-    "minecraft:warped_trapdoor",	
-    "minecraft:warped_button",
+    "minecraft:warped_slab",
     "minecraft:warped_fence",
+    "minecraft:warped_fence_gate",
+    "minecraft:warped_door",
+    "minecraft:warped_trapdoor",
     "minecraft:warped_pressure_plate",
-    "minecraft:warped_fence_gate"
-]
+    "minecraft:warped_button",
+    "minecraft:warped_sign"
+  ]

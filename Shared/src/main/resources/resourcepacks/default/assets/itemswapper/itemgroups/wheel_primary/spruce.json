@@ -1,10 +1,16 @@
 [
+    "minecraft:spruce_log",
+    "minecraft:spruce_wood",
+    "minecraft:stripped_spruce_log",
+    "minecraft:stripped_spruce_wood",
     "minecraft:spruce_planks",
-    "minecraft:spruce_slab",
     "minecraft:spruce_stairs",
-    "minecraft:spruce_trapdoor",	
-    "minecraft:spruce_button",
+    "minecraft:spruce_slab",
     "minecraft:spruce_fence",
+    "minecraft:spruce_fence_gate",
+    "minecraft:spruce_door",
+    "minecraft:spruce_trapdoor",
     "minecraft:spruce_pressure_plate",
-    "minecraft:spruce_fence_gate"
+    "minecraft:spruce_button",
+    "minecraft:spruce_sign"
 ]
