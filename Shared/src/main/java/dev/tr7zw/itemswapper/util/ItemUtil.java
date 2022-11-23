@@ -64,6 +64,15 @@ public final class ItemUtil {
         return ids;
     }
     
+    public static boolean inArray(Item[] items, Item item) {
+        for(Item i : items) {
+            if(i == item) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     private static void addUnstackableItems(List<Slot> ids, Slot slot) {
         for(Slot s : ids) {
             if(ItemStack.isSameItemSameTags(s.item, slot.item)) {

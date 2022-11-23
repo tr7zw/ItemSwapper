@@ -14,6 +14,7 @@ import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
+import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -60,13 +61,18 @@ public abstract class ItemSwapperSharedMod {
                 } else {
                     entries = itemGroupManager.getSelection(itemInHand);
                     if (entries != null) {
+                        Item[] secondary = itemGroupManager.getSecondarySelection(itemInHand);
+                        if (secondary != null && !ItemUtil.inArray(entries, itemInHand)) {
+                            Item[] tmp = entries;
+                            entries = secondary;
+                            secondary = tmp;
+                        }
                         if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
                             Minecraft.getInstance().setOverlay(
-                                    new SwitchItemOverlay(entries, itemGroupManager.getSecondarySelection(itemInHand)));
+                                    new SwitchItemOverlay(entries, secondary));
                         } else {
                             Minecraft.getInstance().setOverlay(
-                                    new SquareSwitchItemOverlay(entries,
-                                            itemGroupManager.getSecondarySelection(itemInHand)));
+                                    new SquareSwitchItemOverlay(entries, secondary));
                         }
 
                         pressed = true;
@@ -112,7 +118,8 @@ public abstract class ItemSwapperSharedMod {
                         (b) -> configManager.getConfig().wipStyle = b));
                 options.add(getOnOffOption("text.itemswapper.editMode", () -> configManager.getConfig().editMode,
                         (b) -> configManager.getConfig().editMode = b));
-                options.add(getOnOffOption("text.itemswapper.creativeCheatMode", () -> configManager.getConfig().creativeCheatMode,
+                options.add(getOnOffOption("text.itemswapper.creativeCheatMode",
+                        () -> configManager.getConfig().creativeCheatMode,
                         (b) -> configManager.getConfig().creativeCheatMode = b));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
 
