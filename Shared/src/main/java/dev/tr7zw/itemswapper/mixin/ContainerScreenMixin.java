@@ -1,9 +1,7 @@
 package dev.tr7zw.itemswapper.mixin;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -40,12 +38,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         if(!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }
-        int limit = 20;
-        try {
-            limit = Integer.parseInt(title.getString());
-        }catch(Exception ex) {
-            
-        }
+        int limit = 25;
         Item[] items = super.getMenu().getItems().stream()
                 .map(is -> is.getItem()).limit(limit).toList().toArray(new Item[0]);
         int lastItem = 0;

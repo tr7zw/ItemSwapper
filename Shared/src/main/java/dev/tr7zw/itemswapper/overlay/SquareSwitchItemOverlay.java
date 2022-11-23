@@ -26,18 +26,40 @@ import net.minecraft.world.item.Items;
 public class SquareSwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    private static final ResourceLocation BACKGROUND_3_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_3_row.png");
     private static final ResourceLocation BACKGROUND_4_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_4_nocenter.png");
+    private static final ResourceLocation BACKGROUND_5_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_5_plus.png");
+    private static final ResourceLocation BACKGROUND_6_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_6_nocenter.png");
+    private static final ResourceLocation BACKGROUND_7_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_7_rows_half_aligned_bottom.png");
     private static final ResourceLocation BACKGROUND_8_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_8_nocenter.png");
+    private static final ResourceLocation BACKGROUND_9_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_9.png");
+    private static final ResourceLocation BACKGROUND_10_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_10_nocenter.png");
     private static final ResourceLocation BACKGROUND_12_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_12_nocenter.png");
+    private static final ResourceLocation BACKGROUND_14_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_14.png");
+    private static final ResourceLocation BACKGROUND_15_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_15_nocenter.png");
     private static final ResourceLocation BACKGROUND_16_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_16_nocenter.png");
+    private static final ResourceLocation BACKGROUND_18_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_18_half_aligned.png");
     private static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_20_nocenter.png");
+    private static final ResourceLocation BACKGROUND_22_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_22_half_aligned.png");
     private static final ResourceLocation BACKGROUND_24_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_24_nocenter.png");
+    private static final ResourceLocation BACKGROUND_25_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_25_nocenter.png");
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limitX = 33;
     private double limitY = 33;
@@ -58,47 +80,51 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     private double selectX = 0;
     private double selectY = 0;
     private int selection = -1;
-    
+
     public SquareSwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
         this.itemSelection = selection;
         this.secondaryItemSelection = selectionSecondary;
         setupSlots();
-        if(minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
+        if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
         }
     }
 
     private void setupSlots() {
         if (itemSelection.length <= 3) {
-            setupSlots(3, 1, false, null);
-        }else if (itemSelection.length <= 4) {
+            setupSlots(3, 1, false, BACKGROUND_3_LOCATION);
+        } else if (itemSelection.length <= 4) {
             setupSlots(2, 2, false, BACKGROUND_4_LOCATION);
         } else if (itemSelection.length <= 5) {
-            setupSlots(3, 3, true, null);
+            setupSlots(3, 3, true, BACKGROUND_5_LOCATION);
         } else if (itemSelection.length <= 6) {
-            setupSlots(3, 2, false, null);
+            setupSlots(3, 2, false, BACKGROUND_6_LOCATION);
+        } else if (itemSelection.length <= 7) {
+            setupHalfGridSlots(4, 2, BACKGROUND_7_LOCATION);
         } else if (itemSelection.length <= 8) {
             setupSlots(4, 2, false, BACKGROUND_8_LOCATION);
         } else if (itemSelection.length <= 9) {
-            setupSlots(3, 3, false, null);
+            setupSlots(3, 3, false, BACKGROUND_9_LOCATION);
         } else if (itemSelection.length <= 10) {
-            setupSlots(5, 2, false, null);
+            setupSlots(5, 2, false, BACKGROUND_10_LOCATION);
         } else if (itemSelection.length <= 12) {
             setupSlots(4, 4, true, BACKGROUND_12_LOCATION);
         } else if (itemSelection.length <= 14) {
-            setupSlots(7, 2, false, null);
+            setupSlots(6, 3, true, BACKGROUND_14_LOCATION);
         } else if (itemSelection.length <= 15) {
-            setupSlots(5, 3, false, null);
+            setupSlots(5, 3, false, BACKGROUND_15_LOCATION);
         } else if (itemSelection.length <= 16) {
             setupSlots(4, 4, false, BACKGROUND_16_LOCATION);
         } else if (itemSelection.length <= 18) {
-            setupSlots(9, 2, false, null);
+            setupHalfGridSlots(5, 4, BACKGROUND_18_LOCATION);
         } else if (itemSelection.length <= 20) {
             setupSlots(6, 4, true, BACKGROUND_20_LOCATION);
+        } else if (itemSelection.length <= 22) {
+            setupHalfGridSlots(6, 4, BACKGROUND_22_LOCATION);
         } else if (itemSelection.length <= 24) {
             setupSlots(6, 4, false, BACKGROUND_24_LOCATION);
         } else {
-            setupSlots(5, 5, false, null);
+            setupSlots(5, 5, false, BACKGROUND_25_LOCATION);
         }
     }
 
@@ -159,7 +185,8 @@ public class SquareSwitchItemOverlay extends XTOverlay {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
         } else if (id <= itemSelection.length - 1) {
             itemRenderList.add(
-                    () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1, !forceAvailable));
+                    () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1,
+                            !forceAvailable));
         }
     }
 
@@ -202,9 +229,10 @@ public class SquareSwitchItemOverlay extends XTOverlay {
 
     public void onClose() {
         if (selection != -1 && selection < itemSelection.length && itemSelection[selection] != Items.AIR) {
-            if(minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
+            if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
 //                minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, 36 + minecraft.player.getInventory().selected);
-                minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[selection].getDefaultInstance().copy(), 36 + minecraft.player.getInventory().selected);
+                minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[selection].getDefaultInstance().copy(),
+                        36 + minecraft.player.getInventory().selected);
                 return;
             }
             List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection], true);
@@ -255,6 +283,37 @@ public class SquareSwitchItemOverlay extends XTOverlay {
                                 || (x == width - 1 && y == 0));
                 if (!skip) {
                     guiSlots[slotId++] = new GuiSlot(originX + x * sz, originY + y * sz);
+                }
+            }
+        }
+    }
+
+    private void setupHalfGridSlots(int width, int height, ResourceLocation texture) {
+        backgroundTexture = texture;
+        backgroundSizeX = width * tinySlotSize + 6;
+        backgroundSizeY = height * tinySlotSize + 6;
+        int sz = texture == null ? slotSize : tinySlotSize;
+        int lz = texture == null ? 11 : 9;
+        limitX = width * lz;
+        limitY = height * lz;
+        deadZone = 1;
+        int slotAmount = width * height - 2;
+        if(height == 2)slotAmount++;
+        guiSlots = new GuiSlot[slotAmount];
+        int originX = (int) (-width / 2d * sz - 2);
+        int originY = (int) (-height / 2d * sz - 1 - 2);
+        int slotId = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                boolean skip = (x == width - 1 && y == height - 1)
+                        || (x == width - 1 && y == 0);
+                int xOffset = y == 0 || y == height - 1 ? sz / 2 : 0;
+                if(height == 2 && y == 1) {
+                    skip = false;
+                    xOffset = 0;
+                }
+                if (!skip) {
+                    guiSlots[slotId++] = new GuiSlot(originX + xOffset + x * sz, originY + y * sz);
                 }
             }
         }
