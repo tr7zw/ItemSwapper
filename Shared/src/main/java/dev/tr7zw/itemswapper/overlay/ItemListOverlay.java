@@ -28,9 +28,21 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 public class ItemListOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    private static final ResourceLocation BOTTOM_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/list_bottom_slot.png");
+    private static final ResourceLocation MIDDLE_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/list_middle_slot.png");
+    private static final ResourceLocation TOP_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/list_top_slot.png");
+    private static final ResourceLocation SINGLE_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/list_single_slot.png");
+    private static final ResourceLocation MIDDLE_TOP_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/list_middle_continue_top_slot.png");
+    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/list_middle_continue_bottom_slot.png");
     private static final double entrySize = 33;
     private static final int yOffset = 52;
-    private static final int slotSize = 22;
+    private static final int slotSize = 18;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
@@ -50,14 +62,36 @@ public class ItemListOverlay extends XTOverlay {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
+        List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize * 3;
         int originY = minecraft.getWindow().getGuiScaledHeight() - yOffset + (Math.max(0, selectedEntry - limit/2) * slotSize);
         int start = Math.max(0, selectedEntry - limit/2);
         for (int i = start; i < entries.size() && i < start + limit; i++) {
-            renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList);
+            boolean endTop = i == entries.size() - 1;
+            boolean endBottom = i == 0;
+            boolean midBottom = i == start;
+            boolean midTop = i == start + limit - 1;
+            if(endTop && endBottom) {
+                RenderSystem.setShaderTexture(0, SINGLE_LOCATION);
+            } else if (endBottom){
+                RenderSystem.setShaderTexture(0, BOTTOM_LOCATION);
+            } else if (endTop) {
+                RenderSystem.setShaderTexture(0, TOP_LOCATION);
+            } else if (midTop) {
+                RenderSystem.setShaderTexture(0, MIDDLE_TOP_LOCATION);
+            } else if (midBottom) {
+                RenderSystem.setShaderTexture(0, MIDDLE_BOTTOM_LOCATION);
+            } else {
+                RenderSystem.setShaderTexture(0, MIDDLE_LOCATION);
+            }
+            renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
+        float blit = this.itemRenderer.blitOffset;
+        this.itemRenderer.blitOffset += 300;
+        lateRenderList.forEach(Runnable::run);
+        this.itemRenderer.blitOffset = blit;
     }
 
     @Override
@@ -110,8 +144,8 @@ public class ItemListOverlay extends XTOverlay {
         }
     }
 
-    private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList) {
-        blit(poseStack, x, y, 24, 22, 29, 24);
+    private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
+        blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
         Slot slot = entries.get(id);
         itemRenderList.add(() -> {
@@ -120,7 +154,15 @@ public class ItemListOverlay extends XTOverlay {
                     x + 25, y + 11, -1);
         });
         if (selectedEntry == id) {
-            blit(poseStack, x-1, y, 0, 22, 24, 24);
+            itemRenderList = lateRenderList;
+            lateRenderList.add(() -> {
+                float blit = getBlitOffset();
+                setBlitOffset((int) this.itemRenderer.blitOffset);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+                blit(poseStack, x - 1, y, 0, 22, 24, 24);
+                setBlitOffset((int) blit);
+            });
         }
     }
     

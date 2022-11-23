@@ -296,7 +296,7 @@ public class SquareSwitchItemOverlay extends XTOverlay {
         int lz = texture == null ? 11 : 9;
         limitX = width * lz;
         limitY = height * lz;
-        deadZone = 1;
+        deadZone = 0;
         int slotAmount = width * height - 2;
         if(height == 2)slotAmount++;
         guiSlots = new GuiSlot[slotAmount];
