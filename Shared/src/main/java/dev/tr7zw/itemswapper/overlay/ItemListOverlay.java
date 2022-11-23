@@ -148,11 +148,6 @@ public class ItemListOverlay extends XTOverlay {
         blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
         Slot slot = entries.get(id);
-        itemRenderList.add(() -> {
-            renderSlot(x + 3, y + 4, minecraft.player, slot.item(), 1);
-            drawString(poseStack, minecraft.font, getDisplayname(slot.item()),
-                    x + 25, y + 11, -1);
-        });
         if (selectedEntry == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
@@ -164,6 +159,11 @@ public class ItemListOverlay extends XTOverlay {
                 setBlitOffset((int) blit);
             });
         }
+        itemRenderList.add(() -> {
+            renderSlot(x + 3, y + 4, minecraft.player, slot.item(), 1);
+            drawString(poseStack, minecraft.font, getDisplayname(slot.item()),
+                    x + 25, y + 11, -1);
+        });
     }
     
     private Component getDisplayname(ItemStack item) {
