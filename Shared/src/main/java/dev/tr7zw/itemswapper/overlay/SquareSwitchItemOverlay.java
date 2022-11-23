@@ -35,13 +35,13 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     private static final ResourceLocation BACKGROUND_6_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_6_nocenter.png");
     private static final ResourceLocation BACKGROUND_7_LOCATION = new ResourceLocation("itemswapper",
-            "textures/gui/inv_wheel_7_rows_half_aligned_bottom.png");
+            "textures/gui/inv_wheel_7.png");
     private static final ResourceLocation BACKGROUND_8_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_8_nocenter.png");
     private static final ResourceLocation BACKGROUND_9_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_9.png");
     private static final ResourceLocation BACKGROUND_10_LOCATION = new ResourceLocation("itemswapper",
-            "textures/gui/inv_wheel_10_nocenter.png");
+            "textures/gui/inv_wheel_10.png");
     private static final ResourceLocation BACKGROUND_12_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_12_nocenter.png");
     private static final ResourceLocation BACKGROUND_14_LOCATION = new ResourceLocation("itemswapper",
@@ -100,13 +100,13 @@ public class SquareSwitchItemOverlay extends XTOverlay {
         } else if (itemSelection.length <= 6) {
             setupSlots(3, 2, false, BACKGROUND_6_LOCATION);
         } else if (itemSelection.length <= 7) {
-            setupHalfGridSlots(4, 2, BACKGROUND_7_LOCATION);
+            setupHalfGridSlots(3, 3, BACKGROUND_7_LOCATION);
         } else if (itemSelection.length <= 8) {
             setupSlots(4, 2, false, BACKGROUND_8_LOCATION);
         } else if (itemSelection.length <= 9) {
             setupSlots(3, 3, false, BACKGROUND_9_LOCATION);
         } else if (itemSelection.length <= 10) {
-            setupSlots(5, 2, false, BACKGROUND_10_LOCATION);
+            setupHalfGridSlots(4, 3, BACKGROUND_10_LOCATION);
         } else if (itemSelection.length <= 12) {
             setupSlots(4, 4, true, BACKGROUND_12_LOCATION);
         } else if (itemSelection.length <= 14) {
