@@ -42,8 +42,12 @@ public class SquareSwitchItemOverlay extends XTOverlay {
             "textures/gui/inv_wheel_9.png");
     private static final ResourceLocation BACKGROUND_10_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_10.png");
+    private static final ResourceLocation BACKGROUND_11_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_11.png");
     private static final ResourceLocation BACKGROUND_12_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_12_nocenter.png");
+    private static final ResourceLocation BACKGROUND_13_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/inv_wheel_13.png");
     private static final ResourceLocation BACKGROUND_14_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_14.png");
     private static final ResourceLocation BACKGROUND_15_LOCATION = new ResourceLocation("itemswapper",
@@ -107,8 +111,12 @@ public class SquareSwitchItemOverlay extends XTOverlay {
             setupSlots(3, 3, false, BACKGROUND_9_LOCATION);
         } else if (itemSelection.length <= 10) {
             setupHalfGridSlots(4, 3, BACKGROUND_10_LOCATION);
+        } else if (itemSelection.length <= 11) {
+            setupHalfGridSlots(4, 3, BACKGROUND_11_LOCATION, true);
         } else if (itemSelection.length <= 12) {
             setupSlots(4, 4, true, BACKGROUND_12_LOCATION);
+        } else if (itemSelection.length <= 13) {
+            setupHalfGridSlots(5, 3, BACKGROUND_13_LOCATION);
         } else if (itemSelection.length <= 14) {
             setupSlots(6, 3, true, BACKGROUND_14_LOCATION);
         } else if (itemSelection.length <= 15) {
@@ -289,6 +297,10 @@ public class SquareSwitchItemOverlay extends XTOverlay {
     }
 
     private void setupHalfGridSlots(int width, int height, ResourceLocation texture) {
+        setupHalfGridSlots(width, height, texture, false);
+    }
+    
+    private void setupHalfGridSlots(int width, int height, ResourceLocation texture, boolean flip) {
         backgroundTexture = texture;
         backgroundSizeX = width * tinySlotSize + 6;
         backgroundSizeY = height * tinySlotSize + 6;
@@ -298,7 +310,9 @@ public class SquareSwitchItemOverlay extends XTOverlay {
         limitY = height * lz;
         deadZone = 0;
         int slotAmount = width * height - 2;
-        if(height == 2)slotAmount++;
+        if(flip){
+            slotAmount++;
+        }
         guiSlots = new GuiSlot[slotAmount];
         int originX = (int) (-width / 2d * sz - 2);
         int originY = (int) (-height / 2d * sz - 1 - 2);
@@ -307,11 +321,12 @@ public class SquareSwitchItemOverlay extends XTOverlay {
             for (int x = 0; x < width; x++) {
                 boolean skip = (x == width - 1 && y == height - 1)
                         || (x == width - 1 && y == 0);
-                int xOffset = y == 0 || y == height - 1 ? sz / 2 : 0;
-                if(height == 2 && y == 1) {
-                    skip = false;
-                    xOffset = 0;
+                boolean needsOffset = y == 0 || y == height - 1;
+                if(flip) {
+                    skip = (x == width - 1 && y != height - 1 && y != 0);
+                    needsOffset = !needsOffset;
                 }
+                int xOffset = needsOffset ? sz / 2 : 0;
                 if (!skip) {
                     guiSlots[slotId++] = new GuiSlot(originX + xOffset + x * sz, originY + y * sz);
                 }
