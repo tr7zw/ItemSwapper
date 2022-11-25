@@ -12,7 +12,7 @@ import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
-import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.overlay.RoundSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.ChatFormatting;
@@ -69,7 +69,7 @@ public abstract class ItemSwapperSharedMod {
                         }
                         if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
                             Minecraft.getInstance().setOverlay(
-                                    new SwitchItemOverlay(entries, secondary));
+                                    new RoundSwitchItemOverlay(entries, secondary));
                         } else {
                             Minecraft.getInstance().setOverlay(
                                     new SquareSwitchItemOverlay(entries, secondary));
@@ -81,7 +81,7 @@ public abstract class ItemSwapperSharedMod {
                         entries = itemGroupManager.getSecondarySelection(itemInHand);
                         if (entries != null) {
                             if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
-                                Minecraft.getInstance().setOverlay(new SwitchItemOverlay(entries, null));
+                                Minecraft.getInstance().setOverlay(new RoundSwitchItemOverlay(entries, null));
                             } else {
                                 Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(entries, null));
                             }
