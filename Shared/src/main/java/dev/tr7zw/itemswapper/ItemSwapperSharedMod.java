@@ -20,6 +20,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
+import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
@@ -32,6 +33,7 @@ public abstract class ItemSwapperSharedMod {
     private Minecraft minecraft = Minecraft.getInstance();
     private boolean enableShulkers = false;
     private boolean modDisabled = false;
+    private boolean bypassExcepted = false;
     private ConfigManager configManager = ConfigManager.getInstance();
     private ItemGroupManager itemGroupManager = new ItemGroupManager();
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
@@ -51,6 +53,16 @@ public abstract class ItemSwapperSharedMod {
                 pressed = true;
                 this.minecraft.gui.setOverlayMessage(
                         Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+                return;
+            }
+            if(!pressed && !enableShulkers && !bypassExcepted) {
+                pressed = true;
+                this.minecraft.setScreen(new ConfirmScreen(accepted -> {
+                    if(accepted) {
+                        bypassExcepted = true;
+                    }
+                    this.minecraft.setScreen(null);
+                }, Component.translatable("text.itemswapper.confirm.title"), Component.translatable("text.itemswapper.confirm.description")));
                 return;
             }
             if (!pressed && overlay == null) {
@@ -156,6 +168,9 @@ public abstract class ItemSwapperSharedMod {
 
     public boolean areShulkersEnabled() {
         return this.enableShulkers;
+    }
+    public void setBypassExcepted(boolean bypassExcepted) {
+        this.bypassExcepted = bypassExcepted;
     }
 
     public void setModDisabled(boolean value) {

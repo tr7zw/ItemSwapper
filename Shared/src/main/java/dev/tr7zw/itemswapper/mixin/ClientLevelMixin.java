@@ -15,6 +15,7 @@ public class ClientLevelMixin {
     public void disconnect(CallbackInfo ci) {
         ItemSwapperSharedMod.instance.setEnableShulkers(false);
         ItemSwapperSharedMod.instance.setModDisabled(false);
+        ItemSwapperSharedMod.instance.setBypassExcepted(false);
     }
     
 }
