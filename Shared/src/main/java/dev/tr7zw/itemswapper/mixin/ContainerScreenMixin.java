@@ -38,7 +38,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         if(!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }
-        int limit = 25;
+        int limit = 50;
         Item[] items = super.getMenu().getItems().stream()
                 .map(is -> is.getItem()).limit(limit).toList().toArray(new Item[0]);
         int lastItem = 0;
@@ -61,17 +61,20 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     }
 
     private void copyString(Item[] itemArray) {
-        int limit = 20;
-        try {
-            limit = Integer.parseInt(title.getString());
-        }catch(Exception ex) {
+        int limit = 50;
+        Item[] items = super.getMenu().getItems().stream()
+                .map(is -> is.getItem()).limit(limit).toList().toArray(new Item[0]);
+        int lastItem = 0;
+        for(int x = 0; x < items.length; x++) {
+            if(items[x] != Items.AIR) {
+                lastItem = x;
+            }
         }
-        
-        List<String> items = Arrays.<Item>asList(itemArray).stream()
-                .map(is -> Registry.ITEM.getKey(is).toString()).limit(limit).toList();
+        items = Arrays.copyOf(items, lastItem + 1);
+        List<String> names = Arrays.asList(items).stream().map(is -> Registry.ITEM.getKey(is).toString()).toList();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        System.out.println(gson.toJson(items));
-        Minecraft.getInstance().keyboardHandler.setClipboard(gson.toJson(items));
+        System.out.println(gson.toJson(names));
+        Minecraft.getInstance().keyboardHandler.setClipboard(gson.toJson(names));
     }
 
 }
