@@ -8,6 +8,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ConfigManager;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay.GuiSlot;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
@@ -32,13 +33,15 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private double deadZone = 11;
     public static final int slotSize = 22;
     public static final int tinySlotSize = 18;
-    private final Minecraft minecraft = Minecraft.getInstance();
+    public final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
     private Item[] secondaryItemSelection;
     private GuiSlot[] guiSlots;
     private int backgroundSizeX = 0;
     private int backgroundSizeY = 0;
+    private int backgroundTextureSizeX = 128;
+    private int backgroundTextureSizeY = 128;
     private ResourceLocation backgroundTexture = null;
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
@@ -68,7 +71,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         if (getBackgroundTexture() != null) {
             RenderSystem.setShaderTexture(0, getBackgroundTexture());
             blit(poseStack, originX - (getBackgroundSizeX() / 2), originY - (getBackgroundSizeY() / 2), 0, 0, getBackgroundSizeX(),
-                    getBackgroundSizeY(), 128, 128);
+                    getBackgroundSizeY(), backgroundTextureSizeX, backgroundTextureSizeY);
         }
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
@@ -92,14 +95,22 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         }
     }
 
+    public boolean forceItemsAvailable() {
+        return forceAvailable;
+    }
+    
+    public List<Slot> getItem(int id){
+        return id > itemSelection.length - 1 ? Collections.emptyList()
+                : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
+    }
+    
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
             List<Runnable> lateRenderList) {
         if (getBackgroundTexture() == null) {
             blit(poseStack, x, y, 24, 22, 29, 24);
         }
-        List<Slot> slots = id > itemSelection.length - 1 ? Collections.emptyList()
-                : ItemUtil.findSlotsMatchingItem(itemSelection[id], true);
-        if (selection == id) {
+        List<Slot> slots = getItem(id);
+        if (getSelection() == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
                 float blit = getBlitOffset();
@@ -110,13 +121,12 @@ public abstract class SwitchItemOverlay extends XTOverlay {
                 setBlitOffset((int) blit);
             });
         }
-
-        if (!slots.isEmpty() && !forceAvailable) {
+        if (!slots.isEmpty() && !forceItemsAvailable()) {
             itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
         } else if (id <= itemSelection.length - 1) {
             itemRenderList.add(
                     () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1,
-                            !forceAvailable));
+                            !forceItemsAvailable()));
         }
     }
 
@@ -158,14 +168,14 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     }
 
     public void onClose() {
-        if (selection != -1 && selection < itemSelection.length && itemSelection[selection] != Items.AIR) {
+        if (getSelection() != -1 && getSelection() < itemSelection.length && itemSelection[getSelection()] != Items.AIR) {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
 //                minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, 36 + minecraft.player.getInventory().selected);
-                minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[selection].getDefaultInstance().copy(),
+                minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[getSelection()].getDefaultInstance().copy(),
                         36 + minecraft.player.getInventory().selected);
                 return;
             }
-            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[selection], true);
+            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[getSelection()], true);
             if (!slots.isEmpty()) {
                 Slot slot = slots.get(0);
                 if (slot.inventory() == -1) {
@@ -189,6 +199,32 @@ public abstract class SwitchItemOverlay extends XTOverlay {
             this.itemRenderer.renderAndDecorateItem(arg, arg2, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, x, y);
+        }
+    }
+    
+    public void setupSlots(int width, int height, boolean skipCorners, ResourceLocation texture) {
+        setBackgroundTexture(texture);
+        setBackgroundSizeX(width * tinySlotSize + 6);
+        setBackgroundSizeY(height * tinySlotSize + 6);
+        int sz = texture == null ? slotSize : tinySlotSize;
+        int lz = texture == null ? 11 : 9;
+        setLimitX(width * lz);
+        setLimitY(height * lz);
+        setDeadZone(1);
+        int slotAmount = width * height - (skipCorners ? 4 : 0);
+        setGuiSlots(new GuiSlot[slotAmount]);
+        int originX = (int) (-width / 2d * sz - 2);
+        int originY = (int) (-height / 2d * sz - 1 - 2);
+        int slotId = 0;
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                boolean skip = skipCorners
+                        && ((x == 0 && y == 0) || (x == 0 && y == height - 1) || (x == width - 1 && y == height - 1)
+                                || (x == width - 1 && y == 0));
+                if (!skip) {
+                    getGuiSlots()[slotId++] = new GuiSlot(originX + x * sz, originY + y * sz);
+                }
+            }
         }
     }
 
@@ -250,6 +286,26 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     
     public Item[] getItemSelection() {
         return itemSelection;
+    }
+
+    public int getSelection() {
+        return selection;
+    }
+
+    public int getBackgroundTextureSizeX() {
+        return backgroundTextureSizeX;
+    }
+
+    public void setBackgroundTextureSizeX(int backgroundTextureSizeX) {
+        this.backgroundTextureSizeX = backgroundTextureSizeX;
+    }
+
+    public int getBackgroundTextureSizeY() {
+        return backgroundTextureSizeY;
+    }
+
+    public void setBackgroundTextureSizeY(int backgroundTextureSizeY) {
+        this.backgroundTextureSizeY = backgroundTextureSizeY;
     }
 
     public record GuiSlot(int x, int y) {

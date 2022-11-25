@@ -90,32 +90,6 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
         }
     }
 
-    private void setupSlots(int width, int height, boolean skipCorners, ResourceLocation texture) {
-        setBackgroundTexture(texture);
-        setBackgroundSizeX(width * tinySlotSize + 6);
-        setBackgroundSizeY(height * tinySlotSize + 6);
-        int sz = texture == null ? slotSize : tinySlotSize;
-        int lz = texture == null ? 11 : 9;
-        setLimitX(width * lz);
-        setLimitY(height * lz);
-        setDeadZone(1);
-        int slotAmount = width * height - (skipCorners ? 4 : 0);
-        setGuiSlots(new GuiSlot[slotAmount]);
-        int originX = (int) (-width / 2d * sz - 2);
-        int originY = (int) (-height / 2d * sz - 1 - 2);
-        int slotId = 0;
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                boolean skip = skipCorners
-                        && ((x == 0 && y == 0) || (x == 0 && y == height - 1) || (x == width - 1 && y == height - 1)
-                                || (x == width - 1 && y == 0));
-                if (!skip) {
-                    getGuiSlots()[slotId++] = new GuiSlot(originX + x * sz, originY + y * sz);
-                }
-            }
-        }
-    }
-
     private void setupHalfGridSlots(int width, int height, ResourceLocation texture) {
         setupHalfGridSlots(width, height, texture, false);
     }

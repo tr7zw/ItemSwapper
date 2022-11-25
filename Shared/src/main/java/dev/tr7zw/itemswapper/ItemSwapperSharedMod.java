@@ -10,6 +10,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
+import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.RoundSwitchItemOverlay;
@@ -53,6 +54,11 @@ public abstract class ItemSwapperSharedMod {
                 return;
             }
             if (!pressed && overlay == null) {
+                if(minecraft.player.getMainHandItem().isEmpty()) {
+                    Minecraft.getInstance().setOverlay(new InventorySwitchItemOverlay());
+                    pressed = true;
+                    return;
+                }
                 Item itemInHand = minecraft.player.getMainHandItem().getItem();
                 Item[] entries = itemGroupManager.getList(itemInHand);
                 if (entries != null) {
