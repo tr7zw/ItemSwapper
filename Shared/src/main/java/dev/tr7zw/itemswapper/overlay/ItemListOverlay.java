@@ -41,7 +41,7 @@ public class ItemListOverlay extends XTOverlay {
     private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/list_middle_continue_bottom_slot.png");
     private static final double entrySize = 33;
-    private static final int yOffset = 52;
+    private static final int yOffset = 72;
     private static final int slotSize = 18;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
@@ -64,7 +64,7 @@ public class ItemListOverlay extends XTOverlay {
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
-        int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize * 3;
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize * 5;
         int originY = minecraft.getWindow().getGuiScaledHeight() - yOffset + (Math.max(0, selectedEntry - limit/2) * slotSize);
         int start = Math.max(0, selectedEntry - limit/2);
         for (int i = start; i < entries.size() && i < start + limit; i++) {
@@ -155,7 +155,7 @@ public class ItemListOverlay extends XTOverlay {
                 setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
-                blit(poseStack, x - 1, y, 0, 22, 24, 24);
+                blit(poseStack, x, y, 0, 22, 24, 24);
                 setBlitOffset((int) blit);
             });
         }
