@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -89,6 +90,29 @@ public class ItemGroupManager {
             return listMapping.get(item);
         }
         return null;
+    }
+    
+    public Item[] getOpenList(Item item) {
+        Item[] entries = getSelection(item);
+        if (entries != null) {
+            Item[] secondary = getSecondarySelection(item);
+            if (secondary != null && !ItemUtil.inArray(entries, item)) {
+                return secondary;
+            }
+        }
+        return entries;
+    }
+    
+    public Item[] nextList(Item item, Item[] currentList) {
+        Item[] entries = getSelection(item);
+        Item[] secondary = getSecondarySelection(item);
+        if(entries != null && currentList != entries) {
+            return entries;
+        }
+        if(secondary != null && currentList != secondary) {
+            return secondary;
+        }
+        return getOpenList(item);
     }
     
 }

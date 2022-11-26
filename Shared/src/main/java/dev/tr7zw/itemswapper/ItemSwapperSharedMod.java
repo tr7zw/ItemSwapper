@@ -12,10 +12,9 @@ import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
-import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.RoundSwitchItemOverlay;
+import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -77,34 +76,11 @@ public abstract class ItemSwapperSharedMod {
                     Minecraft.getInstance().setOverlay(new ItemListOverlay(entries));
                     pressed = true;
                 } else {
-                    entries = itemGroupManager.getSelection(itemInHand);
+                    entries = itemGroupManager.getOpenList(itemInHand);
                     if (entries != null) {
-                        Item[] secondary = itemGroupManager.getSecondarySelection(itemInHand);
-                        if (secondary != null && !ItemUtil.inArray(entries, itemInHand)) {
-                            Item[] tmp = entries;
-                            entries = secondary;
-                            secondary = tmp;
-                        }
-                        if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
-                            Minecraft.getInstance().setOverlay(
-                                    new RoundSwitchItemOverlay(entries, secondary));
-                        } else {
-                            Minecraft.getInstance().setOverlay(
-                                    new SquareSwitchItemOverlay(entries, secondary));
-                        }
+                        openScreen(entries);
 
                         pressed = true;
-                    } else {
-                        // Fallback for if there is just a second set, no first set
-                        entries = itemGroupManager.getSecondarySelection(itemInHand);
-                        if (entries != null) {
-                            if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
-                                Minecraft.getInstance().setOverlay(new RoundSwitchItemOverlay(entries, null));
-                            } else {
-                                Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(entries, null));
-                            }
-                            pressed = true;
-                        }
                     }
                 }
             } else if (!pressed && overlay instanceof XTOverlay xtOverlay) {
@@ -118,6 +94,16 @@ public abstract class ItemSwapperSharedMod {
                 xtOverlay.onClose();
                 Minecraft.getInstance().setOverlay(null);
             }
+        }
+    }
+    
+    public void openScreen(Item[] list) {
+        if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
+            Minecraft.getInstance().setOverlay(
+                    new RoundSwitchItemOverlay(list));
+        } else {
+            Minecraft.getInstance().setOverlay(
+                    new SquareSwitchItemOverlay(list));
         }
     }
 

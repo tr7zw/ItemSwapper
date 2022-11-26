@@ -8,7 +8,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ConfigManager;
-import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay.GuiSlot;
+import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
@@ -36,7 +36,6 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     public final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
-    private Item[] secondaryItemSelection;
     private GuiSlot[] guiSlots;
     private int backgroundSizeX = 0;
     private int backgroundSizeY = 0;
@@ -50,9 +49,9 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private double selectY = 0;
     private int selection = -1;
 
-    public SwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
-        this.itemSelection = selection;
-        this.secondaryItemSelection = selectionSecondary;
+    public SwitchItemOverlay(Item[] selectionList) {
+        this.itemSelection = selectionList;
+
         setupSlots();
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
@@ -140,12 +139,12 @@ public abstract class SwitchItemOverlay extends XTOverlay {
 
     public void handleSwitchSelection() {
         // Don't allow switching if there is no second set
-        if (secondaryItemSelection == null) {
-            return;
+        if (getSelection() != -1 && getSelection() < itemSelection.length && itemSelection[getSelection()] != Items.AIR) {
+            Item[] sel = ItemSwapperMod.instance.getItemGroupManager().nextList(itemSelection[getSelection()], itemSelection);
+            if(sel != null) {
+                itemSelection = sel;
+            }
         }
-        Item[] tmp = itemSelection;
-        itemSelection = secondaryItemSelection;
-        secondaryItemSelection = tmp;
         setupSlots();
     }
 

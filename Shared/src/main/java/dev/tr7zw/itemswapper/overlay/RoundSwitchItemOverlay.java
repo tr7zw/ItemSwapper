@@ -14,8 +14,8 @@ public class RoundSwitchItemOverlay extends SwitchItemOverlay {
     private static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_20.png");
 
-    public RoundSwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
-        super(selection, selectionSecondary);
+    public RoundSwitchItemOverlay(Item[] selection) {
+        super(selection);
     }
 
     public void setupSlots() {

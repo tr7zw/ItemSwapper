@@ -44,8 +44,8 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
     private static final ResourceLocation BACKGROUND_25_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_25_nocenter.png");
 
-    public SquareSwitchItemOverlay(Item[] selection, Item[] selectionSecondary) {
-        super(selection, selectionSecondary);
+    public SquareSwitchItemOverlay(Item[] selection) {
+        super(selection);
     }
 
     public void setupSlots() {

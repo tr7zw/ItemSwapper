@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.overlay;
 import java.util.Collections;
 import java.util.List;
 
+import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import net.minecraft.core.NonNullList;
@@ -17,7 +18,7 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
             "textures/gui/inventory.png");
 
     public InventorySwitchItemOverlay() {
-        super(new Item[0], null);
+        super(new Item[0]);
     }
 
     public void setupSlots() {
@@ -58,4 +59,18 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
         }
     }
 
+    @Override
+    public void handleSwitchSelection() {
+        List<Slot> slots = getItem(getSelection());
+        if (!slots.isEmpty()) {
+            Slot slot = slots.get(0);
+            if(!slot.item().isEmpty()) {
+                Item[] sel = ItemSwapperMod.instance.getItemGroupManager().getOpenList(slot.item().getItem());
+                if(sel != null) {
+                    ItemSwapperMod.instance.openScreen(sel);
+                }
+            }
+        }
+    }
+    
 }
