@@ -27,6 +27,8 @@ import net.minecraft.world.item.Items;
 public abstract class SwitchItemOverlay extends XTOverlay {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/selection.png");
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limitX = 33;
     private double limitY = 33;
@@ -115,8 +117,8 @@ public abstract class SwitchItemOverlay extends XTOverlay {
                 float blit = getBlitOffset();
                 setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
-                blit(poseStack, x - 1, y, 0, 22, 24, 24);
+                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
+                blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
                 setBlitOffset((int) blit);
             });
         }

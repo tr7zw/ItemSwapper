@@ -29,7 +29,8 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 
 public class ItemListOverlay extends XTOverlay {
 
-    private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/selection.png");
     private static final ResourceLocation BOTTOM_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/list_bottom_slot.png");
     private static final ResourceLocation MIDDLE_LOCATION = new ResourceLocation("itemswapper",
@@ -62,7 +63,6 @@ public class ItemListOverlay extends XTOverlay {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
@@ -156,8 +156,8 @@ public class ItemListOverlay extends XTOverlay {
                 float blit = getBlitOffset();
                 setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
-                blit(poseStack, x, y, 0, 22, 24, 24);
+                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
+                blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
                 setBlitOffset((int) blit);
             });
         }
