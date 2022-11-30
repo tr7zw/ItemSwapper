@@ -162,7 +162,7 @@ public class ItemListOverlay extends XTOverlay {
             });
         }
         itemRenderList.add(() -> {
-            renderSlot(x + 3, y + 4, minecraft.player, slot.item(), 1);
+            renderSlot(x + 4, y + 4, minecraft.player, slot.item(), 1);
             drawString(poseStack, minecraft.font, getDisplayname(slot.item()),
                     x + 25, y + 11, -1);
         });

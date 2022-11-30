@@ -118,7 +118,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
                 setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
-                blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
+                blit(poseStack, x-1, y, 0, 0, 24, 24, 24, 24);
                 setBlitOffset((int) blit);
             });
         }
