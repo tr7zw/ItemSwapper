@@ -6,6 +6,8 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.ConfigManager;
+import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
@@ -113,7 +115,7 @@ public class ItemListOverlay extends XTOverlay {
         // first slot is always the current item
         entries.add(new Slot(-1, minecraft.player.getInventory().selected, minecraft.player.getInventory().getSelected()));
         for (Item item : itemSelection) {
-            List<Slot> ids = ItemUtil.findSlotsMatchingItem(item, false);
+            List<Slot> ids = ItemUtil.findSlotsMatchingItem(item, false, ConfigManager.getInstance().getConfig().ignoreHotbar);
             for (Slot id : ids) {
                 if (!entries.contains(id)) {
                     entries.add(id);

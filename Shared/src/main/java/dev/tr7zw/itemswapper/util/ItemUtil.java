@@ -33,10 +33,10 @@ public final class ItemUtil {
         return slot;
     }
 
-    public static List<Slot> findSlotsMatchingItem(Item item, boolean limit) {
+    public static List<Slot> findSlotsMatchingItem(Item item, boolean limit, boolean ignoreHotbar) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
         List<Slot> ids = new ArrayList<>();
-        for (int i = 0; i < items.size(); i++) {
+        for (int i = ignoreHotbar ? 9 : 0; i < items.size(); i++) {
             if (!(items.get(i)).isEmpty()
                     && items.get(i).getItem() == item) {
                 addUnstackableItems(ids, new Slot(-1, i, items.get(i)));

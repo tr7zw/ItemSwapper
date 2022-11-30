@@ -125,6 +125,8 @@ public abstract class ItemSwapperSharedMod {
                 options.add(getOnOffOption("text.itemswapper.creativeCheatMode",
                         () -> configManager.getConfig().creativeCheatMode,
                         (b) -> configManager.getConfig().creativeCheatMode = b));
+                options.add(getOnOffOption("text.itemswapper.ignoreHotbar", () -> configManager.getConfig().ignoreHotbar,
+                        (b) -> configManager.getConfig().ignoreHotbar = b));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
 
             }
