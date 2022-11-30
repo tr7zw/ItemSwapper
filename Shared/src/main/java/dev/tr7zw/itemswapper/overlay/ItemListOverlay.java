@@ -41,7 +41,7 @@ public class ItemListOverlay extends XTOverlay {
     private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/list_middle_continue_bottom_slot.png");
     private static final double entrySize = 33;
-    private static final int yOffset = 72;
+    private static final int yOffset = 75;
     private static final int slotSize = 18;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
