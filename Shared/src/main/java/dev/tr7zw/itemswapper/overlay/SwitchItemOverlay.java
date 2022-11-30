@@ -102,7 +102,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     
     public List<Slot> getItem(int id){
         return id > itemSelection.length - 1 ? Collections.emptyList()
-                : ItemUtil.findSlotsMatchingItem(itemSelection[id], true, false);
+                : ItemUtil.findSlotsMatchingItem(itemSelection[id], false, false);
     }
     
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
@@ -123,11 +123,11 @@ public abstract class SwitchItemOverlay extends XTOverlay {
             });
         }
         if (!slots.isEmpty() && !forceItemsAvailable()) {
-            itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false));
+            itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false, slots.get(0).amount().get()));
         } else if (id <= itemSelection.length - 1) {
             itemRenderList.add(
                     () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1,
-                            !forceItemsAvailable()));
+                            !forceItemsAvailable(), 1));
         }
     }
 
@@ -191,15 +191,20 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         }
     }
 
-    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut) {
+    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut, int count) {
         if (!arg2.isEmpty()) {
+            ItemStack copy = arg2.copy();
+            copy.setCount(1);
             if (grayOut) {
-                RenderHelper.renderGrayedOutItem(arg, arg2, x, y, k);
+                RenderHelper.renderGrayedOutItem(arg, copy, x, y, k);
                 return;
             }
-            this.itemRenderer.renderAndDecorateItem(arg, arg2, x, y, k);
+            this.itemRenderer.renderAndDecorateItem(arg, copy, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, x, y);
+            this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, copy, x, y);
+            int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
+            if(count > 1)
+                RenderHelper.renderGuiItemText(minecraft.font, ""+Math.min(64, count), x, y, color);
         }
     }
     

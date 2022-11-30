@@ -4,11 +4,13 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
 
 import net.minecraft.CrashReport;
 import net.minecraft.CrashReportCategory;
 import net.minecraft.ReportedException;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -72,6 +74,17 @@ public final class RenderHelper {
             Lighting.setupFor3DItems();
         poseStack.popPose();
         RenderSystem.applyModelViewMatrix();
+    }
+    
+    public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
+        PoseStack poseStack = new PoseStack();
+        String string2 = text;
+        poseStack.translate(0.0D, 0.0D, (Minecraft.getInstance().getItemRenderer().blitOffset + 200.0F));
+        MultiBufferSource.BufferSource bufferSource = MultiBufferSource
+                .immediate(Tesselator.getInstance().getBuilder());
+        font.drawInBatch(string2, (i + 19 - 2 - font.width(string2)), (j + 6 + 3), color, true,
+                poseStack.last().pose(), bufferSource, false, 0, 15728880);
+        bufferSource.endBatch();
     }
     
 }

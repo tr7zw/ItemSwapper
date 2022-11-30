@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.google.common.collect.Sets;
 
@@ -76,14 +77,19 @@ public final class ItemUtil {
     private static void addUnstackableItems(List<Slot> ids, Slot slot) {
         for(Slot s : ids) {
             if(ItemStack.isSameItemSameTags(s.item, slot.item)) {
+                s.amount.accumulateAndGet(slot.item.getCount(), (i1,i2) -> i1+i2);
                 return;
             }
         }
         ids.add(slot);
     }
 
-    public static record Slot(int inventory, int slot, ItemStack item) {
+    public static record Slot(int inventory, int slot, ItemStack item, AtomicInteger amount) {
 
+        public Slot(int inventory, int slot, ItemStack item){
+            this(inventory, slot, item, new AtomicInteger(item.getCount()));
+        }
+        
         @Override
         public int hashCode() {
             final int prime = 31;
