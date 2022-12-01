@@ -64,18 +64,20 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             return;
         }
         JsonArray ar = json.getAsJsonArray();
-        if(ar.size() != 2) {
+        List<Item[]> lists = new ArrayList<>();
+        for(int i = 0; i < ar.size(); i++) {
+            Item[] list = getItemArray(ar.get(i), true);
+            if(list != null && list.length > 0) {
+                lists.add(list);
+            }
+        }
+        if(lists.isEmpty()) {
             return;
         }
-        Item[] primary = getItemArray(ar.get(0), true);
-        Item[] secondary = getItemArray(ar.get(1), true);
-        if(primary == null || secondary == null) {
-            return;
-        }
-        ItemSwapperSharedMod.instance.getItemGroupManager().registerDualCollection(primary, secondary);
+        ItemSwapperSharedMod.instance.getItemGroupManager().registerCollections(lists.toArray(new Item[0][]));
     }
     
-    private Item[] getItemArray(JsonElement json, boolean wheel) {
+    private Item[] getItemArray(JsonElement json, boolean pallet) {
         if(!json.isJsonArray()) {
             return null;
         }
@@ -86,7 +88,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 Item item = Registry.ITEM.get(resourceLocation);
                 if(item == null) {
                     ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString());
-                    if(wheel) {
+                    if(pallet) {
                         // For unknown items, don't move the rest of the wheel
                         itemList.add(Items.AIR);
                     }

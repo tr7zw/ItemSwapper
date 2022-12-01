@@ -20,21 +20,21 @@ public class ItemGroupManager {
         listMapping.clear();
     }
     
-    public void registerDualCollection(Item[] primary, Item[] secondary) {
-        if(primary.length == 0 || secondary.length == 0 ) {
-            ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid collection!");
-            return;
-        }
-        for(Item i : primary) {
-            if(i != Items.AIR) {
-                mapping.put(i, primary);
-                secondaryMapping.put(i, secondary);
+    public void registerCollections(Item[]... collection) {
+        for(Item[] col : collection) {
+            if(col == null || col.length == 0) {
+                ItemSwapperSharedMod.LOGGER.warn("Tried to register invalid empty collection!");
+                return;
             }
         }
-        for(Item i : secondary) {
-            if(i != Items.AIR) {
-                mapping.put(i, primary);
-                secondaryMapping.put(i, secondary);
+        for(int i = 0; i < collection.length; i++) {
+            Item[] col = collection[i];
+            Item[] target = collection[i+1 == collection.length ? 0 : i+1];
+            for(Item item : col) {
+                if(item != Items.AIR) {
+                    mapping.put(item, col);
+                    secondaryMapping.put(item, target);
+                }
             }
         }
     }
