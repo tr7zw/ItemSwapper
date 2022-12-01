@@ -44,6 +44,7 @@ public final class ItemUtil {
                 if(limit) {
                     return ids;
                 }
+                continue;
             }
             if (!(items.get(i)).isEmpty()
                     && shulkers.contains(items.get(i).getItem())
