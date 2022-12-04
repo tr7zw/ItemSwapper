@@ -38,7 +38,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         if(!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }
-        int limit = 50;
+        int limit = 25;
         Item[] items = super.getMenu().getItems().stream()
                 .map(is -> is.getItem()).limit(limit).toList().toArray(new Item[0]);
         int lastItem = 0;
@@ -49,7 +49,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         }
         items = Arrays.copyOf(items, lastItem + 1);
         SquareSwitchItemOverlay overlay = new SquareSwitchItemOverlay(items);
-        overlay.globalYOffset = - 130;
+        overlay.globalXOffset = -(18*7 + 32);
         overlay.forceAvailable = true;
         overlay.render(poseStack, 0, 0, f);
         if(lastItems == null) {
@@ -61,7 +61,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     }
 
     private void copyString(Item[] itemArray) {
-        int limit = 50;
+        int limit = 25;
         Item[] items = super.getMenu().getItems().stream()
                 .map(is -> is.getItem()).limit(limit).toList().toArray(new Item[0]);
         int lastItem = 0;

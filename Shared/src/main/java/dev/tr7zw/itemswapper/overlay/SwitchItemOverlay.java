@@ -17,7 +17,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -47,6 +46,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private int backgroundTextureSizeX = 128;
     private int backgroundTextureSizeY = 128;
     private ResourceLocation backgroundTexture = null;
+    public int globalXOffset = 0;
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
 
@@ -67,7 +67,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
 
     @Override
     public void render(PoseStack poseStack, int no1, int no2, float f) {
-        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
