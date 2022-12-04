@@ -75,16 +75,24 @@ public final class RenderHelper {
         poseStack.popPose();
         RenderSystem.applyModelViewMatrix();
     }
-    
+
+    public static void renderGuiItemCount(Font font, String text, int i, int j, int color) {
+        renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color);
+    }
+
+    public static void renderGuiItemName(Font font, String text, int i, int j, int color) {
+        renderGuiItemText(font, text, (i - font.width(text) / 2), j, color);
+    }
+
     public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
         poseStack.translate(0.0D, 0.0D, (Minecraft.getInstance().getItemRenderer().blitOffset + 200.0F));
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                 .immediate(Tesselator.getInstance().getBuilder());
-        font.drawInBatch(string2, (i + 19 - 2 - font.width(string2)), (j + 6 + 3), color, true,
+        font.drawInBatch(string2, i, j, color, true,
                 poseStack.last().pose(), bufferSource, false, 0, 15728880);
         bufferSource.endBatch();
     }
-    
+
 }
