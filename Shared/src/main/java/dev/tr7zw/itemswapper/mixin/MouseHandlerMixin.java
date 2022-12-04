@@ -33,8 +33,7 @@ public class MouseHandlerMixin {
             double d0 = Blaze3D.getTime();
             this.lastMouseEventTime = d0;
             if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {
-                double d4 = this.minecraft.options.sensitivity().get() * 0.6000000238418579D
-                        + 0.20000000298023224D;
+                double d4 = 0.3D;
                 double d5 = d4 * d4 * d4;
                 double d6 = d5 * 8.0D;
                 double d2 = this.accumulatedDX * d6;
