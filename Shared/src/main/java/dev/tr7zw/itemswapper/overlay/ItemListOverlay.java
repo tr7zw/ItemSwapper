@@ -7,10 +7,9 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ConfigManager;
-import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
+import dev.tr7zw.itemswapper.util.NetworkLogic;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;

@@ -126,13 +126,13 @@ public abstract class SwitchItemOverlay extends XTOverlay {
             });
         }
         if (!slots.isEmpty() && !forceItemsAvailable()) {
-            itemRenderList.add(() -> renderSlot(x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false, slots.get(0).amount().get()));
+            itemRenderList.add(() -> renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false, slots.get(0).amount().get()));
             if (getSelection() == id)
                 itemRenderList.add(() -> renderSelectedItemName(slots.get(0).item(), false));
 
         } else if (id <= itemSelection.length - 1) {
             itemRenderList.add(
-                    () -> renderSlot(x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1,
+                    () -> renderSlot(poseStack, x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1,
                             !forceItemsAvailable(), 1));
             if (getSelection() == id)
                 itemRenderList.add(() -> renderSelectedItemName(itemSelection[id].getDefaultInstance(), !forceItemsAvailable()));
@@ -199,12 +199,12 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         }
     }
 
-    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut, int count) {
+    private void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut, int count) {
         if (!arg2.isEmpty()) {
             ItemStack copy = arg2.copy();
             copy.setCount(1);
             if (grayOut) {
-                RenderHelper.renderGrayedOutItem(arg, copy, x, y, k);
+                RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k);
                 return;
             }
             this.itemRenderer.renderAndDecorateItem(arg, copy, x, y, k);
