@@ -6,7 +6,6 @@ public class Config {
     public boolean toggleMode = false;
     public boolean showCursor = false;
     public boolean serverPreventModUsage = false;
-    public WIPStyle wipStyle = WIPStyle.SQUARE;
     public boolean editMode = false;
     public boolean creativeCheatMode = true;
     public boolean ignoreHotbar = true;

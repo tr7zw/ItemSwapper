@@ -12,7 +12,6 @@ import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
-import dev.tr7zw.itemswapper.overlay.RoundSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import net.minecraft.ChatFormatting;
@@ -101,13 +100,8 @@ public abstract class ItemSwapperSharedMod {
     }
     
     public void openScreen(Item[] list) {
-        if (configManager.getConfig().wipStyle == WIPStyle.HOLE) {
-            Minecraft.getInstance().setOverlay(
-                    new RoundSwitchItemOverlay(list));
-        } else {
-            Minecraft.getInstance().setOverlay(
-                    new SquareSwitchItemOverlay(list));
-        }
+        Minecraft.getInstance().setOverlay(
+                new SquareSwitchItemOverlay(list));
     }
 
     public Screen createConfigScreen(Screen parent) {
@@ -120,9 +114,6 @@ public abstract class ItemSwapperSharedMod {
                         (b) -> configManager.getConfig().toggleMode = b));
                 options.add(getOnOffOption("text.itemswapper.showCursor", () -> configManager.getConfig().showCursor,
                         (b) -> configManager.getConfig().showCursor = b));
-                options.add(getEnumOption("text.itemswapper.wipstyle", WIPStyle.class,
-                        () -> configManager.getConfig().wipStyle,
-                        (b) -> configManager.getConfig().wipStyle = b));
                 options.add(getOnOffOption("text.itemswapper.editMode", () -> configManager.getConfig().editMode,
                         (b) -> configManager.getConfig().editMode = b));
                 options.add(getOnOffOption("text.itemswapper.creativeCheatMode",
