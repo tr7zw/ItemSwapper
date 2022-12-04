@@ -36,7 +36,7 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
     @Override
     public List<Slot> getItem(int id) {
         NonNullList<ItemStack> items =  minecraft.player.getInventory().items;
-        if(!items.get(id+9).isEmpty()) {
+        if(id != -1 && !items.get(id+9).isEmpty()) {
             return Collections.singletonList(new Slot(-1, id+9, items.get(id+9)));
         }
         return Collections.emptyList();
