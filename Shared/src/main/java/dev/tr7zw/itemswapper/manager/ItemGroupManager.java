@@ -114,5 +114,13 @@ public class ItemGroupManager {
         }
         return getOpenList(item);
     }
-    
+
+    /**
+     * Checks if resource pack is selected.
+     * @return True if item groups could be loaded, false if at least one Hashmap is empty.
+     */
+    public boolean isResourcepackSelected() {
+        return !mapping.isEmpty() && !secondaryMapping.isEmpty() && !listMapping.isEmpty();
+    }
+
 }
