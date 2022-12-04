@@ -48,6 +48,9 @@ public abstract class ItemSwapperSharedMod {
     public void clientTick() {
         Overlay overlay = Minecraft.getInstance().getOverlay();
         if (keybind.isDown()) {
+            if(!itemGroupManager.isResourcepackSelected()) {
+                this.minecraft.player.displayClientMessage(Component.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED), true);
+            }
             if (!pressed && isModDisabled()) {
                 pressed = true;
                 this.minecraft.gui.setOverlayMessage(
