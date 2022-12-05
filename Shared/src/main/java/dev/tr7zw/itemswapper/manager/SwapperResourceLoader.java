@@ -86,7 +86,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             if(el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
                 Item item = Registry.ITEM.get(resourceLocation);
-                if(item == null) {
+                if(item.equals(Items.AIR)) {
                     ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString());
                     if(pallet) {
                         // For unknown items, don't move the rest of the wheel
