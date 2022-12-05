@@ -1,6 +1,5 @@
 package dev.tr7zw.itemswapper.util;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 
@@ -29,17 +28,10 @@ public final class RenderHelper {
         blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
         int l = i;
         int m = j;
-        boolean bl = true;
-        if (k == 0 && bl) {
-            GuiComponent.fill(poseStack, l - 4, m - 4, l + 20, m + 20, 822018048);
-        } else {
-            GuiComponent.fill(poseStack, l, m, l + 16, m + 16, 822018048);
-        }
+        // these values need to be fixed when the texture size gets fixed.
+        GuiComponent.fill(poseStack, l - 1, m - 1, l + 17, m + 17, 822018048);
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
         itemRenderer.renderAndDecorateFakeItem(itemStack, l, m);
-        RenderSystem.depthFunc(516);
-        GuiComponent.fill(poseStack, l, m, l + 16, m + 16, 822083583);
-        RenderSystem.depthFunc(515);
         if (k == 0)
             itemRenderer.renderGuiItemDecorations(minecraft.font, itemStack, l, m);
         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
