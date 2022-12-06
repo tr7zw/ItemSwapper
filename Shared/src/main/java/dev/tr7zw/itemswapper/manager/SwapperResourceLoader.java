@@ -37,10 +37,10 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (!entry.getKey().getNamespace().equals("itemswapper"))
                     continue;
                 if(entry.getKey().getPath().startsWith("wheel_combined")) {
-                    processCombined(entry.getValue());
+                    processCombined(entry.getKey(), entry.getValue());
                     continue;
                 }
-                Item[] items = getItemArray(entry.getValue(), entry.getKey().getPath().startsWith("wheel"));
+                Item[] items = getItemArray(entry.getKey(), entry.getValue(), entry.getKey().getPath().startsWith("wheel"));
                 if(items != null) {
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerCollection(items);
@@ -59,14 +59,14 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         
     }
     
-    private void processCombined(JsonElement json) {
+    private void processCombined(ResourceLocation jsonLocation, JsonElement json) {
         if(!json.isJsonArray()) {
             return;
         }
         JsonArray ar = json.getAsJsonArray();
         List<Item[]> lists = new ArrayList<>();
         for(int i = 0; i < ar.size(); i++) {
-            Item[] list = getItemArray(ar.get(i), true);
+            Item[] list = getItemArray(jsonLocation, ar.get(i), true);
             if(list != null && list.length > 0) {
                 lists.add(list);
             }
@@ -77,7 +77,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         ItemSwapperSharedMod.instance.getItemGroupManager().registerCollections(lists.toArray(new Item[0][]));
     }
     
-    private Item[] getItemArray(JsonElement json, boolean pallet) {
+    private Item[] getItemArray(ResourceLocation jsonLocation, JsonElement json, boolean pallet) {
         if(!json.isJsonArray()) {
             return null;
         }
@@ -87,7 +87,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
                 Item item = Registry.ITEM.get(resourceLocation);
                 if(item.equals(Items.AIR)) {
-                    ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString());
+                    ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                     if(pallet) {
                         // For unknown items, don't move the rest of the wheel
                         itemList.add(Items.AIR);
