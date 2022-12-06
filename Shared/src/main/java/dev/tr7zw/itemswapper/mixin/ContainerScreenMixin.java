@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.ConfigManager;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;

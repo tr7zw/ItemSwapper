@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.tr7zw.itemswapper.ConfigManager;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;

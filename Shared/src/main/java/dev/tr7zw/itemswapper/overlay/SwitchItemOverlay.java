@@ -7,7 +7,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.ConfigManager;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
