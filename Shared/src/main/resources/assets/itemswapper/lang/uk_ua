@@ -1,0 +1,13 @@
+{
+    "key.itemswapper.itemswitcher": "Змінити Предмет",
+    "text.itemswapper.title": "Item Swapper",
+    "text.itemswapper.toggleMode": "Режим Увімкнення",
+    "text.itemswapper.showCursor": "Показувати Вказівник",
+    "text.itemswapper.disabled": "Мод вимкнено сервером!",
+    "text.itemswapper.editMode": "Режим Попереднього Перегляду",
+    "text.itemswapper.ignoreHotbar": "Ігнорувати Гарячу Панель",
+    "text.itemswapper.creativeCheatMode": "Чити в Творчому Режимі",
+    "text.itemswapper.confirm.title": "Увімкнути мод на цьому сервері?",
+    "text.itemswapper.confirm.description": "На сервері цей мод не встановлений і не заблокований. Бажаєте ввімкнути мод без підтримки шалкер боксів? Спершу попросіть дозволу у власника/команди серверу. Використання цього моду на сервері без дозволу може призвести до блокування!",
+    "text.itemswapper.resourcepack.notSelected": "Увага! Немає сумісного пакета ресурсів для ItemSwapper!"
+  }
