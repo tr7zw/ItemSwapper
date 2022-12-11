@@ -1,6 +1,6 @@
 {
 "key.itemswapper.itemswitcher": "Eşya Değiş",
-"text.itemswapper.title": "Eşya Değiştirici",
+"text.itemswapper.title": "Item Swapper",
 "text.itemswapper.toggleMode": "Aç-Kapa Modu",
 "text.itemswapper.showCursor": "İmleci Göster",
 "text.itemswapper.disabled": "Bu mod sunucu tarafından devre dışı bırakılmış!",
@@ -9,4 +9,5 @@
 "text.itemswapper.creativeCheatMode": "Yaratıcı Hile Modu",
 "text.itemswapper.confirm.title": "Bu sunucuda modu etkinleştir?",
 "text.itemswapper.confirm.description": "Sunucu bu modu yasaklamamış veya indirmemiş. Modu shulker kutusu desteği olmadan açmak ister misiniz? Önce sunucunun sahibi yada takımından izin istemeniz önerilir. Bu modu izin almadan sunucuda kullanmanız sunucudan ban yemenizle sonuçlanabilir!"
+"text.itemswapper.resourcepack.notSelected": "Uyarı! Item Swapper uyumlu hiç bir resourcepack aktif değil!"
 }
