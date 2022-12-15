@@ -1,0 +1,13 @@
+{
+    "key.itemswapper.itemswitcher": "交换物品",
+    "text.itemswapper.title": "物品交换器",
+    "text.itemswapper.toggleMode": "切换模式",
+    "text.itemswapper.showCursor": "显示光标",
+    "text.itemswapper.disabled": "该模组被服务器禁用！",
+    "text.itemswapper.editMode": "预览模式",
+    "text.itemswapper.ignoreHotbar": "列表忽略快捷栏",
+    "text.itemswapper.creativeCheatMode": "创造作弊模式",
+    "text.itemswapper.confirm.title": "在此服务器上启用模组？",
+    "text.itemswapper.confirm.description": "服务器既没有安装也没有阻止这个模组。您想启用不支持潜影盒的模组吗？请先向服务器所有者/团队请求许可。未经许可在服务器上使用此模组可能会被禁止！",
+    "text.itemswapper.resourcepack.notSelected": "警告！没有启用物品交换器的兼容资源包！"
+}
