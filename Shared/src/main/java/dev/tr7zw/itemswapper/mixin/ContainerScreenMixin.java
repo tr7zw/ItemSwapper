@@ -17,7 +17,7 @@ import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ChestMenu;
@@ -71,7 +71,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
             }
         }
         items = Arrays.copyOf(items, lastItem + 1);
-        List<String> names = Arrays.asList(items).stream().map(is -> Registry.ITEM.getKey(is).toString()).toList();
+        List<String> names = Arrays.asList(items).stream().map(is -> BuiltInRegistries.ITEM.getKey(is).toString()).toList();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         System.out.println(gson.toJson(names));
         Minecraft.getInstance().keyboardHandler.setClipboard(gson.toJson(names));

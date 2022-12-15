@@ -11,7 +11,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -85,7 +85,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         json.getAsJsonArray().forEach(el -> {
             if(el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
-                Item item = Registry.ITEM.get(resourceLocation);
+                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
                 if(item.equals(Items.AIR)) {
                     ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                     if(pallet) {
