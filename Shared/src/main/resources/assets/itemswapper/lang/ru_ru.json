@@ -1,0 +1,13 @@
+{
+    "key.itemswapper.itemswitcher": "Сменить Предмет",
+    "text.itemswapper.title": "Item Swapper",
+    "text.itemswapper.toggleMode": "Режим переключения",
+    "text.itemswapper.showCursor": "Показывать курсор",
+    "text.itemswapper.disabled": "Мод отключен на сервере!",
+    "text.itemswapper.editMode": "Режим предпросмотра",
+    "text.itemswapper.ignoreHotbar": "Списки игнор. хотбар",
+    "text.itemswapper.creativeCheatMode": "Читы в Творч. режиме",
+    "text.itemswapper.confirm.title": "Включить мод на этом сервере?",
+    "text.itemswapper.confirm.description": "Мод не установлен, но и не запрещен на сервере. Хотите ли вы использовать мод без поддержки шалкеровых ящиков? Пожалуйста, сначала спросите разрешение у владельца сервера. Использование этого мода без разрешения может привести к бану на сервере!",
+    "text.itemswapper.resourcepack.notSelected": "Внимание! Ни один из поддерживаемых ресурспаков для ItemSwapper не используется!"
+  }
