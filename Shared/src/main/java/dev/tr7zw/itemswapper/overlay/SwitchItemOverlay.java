@@ -11,7 +11,7 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -193,7 +193,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
                             hudSlot, minecraft.player.getInventory().selected,
                             ClickType.SWAP, this.minecraft.player);
                 } else {
-                    NetworkLogic.swapItem(slot.inventory(), slot.slot());
+                    NetworkUtil.swapItem(slot.inventory(), slot.slot());
                 }
             }
         }

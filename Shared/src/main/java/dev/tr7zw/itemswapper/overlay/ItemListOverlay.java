@@ -9,7 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -141,7 +141,7 @@ public class ItemListOverlay extends XTOverlay {
                         minecraft.player.getInventory().selected,
                         ClickType.SWAP, this.minecraft.player);
             } else {
-                NetworkLogic.swapItem(slot.inventory(), slot.slot());
+                NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
         }
     }

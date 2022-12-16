@@ -10,13 +10,13 @@ import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 
-public class NetworkLogic {
+public class NetworkUtil {
 
     public static final ResourceLocation enableShulkerMessage = new ResourceLocation(ItemSwapperMod.MODID, "enableshulker");
     public static final ResourceLocation disableModMessage = new ResourceLocation(ItemSwapperMod.MODID, "disable");
     public static final ResourceLocation swapMessage = new ResourceLocation(ItemSwapperMod.MODID, "swap");
 
-    private NetworkLogic() {
+    private NetworkUtil() {
         throw new IllegalStateException("Utility class");
     }
 
@@ -36,5 +36,4 @@ public class NetworkLogic {
         buf.writeInt(slot);
         Minecraft.getInstance().getConnection().send(new ServerboundCustomPayloadPacket(swapMessage, new FriendlyByteBuf(buf)));
     }
-
 }

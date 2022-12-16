@@ -1,6 +1,6 @@
 package dev.tr7zw.itemswapper;
 
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -25,7 +25,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourcePackActivationType.DEFAULT_ENABLED));
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
-            ClientPlayNetworking.registerReceiver(NetworkLogic.enableShulkerMessage,
+            ClientPlayNetworking.registerReceiver(NetworkUtil.enableShulkerMessage,
                     (client1, handler, buf, responseSender) -> {
                         try {
                             ItemSwapperSharedMod.instance.setEnableShulkers(buf.readBoolean());
@@ -33,7 +33,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                             ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
                         }
                     });
-            ClientPlayNetworking.registerReceiver(NetworkLogic.disableModMessage,
+            ClientPlayNetworking.registerReceiver(NetworkUtil.disableModMessage,
                     (client12, handler, buf, responseSender) -> {
                         try {
                             ItemSwapperSharedMod.instance.setModDisabled(buf.readBoolean());
