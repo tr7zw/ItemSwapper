@@ -11,9 +11,9 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class NetworkLogic {
 
-    public final static ResourceLocation enableShulkerMessage = new ResourceLocation("itemswapper", "enableshulker");
-    public final static ResourceLocation disableModMessage = new ResourceLocation("itemswapper", "disable");
-    public final static ResourceLocation swapMessage = new ResourceLocation("itemswapper", "swap");
+    public static final ResourceLocation enableShulkerMessage = new ResourceLocation("itemswapper", "enableshulker");
+    public static final ResourceLocation disableModMessage = new ResourceLocation("itemswapper", "disable");
+    public static final ResourceLocation swapMessage = new ResourceLocation("itemswapper", "swap");
     
     public static void sendServerSupportPacket(ServerPlayer player, boolean enabled) {
         player.connection.send(new ClientboundCustomPayloadPacket(enableShulkerMessage, new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
