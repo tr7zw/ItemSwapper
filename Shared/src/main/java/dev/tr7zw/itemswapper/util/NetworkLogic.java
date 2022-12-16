@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.util;
 
+import dev.tr7zw.itemswapper.ItemSwapperMod;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
@@ -11,9 +12,9 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class NetworkLogic {
 
-    public static final ResourceLocation enableShulkerMessage = new ResourceLocation("itemswapper", "enableshulker");
-    public static final ResourceLocation disableModMessage = new ResourceLocation("itemswapper", "disable");
-    public static final ResourceLocation swapMessage = new ResourceLocation("itemswapper", "swap");
+    public static final ResourceLocation enableShulkerMessage = new ResourceLocation(ItemSwapperMod.MODID, "enableshulker");
+    public static final ResourceLocation disableModMessage = new ResourceLocation(ItemSwapperMod.MODID, "disable");
+    public static final ResourceLocation swapMessage = new ResourceLocation(ItemSwapperMod.MODID, "swap");
     
     public static void sendServerSupportPacket(ServerPlayer player, boolean enabled) {
         player.connection.send(new ClientboundCustomPayloadPacket(enableShulkerMessage, new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
