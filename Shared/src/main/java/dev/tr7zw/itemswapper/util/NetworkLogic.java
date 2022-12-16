@@ -15,20 +15,26 @@ public class NetworkLogic {
     public static final ResourceLocation enableShulkerMessage = new ResourceLocation(ItemSwapperMod.MODID, "enableshulker");
     public static final ResourceLocation disableModMessage = new ResourceLocation(ItemSwapperMod.MODID, "disable");
     public static final ResourceLocation swapMessage = new ResourceLocation(ItemSwapperMod.MODID, "swap");
-    
+
+    private NetworkLogic() {
+        throw new IllegalStateException("Utility class");
+    }
+
     public static void sendServerSupportPacket(ServerPlayer player, boolean enabled) {
-        player.connection.send(new ClientboundCustomPayloadPacket(enableShulkerMessage, new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
+        player.connection.send(new ClientboundCustomPayloadPacket(enableShulkerMessage,
+                new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
     }
-    
+
     public static void sendDisableModPacket(ServerPlayer player, boolean enabled) {
-        player.connection.send(new ClientboundCustomPayloadPacket(disableModMessage, new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
+        player.connection.send(new ClientboundCustomPayloadPacket(disableModMessage,
+                new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
     }
-    
+
     public static void swapItem(int inventorySlot, int slot) {
         ByteBuf buf = Unpooled.buffer(8);
         buf.writeInt(inventorySlot);
         buf.writeInt(slot);
         Minecraft.getInstance().getConnection().send(new ServerboundCustomPayloadPacket(swapMessage, new FriendlyByteBuf(buf)));
     }
-    
+
 }
