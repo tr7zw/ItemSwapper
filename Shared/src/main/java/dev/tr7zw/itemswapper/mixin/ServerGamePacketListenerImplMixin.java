@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
-import dev.tr7zw.itemswapper.util.ShulkerHelper;
+import dev.tr7zw.itemswapper.util.ShulkerUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
@@ -37,12 +37,12 @@ public class ServerGamePacketListenerImplMixin {
                 int inventory = buf.readInt();
                 int slot = buf.readInt();
                 ItemStack shulker = player.getInventory().items.get(inventory);
-                NonNullList<ItemStack> content = (NonNullList<ItemStack>) ShulkerHelper.getItems(shulker);
+                NonNullList<ItemStack> content = (NonNullList<ItemStack>) ShulkerUtil.getItems(shulker);
                 if (content != null) {
                     ItemStack tmp = content.get(slot);
                     content.set(slot, player.getInventory().getSelected());
                     player.getInventory().setItem(player.getInventory().selected, tmp);
-                    ShulkerHelper.setItem(shulker, content);
+                    ShulkerUtil.setItem(shulker, content);
                 }
             } catch (Throwable throwable) {
                 network_logger.error("Error handling network packet!", throwable);

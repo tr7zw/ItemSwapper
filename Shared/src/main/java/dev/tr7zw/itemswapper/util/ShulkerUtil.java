@@ -10,9 +10,9 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public class ShulkerHelper {
+public class ShulkerUtil {
 
-    private ShulkerHelper() {
+    private ShulkerUtil() {
         throw new IllegalStateException("Utility class");
     }
 

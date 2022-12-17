@@ -49,7 +49,7 @@ public final class ItemUtil {
             if (!(items.get(i)).isEmpty()
                     && shulkers.contains(items.get(i).getItem())
                     && ItemSwapperSharedMod.instance.areShulkersEnabled()) {
-                List<ItemStack> shulkerItems = ShulkerHelper.getItems(items.get(i));
+                List<ItemStack> shulkerItems = ShulkerUtil.getItems(items.get(i));
                 if (shulkerItems != null) {
                     for (int x = 0; x < shulkerItems.size(); x++) {
                         if (!(shulkerItems.get(x)).isEmpty()
