@@ -29,6 +29,8 @@ import org.jetbrains.annotations.NotNull;
 public abstract class ItemSwapperSharedMod {
 
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
+    public static final String MODID = "itemswapper";
+
     public static ItemSwapperSharedMod instance;
     private final Minecraft minecraft = Minecraft.getInstance();
     private boolean enableShulkers = false;

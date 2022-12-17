@@ -6,7 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 
@@ -15,14 +15,14 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
-        if(NetworkLogic.enableShulkerMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
+        if(NetworkUtil.enableShulkerMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
             try {
                 ItemSwapperSharedMod.instance.setEnableShulkers(clientboundCustomPayloadPacket.getData().readBoolean());
             }catch(Throwable th) {
                 ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
             }
         }
-        if(NetworkLogic.disableModMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
+        if(NetworkUtil.disableModMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
             try {
                 ItemSwapperSharedMod.instance.setModDisabled(clientboundCustomPayloadPacket.getData().readBoolean());
             }catch(Throwable th) {

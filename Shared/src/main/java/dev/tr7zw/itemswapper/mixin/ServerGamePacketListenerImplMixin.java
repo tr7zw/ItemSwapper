@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -30,7 +30,7 @@ public class ServerGamePacketListenerImplMixin {
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(ServerboundCustomPayloadPacket serverboundCustomPayloadPacket, CallbackInfo ci) {
         // Don't apply this logic, if the server has the mod disabled.
-        if(NetworkLogic.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier()) && !configManager.getConfig().serverPreventModUsage) {
+        if(NetworkUtil.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier()) && !configManager.getConfig().serverPreventModUsage) {
             try {
                 FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
                 int inventory = buf.readInt();
