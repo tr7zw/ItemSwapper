@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper;
+package dev.tr7zw.itemswapper.config;
 
 public class Config {
 

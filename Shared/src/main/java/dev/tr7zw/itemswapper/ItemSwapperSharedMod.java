@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper;
 
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import java.util.ArrayList;
 import java.util.List;
 
