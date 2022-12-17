@@ -23,30 +23,30 @@ public class ServerGamePacketListenerImplMixin {
 
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
     private static final ConfigManager configManager = ConfigManager.getInstance();
-    
+
     @Shadow
     public ServerPlayer player;
-    
+
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(ServerboundCustomPayloadPacket serverboundCustomPayloadPacket, CallbackInfo ci) {
         // Don't apply this logic, if the server has the mod disabled.
-        if(NetworkUtil.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier()) && !configManager.getConfig().serverPreventModUsage) {
+        if (NetworkUtil.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier())
+                && !configManager.getConfig().serverPreventModUsage) {
             try {
                 FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
                 int inventory = buf.readInt();
                 int slot = buf.readInt();
                 ItemStack shulker = player.getInventory().items.get(inventory);
-                NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
-                if(content != null) {
+                NonNullList<ItemStack> content = (NonNullList<ItemStack>) ShulkerHelper.getItems(shulker);
+                if (content != null) {
                     ItemStack tmp = content.get(slot);
                     content.set(slot, player.getInventory().getSelected());
                     player.getInventory().setItem(player.getInventory().selected, tmp);
                     ShulkerHelper.setItem(shulker, content);
                 }
-            }catch(Throwable th) {
-                network_logger.error("Error handeling network packet!", th);
+            } catch (Throwable throwable) {
+                network_logger.error("Error handling network packet!", throwable);
             }
         }
     }
-
 }
