@@ -9,20 +9,20 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 public class ShulkerHelper {
 
-    public static NonNullList<ItemStack> getItems(ItemStack shulker){
+    public static NonNullList<ItemStack> getItems(ItemStack shulker) {
         CompoundTag tag = BlockItem.getBlockEntityData(shulker);
-        if(tag != null && tag.contains("Items", CompoundTag.TAG_LIST)) {
-            NonNullList<ItemStack> items = NonNullList.withSize(3*9, ItemStack.EMPTY);
+        if (tag != null && tag.contains("Items", CompoundTag.TAG_LIST)) {
+            NonNullList<ItemStack> items = NonNullList.withSize(3 * 9, ItemStack.EMPTY);
             ContainerHelper.loadAllItems(BlockItem.getBlockEntityData(shulker), items);
             return items;
         }
         return null;
     }
-    
+
     public static void setItem(ItemStack shulker, NonNullList<ItemStack> items) {
         CompoundTag tag = BlockItem.getBlockEntityData(shulker);
         CompoundTag rootTag = ContainerHelper.saveAllItems(tag != null ? tag : new CompoundTag(), items);
         BlockItem.setBlockEntityData(shulker, BlockEntityType.SHULKER_BOX, rootTag);
     }
-    
+
 }

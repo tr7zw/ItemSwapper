@@ -15,18 +15,19 @@ import net.minecraft.server.packs.resources.ReloadableResourceManager;
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
 
-    @Redirect(method = "runTick", at = @At( target = "Lnet/minecraft/client/server/IntegratedServer;isPublished()Z", value = "INVOKE", ordinal = 0))
+    @Redirect(method = "runTick", at = @At(target = "Lnet/minecraft/client/server/IntegratedServer;isPublished()Z", value = "INVOKE", ordinal = 0))
     private boolean dontPauseSingleplayer(IntegratedServer server, boolean bl) {
-        if(Minecraft.getInstance().getOverlay() instanceof XTOverlay) {
+        if (Minecraft.getInstance().getOverlay() instanceof XTOverlay) {
             return true;
         }
         return server.isPublished();
     }
-    
+
     // FIXME
     @Inject(method = "createSearchTrees", at = @At("HEAD"))
     private void createSearchTrees(CallbackInfo ci) {
-        ((ReloadableResourceManager)Minecraft.getInstance().getResourceManager()).registerReloadListener(new SwapperResourceLoader());
+        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
+                .registerReloadListener(new SwapperResourceLoader());
     }
-    
+
 }

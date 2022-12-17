@@ -4,8 +4,8 @@ import java.util.Collections;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.ClickType;
@@ -27,29 +27,30 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
         setBackgroundTextureSizeY(60);
         forceAvailable = false;
     }
-    
+
     @Override
     public boolean forceItemsAvailable() {
         return false;
     }
 
     @Override
-    public List<Slot> getItem(int id) {
-        NonNullList<ItemStack> items =  minecraft.player.getInventory().items;
-        if(id != -1 && !items.get(id+9).isEmpty()) {
-            return Collections.singletonList(new Slot(-1, id+9, items.get(id+9)));
+    public List<AvailableSlot> getItem(int id) {
+        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
+        if (id != -1 && !items.get(id + 9).isEmpty()) {
+            return Collections.singletonList(new AvailableSlot(-1, id + 9, items.get(id + 9)));
         }
         return Collections.emptyList();
     }
 
     /**
-     * Overwrite method that only can access the inventory, no spawning items/access shulkers
+     * Overwrite method that only can access the inventory, no spawning items/access
+     * shulkers
      */
     @Override
     public void onClose() {
-        List<Slot> slots = getItem(getSelection());
+        List<AvailableSlot> slots = getItem(getSelection());
         if (!slots.isEmpty()) {
-            Slot slot = slots.get(0);
+            AvailableSlot slot = slots.get(0);
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
@@ -61,16 +62,16 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
 
     @Override
     public void handleSwitchSelection() {
-        List<Slot> slots = getItem(getSelection());
+        List<AvailableSlot> slots = getItem(getSelection());
         if (!slots.isEmpty()) {
-            Slot slot = slots.get(0);
-            if(!slot.item().isEmpty()) {
+            AvailableSlot slot = slots.get(0);
+            if (!slot.item().isEmpty()) {
                 Item[] sel = ItemSwapperMod.instance.getItemGroupManager().getOpenList(slot.item().getItem());
-                if(sel != null) {
+                if (sel != null) {
                     ItemSwapperMod.instance.openSquareSwitchScreen(sel);
                 }
             }
         }
     }
-    
+
 }

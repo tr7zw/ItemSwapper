@@ -16,12 +16,13 @@ public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
     private static float blitOffset;
-    
+
     private RenderHelper() {
-        //private
+        // private
     }
-    
-    public static void renderUnavailableItem(PoseStack poseStack, LivingEntity livingEntity, ItemStack itemStack, int i, int j, int k) {
+
+    public static void renderUnavailableItem(PoseStack poseStack, LivingEntity livingEntity, ItemStack itemStack, int i,
+            int j, int k) {
         if (itemStack.isEmpty())
             return;
         BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
@@ -36,7 +37,7 @@ public final class RenderHelper {
             itemRenderer.renderGuiItemDecorations(minecraft.font, itemStack, l, m);
         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
-    
+
     public static void renderGuiItemCount(Font font, String text, int i, int j, int color) {
         renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color);
     }
@@ -48,7 +49,7 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
-        poseStack.translate(0.0D, 0.0D, (Minecraft.getInstance().getItemRenderer().blitOffset + 200.0F));
+        poseStack.translate(0.0D, 0.0D, (minecraft.getItemRenderer().blitOffset + 200.0F));
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                 .immediate(Tesselator.getInstance().getBuilder());
         font.drawInBatch(string2, i, j, color, true,

@@ -9,5 +9,5 @@ public class Config {
     public boolean editMode = false;
     public boolean creativeCheatMode = true;
     public boolean ignoreHotbar = true;
-    
+
 }

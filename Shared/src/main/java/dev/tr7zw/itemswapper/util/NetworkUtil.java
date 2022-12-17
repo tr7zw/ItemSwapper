@@ -12,7 +12,8 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class NetworkUtil {
 
-    public static final ResourceLocation enableShulkerMessage = new ResourceLocation(ItemSwapperMod.MODID, "enableshulker");
+    public static final ResourceLocation enableShulkerMessage = new ResourceLocation(ItemSwapperMod.MODID,
+            "enableshulker");
     public static final ResourceLocation disableModMessage = new ResourceLocation(ItemSwapperMod.MODID, "disable");
     public static final ResourceLocation swapMessage = new ResourceLocation(ItemSwapperMod.MODID, "swap");
 
@@ -34,6 +35,7 @@ public class NetworkUtil {
         ByteBuf buf = Unpooled.buffer(8);
         buf.writeInt(inventorySlot);
         buf.writeInt(slot);
-        Minecraft.getInstance().getConnection().send(new ServerboundCustomPayloadPacket(swapMessage, new FriendlyByteBuf(buf)));
+        Minecraft.getInstance().getConnection()
+                .send(new ServerboundCustomPayloadPacket(swapMessage, new FriendlyByteBuf(buf)));
     }
 }

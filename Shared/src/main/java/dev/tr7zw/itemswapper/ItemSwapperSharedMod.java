@@ -10,6 +10,7 @@ import org.apache.logging.log4j.Logger;
 import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
+import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
@@ -33,24 +34,26 @@ public abstract class ItemSwapperSharedMod {
 
     public static ItemSwapperSharedMod instance;
     private final Minecraft minecraft = Minecraft.getInstance();
+    private final ConfigManager configManager = ConfigManager.getInstance();
+    private final ItemGroupManager itemGroupManager = new ItemGroupManager();
+    private final ClientProviderManager clientProviderManager = new ClientProviderManager();
     private boolean enableShulkers = false;
     private boolean modDisabled = false;
     private boolean bypassExcepted = false;
-    private final ConfigManager configManager = ConfigManager.getInstance();
-    private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
-    protected boolean pressed = false;
+    private boolean pressed = false;
 
     public void init() {
         instance = this;
         LOGGER.info("Loading ItemSwapper!");
 
         initModloader();
+        clientProviderManager.registerContainerProvider(new ShulkerProvider());
     }
 
     public void clientTick() {
         Overlay overlay = Minecraft.getInstance().getOverlay();
-        
+
         if (keybind.isDown()) {
             onPress(overlay);
         } else {
@@ -78,7 +81,8 @@ public abstract class ItemSwapperSharedMod {
 
         if (!pressed && !enableShulkers && !bypassExcepted) {
             this.minecraft.setScreen(
-                    new ConfirmScreen(this::accept, Component.translatable("text.itemswapper.confirm.title"),
+                    new ConfirmScreen(this::acceptBypassCallback,
+                            Component.translatable("text.itemswapper.confirm.title"),
                             Component.translatable("text.itemswapper.confirm.description")));
             pressed = true;
             return;
@@ -193,11 +197,15 @@ public abstract class ItemSwapperSharedMod {
         return this.modDisabled;
     }
 
-    private void accept(boolean accepted) {
+    private void acceptBypassCallback(boolean accepted) {
         if (accepted) {
             bypassExcepted = true;
         }
 
         this.minecraft.setScreen(null);
+    }
+
+    public ClientProviderManager getClientProviderManager() {
+        return clientProviderManager;
     }
 }
