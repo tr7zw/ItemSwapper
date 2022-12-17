@@ -10,6 +10,7 @@ import dev.tr7zw.itemswapper.ConfigManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
 import dev.tr7zw.itemswapper.util.NetworkLogic;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -162,8 +163,12 @@ public class ItemListOverlay extends XTOverlay {
         }
         itemRenderList.add(() -> {
             renderSlot(x + 4, y + 4, minecraft.player, slot.item(), 1);
-            drawString(poseStack, minecraft.font, getDisplayname(slot.item()),
-                    x + 25, y + 11, -1);
+            var name = getDisplayname(slot.item());
+            if (selectedEntry != id && name instanceof MutableComponent mutName) {
+                mutName.withStyle(ChatFormatting.GRAY);
+            }
+            drawString(poseStack, minecraft.font, name,
+                    x + 27, y + 9, -1);
         });
     }
     
