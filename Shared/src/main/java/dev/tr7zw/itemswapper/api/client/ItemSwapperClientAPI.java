@@ -1,11 +1,18 @@
 package dev.tr7zw.itemswapper.api.client;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.Event;
+import dev.tr7zw.itemswapper.api.EventFactory;
 
 public class ItemSwapperClientAPI {
 
     private static final ItemSwapperClientAPI INSTANCE = new ItemSwapperClientAPI();
     private final ItemSwapperSharedMod modInstance = ItemSwapperSharedMod.instance;
+    public final Event<OnSwap> prepareItemSwapEvent = EventFactory.createEvent();
+    public final Event<SwapSent> itemSwapSentEvent = EventFactory.createEvent();
 
     private ItemSwapperClientAPI() {
 
@@ -43,6 +50,14 @@ public class ItemSwapperClientAPI {
      * @param provider
      */
     public void registerContainerProvider(ContainerProvider provider) {
+        modInstance.getClientProviderManager().registerContainerProvider(provider);
+    }
+
+    public record OnSwap(AvailableSlot slot, AtomicBoolean canceled) {
+
+    }
+    
+    public record SwapSent(AvailableSlot slot) {
 
     }
 

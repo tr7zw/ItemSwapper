@@ -2,12 +2,16 @@ package dev.tr7zw.itemswapper.overlay;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -50,6 +54,7 @@ public class ItemListOverlay extends XTOverlay {
     private static final int slotSize = 18;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
+    private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private Item[] itemSelection;
     private List<AvailableSlot> entries = new ArrayList<>();
@@ -141,6 +146,11 @@ public class ItemListOverlay extends XTOverlay {
     public void onClose() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
+            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+            if(event.canceled().get()) {
+                // interaction canceled by some other mod
+                return;
+            }
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
@@ -149,6 +159,7 @@ public class ItemListOverlay extends XTOverlay {
             } else {
                 NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
+            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
     }
 
