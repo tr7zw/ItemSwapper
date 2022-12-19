@@ -13,6 +13,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -195,7 +196,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
             List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(itemSelection[getSelection()], true, false);
             if (!slots.isEmpty()) {
                 AvailableSlot slot = slots.get(0);
-                OnSwap event = clientAPI.itemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+                OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
                 if(event.canceled().get()) {
                     // interaction canceled by some other mod
                     return;
@@ -208,6 +209,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
                 } else {
                     NetworkUtil.swapItem(slot.inventory(), slot.slot());
                 }
+                clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
             }
         }
     }

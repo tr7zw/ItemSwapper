@@ -11,7 +11,8 @@ public class ItemSwapperClientAPI {
 
     private static final ItemSwapperClientAPI INSTANCE = new ItemSwapperClientAPI();
     private final ItemSwapperSharedMod modInstance = ItemSwapperSharedMod.instance;
-    public final Event<OnSwap> itemSwapEvent = EventFactory.createEvent();
+    public final Event<OnSwap> prepareItemSwapEvent = EventFactory.createEvent();
+    public final Event<SwapSent> itemSwapSentEvent = EventFactory.createEvent();
 
     private ItemSwapperClientAPI() {
 
@@ -53,6 +54,10 @@ public class ItemSwapperClientAPI {
     }
 
     public record OnSwap(AvailableSlot slot, AtomicBoolean canceled) {
+
+    }
+    
+    public record SwapSent(AvailableSlot slot) {
 
     }
 
