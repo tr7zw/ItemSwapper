@@ -2,9 +2,11 @@ package dev.tr7zw.itemswapper.overlay;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -51,6 +53,11 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
         List<AvailableSlot> slots = getItem(getSelection());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
+            OnSwap event = clientAPI.itemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+            if(event.canceled().get()) {
+                // interaction canceled by some other mod
+                return;
+            }
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,

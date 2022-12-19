@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.overlay;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -10,6 +11,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -38,6 +41,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     public static final int tinySlotSize = 18;
     public final Minecraft minecraft = Minecraft.getInstance();
     public final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    public final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     public int globalXOffset = 0;
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
@@ -191,6 +195,11 @@ public abstract class SwitchItemOverlay extends XTOverlay {
             List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(itemSelection[getSelection()], true, false);
             if (!slots.isEmpty()) {
                 AvailableSlot slot = slots.get(0);
+                OnSwap event = clientAPI.itemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+                if(event.canceled().get()) {
+                    // interaction canceled by some other mod
+                    return;
+                }
                 if (slot.inventory() == -1) {
                     int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                     this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
