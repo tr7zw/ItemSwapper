@@ -99,6 +99,8 @@ public class ItemGroupManager {
             if (secondary != null && !ItemUtil.inArray(entries, item)) {
                 return secondary;
             }
+        } else {
+            return getSecondarySelection(item);
         }
         return entries;
     }
