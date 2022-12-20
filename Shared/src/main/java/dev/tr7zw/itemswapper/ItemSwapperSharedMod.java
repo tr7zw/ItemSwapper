@@ -16,6 +16,9 @@ import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
+import dev.tr7zw.itemswapper.provider.PotionNameProvider;
+import dev.tr7zw.itemswapper.provider.RecordNameProvider;
+import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -48,7 +51,9 @@ public abstract class ItemSwapperSharedMod {
         LOGGER.info("Loading ItemSwapper!");
 
         initModloader();
-        clientProviderManager.registerContainerProvider(new ShulkerProvider());
+        clientProviderManager.registerContainerProvider(new ShulkerContainerProvider());
+        clientProviderManager.registerNameProvider(new PotionNameProvider());
+        clientProviderManager.registerNameProvider(new RecordNameProvider());
     }
 
     public void clientTick() {

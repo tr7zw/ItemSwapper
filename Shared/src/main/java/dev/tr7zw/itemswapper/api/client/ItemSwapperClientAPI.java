@@ -52,6 +52,10 @@ public class ItemSwapperClientAPI {
     public void registerContainerProvider(ContainerProvider provider) {
         modInstance.getClientProviderManager().registerContainerProvider(provider);
     }
+    
+    public void registerNameProvider(NameProvider provider) {
+        modInstance.getClientProviderManager().registerNameProvider(provider);
+    }
 
     public record OnSwap(AvailableSlot slot, AtomicBoolean canceled) {
 

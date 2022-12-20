@@ -12,7 +12,8 @@
     "MinecraftMixin",
     "ClientPacketListenerMixin",
     "ClientLevelMixin",
-    "ContainerScreenMixin"
+    "ContainerScreenMixin",
+    "RecordItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

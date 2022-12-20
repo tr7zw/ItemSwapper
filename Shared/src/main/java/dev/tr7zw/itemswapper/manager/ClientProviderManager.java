@@ -10,6 +10,7 @@ import java.util.Set;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.api.client.ItemProvider;
+import dev.tr7zw.itemswapper.api.client.NameProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
@@ -21,6 +22,7 @@ public class ClientProviderManager {
     private Set<ItemProvider> earlyItemProvider = new HashSet<>();
     private Set<ItemProvider> lateItemProvider = new HashSet<>();
     private Map<Item, ContainerProvider> containerProvider = new HashMap<>();
+    private Map<Item, NameProvider> nameProvider = new HashMap<>();
 
     public void registerEarlyItemProvider(ItemProvider provider) {
         earlyItemProvider.add(provider);
@@ -36,6 +38,12 @@ public class ClientProviderManager {
         }
     }
 
+    public void registerNameProvider(NameProvider provider) {
+        for (Item item : provider.getItemHandlers()) {
+            nameProvider.put(item, provider);
+        }
+    }
+    
     public Set<ItemProvider> getEarlyItemProvider() {
         return earlyItemProvider;
     }
@@ -48,6 +56,10 @@ public class ClientProviderManager {
         return containerProvider.get(item);
     }
 
+    public NameProvider getNameProvider(Item item) {
+        return nameProvider.get(item);
+    }
+    
     public List<AvailableSlot> findSlotsMatchingItem(Item item, boolean limit, boolean ignoreHotbar) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
         List<AvailableSlot> ids = new ArrayList<>();

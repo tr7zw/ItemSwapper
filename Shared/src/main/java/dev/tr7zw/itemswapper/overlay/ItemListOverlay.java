@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
@@ -194,30 +195,11 @@ public class ItemListOverlay extends XTOverlay {
         if (item.hasCustomHoverName()) {
             return item.getHoverName();
         }
-        if (item.getItem() == Items.POTION || item.getItem() == Items.SPLASH_POTION
-                || item.getItem() == Items.LINGERING_POTION) {
-            List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
-            if (!effects.isEmpty()) {
-                MutableComponent comp = formatEffect(effects.get(0));
-                if (effects.size() >= 2) {
-                    comp.append(", ").append(formatEffect(effects.get(1)));
-                }
-                return comp;
-            }
+        NameProvider provider = providerManager.getNameProvider(item.getItem());
+        if(provider != null) {
+            return provider.getDisplayName(item);
         }
         return item.getHoverName();
-    }
-
-    private MutableComponent formatEffect(MobEffectInstance effect) {
-        MutableComponent comp = Component.empty().append(effect.getEffect().getDisplayName());
-        if (effect.getAmplifier() > 1) {
-            comp.append(" ").append(Component.translatable("potion.potency." + effect.getAmplifier()));
-        }
-        if (effect.getDuration() > 1) {
-            comp.append(" (").append(Component.literal(StringUtil.formatTickDuration(effect.getDuration())))
-                    .append(")");
-        }
-        return comp;
     }
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
