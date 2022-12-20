@@ -5,8 +5,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.tr7zw.itemswapper.ConfigManager;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -17,9 +17,9 @@ public class PlayerListMixin {
     @Inject(method = "placeNewPlayer", at = @At("TAIL"))
     public void placeNewPlayer(Connection arg, ServerPlayer arg2, CallbackInfo ci) {
         if (ConfigManager.getInstance().getConfig().serverPreventModUsage) {
-            NetworkLogic.sendDisableModPacket(arg2, true);
+            NetworkUtil.sendDisableModPacket(arg2, true);
         } else {
-            NetworkLogic.sendServerSupportPacket(arg2, true);
+            NetworkUtil.sendServerSupportPacket(arg2, true);
         }
     }
 

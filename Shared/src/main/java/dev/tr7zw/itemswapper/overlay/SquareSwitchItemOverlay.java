@@ -93,7 +93,7 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
     private void setupHalfGridSlots(int width, int height, ResourceLocation texture) {
         setupHalfGridSlots(width, height, texture, false);
     }
-    
+
     private void setupHalfGridSlots(int width, int height, ResourceLocation texture, boolean flip) {
         setBackgroundTexture(texture);
         setBackgroundSizeX(width * tinySlotSize + 6);
@@ -104,7 +104,7 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
         setLimitY(height * lz);
         setDeadZone(0);
         int slotAmount = width * height - 2;
-        if(flip){
+        if (flip) {
             slotAmount++;
         }
         setGuiSlots(new GuiSlot[slotAmount]);
@@ -116,7 +116,7 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
                 boolean skip = (x == width - 1 && y == height - 1)
                         || (x == width - 1 && y == 0);
                 boolean needsOffset = y == 0 || y == height - 1;
-                if(flip) {
+                if (flip) {
                     skip = (x == width - 1 && y != height - 1 && y != 0);
                     needsOffset = !needsOffset;
                 }

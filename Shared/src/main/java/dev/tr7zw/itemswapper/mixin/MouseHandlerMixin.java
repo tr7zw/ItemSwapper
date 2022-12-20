@@ -56,7 +56,7 @@ public class MouseHandlerMixin {
     @Inject(method = "onPress", at = @At("TAIL"))
     private void onPress(long l, int i, int j, int k, CallbackInfo ci) {
         if (this.minecraft.getOverlay() instanceof XTOverlay over) {
-            if(!leftIsPressed && i == 0) {
+            if (!leftIsPressed && i == 0) {
                 over.onClose();
                 Minecraft.getInstance().setOverlay(null);
                 leftIsPressed = true;
@@ -74,7 +74,7 @@ public class MouseHandlerMixin {
             leftIsPressed = false;
         }
     }
-    
+
     @Inject(method = "onScroll", at = @At("TAIL"))
     private void onScroll(long l, double d, double e, CallbackInfo ci) {
         if (Minecraft.getInstance().getOverlay() instanceof XTOverlay over) {

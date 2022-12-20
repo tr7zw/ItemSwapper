@@ -7,9 +7,7 @@ public class ItemSwapperModMenu implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        return parent -> {
-            return ItemSwapperMod.instance.createConfigScreen(parent);
-        };
+        return ItemSwapperMod.instance::createConfigScreen;
     }  
     
 }

@@ -3,15 +3,21 @@ package dev.tr7zw.itemswapper.overlay;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.ConfigManager;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -31,13 +37,20 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
+    
+    public static final int slotSize = 22;
+    public static final int tinySlotSize = 18;
+    public final Minecraft minecraft = Minecraft.getInstance();
+    public final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    public final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
+    public int globalXOffset = 0;
+    public int globalYOffset = 0;
+    public boolean forceAvailable = false;
+    
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limitX = 33;
     private double limitY = 33;
     private double deadZone = 11;
-    public static final int slotSize = 22;
-    public static final int tinySlotSize = 18;
-    public final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private Item[] itemSelection;
     private GuiSlot[] guiSlots;
@@ -46,10 +59,6 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private int backgroundTextureSizeX = 128;
     private int backgroundTextureSizeY = 128;
     private ResourceLocation backgroundTexture = null;
-    public int globalXOffset = 0;
-    public int globalYOffset = 0;
-    public boolean forceAvailable = false;
-
     private double selectX = 0;
     private double selectY = 0;
     private int selection = -1;
@@ -103,9 +112,9 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         return forceAvailable;
     }
     
-    public List<Slot> getItem(int id){
+    public List<AvailableSlot> getItem(int id){
         return id > itemSelection.length - 1 ? Collections.emptyList()
-                : ItemUtil.findSlotsMatchingItem(itemSelection[id], false, false);
+                : providerManager.findSlotsMatchingItem(itemSelection[id], false, false);
     }
     
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
@@ -113,7 +122,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         if (getBackgroundTexture() == null) {
             blit(poseStack, x, y, 24, 22, 29, 24);
         }
-        List<Slot> slots = getItem(id);
+        List<AvailableSlot> slots = getItem(id);
         if (getSelection() == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
@@ -184,17 +193,23 @@ public abstract class SwitchItemOverlay extends XTOverlay {
                         36 + minecraft.player.getInventory().selected);
                 return;
             }
-            List<Slot> slots = ItemUtil.findSlotsMatchingItem(itemSelection[getSelection()], true, false);
+            List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(itemSelection[getSelection()], true, false);
             if (!slots.isEmpty()) {
-                Slot slot = slots.get(0);
+                AvailableSlot slot = slots.get(0);
+                OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+                if(event.canceled().get()) {
+                    // interaction canceled by some other mod
+                    return;
+                }
                 if (slot.inventory() == -1) {
                     int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                     this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
                             hudSlot, minecraft.player.getInventory().selected,
                             ClickType.SWAP, this.minecraft.player);
                 } else {
-                    NetworkLogic.swapItem(slot.inventory(), slot.slot());
+                    NetworkUtil.swapItem(slot.inventory(), slot.slot());
                 }
+                clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
             }
         }
     }
