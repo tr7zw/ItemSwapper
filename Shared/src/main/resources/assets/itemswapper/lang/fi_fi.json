@@ -1,13 +1,13 @@
 {
-    "key.itemswapper.itemswitcher": "Vaihda Esine",
-    "text.itemswapper.title": "Esineiden Vaihtaja",
-    "text.itemswapper.toggleMode": "Vaihda Tila",
-    "text.itemswapper.showCursor": "Näytä Osoitin",
-    "text.itemswapper.disabled": "Tämä palvelin on kieltänyt tämän modin käytön!",
-    "text.itemswapper.editMode": "Esikatselutila",
-    "text.itemswapper.ignoreHotbar": "Listat eivät huomioi pikapalkkia",
-    "text.itemswapper.creativeCheatMode": "Luova Huijaustila",
-    "text.itemswapper.confirm.title": "Aktivoi modi tässä palvelimessa?",
-    "text.itemswapper.confirm.description": "Tämä palvelvin ei ole asentanut tai kieltänyt tätä modia. Haluatko aktivoida modin käytön ilman kuoripiilijälaatikko-tukea? Pyydäthän palvelimen järjestelmänvalvojata lupaa ensin. Tämän modin käyttö ilman lupaa voi saada sinulle porttikiellon!",
-    "text.itemswapper.resourcepack.notSelected": "Varoitus! Ei kelvolista resurssipakettia löydetty!"
+  "key.itemswapper.itemswitcher": "Vaihda Esine",
+  "text.itemswapper.title": "Esineiden Vaihtaja",
+  "text.itemswapper.toggleMode": "Vaihda Tila",
+  "text.itemswapper.showCursor": "Näytä Osoitin",
+  "text.itemswapper.disabled": "Tämä palvelin on kieltänyt tämän modin käytön!",
+  "text.itemswapper.editMode": "Esikatselutila",
+  "text.itemswapper.ignoreHotbar": "Listat eivät huomioi pikapalkkia",
+  "text.itemswapper.creativeCheatMode": "Luova Huijaustila",
+  "text.itemswapper.confirm.title": "Aktivoi modi tässä palvelimessa?",
+  "text.itemswapper.confirm.description": "Tämä palvelvin ei ole asentanut tai kieltänyt tätä modia. Haluatko aktivoida modin käytön ilman kuoripiilijälaatikko-tukea? Pyydäthän palvelimen järjestelmänvalvojata lupaa ensin. Tämän modin käyttö ilman lupaa voi saada sinulle porttikiellon!",
+  "text.itemswapper.resourcepack.notSelected": "Varoitus! Ei kelvolista resurssipakettia löydetty!"
 }
