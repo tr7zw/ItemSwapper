@@ -138,6 +138,11 @@ public class ItemListOverlay extends XTOverlay {
     public void handleSwitchSelection() {
 
     }
+    
+    @Override
+    public boolean lockMouse() {
+        return !ConfigManager.getInstance().getConfig().unlockListMouse;
+    }
 
     @Override
     public void onClose() {

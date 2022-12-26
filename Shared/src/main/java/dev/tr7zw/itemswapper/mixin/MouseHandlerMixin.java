@@ -29,7 +29,7 @@ public class MouseHandlerMixin {
 
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)
     public void turnPlayer(CallbackInfo ci) {
-        if (Minecraft.getInstance().getOverlay() instanceof XTOverlay over) {
+        if (Minecraft.getInstance().getOverlay() instanceof XTOverlay over && over.lockMouse()) {
             double d0 = Blaze3D.getTime();
             this.lastMouseEventTime = d0;
             if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {

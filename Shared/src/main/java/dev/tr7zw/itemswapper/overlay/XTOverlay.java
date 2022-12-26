@@ -9,6 +9,10 @@ public abstract class XTOverlay extends Overlay {
     public abstract void handleSwitchSelection();
 
     public abstract void onClose();
+    
+    public boolean lockMouse() {
+        return true;
+    }
 
     public void onScroll(double signum) {
         // nothing

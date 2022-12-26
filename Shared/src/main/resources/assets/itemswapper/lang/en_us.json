@@ -9,5 +9,6 @@
   "text.itemswapper.creativeCheatMode": "Creative Cheat Mode",
   "text.itemswapper.confirm.title": "Enable mod on this server?",
   "text.itemswapper.confirm.description": "The server has this mod neither installed nor blocked. Do you want to enable the mod without shulker box support? Please ask the server owner/team for permission first. Using this mod on a server without permission might get you banned!",
-  "text.itemswapper.resourcepack.notSelected": "Warning! No compatible resource pack for ItemSwapper is enabled!"
+  "text.itemswapper.resourcepack.notSelected": "Warning! No compatible resource pack for ItemSwapper is enabled!",
+  "text.itemswapper.unlockListMouse": "Unlock Mouse For Lists"	
 }
