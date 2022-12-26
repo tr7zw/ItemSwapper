@@ -8,20 +8,22 @@ import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class InventorySwitchItemOverlay extends SwitchItemOverlay {
 
     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inventory.png");
+    private static final ItemGroup dummyItemGroup = ItemGroup.builder().withId(new ResourceLocation("itemswapper", "inventory")).withItems(new ItemEntry[0]).build();
 
     public InventorySwitchItemOverlay() {
-        super(new Item[0]);
+        super(dummyItemGroup);
     }
 
     public void setupSlots() {
@@ -75,7 +77,7 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
             if (!slot.item().isEmpty()) {
-                Item[] sel = ItemSwapperMod.instance.getItemGroupManager().getOpenList(slot.item().getItem());
+                ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getItemPage(slot.item().getItem());
                 if (sel != null) {
                     ItemSwapperMod.instance.openSquareSwitchScreen(sel);
                 }

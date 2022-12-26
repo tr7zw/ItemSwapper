@@ -11,6 +11,10 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
+import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -43,11 +47,12 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 Item[] items = getItemArray(entry.getKey(), entry.getValue(),
                         entry.getKey().getPath().startsWith("wheel"));
                 if (items != null) {
+                    Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerCollection(items);
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100).build());
                     }
                     if (entry.getKey().getPath().startsWith("wheel_secondary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerSecondaryCollection(items);
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(items);
@@ -75,7 +80,12 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         if (lists.isEmpty()) {
             return;
         }
-        ItemSwapperSharedMod.instance.getItemGroupManager().registerCollections(lists.toArray(new Item[0][]));
+        for(int i = 0; i < lists.size(); i++) {
+            ResourceLocation ownId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + i);
+            int next = i+1 == lists.size() ? 0 : i+1;
+            ResourceLocation nextId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + next);
+            ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i))).build());
+        }
     }
 
     private Item[] getItemArray(ResourceLocation jsonLocation, JsonElement json, boolean pallet) {

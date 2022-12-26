@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.util;
 
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import net.minecraft.world.item.Item;
 
 public final class ItemUtil {
@@ -22,6 +23,14 @@ public final class ItemUtil {
             }
         }
         return false;
+    }
+    
+    public static ItemEntry[] toDefault(Item[] items) {
+        ItemEntry[] entries = new ItemEntry[items.length];
+        for(int i = 0; i < items.length; i++) {
+            entries[i] = new ItemEntry(items[i], null);
+        }
+        return entries;
     }
 
 }

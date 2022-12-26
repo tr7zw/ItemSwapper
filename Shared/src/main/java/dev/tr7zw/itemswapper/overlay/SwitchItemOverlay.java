@@ -16,6 +16,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -28,7 +29,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
@@ -52,7 +52,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private double limitY = 33;
     private double deadZone = 11;
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
-    private Item[] itemSelection;
+    private ItemGroup itemGroup;
     private GuiSlot[] guiSlots;
     private int backgroundSizeX = 0;
     private int backgroundSizeY = 0;
@@ -63,8 +63,8 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     private double selectY = 0;
     private int selection = -1;
 
-    public SwitchItemOverlay(Item[] selectionList) {
-        this.itemSelection = selectionList;
+    public SwitchItemOverlay(ItemGroup itemGroup) {
+        this.itemGroup = itemGroup;
 
         setupSlots();
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
@@ -113,8 +113,8 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     }
     
     public List<AvailableSlot> getItem(int id){
-        return id > itemSelection.length - 1 ? Collections.emptyList()
-                : providerManager.findSlotsMatchingItem(itemSelection[id], false, false);
+        return id > itemGroup.getItems().length - 1 ? Collections.emptyList()
+                : providerManager.findSlotsMatchingItem(itemGroup.getItems()[id].getItem(), false, false);
     }
     
     private void renderSelection(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
@@ -139,12 +139,12 @@ public abstract class SwitchItemOverlay extends XTOverlay {
             if (getSelection() == id)
                 itemRenderList.add(() -> renderSelectedItemName(slots.get(0).item(), false));
 
-        } else if (id <= itemSelection.length - 1) {
+        } else if (id <= itemGroup.getItems().length - 1) {
             itemRenderList.add(
-                    () -> renderSlot(poseStack, x + 3, y + 4, minecraft.player, itemSelection[id].getDefaultInstance(), 1,
+                    () -> renderSlot(poseStack, x + 3, y + 4, minecraft.player, itemGroup.getItems()[id].getItem().getDefaultInstance(), 1,
                             !forceItemsAvailable(), 1));
             if (getSelection() == id)
-                itemRenderList.add(() -> renderSelectedItemName(itemSelection[id].getDefaultInstance(), !forceItemsAvailable()));
+                itemRenderList.add(() -> renderSelectedItemName(itemGroup.getItems()[id].getItem().getDefaultInstance(), !forceItemsAvailable()));
         }
     }
 
@@ -158,10 +158,10 @@ public abstract class SwitchItemOverlay extends XTOverlay {
 
     public void handleSwitchSelection() {
         // Don't allow switching if there is no second set
-        if (getSelection() != -1 && getSelection() < itemSelection.length && itemSelection[getSelection()] != Items.AIR) {
-            Item[] sel = ItemSwapperMod.instance.getItemGroupManager().nextList(itemSelection[getSelection()], itemSelection);
+        if (getSelection() != -1 && getSelection() < itemGroup.getItems().length && itemGroup.getItems()[getSelection()].getItem() != Items.AIR) {
+            ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, itemGroup.getItems()[getSelection()]);
             if(sel != null) {
-                itemSelection = sel;
+                this.itemGroup = sel;
             }
         }
         setupSlots();
@@ -186,14 +186,14 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     }
 
     public void onClose() {
-        if (getSelection() != -1 && getSelection() < itemSelection.length && itemSelection[getSelection()] != Items.AIR) {
+        if (getSelection() != -1 && getSelection() < itemGroup.getItems().length && itemGroup.getItems()[getSelection()].getItem() != Items.AIR) {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
 //                minecraft.gameMode.handleCreativeModeItemAdd(ItemStack.EMPTY, 36 + minecraft.player.getInventory().selected);
-                minecraft.gameMode.handleCreativeModeItemAdd(itemSelection[getSelection()].getDefaultInstance().copy(),
+                minecraft.gameMode.handleCreativeModeItemAdd(itemGroup.getItems()[getSelection()].getItem().getDefaultInstance().copy(),
                         36 + minecraft.player.getInventory().selected);
                 return;
             }
-            List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(itemSelection[getSelection()], true, false);
+            List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(itemGroup.getItems()[getSelection()].getItem(), true, false);
             if (!slots.isEmpty()) {
                 AvailableSlot slot = slots.get(0);
                 OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
@@ -331,8 +331,8 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         this.guiSlots = guiSlots;
     }
     
-    public Item[] getItemSelection() {
-        return itemSelection;
+    public ItemGroup getItemGroup() {
+        return itemGroup;
     }
 
     public int getSelection() {

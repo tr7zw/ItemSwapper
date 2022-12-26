@@ -14,7 +14,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
@@ -51,7 +53,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
             }
         }
         items = Arrays.copyOf(items, lastItem + 1);
-        SquareSwitchItemOverlay overlay = new SquareSwitchItemOverlay(items);
+        SquareSwitchItemOverlay overlay = new SquareSwitchItemOverlay(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build());
         overlay.globalXOffset = -(18 * 7 + 32);
         overlay.forceAvailable = true;
         overlay.render(poseStack, 0, 0, f);

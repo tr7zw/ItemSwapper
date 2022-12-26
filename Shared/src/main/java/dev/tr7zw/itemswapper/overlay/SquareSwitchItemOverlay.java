@@ -1,7 +1,7 @@
 package dev.tr7zw.itemswapper.overlay;
 
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 
 public class SquareSwitchItemOverlay extends SwitchItemOverlay {
 
@@ -44,46 +44,47 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
     private static final ResourceLocation BACKGROUND_25_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inv_wheel_25_nocenter.png");
 
-    public SquareSwitchItemOverlay(Item[] selection) {
-        super(selection);
+    public SquareSwitchItemOverlay(ItemGroup itemGroup) {
+        super(itemGroup);
     }
 
     public void setupSlots() {
-        if (getItemSelection().length <= 3) {
+        int length = getItemGroup().getItems().length;
+        if (length <= 3) {
             setupSlots(3, 1, false, BACKGROUND_3_LOCATION);
-        } else if (getItemSelection().length <= 4) {
+        } else if (length <= 4) {
             setupSlots(2, 2, false, BACKGROUND_4_LOCATION);
-        } else if (getItemSelection().length <= 5) {
+        } else if (length <= 5) {
             setupSlots(3, 3, true, BACKGROUND_5_LOCATION);
-        } else if (getItemSelection().length <= 6) {
+        } else if (length <= 6) {
             setupSlots(3, 2, false, BACKGROUND_6_LOCATION);
-        } else if (getItemSelection().length <= 7) {
+        } else if (length <= 7) {
             setupHalfGridSlots(3, 3, BACKGROUND_7_LOCATION);
-        } else if (getItemSelection().length <= 8) {
+        } else if (length <= 8) {
             setupSlots(4, 2, false, BACKGROUND_8_LOCATION);
-        } else if (getItemSelection().length <= 9) {
+        } else if (length <= 9) {
             setupSlots(3, 3, false, BACKGROUND_9_LOCATION);
-        } else if (getItemSelection().length <= 10) {
+        } else if (length <= 10) {
             setupHalfGridSlots(4, 3, BACKGROUND_10_LOCATION);
-        } else if (getItemSelection().length <= 11) {
+        } else if (length <= 11) {
             setupHalfGridSlots(4, 3, BACKGROUND_11_LOCATION, true);
-        } else if (getItemSelection().length <= 12) {
+        } else if (length <= 12) {
             setupSlots(4, 4, true, BACKGROUND_12_LOCATION);
-        } else if (getItemSelection().length <= 13) {
+        } else if (length <= 13) {
             setupHalfGridSlots(5, 3, BACKGROUND_13_LOCATION);
-        } else if (getItemSelection().length <= 14) {
+        } else if (length <= 14) {
             setupSlots(6, 3, true, BACKGROUND_14_LOCATION);
-        } else if (getItemSelection().length <= 15) {
+        } else if (length <= 15) {
             setupSlots(5, 3, false, BACKGROUND_15_LOCATION);
-        } else if (getItemSelection().length <= 16) {
+        } else if (length <= 16) {
             setupSlots(4, 4, false, BACKGROUND_16_LOCATION);
-        } else if (getItemSelection().length <= 18) {
+        } else if (length <= 18) {
             setupHalfGridSlots(5, 4, BACKGROUND_18_LOCATION);
-        } else if (getItemSelection().length <= 20) {
+        } else if (length <= 20) {
             setupSlots(6, 4, true, BACKGROUND_20_LOCATION);
-        } else if (getItemSelection().length <= 22) {
+        } else if (length <= 22) {
             setupHalfGridSlots(6, 4, BACKGROUND_22_LOCATION);
-        } else if (getItemSelection().length <= 24) {
+        } else if (length <= 24) {
             setupSlots(6, 4, false, BACKGROUND_24_LOCATION);
         } else {
             setupSlots(5, 5, false, BACKGROUND_25_LOCATION);

@@ -12,6 +12,7 @@ import com.mojang.blaze3d.platform.InputConstants;
 import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
@@ -117,9 +118,9 @@ public abstract class ItemSwapperSharedMod {
         if (entries != null) {
             openListSwitchScreen(new ItemListOverlay(entries));
         } else {
-            entries = itemGroupManager.getOpenList(itemInHand);
-            if (entries != null) {
-                openSquareSwitchScreen(entries);
+            ItemGroup group = itemGroupManager.getItemPage(itemInHand);
+            if (group != null) {
+                openSquareSwitchScreen(group);
             }
         }
         return false;
@@ -133,8 +134,8 @@ public abstract class ItemSwapperSharedMod {
         Minecraft.getInstance().setOverlay(entries);
     }
 
-    public void openSquareSwitchScreen(Item[] list) {
-        Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(list));
+    public void openSquareSwitchScreen(ItemGroup group) {
+        Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(group));
     }
 
     private static void closeScreen(@NotNull XTOverlay xtOverlay) {
