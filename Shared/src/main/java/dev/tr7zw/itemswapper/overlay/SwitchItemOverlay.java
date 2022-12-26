@@ -46,6 +46,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
     public int globalXOffset = 0;
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
+    public boolean hideCursor = false;
     
     private final ConfigManager configManager = ConfigManager.getInstance();
     private double limitX = 33;
@@ -98,7 +99,7 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         this.itemRenderer.blitOffset += 300;
         lateRenderList.forEach(Runnable::run);
         this.itemRenderer.blitOffset = blit;
-        if (configManager.getConfig().showCursor) {
+        if (configManager.getConfig().showCursor && !hideCursor) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
             poseStack.pushPose();

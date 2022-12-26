@@ -56,6 +56,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         SquareSwitchItemOverlay overlay = new SquareSwitchItemOverlay(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build());
         overlay.globalXOffset = -(18 * 7 + 32);
         overlay.forceAvailable = true;
+        overlay.hideCursor = true;
         overlay.render(poseStack, 0, 0, f);
         if (lastItems == null) {
             lastItems = items;
