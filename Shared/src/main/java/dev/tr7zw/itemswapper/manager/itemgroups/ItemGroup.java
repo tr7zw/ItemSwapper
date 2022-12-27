@@ -15,6 +15,7 @@ public class ItemGroup {
 
     private final ResourceLocation id;
     private final int priority;
+    private final boolean disableAutoLink;
     private final ResourceLocation fallbackLink;
     private final ResourceLocation forcedLink;
     private final ItemEntry[] items;
@@ -24,6 +25,7 @@ public class ItemGroup {
     private ItemGroup(Builder builder) {
         this.id = builder.id;
         this.priority = builder.priority;
+        this.disableAutoLink = builder.disableAutoLink;
         this.fallbackLink = builder.fallbackLink;
         this.forcedLink = builder.forcedLink;
         this.items = builder.items;
@@ -58,6 +60,10 @@ public class ItemGroup {
     public Set<ItemEntry> getIgnoreItems() {
         return ignoreItems;
     }
+    
+    public boolean autoLinkDisabled() {
+        return disableAutoLink;
+    }
 
     public static Builder builder() {
         return new Builder();
@@ -66,6 +72,7 @@ public class ItemGroup {
     public static final class Builder {
         private ResourceLocation id;
         private int priority;
+        private boolean disableAutoLink;
         private ResourceLocation fallbackLink;
         private ResourceLocation forcedLink;
         private ItemEntry[] items;
@@ -82,6 +89,11 @@ public class ItemGroup {
 
         public Builder withPriority(int priority) {
             this.priority = priority;
+            return this;
+        }
+
+        public Builder withDisableAutoLink(boolean disableAutoLink) {
+            this.disableAutoLink = disableAutoLink;
             return this;
         }
 

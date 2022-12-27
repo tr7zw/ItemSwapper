@@ -30,6 +30,10 @@ public class ItemGroupManager {
             return;
         }
         groupMapping.put(group.getId(), group);
+        if(group.autoLinkDisabled()) {
+            // Dont add to the paletteMappings
+            return;
+        }
         for (ItemEntry item : group.getItems()) {
             addOpener(group, item);
         }

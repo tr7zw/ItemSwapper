@@ -16,6 +16,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
@@ -24,6 +25,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -138,14 +140,14 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         if (!slots.isEmpty() && !forceItemsAvailable()) {
             itemRenderList.add(() -> renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1, false, slots.get(0).amount().get()));
             if (getSelection() == id)
-                itemRenderList.add(() -> renderSelectedItemName(slots.get(0).item(), false));
+                itemRenderList.add(() -> renderSelectedItemName(itemGroup.getItems()[id], slots.get(0).item(), false));
 
         } else if (id <= itemGroup.getItems().length - 1) {
             itemRenderList.add(
                     () -> renderSlot(poseStack, x + 3, y + 4, minecraft.player, itemGroup.getItems()[id].getItem().getDefaultInstance(), 1,
                             !forceItemsAvailable(), 1));
             if (getSelection() == id)
-                itemRenderList.add(() -> renderSelectedItemName(itemGroup.getItems()[id].getItem().getDefaultInstance(), !forceItemsAvailable()));
+                itemRenderList.add(() -> renderSelectedItemName(itemGroup.getItems()[id], itemGroup.getItems()[id].getItem().getDefaultInstance(), !forceItemsAvailable()));
         }
     }
 
@@ -232,22 +234,28 @@ public abstract class SwitchItemOverlay extends XTOverlay {
         }
     }
 
-    private void renderSelectedItemName(ItemStack arg2, boolean grayOut) {
-        if (!arg2.isEmpty()) {
-            int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
-            int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
-            TextColor textColor = arg2.getHoverName().getStyle().getColor();
-            ChatFormatting rarityColor = arg2.getRarity().color;
-            int color = 0xFFFFFF;
-            if(grayOut) {
-                color = 0xAAAAAA;
-            } else if(textColor != null) {
-                color = textColor.getValue();
-            } else if(rarityColor != null && rarityColor.getColor() != null) {
-                color = rarityColor.getColor();
-            }
-            RenderHelper.renderGuiItemName(minecraft.font, arg2.getHoverName().getString(), originX, originY - (getBackgroundSizeY() / 2) - 12, color);
+    private void renderSelectedItemName(ItemEntry entry, ItemStack arg2, boolean grayOut) {
+        Component comp = null;
+        if(entry.getNameOverwride() != null) {
+            comp = entry.getNameOverwride();
+        } else if(!arg2.isEmpty()) {
+            comp = arg2.getHoverName();
+        } else {
+            return;
         }
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
+        TextColor textColor = arg2.getHoverName().getStyle().getColor();
+        ChatFormatting rarityColor = arg2.getRarity().color;
+        int color = 0xFFFFFF;
+        if(grayOut) {
+            color = 0xAAAAAA;
+        } else if(textColor != null) {
+            color = textColor.getValue();
+        } else if(rarityColor != null && rarityColor.getColor() != null) {
+            color = rarityColor.getColor();
+        }
+        RenderHelper.renderGuiItemName(minecraft.font, comp.getString(), originX, originY - (getBackgroundSizeY() / 2) - 12, color);
     }
 
     public void setupSlots(int width, int height, boolean skipCorners, ResourceLocation texture) {
