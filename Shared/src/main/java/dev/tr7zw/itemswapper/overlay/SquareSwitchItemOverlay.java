@@ -1,5 +1,8 @@
 package dev.tr7zw.itemswapper.overlay;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import net.minecraft.resources.ResourceLocation;
 
@@ -101,14 +104,10 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
         setBackgroundSizeY(height * tinySlotSize + 6);
         int sz = texture == null ? slotSize : tinySlotSize;
         int lz = texture == null ? 11 : 9;
-        setLimitX(width * lz);
+        setLimitX((width + 2) * lz);
         setLimitY(height * lz);
         setDeadZone(0);
-        int slotAmount = width * height - 2;
-        if (flip) {
-            slotAmount++;
-        }
-        setGuiSlots(new GuiSlot[slotAmount]);
+        List<GuiSlot> slots = new ArrayList<>();
         int originX = (int) (-width / 2d * sz - 2);
         int originY = (int) (-height / 2d * sz - 1 - 2);
         int slotId = 0;
@@ -123,10 +122,14 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
                 }
                 int xOffset = needsOffset ? sz / 2 : 0;
                 if (!skip) {
-                    getGuiSlots()[slotId++] = new GuiSlot(originX + xOffset + x * sz, originY + y * sz);
+                    slots.add(new GuiSlot(originX + xOffset + x * sz, originY + y * sz, SlotType.ITEM, slotId++));
                 }
             }
         }
+        for(int i = 0; i < getItemGroup().getRightSideShortcuts().size(); i++) {
+            slots.add(new GuiSlot((int)(originX + (width+0.5) * sz), originY + i * sz, SlotType.SHORTCUT, i));
+        }
+        setGuiSlots(slots);
     }
 
 }

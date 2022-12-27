@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.manager;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -11,7 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -49,10 +50,10 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (items != null) {
                     Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100).build());
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100).withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE)).build());
                     }
                     if (entry.getKey().getPath().startsWith("wheel_secondary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200).build());
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200).withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE)).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(items);
@@ -84,7 +85,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ResourceLocation ownId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + i);
             int next = i+1 == lists.size() ? 0 : i+1;
             ResourceLocation nextId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + next);
-            ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i))).build());
+            ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE)).build());
         }
     }
 

@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class ClientProviderManager {
 
@@ -69,7 +70,7 @@ public class ClientProviderManager {
         }
         for (int i = ignoreHotbar ? 9 : 0; i < items.size(); i++) {
             ItemStack itemStack = items.get(i);
-            if (itemStack.isEmpty()) {
+            if (itemStack.isEmpty() && item != Items.AIR) {
                 continue;
             }
             if (itemStack.getItem() == item) {
