@@ -76,6 +76,8 @@ public class GuiSelectionHandler {
         widgets.clear();
         selectedSlot = null;
         selectedWidget = null;
+        limitX = 5;
+        limitY = 5;
     }
 
     public double getCursorX() {
