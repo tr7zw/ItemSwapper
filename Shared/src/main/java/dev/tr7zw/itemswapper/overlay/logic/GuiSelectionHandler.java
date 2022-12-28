@@ -12,8 +12,8 @@ public class GuiSelectionHandler {
     private GuiSlot selectedSlot = null;
     private double cursorX = 0;
     private double cursorY = 0;
-    private double limitX = 33;
-    private double limitY = 33;
+    private double limitX = 5;
+    private double limitY = 5;
     private double deadZone = 1;
     
     public void updateSelection(double x, double y) {

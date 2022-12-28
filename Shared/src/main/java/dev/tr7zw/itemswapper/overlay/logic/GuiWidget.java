@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import net.minecraft.client.gui.GuiComponent;
 
 public interface GuiWidget {
@@ -27,14 +28,14 @@ public interface GuiWidget {
      * 
      * @param slot
      */
-    public void onClick(GuiSlot slot);
+    public void onClick(SwitchItemOverlay overlay, GuiSlot slot);
     
     /**
      * Close is called when letting go from the key/re-pressing it in toggle mode/left click
      * 
      * @param slot
      */
-    public void onClose(GuiSlot slot);
+    public void onClose(SwitchItemOverlay overlay, GuiSlot slot);
     
     public default int titleYOffset() {
         return 0;

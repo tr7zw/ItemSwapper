@@ -1,21 +1,21 @@
 package dev.tr7zw.itemswapper;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
-import dev.tr7zw.itemswapper.overlay.InventorySwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
-import dev.tr7zw.itemswapper.overlay.SquareSwitchItemOverlay;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
@@ -29,7 +29,6 @@ import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class ItemSwapperSharedMod {
 
@@ -127,7 +126,7 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private static void openInventoryScreen() {
-        Minecraft.getInstance().setOverlay(new InventorySwitchItemOverlay());
+        Minecraft.getInstance().setOverlay(SwitchItemOverlay.createInventoryOverlay());
     }
 
     private static void openListSwitchScreen(ItemListOverlay entries) {
@@ -135,7 +134,7 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
-        Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(group));
+        Minecraft.getInstance().setOverlay(SwitchItemOverlay.createPaletteOverlay(group));
     }
 
     private static void closeScreen(@NotNull XTOverlay xtOverlay) {
