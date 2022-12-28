@@ -12,6 +12,7 @@
     "MinecraftMixin",
     "ClientPacketListenerMixin",
     "ClientLevelMixin",
+    "AbstractContainerScreenMixin",
     "ContainerScreenMixin",
     "RecordItemMixin"
   ],
