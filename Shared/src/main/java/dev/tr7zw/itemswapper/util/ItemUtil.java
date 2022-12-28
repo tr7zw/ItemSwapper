@@ -1,7 +1,10 @@
 package dev.tr7zw.itemswapper.util;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import java.util.Arrays;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import org.jetbrains.annotations.NotNull;
 
 public final class ItemUtil {
 
@@ -31,6 +34,19 @@ public final class ItemUtil {
             entries[i] = new ItemEntry(items[i], null);
         }
         return entries;
+    }
+
+    @NotNull
+    public static Item[] itemstackToSingleItem(Item[] items)
+    {
+        int lastItem = 0;
+        for (int x = 0; x < items.length; x++) {
+            if (items[x] != Items.AIR) {
+                lastItem = x;
+            }
+        }
+        items = Arrays.copyOf(items, lastItem + 1);
+        return items;
     }
 
 }
