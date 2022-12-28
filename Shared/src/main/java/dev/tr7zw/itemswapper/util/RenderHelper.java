@@ -1,15 +1,22 @@
 package dev.tr7zw.itemswapper.util;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
 public final class RenderHelper {
@@ -55,6 +62,49 @@ public final class RenderHelper {
         font.drawInBatch(string2, i, j, color, true,
                 poseStack.last().pose(), bufferSource, false, 0, 15728880);
         bufferSource.endBatch();
+    }
+    
+    public static void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut, int count) {
+        if (!arg2.isEmpty()) {
+            ItemStack copy = arg2.copy();
+            copy.setCount(1);
+            if (grayOut) {
+                RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k);
+                return;
+            }
+            minecraft.getItemRenderer().renderAndDecorateItem(arg, copy, x, y, k);
+            RenderSystem.setShader(GameRenderer::getPositionColorShader);
+            minecraft.getItemRenderer().renderGuiItemDecorations(minecraft.font, copy, x, y);
+            int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
+            if(count > 1)
+                RenderHelper.renderGuiItemCount(minecraft.font, ""+Math.min(64, count), x, y, color);
+        }
+    }
+
+    public static Component getName(ItemEntry entry) {
+        if(entry == null) {
+            return null;
+        }
+        if(entry.getNameOverwride() != null) {
+            return entry.getNameOverwride();
+        }
+        return entry.getItem().getDefaultInstance().getHoverName();
+    }
+    
+    public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY) {
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
+        TextColor textColor = arg2.getHoverName().getStyle().getColor();
+        ChatFormatting rarityColor = arg2.getRarity().color;
+        int color = 0xFFFFFF;
+        if(grayOut) {
+            color = 0xAAAAAA;
+        } else if(textColor != null) {
+            color = textColor.getValue();
+        } else if(rarityColor != null && rarityColor.getColor() != null) {
+            color = rarityColor.getColor();
+        }
+        RenderHelper.renderGuiItemName(minecraft.font, comp.getString(), originX, originY - (offsetY / 2) - 12, color);
     }
 
 }

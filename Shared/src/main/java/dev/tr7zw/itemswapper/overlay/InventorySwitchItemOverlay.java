@@ -28,8 +28,8 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
 
     public void setupSlots() {
         setupSlots(9, 3, false, BACKGROUND_LOCATION);
-        setBackgroundTextureSizeX(168);
-        setBackgroundTextureSizeY(60);
+//        setBackgroundTextureSizeX(168);
+//        setBackgroundTextureSizeY(60);
         forceAvailable = false;
     }
 
@@ -38,14 +38,14 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
         return false;
     }
 
-    @Override
-    public List<AvailableSlot> getItem(int id) {
-        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
-        if (id != -1 && !items.get(id + 9).isEmpty()) {
-            return Collections.singletonList(new AvailableSlot(-1, id + 9, items.get(id + 9)));
-        }
-        return Collections.emptyList();
-    }
+//    @Override
+//    public List<AvailableSlot> getItem(int id) {
+//        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
+//        if (id != -1 && !items.get(id + 9).isEmpty()) {
+//            return Collections.singletonList(new AvailableSlot(-1, id + 9, items.get(id + 9)));
+//        }
+//        return Collections.emptyList();
+//    }
 
     /**
      * Overwrite method that only can access the inventory, no spawning items/access
@@ -53,36 +53,36 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
      */
     @Override
     public void onClose() {
-        List<AvailableSlot> slots = getItem(getSelection());
-        if (!slots.isEmpty()) {
-            AvailableSlot slot = slots.get(0);
-            if (slot.inventory() == -1) {
-                OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-                if(event.canceled().get()) {
-                    // interaction canceled by some other mod
-                    return;
-                }
-                int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
-                        hudSlot, minecraft.player.getInventory().selected,
-                        ClickType.SWAP, this.minecraft.player);
-                clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
-            }
-        }
+//        List<AvailableSlot> slots = getItem(getSelection());
+//        if (!slots.isEmpty()) {
+//            AvailableSlot slot = slots.get(0);
+//            if (slot.inventory() == -1) {
+//                OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+//                if(event.canceled().get()) {
+//                    // interaction canceled by some other mod
+//                    return;
+//                }
+//                int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
+//                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
+//                        hudSlot, minecraft.player.getInventory().selected,
+//                        ClickType.SWAP, this.minecraft.player);
+//                clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+//            }
+//        }
     }
 
     @Override
     public void handleSwitchSelection() {
-        List<AvailableSlot> slots = getItem(getSelection());
-        if (!slots.isEmpty()) {
-            AvailableSlot slot = slots.get(0);
-            if (!slot.item().isEmpty()) {
-                ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getItemPage(slot.item().getItem());
-                if (sel != null) {
-                    ItemSwapperMod.instance.openSquareSwitchScreen(sel);
-                }
-            }
-        }
+//        List<AvailableSlot> slots = getItem(getSelection());
+//        if (!slots.isEmpty()) {
+//            AvailableSlot slot = slots.get(0);
+//            if (!slot.item().isEmpty()) {
+//                ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getItemPage(slot.item().getItem());
+//                if (sel != null) {
+//                    ItemSwapperMod.instance.openSquareSwitchScreen(sel);
+//                }
+//            }
+//        }
     }
 
 }

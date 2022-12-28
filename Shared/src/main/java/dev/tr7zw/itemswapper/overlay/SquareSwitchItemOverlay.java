@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
+import dev.tr7zw.itemswapper.overlay.logic.SlotType;
 import net.minecraft.resources.ResourceLocation;
 
 public class SquareSwitchItemOverlay extends SwitchItemOverlay {
@@ -99,37 +101,37 @@ public class SquareSwitchItemOverlay extends SwitchItemOverlay {
     }
 
     private void setupHalfGridSlots(int width, int height, ResourceLocation texture, boolean flip) {
-        setBackgroundTexture(texture);
-        setBackgroundSizeX(width * tinySlotSize + 6);
-        setBackgroundSizeY(height * tinySlotSize + 6);
-        int sz = texture == null ? slotSize : tinySlotSize;
-        int lz = texture == null ? 11 : 9;
-        setLimitX((width + 2) * lz);
-        setLimitY(height * lz);
-        setDeadZone(0);
-        List<GuiSlot> slots = new ArrayList<>();
-        int originX = (int) (-width / 2d * sz - 2);
-        int originY = (int) (-height / 2d * sz - 1 - 2);
-        int slotId = 0;
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                boolean skip = (x == width - 1 && y == height - 1)
-                        || (x == width - 1 && y == 0);
-                boolean needsOffset = y == 0 || y == height - 1;
-                if (flip) {
-                    skip = (x == width - 1 && y != height - 1 && y != 0);
-                    needsOffset = !needsOffset;
-                }
-                int xOffset = needsOffset ? sz / 2 : 0;
-                if (!skip) {
-                    slots.add(new GuiSlot(originX + xOffset + x * sz, originY + y * sz, SlotType.ITEM, slotId++));
-                }
-            }
-        }
-        for(int i = 0; i < getItemGroup().getRightSideShortcuts().size(); i++) {
-            slots.add(new GuiSlot((int)(originX + (width+0.5) * sz), originY + i * sz, SlotType.SHORTCUT, i));
-        }
-        setGuiSlots(slots);
+//        setBackgroundTexture(texture);
+//        setBackgroundSizeX(width * tinySlotSize + 6);
+//        setBackgroundSizeY(height * tinySlotSize + 6);
+//        int sz = texture == null ? slotSize : tinySlotSize;
+//        int lz = texture == null ? 11 : 9;
+//        setLimitX((width + 2) * lz);
+//        setLimitY(height * lz);
+//        setDeadZone(0);
+//        List<GuiSlot> slots = new ArrayList<>();
+//        int originX = (int) (-width / 2d * sz - 2);
+//        int originY = (int) (-height / 2d * sz - 1 - 2);
+//        int slotId = 0;
+//        for (int y = 0; y < height; y++) {
+//            for (int x = 0; x < width; x++) {
+//                boolean skip = (x == width - 1 && y == height - 1)
+//                        || (x == width - 1 && y == 0);
+//                boolean needsOffset = y == 0 || y == height - 1;
+//                if (flip) {
+//                    skip = (x == width - 1 && y != height - 1 && y != 0);
+//                    needsOffset = !needsOffset;
+//                }
+//                int xOffset = needsOffset ? sz / 2 : 0;
+//                if (!skip) {
+//                    slots.add(new GuiSlot(originX + xOffset + x * sz, originY + y * sz, SlotType.ITEM, slotId++, tinySlotSize));
+//                }
+//            }
+//        }
+//        for(int i = 0; i < getItemGroup().getRightSideShortcuts().size(); i++) {
+//            slots.add(new GuiSlot((int)(originX + (width+0.5) * sz), originY + i * sz, SlotType.SHORTCUT, i, tinySlotSize));
+//        }
+//        setGuiSlots(slots);
     }
 
 }
