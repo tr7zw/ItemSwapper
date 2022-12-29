@@ -12,5 +12,6 @@
   "text.itemswapper.resourcepack.notSelected": "Warning! No compatible resource pack for ItemSwapper is enabled!",
   "text.itemswapper.unlockListMouse": "Unlock Mouse For Lists",
   "text.itemswapper.button.copyToClipboard.tooltip": "Copy preview as JSON to Clipboard",
-  "text.itemswapper.button.copyToClipboard.success": "Successfully copied preview to your clipboard. - Check the clipboard of your operating system, as an alternative check out your current log file."
+  "text.itemswapper.button.copyToClipboard.success": "Successfully copied preview to your clipboard. - Check the clipboard of your operating system, as an alternative check out your current log file.",
+  "text.itemswapper.disabledByPlayer": "You have disabled the mod for this server!"
 }
