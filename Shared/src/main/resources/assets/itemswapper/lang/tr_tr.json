@@ -9,5 +9,8 @@
   "text.itemswapper.creativeCheatMode": "Yaratıcı Hile Modu",
   "text.itemswapper.confirm.title": "Bu sunucuda modu etkinleştir?",
   "text.itemswapper.confirm.description": "Sunucu bu modu yasaklamamış veya indirmemiş. Modu shulker kutusu desteği olmadan açmak ister misiniz? Önce sunucunun sahibi yada takımından izin istemeniz önerilir. Bu modu izin almadan sunucuda kullanmanız sunucudan ban yemenizle sonuçlanabilir!",
-  "text.itemswapper.resourcepack.notSelected": "Uyarı! Item Swapper uyumlu hiç bir resourcepack aktif değil!"
+  "text.itemswapper.resourcepack.notSelected": "Uyarı! Item Swapper uyumlu hiç bir resourcepack aktif değil!",
+  "text.itemswapper.unlockListMouse": "Listeler için Fare'yi aktifleştir",
+  "text.itemswapper.button.copyToClipboard.tooltip": "Önizlemeyi JSON olarak Panoya Kopyala",
+  "text.itemswapper.button.copyToClipboard.success": "Önizleme Panonuza başarıyla kopyalandı. - İşletim sisteminizin panosunu kontrol edin, alternatif olarak aktif log dosyanıza göz atın."
 }
