@@ -53,12 +53,12 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     }
 
     @Override
-    public boolean acceptLeftclick() {
+    public boolean acceptClose() {
         return true;
     }
 
     @Override
-    public boolean acceptMiddleclick() {
+    public boolean acceptClick() {
         return false;
     }
 

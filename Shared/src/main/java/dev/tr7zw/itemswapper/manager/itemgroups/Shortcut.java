@@ -6,8 +6,8 @@ public interface Shortcut {
     
     public void invoke();
     
-    public boolean acceptLeftclick();
+    public boolean acceptClose();
     
-    public boolean acceptMiddleclick();
+    public boolean acceptClick();
     
 }

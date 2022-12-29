@@ -12,6 +12,7 @@ import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
 import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
+import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -52,7 +53,9 @@ public class SwitchItemOverlay extends XTOverlay {
     
     public void openItemGroup(ItemGroup itemGroup) {
         selectionHandler.reset();
-        selectionHandler.addWidget(new PaletteWidget(itemGroup, 0, 0));
+        GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
+        selectionHandler.addWidget(mainWidget);
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getRightSideShortcuts(), mainWidget.getMouseBoundsX() + XTOverlay.slotSize, 0));
     }
     
     public void openInventory() {

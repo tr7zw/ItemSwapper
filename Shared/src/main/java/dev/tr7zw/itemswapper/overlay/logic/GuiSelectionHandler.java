@@ -39,8 +39,8 @@ public class GuiSelectionHandler {
             for(GuiSlot slot : widget.getSlots()) {
                 int halfSlot = slot.size() / 2;
                 // FIXME -3 to cancel out the bias. Might be that the cursor is not at the correct position instead?
-                double mouseDist = Math.sqrt((cursorX - 3 - slot.x() - halfSlot) * (cursorX - 3 - slot.x() - halfSlot)
-                        + (cursorY - 3 - slot.y() - halfSlot) * (cursorY - 3 - slot.y() - halfSlot));
+                double mouseDist = Math.sqrt((cursorX - 3 - slot.x() - widget.getX() - halfSlot) * (cursorX - 3 - slot.x() - widget.getX() - halfSlot)
+                        + (cursorY - 3 - slot.y() - widget.getY() - halfSlot) * (cursorY - 3 - slot.y() - widget.getY() - halfSlot));
                 double maxDistance = (slot.size() * Math.sqrt(2))/2;
                 if (mouseDist < best && mouseDist < maxDistance) {
                     best = mouseDist;
@@ -98,6 +98,14 @@ public class GuiSelectionHandler {
 
     public void setDeadZone(double deadZone) {
         this.deadZone = deadZone;
+    }
+
+    public double getLimitX() {
+        return limitX;
+    }
+
+    public double getLimitY() {
+        return limitY;
     }
     
 }
