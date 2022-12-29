@@ -79,7 +79,7 @@ public class InventorySwitchItemOverlay extends SwitchItemOverlay {
             if (!slot.item().isEmpty()) {
                 ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getItemPage(slot.item().getItem());
                 if (sel != null) {
-                    ItemSwapperMod.instance.openSquareSwitchScreen(sel);
+                    ItemSwapperMod.instance.openSquareSwitchOverlay(sel);
                 }
             }
         }

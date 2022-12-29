@@ -1,15 +1,9 @@
 package dev.tr7zw.itemswapper;
 
-import dev.tr7zw.itemswapper.config.ConfigManager;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import com.mojang.blaze3d.platform.InputConstants;
-
 import dev.tr7zw.config.CustomConfigScreen;
+import dev.tr7zw.itemswapper.config.CacheManager;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
@@ -20,6 +14,8 @@ import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -27,8 +23,12 @@ import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ItemSwapperSharedMod {
@@ -37,14 +37,21 @@ public abstract class ItemSwapperSharedMod {
     public static final String MODID = "itemswapper";
 
     public static ItemSwapperSharedMod instance;
+
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ConfigManager configManager = ConfigManager.getInstance();
+    private final CacheManager cacheManager = CacheManager.getInstance();
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
+    private final List<String> enableOnIp = cacheManager.getCache().enableOnIp;
+    private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
+
+    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
+
     private boolean enableShulkers = false;
     private boolean modDisabled = false;
+    private boolean disabledByPlayer = false;
     private boolean bypassExcepted = false;
-    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
     private boolean pressed = false;
 
     public void init() {
@@ -59,88 +66,96 @@ public abstract class ItemSwapperSharedMod {
 
     public void clientTick() {
         Overlay overlay = Minecraft.getInstance().getOverlay();
+        ServerData server = Minecraft.getInstance().getCurrentServer();
 
-        if (keybind.isDown()) {
+        if (server != null && disableOnIp.contains(server.ip) && !disabledByPlayer) {
+            setDisabledByPlayer(true);
+            LOGGER.info("Itemswapper is deactivated for the server {}, because the player did not accept the warning!", server.ip);
+        } else if (isModDisabled()) {
+            this.minecraft.gui.setOverlayMessage(
+                    Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+        }  else if (keybind.isDown()) {
             onPress(overlay);
         } else {
             pressed = false;
 
             if (!configManager.getConfig().toggleMode && overlay instanceof XTOverlay xtOverlay) {
-                closeScreen(xtOverlay);
+                closeOverlay(xtOverlay);
             }
         }
     }
 
     private void onPress(Overlay overlay) {
-        if (!itemGroupManager.isResourcepackSelected()) {
+        if (this.minecraft.player != null && !itemGroupManager.isResourcepackSelected()) {
             this.minecraft.player.displayClientMessage(
                     Component.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
                     true);
         }
 
-        if (!pressed && isModDisabled()) {
-            pressed = true;
-            this.minecraft.gui.setOverlayMessage(
-                    Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
-            return;
-        }
+        if (!pressed) {
+            ServerData server = Minecraft.getInstance().getCurrentServer();
 
-        if (!pressed && !enableShulkers && !bypassExcepted) {
-            this.minecraft.setScreen(
-                    new ConfirmScreen(this::acceptBypassCallback,
-                            Component.translatable("text.itemswapper.confirm.title"),
-                            Component.translatable("text.itemswapper.confirm.description")));
-            pressed = true;
-            return;
-        }
-
-        if (!pressed && overlay == null) {
-            if (couldOpenScreen()) {
-                return;
+            if (isDisabledByPlayer()) {
+                this.minecraft.gui.setOverlayMessage(
+                        Component.translatable("text.itemswapper.disabledByPlayer").withStyle(ChatFormatting.RED), false);
+            } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassExcepted) {
+                openConfirmationScreen();
+            } else if (overlay == null) {
+                if (couldOpenScreen()) {
+                    return;
+                }
+            } else if (overlay instanceof XTOverlay xtOverlay) {
+                closeOverlay(xtOverlay);
             }
-        } else if (!pressed && overlay instanceof XTOverlay xtOverlay) {
-            closeScreen(xtOverlay);
-        }
 
-        pressed = true;
+            pressed = true;
+        }
+    }
+
+    private void openConfirmationScreen() {
+        this.minecraft.setScreen(
+                new ConfirmScreen(this::acceptBypassCallback, Component.translatable("text.itemswapper.confirm.title"),
+                        Component.translatable("text.itemswapper.confirm.description")));
     }
 
     private boolean couldOpenScreen() {
-        if (minecraft.player.getMainHandItem().isEmpty()) {
-            openInventoryScreen();
-            pressed = true;
-            return true;
-        }
+        if (minecraft.player != null) {
+            ItemStack mainHandStack = minecraft.player.getMainHandItem();
+            if (minecraft.player != null && mainHandStack.isEmpty()) {
+                openInventoryOverlay();
+                pressed = true;
+                return true;
+            }
+            Item itemInHand = mainHandStack.getItem();
+            Item[] entries = itemGroupManager.getList(itemInHand);
 
-        Item itemInHand = minecraft.player.getMainHandItem().getItem();
-        Item[] entries = itemGroupManager.getList(itemInHand);
-
-        if (entries != null) {
-            openListSwitchScreen(new ItemListOverlay(entries));
-        } else {
-            ItemGroup group = itemGroupManager.getItemPage(itemInHand);
-            if (group != null) {
-                openSquareSwitchScreen(group);
+            if (entries != null) {
+                openListSwitchOverlay(new ItemListOverlay(entries));
+            } else {
+                ItemGroup group = itemGroupManager.getItemPage(itemInHand);
+                if (group != null) {
+                    openSquareSwitchOverlay(group);
+                }
             }
         }
         return false;
     }
 
-    private static void openInventoryScreen() {
+    private static void openInventoryOverlay() {
         Minecraft.getInstance().setOverlay(new InventorySwitchItemOverlay());
     }
 
-    private static void openListSwitchScreen(ItemListOverlay entries) {
+    private static void openListSwitchOverlay(ItemListOverlay entries) {
         Minecraft.getInstance().setOverlay(entries);
     }
 
-    public void openSquareSwitchScreen(ItemGroup group) {
+    public void openSquareSwitchOverlay(ItemGroup group) {
         Minecraft.getInstance().setOverlay(new SquareSwitchItemOverlay(group));
     }
 
-    private static void closeScreen(@NotNull XTOverlay xtOverlay) {
+    private static void closeOverlay(@NotNull XTOverlay xtOverlay) {
         xtOverlay.onClose();
-        openListSwitchScreen(null);
+        openListSwitchOverlay(null);
     }
 
     public Screen createConfigScreen(Screen parent) {
@@ -161,9 +176,9 @@ public abstract class ItemSwapperSharedMod {
                 options.add(
                         getOnOffOption("text.itemswapper.ignoreHotbar", () -> configManager.getConfig().ignoreHotbar,
                                 b -> configManager.getConfig().ignoreHotbar = b));
-                options.add(
-                        getOnOffOption("text.itemswapper.unlockListMouse", () -> configManager.getConfig().unlockListMouse,
-                                b -> configManager.getConfig().unlockListMouse = b));
+                options.add(getOnOffOption("text.itemswapper.unlockListMouse",
+                        () -> configManager.getConfig().unlockListMouse,
+                        b -> configManager.getConfig().unlockListMouse = b));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 
@@ -207,14 +222,30 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private void acceptBypassCallback(boolean accepted) {
-        if (accepted) {
-            bypassExcepted = true;
-        }
+        ServerData server = Minecraft.getInstance().getCurrentServer();
 
+        if (server != null) {
+            if (accepted) {
+                bypassExcepted = true;
+                cacheManager.getCache().enableOnIp.add(server.ip);
+            } else {
+                cacheManager.getCache().disableOnIp.add(server.ip);
+            }
+            cacheManager.writeConfig();
+            ItemSwapperSharedMod.LOGGER.info("Add {} to cached ip-addresses", server.ip);
+        }
         this.minecraft.setScreen(null);
     }
 
     public ClientProviderManager getClientProviderManager() {
         return clientProviderManager;
+    }
+
+    public boolean isDisabledByPlayer() {
+        return disabledByPlayer;
+    }
+
+    public void setDisabledByPlayer(boolean disabledByPlayer) {
+        this.disabledByPlayer = disabledByPlayer;
     }
 }
