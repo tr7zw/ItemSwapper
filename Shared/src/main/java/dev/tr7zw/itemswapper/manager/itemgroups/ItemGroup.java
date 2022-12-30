@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.manager.itemgroups;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import net.minecraft.resources.ResourceLocation;
@@ -21,6 +22,7 @@ public class ItemGroup {
     private final ItemEntry[] items;
     private final Set<ItemEntry> openOnlyItems;
     private final Set<ItemEntry> ignoreItems;
+    private final List<Shortcut> rightSideShortcuts;
 
     private ItemGroup(Builder builder) {
         this.id = builder.id;
@@ -31,6 +33,7 @@ public class ItemGroup {
         this.items = builder.items;
         this.openOnlyItems = builder.openOnlyItems;
         this.ignoreItems = builder.ignoreItems;
+        this.rightSideShortcuts = builder.rightSideShortcuts;
     }
 
     public ResourceLocation getId() {
@@ -52,6 +55,13 @@ public class ItemGroup {
     public ItemEntry[] getItems() {
         return items;
     }
+    
+    public ItemEntry getItem(int id) {
+        if (id >= items.length) {
+            return null;
+        }
+        return items[id];
+    }
 
     public Set<ItemEntry> getOpenOnlyItems() {
         return openOnlyItems;
@@ -63,6 +73,10 @@ public class ItemGroup {
     
     public boolean autoLinkDisabled() {
         return disableAutoLink;
+    }
+
+    public List<Shortcut> getRightSideShortcuts() {
+        return rightSideShortcuts;
     }
 
     public static Builder builder() {
@@ -78,6 +92,7 @@ public class ItemGroup {
         private ItemEntry[] items;
         private Set<ItemEntry> openOnlyItems = Collections.emptySet();
         private Set<ItemEntry> ignoreItems = Collections.emptySet();
+        private List<Shortcut> rightSideShortcuts = Collections.emptyList();
 
         private Builder() {
         }
@@ -119,6 +134,11 @@ public class ItemGroup {
 
         public Builder withIgnoreItems(Set<ItemEntry> ignoreItems) {
             this.ignoreItems = ignoreItems;
+            return this;
+        }
+
+        public Builder withRightSideShortcuts(List<Shortcut> rightSideShortcuts) {
+            this.rightSideShortcuts = rightSideShortcuts;
             return this;
         }
 
