@@ -1,0 +1,118 @@
+name: Bug report
+description: "Use this template if you're running into bugs or other issues"
+labels:
+  - bug
+  - needs-analysis
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        ## Instructions (read me before you open an issue!)
+
+
+        This is a template for the issue you are about to open! It will help you
+        provide the information necessary to complete your **crash report**.
+        Before you open an issue, ensure you've completed every step on the
+        checklist below.
+
+
+        - Have you used the [search
+        bar](https://github.com/tr7zw/ItemSwapper/issues) to find
+        similar issues? If you find one that looks like what you are getting,
+        consider contributing additional information to it instead. Make sure
+        you are not opening a duplicate.
+
+        - Are you using the latest version of the mod? If not, try updating to
+        see if it resolves your issue. You can find the latest versions
+        [here](https://modrinth.com/mod/itemswapper/versions).
+
+
+        Have you tried the top two bullets yet and the issue is still there? Then continue to fill 
+        the issue by providing the following information about it:
+  - type: input
+    id: version
+    attributes:
+      label: Version information
+      description: >-
+        Please provide the exact version of the mod you are using. Every part of
+          the version is important! If you do not know what version you are using,
+          look at the file name in your `mods` folder.
+      placeholder: 'Example: itemswapper-fabric-0.3.2-mc1.19.2'
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Other mods installed
+      description: >-
+        Please provide the names and versions of those mods. If you do not know what version you are using,
+        look at the file name in your `mods` folder.
+      placeholder: 'Example: modmenu-4.1.2'
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: 'Example: The item should be swapped to the hotbar'
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What did actually happen?
+      placeholder: 'Example: The item did not swapped to the hotbar'
+    validations:
+      required: true
+  - type: textarea
+    id: repro-steps
+    attributes:
+      label: Reproduction Steps
+      description: >-
+        Provide information on how to reproduce this bug. You can either
+        fill this section in like the example below or do something else just
+        make sure your instructions are minimal and clear, as other people will
+        need to be able to replicate your issue.
+      placeholder: |
+        Example:
+        1. Press the hotkey to open the overlay
+        2. Click an item
+        3. Nothing happens
+    validations:
+      required: true
+  - type: checkboxes
+    id: optifine
+    attributes:
+      label: Optifine
+      description: Do you use Optifine?
+      options:
+        - label: Yes
+        - label: No
+  - type: markdown
+    attributes:
+      value: >-
+        # System Information
+
+
+        You can obtain this information from the right-side of the in-game debug
+        screen (F3) or through using
+        [DxDiag](https://support.microsoft.com/en-us/help/4028644/windows-open-and-run-dxdiagexe)
+        on Windows.
+  - type: input
+    id: java
+    attributes:
+      label: Java version
+      placeholder: 'Example: Java 16'
+    validations:
+      required: true
+  - type: textarea
+    id: additional
+    attributes:
+      label: Additional information
+      description: >-
+        Provide a list of any other mods you are using, along with their
+        respective versions. If you have any screenshots, videos, or other
+        information that you feel is necessary to explain the issue, feel free
+        to attach them here.
