@@ -138,7 +138,7 @@ public class ItemListOverlay extends XTOverlay {
     public void handleSwitchSelection() {
 
     }
-    
+
     @Override
     public boolean lockMouse() {
         return !ConfigManager.getInstance().getConfig().unlockListMouse;
@@ -149,7 +149,7 @@ public class ItemListOverlay extends XTOverlay {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-            if(event.canceled().get()) {
+            if (event.canceled().get()) {
                 // interaction canceled by some other mod
                 return;
             }
@@ -197,7 +197,7 @@ public class ItemListOverlay extends XTOverlay {
             return item.getHoverName();
         }
         NameProvider provider = providerManager.getNameProvider(item.getItem());
-        if(provider != null) {
+        if (provider != null) {
             return provider.getDisplayName(item);
         }
         return item.getHoverName();

@@ -2,9 +2,14 @@ package dev.tr7zw.itemswapper.util;
 
 import java.util.List;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {
@@ -53,6 +58,20 @@ public class WidgetUtil {
 
     private WidgetUtil() {
         // hiden constructor
+    }
+
+    public static void renderBackground(WidgetArea widgetArea, PoseStack poseStack, int originX, int originY) {
+        RenderSystem.enableBlend();
+        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        if (widgetArea.getBackgroundTexture() != null) {
+            RenderSystem.setShaderTexture(0, widgetArea.getBackgroundTexture());
+            GuiComponent.blit(poseStack, originX - (widgetArea.getBackgroundSizeX() / 2),
+                    originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0,
+                    widgetArea.getBackgroundSizeX(),
+                    widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(),
+                    widgetArea.getBackgroundTextureSizeY());
+        }
     }
 
     public static void setupDynamicSlots(WidgetArea widgetArea, List<GuiSlot> slots, int length) {

@@ -17,7 +17,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 
 public abstract class ItemGridWidget implements GuiWidget {
-    
+
     protected final Minecraft minecraft = Minecraft.getInstance();
     protected final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     protected final ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
@@ -31,22 +31,15 @@ public abstract class ItemGridWidget implements GuiWidget {
         this.widgetArea.setY(y);
     }
 
-    @Override
     public void render(GuiComponent parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable) {
-        RenderSystem.enableBlend();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        if (widgetArea.getBackgroundTexture() != null) {
-            RenderSystem.setShaderTexture(0, widgetArea.getBackgroundTexture());
-            GuiComponent.blit(poseStack, originX - (widgetArea.getBackgroundSizeX() / 2), originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0,
-                    widgetArea.getBackgroundSizeX(),
-                    widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(), widgetArea.getBackgroundTextureSizeY());
-        }
+        originX += getWidgetArea().getX();
+        originY += getWidgetArea().getY();
+        WidgetUtil.renderBackground(getWidgetArea(), poseStack, originX, originY);
         RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
-        for (int i = 0; i < slots.size(); i++) {
-            renderSelection(parent, poseStack, i, originX + slots.get(i).x(), originY + slots.get(i).y(),
+        for (int i = 0; i < getSlots().size(); i++) {
+            renderSelection(parent, poseStack, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
                     itemRenderList,
                     lateRenderList, overwrideAvailable);
         }
@@ -57,11 +50,31 @@ public abstract class ItemGridWidget implements GuiWidget {
         this.itemRenderer.blitOffset = blit;
     }
 
-    protected abstract void renderSelection(GuiComponent parent, PoseStack poseStack, int listId, int x, int y,
+    private void renderSelection(GuiComponent parent, PoseStack poseStack, int listId, int x, int y,
             List<Runnable> itemRenderList,
             List<Runnable> lateRenderList,
-            boolean overwrideAvailable);
-    
+            boolean overwrideAvailable) {
+        if (getWidgetArea().getBackgroundTexture() == null) {
+            parent.blit(poseStack, x, y, 24, 22, 29, 24);
+        }
+        GuiSlot guiSlot = getSlots().get(listId);
+        if (guiSlot.selected().get()) {
+            itemRenderList = lateRenderList;
+            lateRenderList.add(() -> {
+                float blit = parent.getBlitOffset();
+                parent.setBlitOffset((int) this.itemRenderer.blitOffset);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
+                GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
+                parent.setBlitOffset((int) blit);
+            });
+        }
+        renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
+    }
+
+    protected abstract void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList,
+            GuiSlot guiSlot, boolean overwrideAvailable);
+
     @Override
     public List<GuiSlot> getSlots() {
         return slots;

@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
@@ -18,8 +17,6 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Items;
 
@@ -37,25 +34,8 @@ public class PaletteWidget extends ItemGridWidget {
                 : providerManager.findSlotsMatchingItem(itemGroup.getItems()[id].getItem(), false, false);
     }
 
-    protected void renderSelection(GuiComponent parent, PoseStack poseStack, int listId, int x, int y,
-            List<Runnable> itemRenderList,
-            List<Runnable> lateRenderList,
-            boolean overwrideAvailable) {
-        if (widgetArea.getBackgroundTexture() == null) {
-            parent.blit(poseStack, x, y, 24, 22, 29, 24);
-        }
-        GuiSlot guiSlot = slots.get(listId);
-        if (guiSlot.selected().get()) {
-            itemRenderList = lateRenderList;
-            lateRenderList.add(() -> {
-                float blit = parent.getBlitOffset();
-                parent.setBlitOffset((int) this.itemRenderer.blitOffset);
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
-                GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
-                parent.setBlitOffset((int) blit);
-            });
-        }
+    @Override
+    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot, boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty() && !overwrideAvailable) {
             itemRenderList.add(
