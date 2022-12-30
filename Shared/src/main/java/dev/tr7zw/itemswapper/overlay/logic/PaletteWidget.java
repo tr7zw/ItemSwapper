@@ -17,6 +17,7 @@ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
+import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.inventory.ClickType;
@@ -28,7 +29,7 @@ public class PaletteWidget extends ItemGridWidget {
     public PaletteWidget(ItemGroup itemGroup, int x, int y) {
         super(x, y);
         this.itemGroup = itemGroup;
-        setupDynamicSlots(itemGroup.getItems().length);
+        WidgetUtil.setupDynamicSlots(widgetArea, slots, itemGroup.getItems().length);
     }
 
     private List<AvailableSlot> getItem(int id) {
@@ -50,7 +51,7 @@ public class PaletteWidget extends ItemGridWidget {
                 float blit = parent.getBlitOffset();
                 parent.setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
+                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
                 GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
                 parent.setBlitOffset((int) blit);
             });

@@ -32,7 +32,7 @@ public interface GuiWidget {
     public void onClose(SwitchItemOverlay overlay, GuiSlot slot);
     
     public default int titleYOffset() {
-        return 0;
+        return getWidgetArea().getBackgroundSizeY();
     }
 
     

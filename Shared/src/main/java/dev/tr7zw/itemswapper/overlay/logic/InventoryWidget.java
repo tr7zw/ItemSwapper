@@ -16,6 +16,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
+import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.NonNullList;
@@ -31,7 +32,7 @@ public class InventoryWidget extends ItemGridWidget {
 
     public InventoryWidget(int x, int y) {
         super(x, y);
-        setupSlots(9, 3, false, BACKGROUND_LOCATION);
+        WidgetUtil.setupSlots(widgetArea, slots, 9, 3, false, BACKGROUND_LOCATION);
         widgetArea.setBackgroundTextureSizeX(168);
         widgetArea.setBackgroundTextureSizeY(60);
     }
@@ -58,7 +59,7 @@ public class InventoryWidget extends ItemGridWidget {
                 float blit = parent.getBlitOffset();
                 parent.setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
+                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
                 GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
                 parent.setBlitOffset((int) blit);
             });

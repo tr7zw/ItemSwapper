@@ -9,20 +9,16 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.overlay.XTOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;
+import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.resources.ResourceLocation;
 
 public class ShortcutListWidget implements GuiWidget {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
-    private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
-    private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
-            "textures/gui/selection.png");
     
     private final ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
     private final List<GuiSlot> slots = new ArrayList<>();
@@ -33,32 +29,7 @@ public class ShortcutListWidget implements GuiWidget {
         this.list = list;
         this.widgetArea.setX(x);
         this.widgetArea.setY(y);
-        setupSlots(1, list.size(), false, null);
-    }
-    
-    private void setupSlots(int width, int height, boolean skipCorners, ResourceLocation texture) {
-        widgetArea.setBackgroundTexture(texture);
-        widgetArea.setBackgroundSizeX(width * XTOverlay.tinySlotSize + 6);
-        widgetArea.setBackgroundSizeY(height * XTOverlay.tinySlotSize + 6);
-        int sz = texture == null ? XTOverlay.slotSize : XTOverlay.tinySlotSize;
-        int lz = texture == null ? 11 : 9;
-        widgetArea.setMouseBoundsX(width * lz);
-        widgetArea.setMouseBoundsY(height * lz);
-        int originX = (int) (-width / 2d * sz - 2);
-        int originY = (int) (-height / 2d * sz - 1 - 2);
-        int slotId = 0;
-        for (int y = 0; y < height; y++) {
-            for (int x = 0; x < width; x++) {
-                boolean skip = skipCorners
-                        && ((x == 0 && y == 0) || (x == 0 && y == height - 1) || (x == width - 1 && y == height - 1)
-                                || (x == width - 1 && y == 0));
-                if (!skip) {
-                    slots.add(new GuiSlot(originX + x * sz, originY + y * sz, slotId,
-                            XTOverlay.tinySlotSize));
-                    slotId++;
-                }
-            }
-        }
+        WidgetUtil.setupSlots(widgetArea, slots, 1, list.size(), false, null);
     }
     
     @Override
@@ -84,7 +55,7 @@ public class ShortcutListWidget implements GuiWidget {
                     widgetArea.getBackgroundSizeX(),
                     widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(), widgetArea.getBackgroundTextureSizeY());
         }
-        RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+        RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         for (int i = 0; i < slots.size(); i++) {
@@ -113,7 +84,7 @@ public class ShortcutListWidget implements GuiWidget {
                 float blit = parent.getBlitOffset();
                 parent.setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
+                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
                 GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
                 parent.setBlitOffset((int) blit);
             });
