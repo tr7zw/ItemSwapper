@@ -55,7 +55,7 @@ public class SwitchItemOverlay extends XTOverlay {
         selectionHandler.reset();
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getRightSideShortcuts(), mainWidget.getMouseBoundsX() + XTOverlay.slotSize, 0));
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getRightSideShortcuts(), mainWidget.getWidgetArea().getMouseBoundsX() + XTOverlay.slotSize, 0));
     }
     
     public void openInventory() {

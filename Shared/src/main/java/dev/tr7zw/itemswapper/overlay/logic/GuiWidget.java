@@ -11,13 +11,7 @@ public interface GuiWidget {
 
     public List<GuiSlot> getSlots();
     
-    public int getX();
-    
-    public int getY();
-    
-    public int getMouseBoundsX();
-
-    public int getMouseBoundsY();
+    public WidgetArea getWidgetArea();
     
     public void render(GuiComponent parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable);
     

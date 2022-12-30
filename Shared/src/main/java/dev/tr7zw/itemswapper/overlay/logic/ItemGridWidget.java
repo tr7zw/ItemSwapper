@@ -67,19 +67,11 @@ public abstract class ItemGridWidget implements GuiWidget {
     protected final ConfigManager configManager = ConfigManager.getInstance();
     protected final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     protected final List<GuiSlot> slots = new ArrayList<>();
-    protected final int x;
-    protected final int y;
-    protected int backgroundSizeX = 0;
-    protected int backgroundSizeY = 0;
-    protected int backgroundTextureSizeX = 128;
-    protected int backgroundTextureSizeY = 128;
-    protected ResourceLocation backgroundTexture = null;
-    private int mouseBoundsX = 0;
-    private int mouseBoundsY = 0;
+    protected WidgetArea widgetArea = new WidgetArea(0, 0, 128, 128, null, 0, 0);
 
     protected ItemGridWidget(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.widgetArea.setX(x);
+        this.widgetArea.setY(y);
     }
 
     protected void setupDynamicSlots(int length) {
@@ -125,13 +117,13 @@ public abstract class ItemGridWidget implements GuiWidget {
     }
     
     protected void setupSlots(int width, int height, boolean skipCorners, ResourceLocation texture) {
-        backgroundTexture = texture;
-        backgroundSizeX = width * XTOverlay.tinySlotSize + 6;
-        backgroundSizeY = height * XTOverlay.tinySlotSize + 6;
+        widgetArea.setBackgroundTexture(texture);
+        widgetArea.setBackgroundSizeX(width * XTOverlay.tinySlotSize + 6);
+        widgetArea.setBackgroundSizeY(height * XTOverlay.tinySlotSize + 6);
         int sz = texture == null ? XTOverlay.slotSize : XTOverlay.tinySlotSize;
         int lz = texture == null ? 11 : 9;
-        mouseBoundsX = width * lz;
-        mouseBoundsY = height * lz;
+        widgetArea.setMouseBoundsX(width * lz);
+        widgetArea.setMouseBoundsY(height * lz);
         int originX = (int) (-width / 2d * sz - 2);
         int originY = (int) (-height / 2d * sz - 1 - 2);
         int slotId = 0;
@@ -154,13 +146,13 @@ public abstract class ItemGridWidget implements GuiWidget {
     }
 
     protected void setupHalfGridSlots(int width, int height, ResourceLocation texture, boolean flip) {
-        backgroundTexture = texture;
-        backgroundSizeX = width * XTOverlay.tinySlotSize + 6;
-        backgroundSizeY = height * XTOverlay.tinySlotSize + 6;
+        widgetArea.setBackgroundTexture(texture);
+        widgetArea.setBackgroundSizeX(width * XTOverlay.tinySlotSize + 6);
+        widgetArea.setBackgroundSizeY(height * XTOverlay.tinySlotSize + 6);
         int sz = texture == null ? XTOverlay.slotSize : XTOverlay.tinySlotSize;
         int lz = texture == null ? 11 : 9;
-        mouseBoundsX = width * lz;
-        mouseBoundsY = height * lz;
+        widgetArea.setMouseBoundsX(width * lz);
+        widgetArea.setMouseBoundsY(height * lz);
         int originX = (int) (-width / 2d * sz - 2);
         int originY = (int) (-height / 2d * sz - 1 - 2);
         int slotId = 0;
@@ -186,11 +178,11 @@ public abstract class ItemGridWidget implements GuiWidget {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        if (backgroundTexture != null) {
-            RenderSystem.setShaderTexture(0, backgroundTexture);
-            GuiComponent.blit(poseStack, originX - (backgroundSizeX / 2), originY - (backgroundSizeY / 2), 0, 0,
-                    backgroundSizeX,
-                    backgroundSizeY, backgroundTextureSizeX, backgroundTextureSizeY);
+        if (widgetArea.getBackgroundTexture() != null) {
+            RenderSystem.setShaderTexture(0, widgetArea.getBackgroundTexture());
+            GuiComponent.blit(poseStack, originX - (widgetArea.getBackgroundSizeX() / 2), originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0,
+                    widgetArea.getBackgroundSizeX(),
+                    widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(), widgetArea.getBackgroundTextureSizeY());
         }
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
@@ -218,26 +210,13 @@ public abstract class ItemGridWidget implements GuiWidget {
     }
 
     @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    public int getMouseBoundsX() {
-        return mouseBoundsX;
-    }
-
-    public int getMouseBoundsY() {
-        return mouseBoundsY;
+    public WidgetArea getWidgetArea() {
+        return widgetArea;
     }
 
     @Override
     public int titleYOffset() {
-        return backgroundSizeY;
+        return widgetArea.getBackgroundSizeY();
     }
 
 }

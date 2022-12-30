@@ -40,7 +40,7 @@ public class PaletteWidget extends ItemGridWidget {
             List<Runnable> itemRenderList,
             List<Runnable> lateRenderList,
             boolean overwrideAvailable) {
-        if (backgroundTexture == null) {
+        if (widgetArea.getBackgroundTexture() == null) {
             parent.blit(poseStack, x, y, 24, 22, 29, 24);
         }
         GuiSlot guiSlot = slots.get(listId);

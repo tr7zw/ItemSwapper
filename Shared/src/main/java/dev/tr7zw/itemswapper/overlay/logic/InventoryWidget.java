@@ -32,8 +32,8 @@ public class InventoryWidget extends ItemGridWidget {
     public InventoryWidget(int x, int y) {
         super(x, y);
         setupSlots(9, 3, false, BACKGROUND_LOCATION);
-        backgroundTextureSizeX = 168;
-        backgroundTextureSizeY = 60;
+        widgetArea.setBackgroundTextureSizeX(168);
+        widgetArea.setBackgroundTextureSizeY(60);
     }
 
     private List<AvailableSlot> getItem(int id) {
@@ -48,7 +48,7 @@ public class InventoryWidget extends ItemGridWidget {
             List<Runnable> itemRenderList,
             List<Runnable> lateRenderList,
             boolean overwrideAvailable) {
-        if (backgroundTexture == null) {
+        if (widgetArea.getBackgroundTexture() == null) {
             parent.blit(poseStack, x, y, 24, 22, 29, 24);
         }
         GuiSlot guiSlot = slots.get(listId);

@@ -27,31 +27,23 @@ public class ShortcutListWidget implements GuiWidget {
     private final ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
     private final List<GuiSlot> slots = new ArrayList<>();
     private final List<Shortcut> list;
-    private final int x;
-    private final int y;
-    private int backgroundSizeX = 0;
-    private int backgroundSizeY = 0;
-    private int backgroundTextureSizeX = 128;
-    private int backgroundTextureSizeY = 128;
-    protected ResourceLocation backgroundTexture = null;
-    private int mouseBoundsX = 0;
-    private int mouseBoundsY = 0;
-    
+    private WidgetArea widgetArea = new WidgetArea(0, 0, 128, 128, null, 0, 0);
+
     public ShortcutListWidget(List<Shortcut> list, int x, int y) {
         this.list = list;
-        this.x = x;
-        this.y = y;
+        this.widgetArea.setX(x);
+        this.widgetArea.setY(y);
         setupSlots(1, list.size(), false, null);
     }
     
     private void setupSlots(int width, int height, boolean skipCorners, ResourceLocation texture) {
-        backgroundTexture = texture;
-        backgroundSizeX = width * XTOverlay.tinySlotSize + 6;
-        backgroundSizeY = height * XTOverlay.tinySlotSize + 6;
+        widgetArea.setBackgroundTexture(texture);
+        widgetArea.setBackgroundSizeX(width * XTOverlay.tinySlotSize + 6);
+        widgetArea.setBackgroundSizeY(height * XTOverlay.tinySlotSize + 6);
         int sz = texture == null ? XTOverlay.slotSize : XTOverlay.tinySlotSize;
         int lz = texture == null ? 11 : 9;
-        mouseBoundsX = width * lz;
-        mouseBoundsY = height * lz;
+        widgetArea.setMouseBoundsX(width * lz);
+        widgetArea.setMouseBoundsY(height * lz);
         int originX = (int) (-width / 2d * sz - 2);
         int originY = (int) (-height / 2d * sz - 1 - 2);
         int slotId = 0;
@@ -75,37 +67,22 @@ public class ShortcutListWidget implements GuiWidget {
     }
 
     @Override
-    public int getX() {
-        return x;
-    }
-
-    @Override
-    public int getY() {
-        return y;
-    }
-
-    @Override
-    public int getMouseBoundsX() {
-        return mouseBoundsX;
-    }
-
-    @Override
-    public int getMouseBoundsY() {
-        return mouseBoundsY;
+    public WidgetArea getWidgetArea() {
+        return widgetArea;
     }
 
     @Override
     public void render(GuiComponent parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable) {
-        originX += x;
-        originY += y;
+        originX += widgetArea.getX();
+        originY += widgetArea.getY();
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        if (backgroundTexture != null) {
-            RenderSystem.setShaderTexture(0, backgroundTexture);
-            GuiComponent.blit(poseStack, originX - (backgroundSizeX / 2), originY - (backgroundSizeY / 2), 0, 0,
-                    backgroundSizeX,
-                    backgroundSizeY, backgroundTextureSizeX, backgroundTextureSizeY);
+        if (widgetArea.getBackgroundTexture() != null) {
+            RenderSystem.setShaderTexture(0, widgetArea.getBackgroundTexture());
+            GuiComponent.blit(poseStack, originX - (widgetArea.getBackgroundSizeX() / 2), originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0,
+                    widgetArea.getBackgroundSizeX(),
+                    widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(), widgetArea.getBackgroundTextureSizeY());
         }
         RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
@@ -126,7 +103,7 @@ public class ShortcutListWidget implements GuiWidget {
             List<Runnable> itemRenderList,
             List<Runnable> lateRenderList,
             boolean overwrideAvailable) {
-        if (backgroundTexture == null) {
+        if (widgetArea.getBackgroundTexture() == null) {
             parent.blit(poseStack, x, y, 24, 22, 29, 24);
         }
         GuiSlot guiSlot = slots.get(listId);
