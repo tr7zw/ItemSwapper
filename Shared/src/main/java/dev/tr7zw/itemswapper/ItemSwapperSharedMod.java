@@ -161,8 +161,13 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.ignoreHotbar", () -> configManager.getConfig().ignoreHotbar,
                                 b -> configManager.getConfig().ignoreHotbar = b));
                 options.add(
-                        getOnOffOption("text.itemswapper.unlockListMouse", () -> configManager.getConfig().unlockListMouse,
+                        getOnOffOption("text.itemswapper.unlockListMouse",
+                                () -> configManager.getConfig().unlockListMouse,
                                 b -> configManager.getConfig().unlockListMouse = b));
+                options.add(
+                        getOnOffOption("text.itemswapper.disableShulkers",
+                                () -> configManager.getConfig().disableShulkers,
+                                b -> configManager.getConfig().disableShulkers = b));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 

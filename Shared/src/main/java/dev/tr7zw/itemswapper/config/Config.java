@@ -10,5 +10,6 @@ public class Config {
     public boolean creativeCheatMode = true;
     public boolean ignoreHotbar = true;
     public boolean unlockListMouse = false;
+    public boolean disableShulkers = false;
 
 }
