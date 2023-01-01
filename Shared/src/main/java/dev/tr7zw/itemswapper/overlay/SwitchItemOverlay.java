@@ -14,10 +14,12 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-public class SwitchItemOverlay extends XTOverlay {
+public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
 
@@ -33,6 +35,8 @@ public class SwitchItemOverlay extends XTOverlay {
     private final ConfigManager configManager = ConfigManager.getInstance();
 
     private SwitchItemOverlay() {
+        super(Component.empty());
+        super.passEvents = true;
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
         }
@@ -55,7 +59,7 @@ public class SwitchItemOverlay extends XTOverlay {
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getRightSideShortcuts(),
-                mainWidget.getWidgetArea().getMouseBoundsX() + XTOverlay.slotSize, 0));
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
     public void openInventory() {
@@ -99,8 +103,8 @@ public class SwitchItemOverlay extends XTOverlay {
             selectionHandler.getSelectedWidget().onClick(this, selectionHandler.getSelectedSlot());
         }
     }
-
-    public void onClose() {
+    
+    public void onOverlayClose() {
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().onClose(this, selectionHandler.getSelectedSlot());
         }

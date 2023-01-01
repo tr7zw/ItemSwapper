@@ -16,7 +16,7 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.overlay.XTOverlay;
+import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
@@ -58,19 +58,29 @@ public abstract class ItemSwapperSharedMod {
 
     public void clientTick() {
         Overlay overlay = Minecraft.getInstance().getOverlay();
+        Screen screen = Minecraft.getInstance().screen;
 
         if (keybind.isDown()) {
-            onPress(overlay);
+            if(overlay instanceof ItemSwapperUI ui) {
+                onPress(ui);
+            } else if(screen instanceof ItemSwapperUI ui) {
+                onPress(ui);
+            } else {
+                onPress(null);
+            }
         } else {
             pressed = false;
 
-            if (!configManager.getConfig().toggleMode && overlay instanceof XTOverlay xtOverlay) {
-                closeScreen(xtOverlay);
+            if (!configManager.getConfig().toggleMode && overlay instanceof ItemSwapperUI ui) {
+                closeScreen(ui);
+            }
+            if (!configManager.getConfig().toggleMode && screen instanceof ItemSwapperUI ui) {
+                closeScreen(ui);
             }
         }
     }
 
-    private void onPress(Overlay overlay) {
+    private void onPress(ItemSwapperUI overlay) {
         if (!itemGroupManager.isResourcepackSelected()) {
             this.minecraft.player.displayClientMessage(
                     Component.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
@@ -97,8 +107,8 @@ public abstract class ItemSwapperSharedMod {
             if (couldOpenScreen()) {
                 return;
             }
-        } else if (!pressed && overlay instanceof XTOverlay xtOverlay) {
-            closeScreen(xtOverlay);
+        } else if (!pressed) {
+            closeScreen(overlay);
         }
 
         pressed = true;
@@ -126,7 +136,9 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private static void openInventoryScreen() {
-        Minecraft.getInstance().setOverlay(SwitchItemOverlay.createInventoryOverlay());
+        Minecraft.getInstance().setScreen(SwitchItemOverlay.createInventoryOverlay());
+        Minecraft.getInstance().getSoundManager().resume();
+        Minecraft.getInstance().mouseHandler.grabMouse();
     }
 
     private static void openListSwitchScreen(ItemListOverlay entries) {
@@ -134,12 +146,18 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
-        Minecraft.getInstance().setOverlay(SwitchItemOverlay.createPaletteOverlay(group));
+        Minecraft.getInstance().setScreen(SwitchItemOverlay.createPaletteOverlay(group));
+        Minecraft.getInstance().getSoundManager().resume();
+        Minecraft.getInstance().mouseHandler.grabMouse();
     }
 
-    private static void closeScreen(@NotNull XTOverlay xtOverlay) {
-        xtOverlay.onClose();
-        openListSwitchScreen(null);
+    public static void closeScreen(@NotNull ItemSwapperUI xtOverlay) {
+        xtOverlay.onOverlayClose();
+        if(xtOverlay instanceof Overlay) {
+            Minecraft.getInstance().setOverlay(null);
+        } else if (xtOverlay instanceof Screen) {
+            Minecraft.getInstance().setScreen(null);
+        }
     }
 
     public Screen createConfigScreen(Screen parent) {

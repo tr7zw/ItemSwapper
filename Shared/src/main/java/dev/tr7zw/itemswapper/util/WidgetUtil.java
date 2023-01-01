@@ -5,7 +5,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.overlay.XTOverlay;
+import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
 import net.minecraft.client.gui.GuiComponent;
@@ -119,9 +119,9 @@ public class WidgetUtil {
     public static void setupSlots(WidgetArea widgetArea, List<GuiSlot> slots, int width, int height,
             boolean skipCorners, ResourceLocation texture) {
         widgetArea.setBackgroundTexture(texture);
-        widgetArea.setBackgroundSizeX(width * XTOverlay.tinySlotSize + 6);
-        widgetArea.setBackgroundSizeY(height * XTOverlay.tinySlotSize + 6);
-        int sz = texture == null ? XTOverlay.slotSize : XTOverlay.tinySlotSize;
+        widgetArea.setBackgroundSizeX(width * ItemSwapperUI.tinySlotSize + 6);
+        widgetArea.setBackgroundSizeY(height * ItemSwapperUI.tinySlotSize + 6);
+        int sz = texture == null ? ItemSwapperUI.slotSize : ItemSwapperUI.tinySlotSize;
         int lz = texture == null ? 11 : 9;
         widgetArea.setMouseBoundsX(width * lz);
         widgetArea.setMouseBoundsY(height * lz);
@@ -135,7 +135,7 @@ public class WidgetUtil {
                                 || (x == width - 1 && y == 0));
                 if (!skip) {
                     slots.add(new GuiSlot(originX + x * sz, originY + y * sz, slotId,
-                            XTOverlay.tinySlotSize));
+                            ItemSwapperUI.tinySlotSize));
                     slotId++;
                 }
             }
@@ -150,9 +150,9 @@ public class WidgetUtil {
     public static void setupHalfGridSlots(WidgetArea widgetArea, List<GuiSlot> slots, int width, int height,
             ResourceLocation texture, boolean flip) {
         widgetArea.setBackgroundTexture(texture);
-        widgetArea.setBackgroundSizeX(width * XTOverlay.tinySlotSize + 6);
-        widgetArea.setBackgroundSizeY(height * XTOverlay.tinySlotSize + 6);
-        int sz = texture == null ? XTOverlay.slotSize : XTOverlay.tinySlotSize;
+        widgetArea.setBackgroundSizeX(width * ItemSwapperUI.tinySlotSize + 6);
+        widgetArea.setBackgroundSizeY(height * ItemSwapperUI.tinySlotSize + 6);
+        int sz = texture == null ? ItemSwapperUI.slotSize : ItemSwapperUI.tinySlotSize;
         int lz = texture == null ? 11 : 9;
         widgetArea.setMouseBoundsX(width * lz);
         widgetArea.setMouseBoundsY(height * lz);
@@ -171,7 +171,7 @@ public class WidgetUtil {
                 int xOffset = needsOffset ? sz / 2 : 0;
                 if (!skip) {
                     slots.add(new GuiSlot(originX + xOffset + x * sz, originY + y * sz, slotId++,
-                            XTOverlay.tinySlotSize));
+                            ItemSwapperUI.tinySlotSize));
                 }
             }
         }

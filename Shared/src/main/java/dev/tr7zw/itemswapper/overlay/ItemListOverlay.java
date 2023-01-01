@@ -19,6 +19,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
@@ -30,7 +31,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemListOverlay extends XTOverlay {
+public class ItemListOverlay extends Overlay implements ItemSwapperUI {
 
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
@@ -145,7 +146,7 @@ public class ItemListOverlay extends XTOverlay {
     }
 
     @Override
-    public void onClose() {
+    public void onOverlayClose() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
