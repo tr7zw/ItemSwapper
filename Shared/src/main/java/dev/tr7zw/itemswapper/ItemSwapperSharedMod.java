@@ -142,7 +142,9 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private static void openListSwitchScreen(ItemListOverlay entries) {
-        Minecraft.getInstance().setOverlay(entries);
+        Minecraft.getInstance().setScreen(entries);
+        Minecraft.getInstance().getSoundManager().resume();
+        Minecraft.getInstance().mouseHandler.grabMouse();
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {

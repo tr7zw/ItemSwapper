@@ -19,7 +19,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Overlay;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
@@ -31,7 +31,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemListOverlay extends Overlay implements ItemSwapperUI {
+public class ItemListOverlay extends Screen implements ItemSwapperUI {
 
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
@@ -60,6 +60,8 @@ public class ItemListOverlay extends Overlay implements ItemSwapperUI {
     private double selectY = 0;
 
     public ItemListOverlay(Item[] itemSelection) {
+        super(Component.empty());
+        super.passEvents = true;
         this.itemSelection = itemSelection;
         refreshList();
     }
