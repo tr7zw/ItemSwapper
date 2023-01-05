@@ -60,7 +60,6 @@ public abstract class ItemSwapperSharedMod {
         Overlay overlay = Minecraft.getInstance().getOverlay();
         Screen screen = Minecraft.getInstance().screen;
 
-        System.out.println(keybind.isDown());
         if (keybind.isDown()) {
             if(overlay instanceof ItemSwapperUI ui) {
                 onPress(ui);
