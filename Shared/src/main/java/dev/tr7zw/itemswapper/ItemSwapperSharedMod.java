@@ -43,7 +43,7 @@ public abstract class ItemSwapperSharedMod {
     private boolean enableShulkers = false;
     private boolean modDisabled = false;
     private boolean bypassExcepted = false;
-    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
+    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "itemswapper.controlls");
     private boolean pressed = false;
 
     public void init() {
@@ -60,6 +60,7 @@ public abstract class ItemSwapperSharedMod {
         Overlay overlay = Minecraft.getInstance().getOverlay();
         Screen screen = Minecraft.getInstance().screen;
 
+        System.out.println(keybind.isDown());
         if (keybind.isDown()) {
             if(overlay instanceof ItemSwapperUI ui) {
                 onPress(ui);
@@ -188,6 +189,8 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.disableShulkers",
                                 () -> configManager.getConfig().disableShulkers,
                                 b -> configManager.getConfig().disableShulkers = b));
+                
+                options.add(getDoubleOption("text.itemswapper.controllerSpeed", 1, 16, 0.1f, () -> (double)configManager.getConfig().controllerSpeed, d -> configManager.getConfig().controllerSpeed = d.floatValue()));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 
@@ -240,5 +243,9 @@ public abstract class ItemSwapperSharedMod {
 
     public ClientProviderManager getClientProviderManager() {
         return clientProviderManager;
+    }
+    
+    public KeyMapping getKeybind() {
+        return keybind;
     }
 }

@@ -1,6 +1,8 @@
 package dev.tr7zw.itemswapper;
 
+import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
+import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -23,6 +25,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                 container -> ResourceManagerHelper.registerBuiltinResourcePack(
                         new ResourceLocation("itemswapper", "default"), container,
                         ResourcePackActivationType.DEFAULT_ENABLED));
+        
+        FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
+            ItemSwapperSharedMod.LOGGER.info("Adding MidnightControls support!");
+            MidnightControlsCompat.HANDLERS.add(new MidnightControllsSupport());
+        });
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
             ClientPlayNetworking.registerReceiver(NetworkUtil.enableShulkerMessage,

@@ -16,3 +16,9 @@ rootProject:
 subProjects:
   XTFabric:
     template: "Fabric"
+    replacements:
+      dependencies: "
+      modCompileOnlyApi 'maven.modrinth:midnightcontrols:1.7.4+1.19'\n
+       modCompileOnly 'maven.modrinth:midnightlib:1.0.0-fabric'\n
+       modCompileOnly 'org.aperlambda:lambdajcommon:1.8.1'\n
+      "

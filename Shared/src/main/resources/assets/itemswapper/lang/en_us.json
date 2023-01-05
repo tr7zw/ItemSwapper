@@ -1,5 +1,12 @@
 {
   "key.itemswapper.itemswitcher": "Switch Item",
+  "key.itemswapper.toggleitem": "Toggle Item",
+  "key.itemswapper.moveup": "Move Up",
+  "key.itemswapper.movedown": "Move Down",
+  "key.itemswapper.moveleft": "Move Left",
+  "key.itemswapper.moveright": "Move Right",
+  "itemswapper.controlls": "Item Swapper",
+  "text.itemswapper.controllerSpeed": "Controller Speed",
   "text.itemswapper.title": "Item Swapper",
   "text.itemswapper.toggleMode": "Toggle Mode",
   "text.itemswapper.showCursor": "Show Cursor",
