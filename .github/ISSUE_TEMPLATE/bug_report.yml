@@ -44,13 +44,13 @@ body:
   - type: input
     id: mods-installed
     attributes:
-      label: Other mods installed
+      label: Other relevant installed mods 
       description: >-
         Please provide the names and versions of those mods. If you do not know what version you are using,
         look at the file name in your `mods` folder.
       placeholder: 'Example: modmenu-4.1.2'
     validations:
-      required: true
+      required: false
   - type: textarea
     id: expected
     attributes:
@@ -84,28 +84,17 @@ body:
     validations:
       required: true
   - type: checkboxes
-    id: optifine
+    id: render-engine
     attributes:
-      label: Optifine
-      description: Do you use Optifine?
+      label: Render engine
+      description: Select the option that applies to you
       options:
-        - label: Yes.
-        - label: No.
-  - type: markdown
-    attributes:
-      value: >-
-        # System Information
-
-
-        You can obtain this information from the right-side of the in-game debug
-        screen (F3) or through using
-        [DxDiag](https://support.microsoft.com/en-us/help/4028644/windows-open-and-run-dxdiagexe)
-        on Windows.
-  - type: input
-    id: java
-    attributes:
-      label: Java version
-      placeholder: 'Example: Java 16'
+        - label: Vanilla
+        - label: Sodium(optionally with Iris)
+        - label: Optifine
+        - label: VulkanMod
+        - label: Canvas
+        - label: Other
     validations:
       required: true
   - type: textarea
