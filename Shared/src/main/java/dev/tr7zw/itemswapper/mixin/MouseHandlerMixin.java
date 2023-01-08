@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.Blaze3D;
 
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
@@ -26,6 +27,7 @@ public class MouseHandlerMixin {
     @Shadow
     private double accumulatedDY;
 
+    private final ConfigManager configManager = ConfigManager.getInstance();
     private boolean middleIsPressed = false;
     private boolean leftIsPressed = false;
 
@@ -45,7 +47,7 @@ public class MouseHandlerMixin {
         double d0 = Blaze3D.getTime();
         this.lastMouseEventTime = d0;
         if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {
-            double d4 = 0.3D;
+            double d4 = 0.3D * configManager.getConfig().mouseSpeed;
             double d5 = d4 * d4 * d4;
             double d6 = d5 * 8.0D;
             double d2 = this.accumulatedDX * d6;

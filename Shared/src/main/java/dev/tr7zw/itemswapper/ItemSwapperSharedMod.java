@@ -190,6 +190,7 @@ public abstract class ItemSwapperSharedMod {
                                 b -> configManager.getConfig().disableShulkers = b));
                 
                 options.add(getDoubleOption("text.itemswapper.controllerSpeed", 1, 16, 0.1f, () -> (double)configManager.getConfig().controllerSpeed, d -> configManager.getConfig().controllerSpeed = d.floatValue()));
+                options.add(getDoubleOption("text.itemswapper.mouseSpeed", 0.1f, 3, 0.1f, () -> (double)configManager.getConfig().mouseSpeed, d -> configManager.getConfig().mouseSpeed = d.floatValue()));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 
