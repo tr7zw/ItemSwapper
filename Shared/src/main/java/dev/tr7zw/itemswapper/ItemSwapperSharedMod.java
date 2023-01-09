@@ -65,6 +65,8 @@ public abstract class ItemSwapperSharedMod {
                 onPress(ui);
             } else if(screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
+            } else if(screen != null) {
+                // not our screen, don't do anything
             } else {
                 onPress(null);
             }
