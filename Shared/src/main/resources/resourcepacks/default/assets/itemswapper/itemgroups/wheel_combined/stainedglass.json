@@ -20,6 +20,7 @@
         "minecraft:black_stained_glass"
     ],
     [
+        "minecraft:glass_pane",
         "minecraft:white_stained_glass_pane",
         "minecraft:orange_stained_glass_pane",
         "minecraft:magenta_stained_glass_pane",
