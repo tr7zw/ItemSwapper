@@ -1,5 +1,13 @@
 {
   "key.itemswapper.itemswitcher": "交换物品",
+  "key.itemswapper.toggleitem": "切换物品",
+  "key.itemswapper.moveup": "向上移动",
+  "key.itemswapper.movedown": "向下移动",
+  "key.itemswapper.moveleft": "向左移动",
+  "key.itemswapper.moveright": "向右移动",
+  "itemswapper.controlls": "Item Swapper",
+  "text.itemswapper.controllerSpeed": "手柄速度",
+  "text.itemswapper.mouseSpeed": "鼠标速度",
   "text.itemswapper.title": "物品交换器",
   "text.itemswapper.toggleMode": "切换模式",
   "text.itemswapper.showCursor": "显示光标",
