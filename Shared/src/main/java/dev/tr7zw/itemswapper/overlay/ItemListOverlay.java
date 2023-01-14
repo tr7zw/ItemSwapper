@@ -2,31 +2,36 @@ package dev.tr7zw.itemswapper.overlay;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.ConfigManager;
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+import dev.tr7zw.itemswapper.api.client.NameProvider;
+import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil.Slot;
-import dev.tr7zw.itemswapper.util.NetworkLogic;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-import net.minecraft.util.StringUtil;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
 
-public class ItemListOverlay extends XTOverlay {
+public class ItemListOverlay extends Screen implements ItemSwapperUI {
 
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
@@ -47,12 +52,16 @@ public class ItemListOverlay extends XTOverlay {
     private static final int slotSize = 18;
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
+    private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
+    private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private Item[] itemSelection;
-    private List<Slot> entries = new ArrayList<>();
+    private List<AvailableSlot> entries = new ArrayList<>();
     private int selectedEntry = 0;
     private double selectY = 0;
 
     public ItemListOverlay(Item[] itemSelection) {
+        super(Component.empty());
+        super.passEvents = true;
         this.itemSelection = itemSelection;
         refreshList();
     }
@@ -66,16 +75,17 @@ public class ItemListOverlay extends XTOverlay {
         List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 - slotSize * 5;
-        int originY = minecraft.getWindow().getGuiScaledHeight() - yOffset + (Math.max(0, selectedEntry - limit/2) * slotSize);
-        int start = Math.max(0, selectedEntry - limit/2);
+        int originY = minecraft.getWindow().getGuiScaledHeight() - yOffset
+                + (Math.max(0, selectedEntry - limit / 2) * slotSize);
+        int start = Math.max(0, selectedEntry - limit / 2);
         for (int i = start; i < entries.size() && i < start + limit; i++) {
             boolean endTop = i == entries.size() - 1;
             boolean endBottom = i == 0;
             boolean midBottom = i == start;
             boolean midTop = i == start + limit - 1;
-            if(endTop && endBottom) {
+            if (endTop && endBottom) {
                 RenderSystem.setShaderTexture(0, SINGLE_LOCATION);
-            } else if (endBottom){
+            } else if (endBottom) {
                 RenderSystem.setShaderTexture(0, BOTTOM_LOCATION);
             } else if (endTop) {
                 RenderSystem.setShaderTexture(0, TOP_LOCATION);
@@ -101,7 +111,7 @@ public class ItemListOverlay extends XTOverlay {
         selectY = Mth.clamp(selectY, 0, entries.size() * entrySize - 1);
         refreshList();
     }
-    
+
     @Override
     public void onScroll(double signum) {
         selectY += signum * entrySize;
@@ -112,10 +122,12 @@ public class ItemListOverlay extends XTOverlay {
     private void refreshList() {
         entries.clear();
         // first slot is always the current item
-        entries.add(new Slot(-1, minecraft.player.getInventory().selected, minecraft.player.getInventory().getSelected()));
+        entries.add(new AvailableSlot(-1, minecraft.player.getInventory().selected,
+                minecraft.player.getInventory().getSelected()));
         for (Item item : itemSelection) {
-            List<Slot> ids = ItemUtil.findSlotsMatchingItem(item, false, ConfigManager.getInstance().getConfig().ignoreHotbar);
-            for (Slot id : ids) {
+            List<AvailableSlot> ids = providerManager.findSlotsMatchingItem(item, false,
+                    ConfigManager.getInstance().getConfig().ignoreHotbar);
+            for (AvailableSlot id : ids) {
                 if (!entries.contains(id)) {
                     entries.add(id);
                 }
@@ -131,24 +143,36 @@ public class ItemListOverlay extends XTOverlay {
     }
 
     @Override
-    public void onClose() {
+    public boolean lockMouse() {
+        return !ConfigManager.getInstance().getConfig().unlockListMouse;
+    }
+
+    @Override
+    public void onOverlayClose() {
         if (selectedEntry != 0) {
-            Slot slot = entries.get(selectedEntry);
-            if(slot.inventory() == -1) {
+            AvailableSlot slot = entries.get(selectedEntry);
+            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+            if (event.canceled().get()) {
+                // interaction canceled by some other mod
+                return;
+            }
+            if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
                         minecraft.player.getInventory().selected,
                         ClickType.SWAP, this.minecraft.player);
             } else {
-                NetworkLogic.swapItem(slot.inventory(), slot.slot());
+                NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
+            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
     }
 
-    private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
+    private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
+            List<Runnable> lateRenderList) {
         blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
-        Slot slot = entries.get(id);
+        AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
@@ -162,37 +186,24 @@ public class ItemListOverlay extends XTOverlay {
         }
         itemRenderList.add(() -> {
             renderSlot(x + 4, y + 4, minecraft.player, slot.item(), 1);
-            drawString(poseStack, minecraft.font, getDisplayname(slot.item()),
-                    x + 25, y + 11, -1);
+            var name = getDisplayname(slot.item());
+            if (selectedEntry != id && name instanceof MutableComponent mutName) {
+                mutName.withStyle(ChatFormatting.GRAY);
+            }
+            drawString(poseStack, minecraft.font, name,
+                    x + 27, y + 9, -1);
         });
     }
-    
+
     private Component getDisplayname(ItemStack item) {
-        if(item.hasCustomHoverName()) {
+        if (item.hasCustomHoverName()) {
             return item.getHoverName();
         }
-        if(item.getItem() == Items.POTION || item.getItem() == Items.SPLASH_POTION || item.getItem() == Items.LINGERING_POTION) {
-            List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
-            if(!effects.isEmpty()) {
-                MutableComponent comp = formatEffect(effects.get(0));
-                if(effects.size() >= 2) {
-                    comp.append(", ").append(formatEffect(effects.get(1)));
-                }
-                return comp;
-            }
+        NameProvider provider = providerManager.getNameProvider(item.getItem());
+        if (provider != null) {
+            return provider.getDisplayName(item);
         }
         return item.getHoverName();
-    }
-    
-    private MutableComponent formatEffect(MobEffectInstance effect) {
-        MutableComponent comp = Component.empty().append(effect.getEffect().getDisplayName());
-        if(effect.getAmplifier() > 1) {
-            comp.append(" ").append(Component.translatable("potion.potency." + effect.getAmplifier()));
-        }
-        if(effect.getDuration() > 1) {
-            comp.append(" (").append(Component.literal(StringUtil.formatTickDuration(effect.getDuration()))).append(")");
-        }
-        return comp;
     }
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
