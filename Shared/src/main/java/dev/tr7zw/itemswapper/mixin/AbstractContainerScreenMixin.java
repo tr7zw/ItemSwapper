@@ -55,7 +55,7 @@ public class AbstractContainerScreenMixin extends Screen {
     @Inject(method = "render", at = @At("TAIL"))
     private void render(PoseStack poseStack, int i, int j, float f, CallbackInfo info) {
         if (copyToClipboardBtn != null) {
-            copyToClipboardBtn.x = this.leftPos + this.imageWidth - 20;
+            copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
         }
     }
 }

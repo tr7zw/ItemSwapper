@@ -14,6 +14,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -65,14 +66,13 @@ public class CopyToClipboard extends ImageButton {
         RenderSystem.enableDepthTest();
         poseStack.pushPose();
         poseStack.scale(.5f, .5f, 1);
-        poseStack.translate(x, y, 0);
-        blit(poseStack, this.x, this.y, 0, this.isHovered ? 19 : 0, BUTTON_WIDTH, BUTTON_HEIGHT, TEXTURE_WIDTH,
+        poseStack.translate(getX(), getY(), 0);
+        blit(poseStack, this.getX(), this.getY(), 0, this.isHovered ? 19 : 0, BUTTON_WIDTH, BUTTON_HEIGHT, TEXTURE_WIDTH,
                 TEXTURE_HEIGHT);
         this.renderToolTip(poseStack, i, j);
         poseStack.popPose();
     }
-
-    @Override
+    
     public void renderToolTip(@NotNull PoseStack poseStack, int i, int j) {
         if (this.isHovered && instance.screen != null) {
             instance.screen.renderTooltip(poseStack,
@@ -81,7 +81,7 @@ public class CopyToClipboard extends ImageButton {
     }
 
     private String arrayToJson(Item[] itemArray) {
-        List<String> names = Arrays.stream(itemArray).map(is -> Registry.ITEM.getKey(is).toString()).toList();
+        List<String> names = Arrays.stream(itemArray).map(is -> BuiltInRegistries.ITEM.getKey(is).toString()).toList();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         return gson.toJson(names);
