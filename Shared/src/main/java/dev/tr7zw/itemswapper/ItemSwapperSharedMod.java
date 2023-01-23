@@ -17,6 +17,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
+import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
@@ -45,18 +46,28 @@ public abstract class ItemSwapperSharedMod {
     private boolean bypassExcepted = false;
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "itemswapper.controlls");
     private boolean pressed = false;
+    private boolean lateInitCompleted = false;
 
     public void init() {
         instance = this;
         LOGGER.info("Loading ItemSwapper!");
 
         initModloader();
+    }
+    
+    private void lateInit() {
         clientProviderManager.registerContainerProvider(new ShulkerContainerProvider());
         clientProviderManager.registerNameProvider(new PotionNameProvider());
         clientProviderManager.registerNameProvider(new RecordNameProvider());
+        clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
     }
 
     public void clientTick() {
+        // run this code later, so all other mods are done loading
+        if(!lateInitCompleted) {
+            lateInitCompleted = true;
+            lateInit();
+        }
         Overlay overlay = Minecraft.getInstance().getOverlay();
         Screen screen = Minecraft.getInstance().screen;
 
