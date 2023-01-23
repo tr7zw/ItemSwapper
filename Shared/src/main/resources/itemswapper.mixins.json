@@ -14,7 +14,8 @@
     "ClientLevelMixin",
     "AbstractContainerScreenMixin",
     "ContainerScreenMixin",
-    "RecordItemMixin"
+    "RecordItemMixin",
+    "InstrumentItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
