@@ -16,9 +16,9 @@
   "text.itemswapper.ignoreHotbar": "Списки игнор. хотбар",
   "text.itemswapper.creativeCheatMode": "Читы в творч. режиме",
   "text.itemswapper.confirm.title": "Включить мод на этом сервере?",
-  "text.itemswapper.confirm.description": "Мод не установлен. Хотите ли вы использовать мод без поддержки шалкеровых ящиков? Пожалуйста, сначала спросите разрешение у владельца сервера. Использование этого мода без разрешения может привести к бану на сервере!",
+  "text.itemswapper.confirm.description": "Мод не установлен, но и не заблокирован. Хотите ли вы использовать мод без поддержки шалкеровых ящиков? Пожалуйста, сначала спросите разрешение у владельца сервера. Использование этого мода без разрешения может привести к бану на сервере!",
   "text.itemswapper.resourcepack.notSelected": "Внимание! Ни один из поддерживаемых ресурспаков для ItemSwapper не используется!",
-  "text.itemswapper.unlockListMouse": "Вкл. мышью списков",
+  "text.itemswapper.unlockListMouse": "Разбл. мышь в списках",
   "text.itemswapper.button.copyToClipboard.tooltip": "Скопировать палитру как JSON в буфер обмена",
   "text.itemswapper.button.copyToClipboard.success": "Палитра успешна скопирована в буфер обмена. - Проверьте буфер обмена вашей операционной системы, в качестве альтернативы проверьте лог-файл.",
   "text.itemswapper.disableShulkers": "Откл. шалкеровые ящики"
