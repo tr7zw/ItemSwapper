@@ -161,6 +161,10 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
+        if(Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+            overlay.openItemGroup(group);
+            return;
+        }
         Minecraft.getInstance().setScreen(SwitchItemOverlay.createPaletteOverlay(group));
         Minecraft.getInstance().getSoundManager().resume();
         Minecraft.getInstance().mouseHandler.grabMouse();

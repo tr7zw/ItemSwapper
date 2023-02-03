@@ -107,6 +107,10 @@ public class ItemGroupManager {
         }
         return null;
     }
+    
+    public ItemGroup getItemGroup(ResourceLocation location) {
+        return groupMapping.get(location);
+    }
 
     /**
      * Checks if resource pack is selected.

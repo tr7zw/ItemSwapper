@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import net.minecraft.core.registries.BuiltInRegistries;
 import dev.tr7zw.itemswapper.manager.itemgroups.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ShowNextPalletShortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.resources.ResourceLocation;
@@ -85,7 +86,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ResourceLocation ownId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + i);
             int next = i+1 == lists.size() ? 0 : i+1;
             ResourceLocation nextId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + next);
-            ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE)).build());
+            ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, new ShowNextPalletShortcut(nextId))).build());
         }
     }
 
