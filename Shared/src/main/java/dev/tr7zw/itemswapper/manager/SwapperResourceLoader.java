@@ -21,6 +21,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.itemgroups.ShowNextPalletShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -140,7 +141,17 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 JsonObject obj = el.getAsJsonObject();
                 ResourceLocation resourceLocation = new ResourceLocation(obj.get("id").getAsString());
                 Item item = BuiltInRegistries.ITEM.get(resourceLocation);
-                ItemEntry entry = new ItemEntry(item, new ResourceLocation(obj.get("link").getAsString()));
+                ResourceLocation link = null;
+                try {
+                    link = new ResourceLocation(obj.get("link").getAsString());
+                }catch(Exception ex) {
+                    ItemSwapperSharedMod.LOGGER.warn("Invalid item link in " + jsonLocation);
+                }
+                String displayName = null;
+                if(obj.has("name") && obj.get("name").isJsonPrimitive()) {
+                    displayName = obj.getAsJsonPrimitive("name").getAsString();
+                }
+                ItemEntry entry = new ItemEntry(item, link, displayName != null ? Component.translatable(displayName) : null);
                 if (!itemList.contains(entry)) {
                     itemList.add(entry);
                 }
