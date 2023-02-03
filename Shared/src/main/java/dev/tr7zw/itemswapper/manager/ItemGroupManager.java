@@ -30,6 +30,10 @@ public class ItemGroupManager {
             return;
         }
         groupMapping.put(group.getId(), group);
+        // Add these before the autoLinkDisabled check, since they would do nothing otherwise in that case
+        for (Item item : group.getOpenOnlyItems()) {
+            addOpener(group, item);
+        }
         if(group.autoLinkDisabled()) {
             // Dont add to the paletteMappings
             return;
@@ -38,9 +42,6 @@ public class ItemGroupManager {
             if(!group.getIgnoreItems().contains(item.getItem())) {
                 addOpener(group, item.getItem());
             }
-        }
-        for (Item item : group.getOpenOnlyItems()) {
-            addOpener(group, item);
         }
     }
 

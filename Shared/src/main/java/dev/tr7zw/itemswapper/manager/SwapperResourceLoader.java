@@ -111,6 +111,9 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ItemSwapperSharedMod.LOGGER.warn("Invalid forceLink in " + jsonLocation);
             }
         }
+        if(json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
+            group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
+        }
         group.withItems(processItems(jsonLocation, json.get("items")));
         Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
         if (openOnly != null && openOnly.length > 0) {
