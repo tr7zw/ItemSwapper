@@ -33,4 +33,11 @@ public class MinecraftMixin {
                 .registerReloadListener(new SwapperResourceLoader());
     }
 
+    @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
+    private void pickBlock(CallbackInfo ci) {
+        if (Minecraft.getInstance().screen instanceof ItemSwapperUI) {
+            ci.cancel();
+        }
+    }
+    
 }

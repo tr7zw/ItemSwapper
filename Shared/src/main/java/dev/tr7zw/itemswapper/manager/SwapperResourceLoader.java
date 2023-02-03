@@ -14,11 +14,12 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.manager.itemgroups.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
-import dev.tr7zw.itemswapper.manager.itemgroups.ShowNextPalletShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.ShowNextPalletShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -60,11 +61,11 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100)
-                                .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE)).build());
+                                .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE)).build());
                     }
                     if (entry.getKey().getPath().startsWith("wheel_secondary/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200)
-                                .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE)).build());
+                                .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE)).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(items);
@@ -188,7 +189,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ItemSwapperSharedMod.instance.getItemGroupManager()
                     .registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId)
                             .withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays
-                                    .asList(ClearCurrentSlotShortcut.INSTANCE, new ShowNextPalletShortcut(nextId)))
+                                    .asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE, new ShowNextPalletShortcut(nextId)))
                             .build());
         }
     }

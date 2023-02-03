@@ -1,7 +1,9 @@
-package dev.tr7zw.itemswapper.manager.itemgroups;
+package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import net.minecraft.resources.ResourceLocation;
 
 public class ShowNextPalletShortcut implements Shortcut {

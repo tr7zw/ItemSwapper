@@ -148,13 +148,19 @@ public abstract class ItemSwapperSharedMod {
         return false;
     }
 
-    private static void openInventoryScreen() {
+    public static void openInventoryScreen() {
+        if(Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+            overlay.openInventory();
+            Minecraft.getInstance().getSoundManager().resume();
+            Minecraft.getInstance().mouseHandler.grabMouse();
+            return;
+        }
         Minecraft.getInstance().setScreen(SwitchItemOverlay.createInventoryOverlay());
         Minecraft.getInstance().getSoundManager().resume();
         Minecraft.getInstance().mouseHandler.grabMouse();
     }
 
-    private static void openListSwitchScreen(ItemListOverlay entries) {
+    public static void openListSwitchScreen(ItemListOverlay entries) {
         Minecraft.getInstance().setScreen(entries);
         Minecraft.getInstance().getSoundManager().resume();
         Minecraft.getInstance().mouseHandler.grabMouse();

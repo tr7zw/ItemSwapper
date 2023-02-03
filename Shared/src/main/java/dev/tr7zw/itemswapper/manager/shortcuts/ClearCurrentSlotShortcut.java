@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.manager.itemgroups;
+package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -9,6 +9,8 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.client.Minecraft;
