@@ -35,15 +35,17 @@ public class ItemGroupManager {
             return;
         }
         for (ItemEntry item : group.getItems()) {
-            addOpener(group, item);
+            if(!group.getIgnoreItems().contains(item.getItem())) {
+                addOpener(group, item.getItem());
+            }
         }
-        for (ItemEntry item : group.getOpenOnlyItems()) {
+        for (Item item : group.getOpenOnlyItems()) {
             addOpener(group, item);
         }
     }
 
-    private void addOpener(ItemGroup group, ItemEntry item) {
-        List<ItemGroup> list = paletteMapping.computeIfAbsent(item.getItem(), k -> new ArrayList<>());
+    private void addOpener(ItemGroup group, Item item) {
+        List<ItemGroup> list = paletteMapping.computeIfAbsent(item, k -> new ArrayList<>());
         if (list.contains(group)) {
             return;
         }
@@ -74,7 +76,10 @@ public class ItemGroupManager {
             if (cur >= list.size()) {
                 cur = 0;
             }
-            return list.get(cur);
+            if(list.get(cur) != current) {
+                // only return the next one, if it's different to the current one, otherwise use the fallback
+                return list.get(cur);
+            }
         }
         if (current.getFallbackLink() != null) {
             ItemGroup group = groupMapping.get(current.getFallbackLink());
@@ -119,7 +124,7 @@ public class ItemGroupManager {
      *         empty.
      */
     public boolean isResourcepackSelected() {
-        return !paletteMapping.isEmpty() && !listMapping.isEmpty();
+        return !paletteMapping.isEmpty() || !listMapping.isEmpty();
     }
 
 }

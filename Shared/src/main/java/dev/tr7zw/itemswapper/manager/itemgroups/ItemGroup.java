@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 /**
  * Lombok afaik doesn't work for Loom, so using spark to generate the builder
@@ -20,8 +21,8 @@ public class ItemGroup {
     private final ResourceLocation fallbackLink;
     private final ResourceLocation forcedLink;
     private final ItemEntry[] items;
-    private final Set<ItemEntry> openOnlyItems;
-    private final Set<ItemEntry> ignoreItems;
+    private final Set<Item> openOnlyItems;
+    private final Set<Item> ignoreItems;
     private final List<Shortcut> rightSideShortcuts;
 
     private ItemGroup(Builder builder) {
@@ -63,11 +64,11 @@ public class ItemGroup {
         return items[id];
     }
 
-    public Set<ItemEntry> getOpenOnlyItems() {
+    public Set<Item> getOpenOnlyItems() {
         return openOnlyItems;
     }
 
-    public Set<ItemEntry> getIgnoreItems() {
+    public Set<Item> getIgnoreItems() {
         return ignoreItems;
     }
     
@@ -90,8 +91,8 @@ public class ItemGroup {
         private ResourceLocation fallbackLink;
         private ResourceLocation forcedLink;
         private ItemEntry[] items;
-        private Set<ItemEntry> openOnlyItems = Collections.emptySet();
-        private Set<ItemEntry> ignoreItems = Collections.emptySet();
+        private Set<Item> openOnlyItems = Collections.emptySet();
+        private Set<Item> ignoreItems = Collections.emptySet();
         private List<Shortcut> rightSideShortcuts = Collections.emptyList();
 
         private Builder() {
@@ -127,12 +128,12 @@ public class ItemGroup {
             return this;
         }
 
-        public Builder withOpenOnlyItems(Set<ItemEntry> openOnlyItems) {
+        public Builder withOpenOnlyItems(Set<Item> openOnlyItems) {
             this.openOnlyItems = openOnlyItems;
             return this;
         }
 
-        public Builder withIgnoreItems(Set<ItemEntry> ignoreItems) {
+        public Builder withIgnoreItems(Set<Item> ignoreItems) {
             this.ignoreItems = ignoreItems;
             return this;
         }
