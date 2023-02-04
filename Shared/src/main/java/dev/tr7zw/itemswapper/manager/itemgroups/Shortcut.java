@@ -10,4 +10,8 @@ public interface Shortcut {
     
     public boolean acceptClick();
     
+    public default boolean isVisible() {
+        return true;
+    }
+    
 }

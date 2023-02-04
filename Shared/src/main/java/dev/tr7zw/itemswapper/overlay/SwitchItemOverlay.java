@@ -1,5 +1,8 @@
 package dev.tr7zw.itemswapper.overlay;
 
+import java.util.Arrays;
+import java.util.List;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -11,6 +14,9 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
 import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
@@ -36,6 +42,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
     public boolean hideCursor = false;
+    private List<Shortcut> shortcutList = Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE);
 
     private final ConfigManager configManager = ConfigManager.getInstance();
 
@@ -69,7 +76,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         selectionHandler.reset();
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getRightSideShortcuts(),
+        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
     
@@ -77,6 +84,8 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         selectionHandler.reset();
         GuiWidget mainWidget = new ListContentWidget(items, 0, 0);
         selectionHandler.addWidget(mainWidget);
+        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
     
     public void openPage(Page page) {
@@ -89,7 +98,10 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
 
     public void openInventory() {
         selectionHandler.reset();
-        selectionHandler.addWidget(new InventoryWidget(0, 0));
+        InventoryWidget mainWidget = new InventoryWidget(0, 0);
+        selectionHandler.addWidget(mainWidget);
+        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
     @Override

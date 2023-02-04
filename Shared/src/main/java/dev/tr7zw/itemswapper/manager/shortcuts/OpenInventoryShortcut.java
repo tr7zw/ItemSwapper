@@ -32,4 +32,10 @@ public class OpenInventoryShortcut implements Shortcut {
         return true;
     }
 
+    @Override
+    public boolean isVisible() {
+        // TODO: false when the current view is inventory
+        return true;
+    }
+
 }

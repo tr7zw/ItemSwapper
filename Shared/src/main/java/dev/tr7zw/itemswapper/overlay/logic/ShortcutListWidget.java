@@ -16,8 +16,8 @@ public class ShortcutListWidget extends ItemGridWidget {
 
     public ShortcutListWidget(List<Shortcut> list, int x, int y) {
         super(x,y);
-        this.list = list;
-        WidgetUtil.setupSlots(widgetArea, slots, 1, list.size(), false, null);
+        this.list = list.stream().filter(Shortcut::isVisible).toList();
+        WidgetUtil.setupSlots(widgetArea, slots, 1, this.list.size(), false, null);
     }
     
     @Override

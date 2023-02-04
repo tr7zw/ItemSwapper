@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Items;
 
@@ -62,6 +63,11 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     @Override
     public boolean acceptClick() {
         return false;
+    }
+    
+    @Override
+    public boolean isVisible() {
+        return !minecraft.player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
     }
 
 }

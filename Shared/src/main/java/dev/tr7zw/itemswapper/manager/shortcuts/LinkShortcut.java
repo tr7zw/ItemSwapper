@@ -4,6 +4,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.NoPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
@@ -45,4 +46,10 @@ public class LinkShortcut implements Shortcut {
         return true;
     }
 
+    @Override
+    public boolean isVisible() {
+        Page page = manager.getPage(nextId);
+        return page != null && !(page instanceof NoPage);
+    }
+    
 }
