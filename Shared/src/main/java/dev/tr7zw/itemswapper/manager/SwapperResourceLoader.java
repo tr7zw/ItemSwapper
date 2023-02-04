@@ -19,7 +19,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
-import dev.tr7zw.itemswapper.manager.shortcuts.ShowNextPalletShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -68,7 +68,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                                 .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE)).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(items);
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(), items);
                     }
                 }
             } catch (Exception ex) {
@@ -189,7 +189,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ItemSwapperSharedMod.instance.getItemGroupManager()
                     .registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId)
                             .withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays
-                                    .asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE, new ShowNextPalletShortcut(nextId)))
+                                    .asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE, new LinkShortcut(nextId)))
                             .build());
         }
     }

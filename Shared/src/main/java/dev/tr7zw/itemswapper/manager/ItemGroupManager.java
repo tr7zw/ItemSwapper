@@ -16,9 +16,11 @@ public class ItemGroupManager {
 
     private Map<ResourceLocation, ItemGroup> groupMapping = new HashMap<>();
     private Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
+    private Map<ResourceLocation, Item[]> listKeyMapping = new HashMap<>();
     private Map<Item, Item[]> listMapping = new HashMap<>();
 
     public void reset() {
+        listKeyMapping.clear();
         listMapping.clear();
         groupMapping.clear();
         paletteMapping.clear();
@@ -54,24 +56,28 @@ public class ItemGroupManager {
         list.sort((a, b) -> Integer.compare(a.getPriority(), b.getPriority()));
     }
 
-    public ItemGroup getNextPage(ItemGroup current, ItemEntry clicked) {
+    public Page getNextPage(ItemGroup current, ItemEntry clicked) {
         if (clicked.getLink() != null) {
             ItemGroup group = groupMapping.get(clicked.getLink());
             if (group != null) {
-                return group;
+                return new ItemGroupPage(group);
+            }
+            Item[] list = listKeyMapping.get(clicked.getLink());
+            if(list != null) {
+                return new ListPage(list);
             }
         }
         if (current.getForcedLink() != null) {
             ItemGroup group = groupMapping.get(current.getForcedLink());
             if (group != null) {
-                return group;
+                return new ItemGroupPage(group);
             }
         }
         List<ItemGroup> list = paletteMapping.get(clicked.getItem());
         if (list != null && !list.isEmpty()) {
             int cur = list.indexOf(current) + 1;
             if (cur == 0) { // getting here from somewhere else
-                return list.get(0);
+                return new ItemGroupPage(list.get(0));
             }
             // bounds checking, looping back to 0 in that case
             if (cur >= list.size()) {
@@ -79,16 +85,16 @@ public class ItemGroupManager {
             }
             if(list.get(cur) != current) {
                 // only return the next one, if it's different to the current one, otherwise use the fallback
-                return list.get(cur);
+                return new ItemGroupPage(list.get(cur));
             }
         }
         if (current.getFallbackLink() != null) {
             ItemGroup group = groupMapping.get(current.getFallbackLink());
             if (group != null) {
-                return group;
+                return new ItemGroupPage(group);
             }
         }
-        return null;
+        return NO_PAGE;
     }
 
     public ItemGroup getItemPage(Item item) {
@@ -99,12 +105,13 @@ public class ItemGroupManager {
         return list.get(0);
     }
 
-    public void registerListCollection(Item[] items) {
+    public void registerListCollection(ResourceLocation resourceLocation, Item[] items) {
         for (Item i : items) {
             if (i != Items.AIR) {
                 listMapping.put(i, items);
             }
         }
+        listKeyMapping.put(resourceLocation, items);
     }
 
     public Item[] getList(Item item) {
@@ -114,8 +121,13 @@ public class ItemGroupManager {
         return null;
     }
     
-    public ItemGroup getItemGroup(ResourceLocation location) {
-        return groupMapping.get(location);
+    public Page getPage(ResourceLocation location) {
+        if(groupMapping.containsKey(location)) {
+            return new ItemGroupPage(groupMapping.get(location));
+        } else if(listKeyMapping.containsKey(location)) {
+            return new ListPage(listKeyMapping.get(location));
+        }
+        return NO_PAGE;
     }
 
     /**
@@ -127,5 +139,13 @@ public class ItemGroupManager {
     public boolean isResourcepackSelected() {
         return !paletteMapping.isEmpty() || !listMapping.isEmpty();
     }
+    
+    public sealed interface Page {
+    }
+    
+    public record ItemGroupPage(ItemGroup group) implements Page {}
+    public record ListPage(Item[] items) implements Page {}
+    public record NoPage() implements Page {}
+    private static NoPage NO_PAGE = new NoPage();
 
 }

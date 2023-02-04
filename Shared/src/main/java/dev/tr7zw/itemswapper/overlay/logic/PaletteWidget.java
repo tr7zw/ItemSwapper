@@ -54,10 +54,8 @@ public class PaletteWidget extends ItemGridWidget {
     public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
         ItemEntry entry = itemGroup.getItem(slot.id());
         if (entry != null && entry.getItem() != Items.AIR) {
-            ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, entry);
-            if (sel != null) {
-                overlay.openItemGroup(sel);
-            }
+            overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, entry));
+            
         }
     }
 

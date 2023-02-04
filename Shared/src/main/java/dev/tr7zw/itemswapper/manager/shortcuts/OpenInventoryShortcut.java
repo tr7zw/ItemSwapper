@@ -19,7 +19,7 @@ public class OpenInventoryShortcut implements Shortcut {
 
     @Override
     public void invoke() {
-        ItemSwapperSharedMod.instance.openInventoryScreen();
+        ItemSwapperSharedMod.openInventoryScreen();
     }
 
     @Override

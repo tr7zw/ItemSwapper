@@ -7,10 +7,14 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
 import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
+import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import net.minecraft.client.Minecraft;
@@ -18,6 +22,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 
 public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
 
@@ -42,6 +47,12 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         }
     }
 
+    public static SwitchItemOverlay createPageOverlay(Page page) {
+        SwitchItemOverlay overlay = new SwitchItemOverlay();
+        overlay.openPage(page);
+        return overlay;
+    }
+    
     public static SwitchItemOverlay createPaletteOverlay(ItemGroup itemGroup) {
         SwitchItemOverlay overlay = new SwitchItemOverlay();
         overlay.openItemGroup(itemGroup);
@@ -60,6 +71,20 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getRightSideShortcuts(),
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+    }
+    
+    public void openItemList(Item[] items) {
+        selectionHandler.reset();
+        GuiWidget mainWidget = new ListContentWidget(items, 0, 0);
+        selectionHandler.addWidget(mainWidget);
+    }
+    
+    public void openPage(Page page) {
+        if(page instanceof ItemGroupPage group) {
+            openItemGroup(group.group());
+        } else if(page instanceof ListPage list) {
+            openItemList(list.items());
+        }
     }
 
     public void openInventory() {

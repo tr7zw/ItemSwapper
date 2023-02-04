@@ -2,27 +2,37 @@ package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 
-public class ShowNextPalletShortcut implements Shortcut {
+public class LinkShortcut implements Shortcut {
     
     private ItemGroupManager manager = ItemSwapperSharedMod.instance.getItemGroupManager();
     private ResourceLocation nextId;
     
-    public ShowNextPalletShortcut(ResourceLocation nextId) {
+    public LinkShortcut(ResourceLocation nextId) {
         this.nextId = nextId;
     }
     
     @Override
     public ItemEntry getIcon() {
-        return manager.getItemGroup(nextId).getItem(0);
+        Page page = manager.getPage(nextId);
+        if(page instanceof ItemGroupPage group) {
+            return group.group().getItem(0);
+        } else if(page instanceof ListPage list) {
+            return new ItemEntry(list.items()[0], null);
+        }
+        return new ItemEntry(Items.AIR, null);
     }
 
     @Override
     public void invoke() {
-        ItemSwapperSharedMod.instance.openSquareSwitchScreen(manager.getItemGroup(nextId));
+        ItemSwapperSharedMod.instance.openPage(manager.getPage(nextId));
     }
 
     @Override

@@ -13,6 +13,7 @@ import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
@@ -172,6 +173,16 @@ public abstract class ItemSwapperSharedMod {
             return;
         }
         Minecraft.getInstance().setScreen(SwitchItemOverlay.createPaletteOverlay(group));
+        Minecraft.getInstance().getSoundManager().resume();
+        Minecraft.getInstance().mouseHandler.grabMouse();
+    }
+    
+    public void openPage(Page page) {
+        if(Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+            overlay.openPage(page);
+            return;
+        }
+        Minecraft.getInstance().setScreen(SwitchItemOverlay.createPageOverlay(page));
         Minecraft.getInstance().getSoundManager().resume();
         Minecraft.getInstance().mouseHandler.grabMouse();
     }
