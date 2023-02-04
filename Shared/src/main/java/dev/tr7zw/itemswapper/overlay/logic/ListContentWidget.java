@@ -71,7 +71,7 @@ public class ListContentWidget extends ItemGridWidget {
 
     @Override
     public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
-        if(guiSlot.id() > entries.size() - 1) {
+        if (guiSlot.id() > entries.size() - 1) {
             return;
         }
         AvailableSlot entry = entries.get(guiSlot.id());
@@ -95,14 +95,14 @@ public class ListContentWidget extends ItemGridWidget {
 
     @Override
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
-        if(selected.id() > entries.size() - 1) {
+        if (selected.id() > entries.size() - 1) {
             return;
         }
         AvailableSlot slot = entries.get(selected.id());
         if (slot == null) {
             return;
         }
-        RenderHelper.renderSelectedItemName(slot.item().getHoverName(),
+        RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()),
                 slot.item(), false, yOffset);
 
     }

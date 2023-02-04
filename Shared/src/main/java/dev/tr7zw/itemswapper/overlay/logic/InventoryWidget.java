@@ -87,20 +87,9 @@ public class InventoryWidget extends ItemGridWidget {
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
-            RenderHelper.renderSelectedItemName(getDisplayname(availableSlots.get(0).item()),
+            RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(availableSlots.get(0).item()),
                     availableSlots.get(0).item(), false, yOffset);
         }
     }
     
-    private Component getDisplayname(ItemStack item) {
-        if (item.hasCustomHoverName()) {
-            return item.getHoverName();
-        }
-        NameProvider provider = providerManager.getNameProvider(item.getItem());
-        if(provider != null) {
-            return provider.getDisplayName(item);
-        }
-        return item.getHoverName();
-    }
-
 }

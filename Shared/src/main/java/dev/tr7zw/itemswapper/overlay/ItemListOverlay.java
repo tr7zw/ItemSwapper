@@ -186,24 +186,13 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
         }
         itemRenderList.add(() -> {
             renderSlot(x + 4, y + 4, minecraft.player, slot.item(), 1);
-            var name = getDisplayname(slot.item());
+            var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
             }
             drawString(poseStack, minecraft.font, name,
                     x + 27, y + 9, -1);
         });
-    }
-
-    private Component getDisplayname(ItemStack item) {
-        if (item.hasCustomHoverName()) {
-            return item.getHoverName();
-        }
-        NameProvider provider = providerManager.getNameProvider(item.getItem());
-        if (provider != null) {
-            return provider.getDisplayName(item);
-        }
-        return item.getHoverName();
     }
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {

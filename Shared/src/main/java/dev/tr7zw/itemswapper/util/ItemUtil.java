@@ -1,8 +1,13 @@
 package dev.tr7zw.itemswapper.util;
 
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import java.util.Arrays;
+
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
@@ -49,4 +54,15 @@ public final class ItemUtil {
         return items;
     }
 
+    public static Component getDisplayname(ItemStack item) {
+        if (item.hasCustomHoverName()) {
+            return item.getHoverName();
+        }
+        NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getNameProvider(item.getItem());
+        if (provider != null) {
+            return provider.getDisplayName(item);
+        }
+        return item.getHoverName();
+    }
+    
 }
