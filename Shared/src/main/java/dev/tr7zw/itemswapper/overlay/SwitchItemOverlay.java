@@ -9,9 +9,11 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ContainerPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
@@ -21,6 +23,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
+import dev.tr7zw.itemswapper.overlay.logic.ContainerWidget;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
 import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
@@ -33,6 +36,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
 
@@ -58,9 +62,10 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
             forceAvailable = true;
         }
     }
-    
+
     private void initShortcuts() {
-        shortcutList = Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, new OpenInventoryShortcut(this), new BackShortcut(this));
+        shortcutList = Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, new OpenInventoryShortcut(this),
+                new BackShortcut(this));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {
@@ -68,7 +73,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         overlay.openPage(page);
         return overlay;
     }
-    
+
     public static SwitchItemOverlay createPaletteOverlay(ItemGroup itemGroup) {
         SwitchItemOverlay overlay = new SwitchItemOverlay();
         overlay.openItemGroup(itemGroup);
@@ -90,7 +95,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
-    
+
     public void openItemList(Item[] items) {
         selectionHandler.reset();
         lastPages.add(new ListPage(items));
@@ -100,18 +105,20 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
-    
+
     public void openPage(Page page) {
-        if(page instanceof ItemGroupPage group) {
+        if (page instanceof ItemGroupPage group) {
             openItemGroup(group.group());
-        } else if(page instanceof ListPage list) {
+        } else if (page instanceof ListPage list) {
             openItemList(list.items());
-        } else if(page instanceof InventoryPage) {
+        } else if (page instanceof InventoryPage) {
             openInventory();
+        } else if (page instanceof ContainerPage container) {
+            openContainer(container.containerSlotId());
         }
     }
-    
-    public List<Page> getPageHistory(){
+
+    public List<Page> getPageHistory() {
         return lastPages;
     }
 
@@ -120,6 +127,25 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         lastPages.add(new InventoryPage());
         initShortcuts();
         InventoryWidget mainWidget = new InventoryWidget(0, 0);
+        selectionHandler.addWidget(mainWidget);
+        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+    }
+
+    public void openContainer(int slotId) {
+        // Check that this is valid
+        ItemStack item = minecraft.player.getInventory().items.get(slotId);
+        ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
+        if(provider == null) {
+            // fallback, reset the UI and open the inventory
+            lastPages.clear();
+            openInventory();
+            return;
+        }
+        selectionHandler.reset();
+        lastPages.add(new ContainerPage(slotId));
+        initShortcuts();
+        ContainerWidget mainWidget = new ContainerWidget(0, 0, slotId);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
@@ -161,7 +187,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
             selectionHandler.getSelectedWidget().onClick(this, selectionHandler.getSelectedSlot());
         }
     }
-    
+
     public void onOverlayClose() {
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().onClose(this, selectionHandler.getSelectedSlot());

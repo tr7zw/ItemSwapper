@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
+import dev.tr7zw.itemswapper.api.client.ContainerProvider;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import net.minecraft.resources.ResourceLocation;
@@ -63,7 +64,7 @@ public class ItemGroupManager {
      * @param clicked
      * @return
      */
-    public Page getNextPage(ItemGroup current, ItemEntry clicked) {
+    public Page getNextPage(ItemGroup current, ItemEntry clicked, int slot) {
         if (clicked.getLink() != null) {
             ItemGroup group = groupMapping.get(clicked.getLink());
             if (group != null) {
@@ -80,6 +81,14 @@ public class ItemGroupManager {
                 return new ItemGroupPage(group);
             }
         }
+        // check if it's a valid container that can be opened
+        if(current == null && slot != -1 && !ConfigManager.getInstance().getConfig().disableShulkers) {
+            ContainerProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getContainerProvider(clicked.getItem());
+            if(provider != null) {
+                return new ContainerPage(slot);
+            }
+        }
+        // check for links
         List<ItemGroup> list = paletteMapping.get(clicked.getItem());
         if (list != null && !list.isEmpty()) {
             int cur = 0;
@@ -167,6 +176,9 @@ public class ItemGroupManager {
     }
 
     public record InventoryPage() implements Page {
+    }
+    
+    public record ContainerPage(int containerSlotId) implements Page {
     }
 
     private static NoPage NO_PAGE = new NoPage();
