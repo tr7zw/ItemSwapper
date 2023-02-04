@@ -61,11 +61,11 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100)
-                                .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE)).build());
+                                .withRightSideShortcuts(Arrays.asList()).build());
                     }
                     if (entry.getKey().getPath().startsWith("wheel_secondary/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200)
-                                .withRightSideShortcuts(Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE)).build());
+                                .withRightSideShortcuts(Arrays.asList()).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(), items);
@@ -189,7 +189,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ItemSwapperSharedMod.instance.getItemGroupManager()
                     .registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId)
                             .withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays
-                                    .asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE, new LinkShortcut(nextId)))
+                                    .asList(new LinkShortcut(nextId)))
                             .build());
         }
     }

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import net.minecraft.resources.ResourceLocation;
@@ -27,21 +28,22 @@ public class ItemGroupManager {
     }
 
     public void registerItemGroup(ItemGroup group) {
-        if(group.getId() == null) {
+        if (group.getId() == null) {
             ItemSwapperSharedMod.LOGGER.warn("Tried to register an ItemGroup without any id!");
             return;
         }
         groupMapping.put(group.getId(), group);
-        // Add these before the autoLinkDisabled check, since they would do nothing otherwise in that case
+        // Add these before the autoLinkDisabled check, since they would do nothing
+        // otherwise in that case
         for (Item item : group.getOpenOnlyItems()) {
             addOpener(group, item);
         }
-        if(group.autoLinkDisabled()) {
+        if (group.autoLinkDisabled()) {
             // Dont add to the paletteMappings
             return;
         }
         for (ItemEntry item : group.getItems()) {
-            if(!group.getIgnoreItems().contains(item.getItem())) {
+            if (!group.getIgnoreItems().contains(item.getItem())) {
                 addOpener(group, item.getItem());
             }
         }
@@ -56,6 +58,11 @@ public class ItemGroupManager {
         list.sort((a, b) -> Integer.compare(a.getPriority(), b.getPriority()));
     }
 
+    /**
+     * @param current current ItemGroup, null if not in an ItemGroup view
+     * @param clicked
+     * @return
+     */
     public Page getNextPage(ItemGroup current, ItemEntry clicked) {
         if (clicked.getLink() != null) {
             ItemGroup group = groupMapping.get(clicked.getLink());
@@ -63,11 +70,11 @@ public class ItemGroupManager {
                 return new ItemGroupPage(group);
             }
             Item[] list = listKeyMapping.get(clicked.getLink());
-            if(list != null) {
+            if (list != null) {
                 return new ListPage(list);
             }
         }
-        if (current.getForcedLink() != null) {
+        if (current != null && current.getForcedLink() != null) {
             ItemGroup group = groupMapping.get(current.getForcedLink());
             if (group != null) {
                 return new ItemGroupPage(group);
@@ -75,20 +82,27 @@ public class ItemGroupManager {
         }
         List<ItemGroup> list = paletteMapping.get(clicked.getItem());
         if (list != null && !list.isEmpty()) {
-            int cur = list.indexOf(current) + 1;
-            if (cur == 0) { // getting here from somewhere else
-                return new ItemGroupPage(list.get(0));
+            int cur = 0;
+            if (current != null) {
+                cur = list.indexOf(current) + 1;
+                if (cur == 0) { // getting here from somewhere else
+                    return new ItemGroupPage(list.get(0));
+                }
             }
             // bounds checking, looping back to 0 in that case
             if (cur >= list.size()) {
                 cur = 0;
             }
-            if(list.get(cur) != current) {
-                // only return the next one, if it's different to the current one, otherwise use the fallback
+            if (current == null || list.get(cur) != current) {
+                // only return the next one, if it's different to the current one, otherwise use
+                // the fallback
                 return new ItemGroupPage(list.get(cur));
             }
         }
-        if (current.getFallbackLink() != null) {
+        if (listMapping.containsKey(clicked.getItem())) {
+            return new ListPage(listMapping.get(clicked.getItem()));
+        }
+        if (current != null && current.getFallbackLink() != null) {
             ItemGroup group = groupMapping.get(current.getFallbackLink());
             if (group != null) {
                 return new ItemGroupPage(group);
@@ -120,11 +134,11 @@ public class ItemGroupManager {
         }
         return null;
     }
-    
+
     public Page getPage(ResourceLocation location) {
-        if(groupMapping.containsKey(location)) {
+        if (groupMapping.containsKey(location)) {
             return new ItemGroupPage(groupMapping.get(location));
-        } else if(listKeyMapping.containsKey(location)) {
+        } else if (listKeyMapping.containsKey(location)) {
             return new ListPage(listKeyMapping.get(location));
         }
         return NO_PAGE;
@@ -139,13 +153,22 @@ public class ItemGroupManager {
     public boolean isResourcepackSelected() {
         return !paletteMapping.isEmpty() || !listMapping.isEmpty();
     }
-    
+
     public sealed interface Page {
     }
-    
-    public record ItemGroupPage(ItemGroup group) implements Page {}
-    public record ListPage(Item[] items) implements Page {}
-    public record NoPage() implements Page {}
+
+    public record ItemGroupPage(ItemGroup group) implements Page {
+    }
+
+    public record ListPage(Item[] items) implements Page {
+    }
+
+    public record NoPage() implements Page {
+    }
+
+    public record InventoryPage() implements Page {
+    }
+
     private static NoPage NO_PAGE = new NoPage();
 
 }

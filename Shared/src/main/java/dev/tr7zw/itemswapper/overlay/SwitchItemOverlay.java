@@ -1,6 +1,8 @@
 package dev.tr7zw.itemswapper.overlay;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -10,11 +12,13 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
@@ -42,7 +46,8 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
     public boolean hideCursor = false;
-    private List<Shortcut> shortcutList = Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, OpenInventoryShortcut.INSTANCE);
+    private List<Shortcut> shortcutList = Collections.emptyList();
+    private List<Page> lastPages = new ArrayList<>();
 
     private final ConfigManager configManager = ConfigManager.getInstance();
 
@@ -52,6 +57,10 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
         }
+    }
+    
+    private void initShortcuts() {
+        shortcutList = Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, new OpenInventoryShortcut(this), new BackShortcut(this));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {
@@ -74,6 +83,8 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
 
     public void openItemGroup(ItemGroup itemGroup) {
         selectionHandler.reset();
+        lastPages.add(new ItemGroupPage(itemGroup));
+        initShortcuts();
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
@@ -82,6 +93,8 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
     
     public void openItemList(Item[] items) {
         selectionHandler.reset();
+        lastPages.add(new ListPage(items));
+        initShortcuts();
         GuiWidget mainWidget = new ListContentWidget(items, 0, 0);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
@@ -93,11 +106,19 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
             openItemGroup(group.group());
         } else if(page instanceof ListPage list) {
             openItemList(list.items());
+        } else if(page instanceof InventoryPage) {
+            openInventory();
         }
+    }
+    
+    public List<Page> getPageHistory(){
+        return lastPages;
     }
 
     public void openInventory() {
         selectionHandler.reset();
+        lastPages.add(new InventoryPage());
+        initShortcuts();
         InventoryWidget mainWidget = new InventoryWidget(0, 0);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,

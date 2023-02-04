@@ -11,7 +11,7 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -58,10 +58,7 @@ public class InventoryWidget extends ItemGridWidget {
       if (!slots.isEmpty()) {
           AvailableSlot slot = slots.get(0);
           if (!slot.item().isEmpty()) {
-              ItemGroup sel = ItemSwapperMod.instance.getItemGroupManager().getItemPage(slot.item().getItem());
-              if (sel != null) {
-                  overlay.openItemGroup(sel);
-              }
+              overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null, new ItemEntry(slot.item().getItem(), null)));
           }
       }
     }
