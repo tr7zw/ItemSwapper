@@ -21,16 +21,16 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
-    
+
     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inventory.png");
-    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
+            .getClientProviderManager();
     private int slotId;
-    
+
     public ContainerWidget(int x, int y, int slotId) {
         super(x, y);
         this.slotId = slotId;
@@ -39,25 +39,26 @@ public class ContainerWidget extends ItemGridWidget {
         widgetArea.setBackgroundTextureSizeY(60);
     }
 
-    private NonNullList<AvailableSlot> getItems(){
+    private NonNullList<AvailableSlot> getItems() {
         ItemStack item = minecraft.player.getInventory().items.get(slotId);
         ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
-        if(provider == null) {
+        if (provider == null) {
             return NonNullList.create();
         }
         return provider.getItemStacks(item, slotId);
     }
-    
+
     private List<AvailableSlot> getItem(int id) {
-      NonNullList<AvailableSlot> items = getItems();
-      if (id != -1 && !items.get(id).item().isEmpty()) {
-          return Collections.singletonList(items.get(id));
-      }
-      return Collections.emptyList();
+        NonNullList<AvailableSlot> items = getItems();
+        if (id != -1 && !items.get(id).item().isEmpty()) {
+            return Collections.singletonList(items.get(id));
+        }
+        return Collections.emptyList();
     }
 
     @Override
-    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot, boolean overwrideAvailable) {
+    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+            boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             itemRenderList.add(
@@ -68,28 +69,29 @@ public class ContainerWidget extends ItemGridWidget {
 
     @Override
     public void onClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
-      List<AvailableSlot> slots = getItem(guiSlot.id());
-      if (!slots.isEmpty()) {
-          AvailableSlot slot = slots.get(0);
-          if (!slot.item().isEmpty()) {
-              overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null, new ItemEntry(slot.item().getItem(), null), -1));
-          }
-      }
+        List<AvailableSlot> slots = getItem(guiSlot.id());
+        if (!slots.isEmpty()) {
+            AvailableSlot slot = slots.get(0);
+            if (!slot.item().isEmpty()) {
+                overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null,
+                        new ItemEntry(slot.item().getItem(), null), -1));
+            }
+        }
     }
 
     @Override
     public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
-      List<AvailableSlot> slots = getItem(guiSlot.id());
-      if (!slots.isEmpty()) {
-          AvailableSlot slot = slots.get(0);
-          OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-          if (event.canceled().get()) {
-              // interaction canceled by some other mod
-              return;
-          }
-          NetworkUtil.swapItem(slot.inventory(), slot.slot());
-          clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
-      }
+        List<AvailableSlot> slots = getItem(guiSlot.id());
+        if (!slots.isEmpty()) {
+            AvailableSlot slot = slots.get(0);
+            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+            if (event.canceled().get()) {
+                // interaction canceled by some other mod
+                return;
+            }
+            NetworkUtil.swapItem(slot.inventory(), slot.slot());
+            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+        }
     }
 
     @Override
@@ -100,5 +102,5 @@ public class ContainerWidget extends ItemGridWidget {
                     availableSlots.get(0).item(), false, yOffset);
         }
     }
-    
+
 }

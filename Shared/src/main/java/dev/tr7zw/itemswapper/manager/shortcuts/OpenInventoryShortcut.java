@@ -9,14 +9,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
 
 public class OpenInventoryShortcut implements Shortcut {
-    
+
     private final ItemEntry icon = new ItemEntry(Items.CHEST, null, Component.literal("Open Inventory"));
     private final SwitchItemOverlay overlay;
-    
+
     public OpenInventoryShortcut(SwitchItemOverlay overlay) {
         this.overlay = overlay;
     }
-    
+
     @Override
     public ItemEntry getIcon() {
         return icon;

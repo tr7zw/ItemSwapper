@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.RecordItem;
 
 @Mixin(RecordItem.class)
-public class RecordItemMixin implements RecordItemAccess{
+public class RecordItemMixin implements RecordItemAccess {
 
     @Shadow
     private static Map<SoundEvent, RecordItem> BY_NAME;
@@ -22,5 +22,5 @@ public class RecordItemMixin implements RecordItemAccess{
     public Set<Item> getAllRecords() {
         return new HashSet<>(BY_NAME.values());
     }
-    
+
 }

@@ -7,14 +7,14 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
 
 public class BackShortcut implements Shortcut {
-    
+
     private final ItemEntry icon = new ItemEntry(Items.HOPPER, null, Component.literal("Back"));
     private final SwitchItemOverlay overlay;
-    
+
     public BackShortcut(SwitchItemOverlay overlay) {
         this.overlay = overlay;
     }
-    
+
     @Override
     public ItemEntry getIcon() {
         return icon;
@@ -42,5 +42,5 @@ public class BackShortcut implements Shortcut {
         // one entry is the current page!
         return overlay.getPageHistory().size() > 1;
     }
-    
+
 }

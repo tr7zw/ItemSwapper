@@ -39,5 +39,5 @@ public class MinecraftMixin {
             ci.cancel();
         }
     }
-    
+
 }

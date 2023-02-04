@@ -25,7 +25,7 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
 
     @Inject(method = "<init>", at = @At("RETURN"))
     public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
-        items.add((Item)(Object)this);
+        items.add((Item) (Object) this);
     }
 
     @Override

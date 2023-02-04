@@ -17,8 +17,6 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
-import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
-import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -68,7 +66,8 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                                 .withRightSideShortcuts(Arrays.asList()).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(), items);
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(),
+                                items);
                     }
                 }
             } catch (Exception ex) {
@@ -112,7 +111,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ItemSwapperSharedMod.LOGGER.warn("Invalid forceLink in " + jsonLocation);
             }
         }
-        if(json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
+        if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
         }
         group.withItems(processItems(jsonLocation, json.get("items")));
@@ -148,14 +147,15 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ResourceLocation link = null;
                 try {
                     link = new ResourceLocation(obj.get("link").getAsString());
-                }catch(Exception ex) {
+                } catch (Exception ex) {
                     ItemSwapperSharedMod.LOGGER.warn("Invalid item link in " + jsonLocation);
                 }
                 String displayName = null;
-                if(obj.has("name") && obj.get("name").isJsonPrimitive()) {
+                if (obj.has("name") && obj.get("name").isJsonPrimitive()) {
                     displayName = obj.getAsJsonPrimitive("name").getAsString();
                 }
-                ItemEntry entry = new ItemEntry(item, link, displayName != null ? Component.translatable(displayName) : null);
+                ItemEntry entry = new ItemEntry(item, link,
+                        displayName != null ? Component.translatable(displayName) : null);
                 if (!itemList.contains(entry)) {
                     itemList.add(entry);
                 }

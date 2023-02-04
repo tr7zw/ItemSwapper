@@ -14,7 +14,7 @@ public interface ItemSwapperUI {
     public default void close() {
         ItemSwapperSharedMod.closeScreen(this);
     }
-    
+
     public abstract void onOverlayClose();
 
     public default boolean lockMouse() {

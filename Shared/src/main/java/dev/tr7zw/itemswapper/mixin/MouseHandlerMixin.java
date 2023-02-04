@@ -98,7 +98,7 @@ public class MouseHandlerMixin {
             over.onScroll(Math.signum(e));
         }
     }
-    
+
     @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
     public void grabMouse(Minecraft mc, Screen screen) {
         if (this.minecraft.screen instanceof ItemSwapperUI && screen == null) {

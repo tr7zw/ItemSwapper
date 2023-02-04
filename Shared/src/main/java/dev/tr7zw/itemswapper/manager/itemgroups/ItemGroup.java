@@ -56,7 +56,7 @@ public class ItemGroup {
     public ItemEntry[] getItems() {
         return items;
     }
-    
+
     public ItemEntry getItem(int id) {
         if (id >= items.length) {
             return null;
@@ -71,7 +71,7 @@ public class ItemGroup {
     public Set<Item> getIgnoreItems() {
         return ignoreItems;
     }
-    
+
     public boolean autoLinkDisabled() {
         return disableAutoLink;
     }
@@ -147,7 +147,5 @@ public class ItemGroup {
             return new ItemGroup(this);
         }
     }
-    
-    
-    
+
 }

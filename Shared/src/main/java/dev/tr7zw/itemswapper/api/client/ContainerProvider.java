@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.api.client;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public interface ContainerProvider {
      *         itemstack can't be used.
      */
     List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId);
-    
+
     NonNullList<AvailableSlot> getItemStacks(ItemStack itemStack, int slotId);
 
 }

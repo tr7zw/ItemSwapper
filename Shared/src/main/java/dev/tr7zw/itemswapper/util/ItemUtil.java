@@ -1,15 +1,16 @@
 package dev.tr7zw.itemswapper.util;
 
+import java.util.Arrays;
+
+import org.jetbrains.annotations.NotNull;
+
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
-import java.util.Arrays;
-
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import org.jetbrains.annotations.NotNull;
 
 public final class ItemUtil {
 
@@ -32,18 +33,17 @@ public final class ItemUtil {
         }
         return false;
     }
-    
+
     public static ItemEntry[] toDefault(Item[] items) {
         ItemEntry[] entries = new ItemEntry[items.length];
-        for(int i = 0; i < items.length; i++) {
+        for (int i = 0; i < items.length; i++) {
             entries[i] = new ItemEntry(items[i], null);
         }
         return entries;
     }
 
     @NotNull
-    public static Item[] itemstackToSingleItem(Item[] items)
-    {
+    public static Item[] itemstackToSingleItem(Item[] items) {
         int lastItem = 0;
         for (int x = 0; x < items.length; x++) {
             if (items[x] != Items.AIR) {
@@ -58,11 +58,12 @@ public final class ItemUtil {
         if (item.hasCustomHoverName()) {
             return item.getHoverName();
         }
-        NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getNameProvider(item.getItem());
+        NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager()
+                .getNameProvider(item.getItem());
         if (provider != null) {
             return provider.getDisplayName(item);
         }
         return item.getHoverName();
     }
-    
+
 }

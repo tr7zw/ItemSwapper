@@ -21,7 +21,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.ItemStack;
 
 public class InventoryWidget extends ItemGridWidget {
-    
+
     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/inventory.png");
 
@@ -33,15 +33,16 @@ public class InventoryWidget extends ItemGridWidget {
     }
 
     private List<AvailableSlot> getItem(int id) {
-      NonNullList<ItemStack> items = minecraft.player.getInventory().items;
-      if (id != -1 && !items.get(id + 9).isEmpty()) {
-          return Collections.singletonList(new AvailableSlot(-1, id + 9, items.get(id + 9)));
-      }
-      return Collections.emptyList();
+        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
+        if (id != -1 && !items.get(id + 9).isEmpty()) {
+            return Collections.singletonList(new AvailableSlot(-1, id + 9, items.get(id + 9)));
+        }
+        return Collections.emptyList();
     }
 
     @Override
-    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot, boolean overwrideAvailable) {
+    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+            boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             itemRenderList.add(
@@ -52,33 +53,34 @@ public class InventoryWidget extends ItemGridWidget {
 
     @Override
     public void onClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
-      List<AvailableSlot> slots = getItem(guiSlot.id());
-      if (!slots.isEmpty()) {
-          AvailableSlot slot = slots.get(0);
-          if (!slot.item().isEmpty()) {
-              overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null, new ItemEntry(slot.item().getItem(), null), guiSlot.id() + 9));
-          }
-      }
+        List<AvailableSlot> slots = getItem(guiSlot.id());
+        if (!slots.isEmpty()) {
+            AvailableSlot slot = slots.get(0);
+            if (!slot.item().isEmpty()) {
+                overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null,
+                        new ItemEntry(slot.item().getItem(), null), guiSlot.id() + 9));
+            }
+        }
     }
 
     @Override
     public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
-      List<AvailableSlot> slots = getItem(guiSlot.id());
-      if (!slots.isEmpty()) {
-          AvailableSlot slot = slots.get(0);
-          if (slot.inventory() == -1) {
-              OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-              if(event.canceled().get()) {
-                  // interaction canceled by some other mod
-                  return;
-              }
-              int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-              this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
-                      hudSlot, minecraft.player.getInventory().selected,
-                      ClickType.SWAP, this.minecraft.player);
-              clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
-          }
-      }
+        List<AvailableSlot> slots = getItem(guiSlot.id());
+        if (!slots.isEmpty()) {
+            AvailableSlot slot = slots.get(0);
+            if (slot.inventory() == -1) {
+                OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+                if (event.canceled().get()) {
+                    // interaction canceled by some other mod
+                    return;
+                }
+                int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
+                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
+                        hudSlot, minecraft.player.getInventory().selected,
+                        ClickType.SWAP, this.minecraft.player);
+                clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+            }
+        }
     }
 
     @Override
@@ -89,5 +91,5 @@ public class InventoryWidget extends ItemGridWidget {
                     availableSlots.get(0).item(), false, yOffset);
         }
     }
-    
+
 }

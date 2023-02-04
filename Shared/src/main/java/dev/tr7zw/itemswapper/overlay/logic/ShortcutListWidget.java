@@ -11,15 +11,15 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 
 public class ShortcutListWidget extends ItemGridWidget {
-    
+
     private final List<Shortcut> list;
 
     public ShortcutListWidget(List<Shortcut> list, int x, int y) {
-        super(x,y);
+        super(x, y);
         this.list = list.stream().filter(Shortcut::isVisible).toList();
         WidgetUtil.setupSlots(widgetArea, slots, 1, this.list.size(), false, null);
     }
-    
+
     @Override
     public List<GuiSlot> getSlots() {
         return slots;
@@ -29,9 +29,10 @@ public class ShortcutListWidget extends ItemGridWidget {
     public WidgetArea getWidgetArea() {
         return widgetArea;
     }
-    
+
     @Override
-    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot, boolean overwriteAvailable) {
+    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+            boolean overwriteAvailable) {
         ItemEntry item = list.get(guiSlot.id()).getIcon();
         itemRenderList.add(
                 () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
@@ -49,7 +50,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     @Override
     public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
-        if(shortcut.acceptClick()) {
+        if (shortcut.acceptClick()) {
             shortcut.invoke();
         }
     }
@@ -57,7 +58,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     @Override
     public void onClose(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
-        if(shortcut.acceptClose()) {
+        if (shortcut.acceptClose()) {
             shortcut.invoke();
         }
     }

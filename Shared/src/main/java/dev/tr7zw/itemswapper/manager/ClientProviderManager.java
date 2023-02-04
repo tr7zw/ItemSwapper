@@ -44,7 +44,7 @@ public class ClientProviderManager {
             nameProvider.put(item, provider);
         }
     }
-    
+
     public Set<ItemProvider> getEarlyItemProvider() {
         return earlyItemProvider;
     }
@@ -60,7 +60,7 @@ public class ClientProviderManager {
     public NameProvider getNameProvider(Item item) {
         return nameProvider.get(item);
     }
-    
+
     public List<AvailableSlot> findSlotsMatchingItem(Item item, boolean limit, boolean ignoreHotbar) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
         List<AvailableSlot> ids = new ArrayList<>();

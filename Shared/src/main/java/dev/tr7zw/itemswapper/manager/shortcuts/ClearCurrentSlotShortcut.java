@@ -22,24 +22,24 @@ import net.minecraft.world.item.Items;
 public class ClearCurrentSlotShortcut implements Shortcut {
 
     public static final ClearCurrentSlotShortcut INSTANCE = new ClearCurrentSlotShortcut();
-    
+
     private final ItemEntry icon = new ItemEntry(Items.BARRIER, null, Component.literal("Clear Slot"));
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
-    
+
     @Override
     public ItemEntry getIcon() {
         return icon;
     }
-    
+
     @Override
     public void invoke() {
         List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(Items.AIR, true, true);
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-            if(event.canceled().get()) {
+            if (event.canceled().get()) {
                 // interaction canceled by some other mod
                 return;
             }
@@ -64,7 +64,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     public boolean acceptClick() {
         return false;
     }
-    
+
     @Override
     public boolean isVisible() {
         return !minecraft.player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();

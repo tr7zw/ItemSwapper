@@ -11,7 +11,7 @@ import net.minecraft.world.item.ItemStack;
 public interface InstrumentItemAccess {
 
     public Set<Item> getItems();
-    
+
     public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack);
-    
+
 }

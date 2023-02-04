@@ -82,9 +82,10 @@ public class ItemGroupManager {
             }
         }
         // check if it's a valid container that can be opened
-        if(current == null && slot != -1 && !ConfigManager.getInstance().getConfig().disableShulkers) {
-            ContainerProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getContainerProvider(clicked.getItem());
-            if(provider != null) {
+        if (current == null && slot != -1 && !ConfigManager.getInstance().getConfig().disableShulkers) {
+            ContainerProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager()
+                    .getContainerProvider(clicked.getItem());
+            if (provider != null) {
                 return new ContainerPage(slot);
             }
         }
@@ -177,7 +178,7 @@ public class ItemGroupManager {
 
     public record InventoryPage() implements Page {
     }
-    
+
     public record ContainerPage(int containerSlotId) implements Page {
     }
 

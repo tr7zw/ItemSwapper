@@ -15,7 +15,7 @@ public class GuiSelectionHandler {
     private double limitX = 5;
     private double limitY = 5;
     private double deadZone = 1;
-    
+
     public void updateSelection(double x, double y) {
         cursorX += x;
         cursorY += y;
@@ -23,9 +23,9 @@ public class GuiSelectionHandler {
         cursorY = Mth.clamp(cursorY, -limitY, limitY);
         updateSelection();
     }
-    
+
     private void updateSelection() {
-        if(selectedSlot != null) {
+        if (selectedSlot != null) {
             selectedSlot.selected().set(false);
             selectedSlot = null;
             selectedWidget = null;
@@ -36,12 +36,15 @@ public class GuiSelectionHandler {
         }
         double best = Double.MAX_VALUE;
         for (GuiWidget widget : widgets) {
-            for(GuiSlot slot : widget.getSlots()) {
+            for (GuiSlot slot : widget.getSlots()) {
                 int halfSlot = slot.size() / 2;
-                // FIXME -3 to cancel out the bias. Might be that the cursor is not at the correct position instead?
-                double mouseDist = Math.sqrt((cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot) * (cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot)
-                        + (cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot) * (cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot));
-                double maxDistance = (slot.size() * Math.sqrt(2))/2;
+                // FIXME -3 to cancel out the bias. Might be that the cursor is not at the
+                // correct position instead?
+                double mouseDist = Math.sqrt((cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot)
+                        * (cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot)
+                        + (cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot)
+                                * (cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot));
+                double maxDistance = (slot.size() * Math.sqrt(2)) / 2;
                 if (mouseDist < best && mouseDist < maxDistance) {
                     best = mouseDist;
                     selectedWidget = widget;
@@ -49,7 +52,7 @@ public class GuiSelectionHandler {
                 }
             }
         }
-        if(selectedSlot != null) {
+        if (selectedSlot != null) {
             selectedSlot.selected().set(true);
         }
     }
@@ -61,17 +64,17 @@ public class GuiSelectionHandler {
     public GuiSlot getSelectedSlot() {
         return selectedSlot;
     }
-    
+
     public void addWidget(GuiWidget widget) {
         this.widgets.add(widget);
         limitX = Math.max(limitX, widget.getWidgetArea().getMouseBoundsX() + widget.getWidgetArea().getX());
         limitY = Math.max(limitY, widget.getWidgetArea().getMouseBoundsY() + widget.getWidgetArea().getY());
     }
-    
+
     public List<GuiWidget> getWidgets() {
         return this.widgets;
     }
-    
+
     public void reset() {
         widgets.clear();
         selectedSlot = null;
@@ -107,5 +110,5 @@ public class GuiSelectionHandler {
     public double getLimitY() {
         return limitY;
     }
-    
+
 }

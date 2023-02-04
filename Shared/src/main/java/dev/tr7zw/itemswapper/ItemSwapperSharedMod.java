@@ -16,8 +16,8 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
-import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
@@ -45,7 +45,8 @@ public abstract class ItemSwapperSharedMod {
     private boolean enableShulkers = false;
     private boolean modDisabled = false;
     private boolean bypassExcepted = false;
-    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "itemswapper.controlls");
+    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
+            "itemswapper.controlls");
     private boolean pressed = false;
     private boolean lateInitCompleted = false;
 
@@ -55,7 +56,7 @@ public abstract class ItemSwapperSharedMod {
 
         initModloader();
     }
-    
+
     private void lateInit() {
         clientProviderManager.registerContainerProvider(new ShulkerContainerProvider());
         clientProviderManager.registerNameProvider(new PotionNameProvider());
@@ -65,7 +66,7 @@ public abstract class ItemSwapperSharedMod {
 
     public void clientTick() {
         // run this code later, so all other mods are done loading
-        if(!lateInitCompleted) {
+        if (!lateInitCompleted) {
             lateInitCompleted = true;
             lateInit();
         }
@@ -73,11 +74,11 @@ public abstract class ItemSwapperSharedMod {
         Screen screen = Minecraft.getInstance().screen;
 
         if (keybind.isDown()) {
-            if(overlay instanceof ItemSwapperUI ui) {
+            if (overlay instanceof ItemSwapperUI ui) {
                 onPress(ui);
-            } else if(screen instanceof ItemSwapperUI ui) {
+            } else if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
-            } else if(screen != null) {
+            } else if (screen != null) {
                 // not our screen, don't do anything
             } else {
                 onPress(null);
@@ -150,7 +151,7 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public static void openInventoryScreen() {
-        if(Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+        if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
             overlay.openInventory();
             Minecraft.getInstance().getSoundManager().resume();
             Minecraft.getInstance().mouseHandler.grabMouse();
@@ -168,7 +169,7 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
-        if(Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+        if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
             overlay.openItemGroup(group);
             return;
         }
@@ -176,9 +177,9 @@ public abstract class ItemSwapperSharedMod {
         Minecraft.getInstance().getSoundManager().resume();
         Minecraft.getInstance().mouseHandler.grabMouse();
     }
-    
+
     public void openPage(Page page) {
-        if(Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+        if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
             overlay.openPage(page);
             return;
         }
@@ -189,7 +190,7 @@ public abstract class ItemSwapperSharedMod {
 
     public static void closeScreen(@NotNull ItemSwapperUI xtOverlay) {
         xtOverlay.onOverlayClose();
-        if(xtOverlay instanceof Overlay) {
+        if (xtOverlay instanceof Overlay) {
             Minecraft.getInstance().setOverlay(null);
         } else if (xtOverlay instanceof Screen) {
             Minecraft.getInstance().setScreen(null);
@@ -222,9 +223,13 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.disableShulkers",
                                 () -> configManager.getConfig().disableShulkers,
                                 b -> configManager.getConfig().disableShulkers = b));
-                
-                options.add(getDoubleOption("text.itemswapper.controllerSpeed", 1, 16, 0.1f, () -> (double)configManager.getConfig().controllerSpeed, d -> configManager.getConfig().controllerSpeed = d.floatValue()));
-                options.add(getDoubleOption("text.itemswapper.mouseSpeed", 0.1f, 3, 0.1f, () -> (double)configManager.getConfig().mouseSpeed, d -> configManager.getConfig().mouseSpeed = d.floatValue()));
+
+                options.add(getDoubleOption("text.itemswapper.controllerSpeed", 1, 16, 0.1f,
+                        () -> (double) configManager.getConfig().controllerSpeed,
+                        d -> configManager.getConfig().controllerSpeed = d.floatValue()));
+                options.add(getDoubleOption("text.itemswapper.mouseSpeed", 0.1f, 3, 0.1f,
+                        () -> (double) configManager.getConfig().mouseSpeed,
+                        d -> configManager.getConfig().mouseSpeed = d.floatValue()));
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 
@@ -278,7 +283,7 @@ public abstract class ItemSwapperSharedMod {
     public ClientProviderManager getClientProviderManager() {
         return clientProviderManager;
     }
-    
+
     public KeyMapping getKeybind() {
         return keybind;
     }

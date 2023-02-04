@@ -136,7 +136,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         // Check that this is valid
         ItemStack item = minecraft.player.getInventory().items.get(slotId);
         ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
-        if(provider == null) {
+        if (provider == null) {
             // fallback, reset the UI and open the inventory
             lastPages.clear();
             openInventory();

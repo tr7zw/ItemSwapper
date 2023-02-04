@@ -95,5 +95,5 @@ public class WidgetArea {
     public void setMouseBoundsY(int mouseBoundsY) {
         this.mouseBoundsY = mouseBoundsY;
     }
-    
+
 }

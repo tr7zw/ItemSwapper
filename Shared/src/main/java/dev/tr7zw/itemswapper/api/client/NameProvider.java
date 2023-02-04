@@ -12,7 +12,7 @@ public interface NameProvider {
      * @return A list of all Items this provider wants to process
      */
     Set<Item> getItemHandlers();
-    
+
     /**
      * Provide a formatted display name for the provided item.
      * 
@@ -20,5 +20,5 @@ public interface NameProvider {
      * @return
      */
     Component getDisplayName(ItemStack item);
-    
+
 }
