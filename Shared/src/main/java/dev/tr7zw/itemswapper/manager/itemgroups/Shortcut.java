@@ -4,7 +4,7 @@ public interface Shortcut {
 
     public ItemEntry getIcon();
 
-    public void invoke();
+    public void invoke(ActionType action);
 
     public boolean acceptClose();
 
@@ -12,6 +12,10 @@ public interface Shortcut {
 
     public default boolean isVisible() {
         return true;
+    }
+    
+    public enum ActionType{
+        CLICK, CLOSE
     }
 
 }

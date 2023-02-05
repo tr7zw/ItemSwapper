@@ -11,6 +11,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.client.Minecraft;
@@ -21,12 +22,15 @@ import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
 
-    public static final ClearCurrentSlotShortcut INSTANCE = new ClearCurrentSlotShortcut();
-
     private final ItemEntry icon = new ItemEntry(Items.BARRIER, null, Component.literal("Clear Slot"));
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
+    private final SwitchItemOverlay overlay;
+    
+    public ClearCurrentSlotShortcut(SwitchItemOverlay overlay) {
+        this.overlay = overlay;
+    }
 
     @Override
     public ItemEntry getIcon() {
@@ -34,7 +38,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke() {
+    public void invoke(ActionType action) {
         List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(Items.AIR, true, true);
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
@@ -53,6 +57,11 @@ public class ClearCurrentSlotShortcut implements Shortcut {
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
+        if(action == ActionType.CLICK) {
+            overlay.hideClearSlotShortcut = true;
+            // reopen to re-init the UI
+            overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));
+        }
     }
 
     @Override
@@ -62,7 +71,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
 
     @Override
     public boolean acceptClick() {
-        return false;
+        return true;
     }
 
     @Override

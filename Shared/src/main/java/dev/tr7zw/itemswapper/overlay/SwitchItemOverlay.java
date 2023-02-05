@@ -1,7 +1,6 @@
 package dev.tr7zw.itemswapper.overlay;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +51,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
     public boolean hideCursor = false;
     private List<Shortcut> shortcutList = Collections.emptyList();
     private List<Page> lastPages = new ArrayList<>();
+    public boolean hideClearSlotShortcut = false;
 
     private final ConfigManager configManager = ConfigManager.getInstance();
 
@@ -64,8 +64,12 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
     }
 
     private void initShortcuts() {
-        shortcutList = Arrays.asList(ClearCurrentSlotShortcut.INSTANCE, new OpenInventoryShortcut(this),
-                new BackShortcut(this));
+        shortcutList = new ArrayList<>();
+        if (!hideClearSlotShortcut) {
+            shortcutList.add(new ClearCurrentSlotShortcut(this));
+        }
+        shortcutList.add(new OpenInventoryShortcut(this));
+        shortcutList.add(new BackShortcut(this));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {

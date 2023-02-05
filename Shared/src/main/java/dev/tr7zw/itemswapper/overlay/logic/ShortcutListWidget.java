@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut.ActionType;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -51,7 +52,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
         if (shortcut.acceptClick()) {
-            shortcut.invoke();
+            shortcut.invoke(ActionType.CLICK);
         }
     }
 
@@ -59,7 +60,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     public void onClose(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
         if (shortcut.acceptClose()) {
-            shortcut.invoke();
+            shortcut.invoke(ActionType.CLOSE);
         }
     }
 

@@ -32,7 +32,7 @@ public class LinkShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke() {
+    public void invoke(ActionType action) {
         ItemSwapperSharedMod.instance.openPage(manager.getPage(nextId));
     }
 
