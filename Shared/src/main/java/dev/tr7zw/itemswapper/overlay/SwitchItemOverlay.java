@@ -21,6 +21,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.overlay.logic.ContainerWidget;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
@@ -70,6 +71,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
+        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview")));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {
