@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.pallet.seeds",
+    "items": [
+        "minecraft:wheat_seeds",
+        "minecraft:cocoa_beans",
+        "minecraft:pumpkin_seeds",
+        "minecraft:melon_seeds",
+        "minecraft:beetroot_seeds"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "displayName": "text.itemswapper.pallet.tools",
+            "target": "itemswapper:list/tools"
+        }
+    ]
+}

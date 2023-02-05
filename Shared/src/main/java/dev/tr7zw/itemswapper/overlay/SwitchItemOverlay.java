@@ -99,7 +99,9 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
-                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getShortcuts(),
+                -mainWidget.getWidgetArea().getMouseBoundsX() - ItemSwapperUI.slotSize, 1));
     }
 
     public void openItemList(Item[] items) {
@@ -109,7 +111,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         GuiWidget mainWidget = new ListContentWidget(items, 0, 0);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
-                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
     }
 
     public void openPage(Page page) {

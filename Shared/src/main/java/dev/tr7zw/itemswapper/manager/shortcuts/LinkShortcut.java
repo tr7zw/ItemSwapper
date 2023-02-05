@@ -21,7 +21,7 @@ public class LinkShortcut implements Shortcut {
     public LinkShortcut(ResourceLocation nextId) {
         this.nextId = nextId;
     }
-    
+
     public LinkShortcut(ResourceLocation nextId, Component nameOverwrite) {
         this.nextId = nextId;
         this.nameOverwrite = nameOverwrite;
@@ -31,9 +31,15 @@ public class LinkShortcut implements Shortcut {
     public ItemEntry getIcon() {
         Page page = manager.getPage(nextId);
         if (page instanceof ItemGroupPage group) {
-            return new ItemEntry(group.group().getItem(0).getItem(), null, nameOverwrite);
+            Component displayName = null;
+            if(nameOverwrite != null) {
+                displayName = nameOverwrite;
+            } else if(group.group().getDisplayName() != null) {
+                displayName = group.group().getDisplayName();
+            }
+            return new ItemEntry(group.group().getItem(0).getItem(), null, displayName);
         } else if (page instanceof ListPage list) {
-            return new ItemEntry(list.items()[0], null);
+            return new ItemEntry(list.items()[0], null, nameOverwrite);
         }
         return new ItemEntry(Items.AIR, null);
     }

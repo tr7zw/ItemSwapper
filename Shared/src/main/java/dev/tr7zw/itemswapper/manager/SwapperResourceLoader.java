@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper.manager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -58,12 +60,10 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (items != null) {
                     Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100)
-                                .withRightSideShortcuts(Arrays.asList()).build());
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100).build());
                     }
                     if (entry.getKey().getPath().startsWith("wheel_secondary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200)
-                                .withRightSideShortcuts(Arrays.asList()).build());
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(),
@@ -114,6 +114,9 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
         }
+        if (json.has("displayName") && json.get("displayName").isJsonPrimitive()) {
+            group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
+        }
         group.withItems(processItems(jsonLocation, json.get("items")));
         Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
         if (openOnly != null && openOnly.length > 0) {
@@ -123,7 +126,30 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         if (ignoreItems != null && ignoreItems.length > 0) {
             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
         }
+        group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
         ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.build());
+    }
+    
+    private List<Shortcut> processShortcuts(ResourceLocation jsonLocation, JsonElement object) {
+        if (object == null || !object.isJsonArray()) {
+            return Collections.emptyList();
+        }
+        List<Shortcut> shortcuts = new ArrayList<>();
+        object.getAsJsonArray().forEach(el -> {
+            if(!el.isJsonObject()) {
+                return;
+            }
+            JsonObject entry = el.getAsJsonObject();
+            if(entry.has("type") && entry.get("type").isJsonPrimitive() && "link".equals(entry.get("type").getAsString())) {
+                String displayname = entry.has("displayName") && entry.get("displayName").isJsonPrimitive() ? entry.get("displayName").getAsString() : null;
+                try {
+                    shortcuts.add(new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()), displayname != null ? Component.translatable(displayname) : null));
+                } catch (Exception ex) {
+                    ItemSwapperSharedMod.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
+                }
+            }
+        });
+        return shortcuts;
     }
 
     private ItemEntry[] processItems(ResourceLocation jsonLocation, JsonElement object) {
@@ -188,7 +214,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ResourceLocation nextId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + next);
             ItemSwapperSharedMod.instance.getItemGroupManager()
                     .registerItemGroup(ItemGroup.builder().withId(ownId).withForcedLink(nextId)
-                            .withItems(ItemUtil.toDefault(lists.get(i))).withRightSideShortcuts(Arrays
+                            .withItems(ItemUtil.toDefault(lists.get(i))).withShortcuts(Arrays
                                     .asList(new LinkShortcut(nextId)))
                             .build());
         }

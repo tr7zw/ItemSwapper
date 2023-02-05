@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 
@@ -16,6 +17,7 @@ import net.minecraft.world.item.Item;
 public class ItemGroup {
 
     private final ResourceLocation id;
+    private final Component displayName;
     private final int priority;
     private final boolean disableAutoLink;
     private final ResourceLocation fallbackLink;
@@ -23,10 +25,11 @@ public class ItemGroup {
     private final ItemEntry[] items;
     private final Set<Item> openOnlyItems;
     private final Set<Item> ignoreItems;
-    private final List<Shortcut> rightSideShortcuts;
+    private final List<Shortcut> shortcuts;
 
     private ItemGroup(Builder builder) {
         this.id = builder.id;
+        this.displayName = builder.displayName;
         this.priority = builder.priority;
         this.disableAutoLink = builder.disableAutoLink;
         this.fallbackLink = builder.fallbackLink;
@@ -34,11 +37,15 @@ public class ItemGroup {
         this.items = builder.items;
         this.openOnlyItems = builder.openOnlyItems;
         this.ignoreItems = builder.ignoreItems;
-        this.rightSideShortcuts = builder.rightSideShortcuts;
+        this.shortcuts = builder.shortcuts;
     }
 
     public ResourceLocation getId() {
         return id;
+    }
+    
+    public Component getDisplayName() {
+        return displayName;
     }
 
     public int getPriority() {
@@ -76,8 +83,8 @@ public class ItemGroup {
         return disableAutoLink;
     }
 
-    public List<Shortcut> getRightSideShortcuts() {
-        return rightSideShortcuts;
+    public List<Shortcut> getShortcuts() {
+        return shortcuts;
     }
 
     public static Builder builder() {
@@ -86,6 +93,7 @@ public class ItemGroup {
 
     public static final class Builder {
         private ResourceLocation id;
+        private Component displayName;
         private int priority;
         private boolean disableAutoLink;
         private ResourceLocation fallbackLink;
@@ -93,13 +101,18 @@ public class ItemGroup {
         private ItemEntry[] items;
         private Set<Item> openOnlyItems = Collections.emptySet();
         private Set<Item> ignoreItems = Collections.emptySet();
-        private List<Shortcut> rightSideShortcuts = Collections.emptyList();
+        private List<Shortcut> shortcuts = Collections.emptyList();
 
         private Builder() {
         }
 
         public Builder withId(ResourceLocation id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder withDisplayName(Component displayName) {
+            this.displayName = displayName;
             return this;
         }
 
@@ -138,8 +151,8 @@ public class ItemGroup {
             return this;
         }
 
-        public Builder withRightSideShortcuts(List<Shortcut> rightSideShortcuts) {
-            this.rightSideShortcuts = rightSideShortcuts;
+        public Builder withShortcuts(List<Shortcut> shortcuts) {
+            this.shortcuts = shortcuts;
             return this;
         }
 
