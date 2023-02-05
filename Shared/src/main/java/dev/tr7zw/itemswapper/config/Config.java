@@ -13,5 +13,6 @@ public class Config {
     public boolean disableShulkers = false;
     public float controllerSpeed = 8f;
     public float mouseSpeed = 1f;
+    public boolean fallbackInventory = true;
 
 }

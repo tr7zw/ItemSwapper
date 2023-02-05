@@ -120,6 +120,7 @@ public abstract class ItemSwapperSharedMod {
 
         if (!pressed && overlay == null) {
             if (couldOpenScreen()) {
+                pressed = true;
                 return;
             }
         } else if (!pressed) {
@@ -132,7 +133,6 @@ public abstract class ItemSwapperSharedMod {
     private boolean couldOpenScreen() {
         if (minecraft.player.getMainHandItem().isEmpty()) {
             openInventoryScreen();
-            pressed = true;
             return true;
         }
 
@@ -141,11 +141,17 @@ public abstract class ItemSwapperSharedMod {
 
         if (entries != null) {
             openListSwitchScreen(new ItemListOverlay(entries));
+            return true;
         } else {
             ItemGroup group = itemGroupManager.getItemPage(itemInHand);
             if (group != null) {
                 openSquareSwitchScreen(group);
+                return true;
             }
+        }
+        if (configManager.getConfig().fallbackInventory) {
+            openInventoryScreen();
+            return true;
         }
         return false;
     }
@@ -230,6 +236,11 @@ public abstract class ItemSwapperSharedMod {
                 options.add(getDoubleOption("text.itemswapper.mouseSpeed", 0.1f, 3, 0.1f,
                         () -> (double) configManager.getConfig().mouseSpeed,
                         d -> configManager.getConfig().mouseSpeed = d.floatValue()));
+                options.add(
+                        getOnOffOption("text.itemswapper.fallbackInventory",
+                                () -> configManager.getConfig().fallbackInventory,
+                                b -> configManager.getConfig().fallbackInventory = b));
+                
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 
