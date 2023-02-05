@@ -40,8 +40,7 @@ public class ShulkerContainerProvider implements ContainerProvider {
         List<AvailableSlot> slots = new ArrayList<>();
         if (shulkerItems != null) {
             for (int x = 0; x < shulkerItems.size(); x++) {
-                if (!(shulkerItems.get(x)).isEmpty()
-                        && shulkerItems.get(x).getItem() == item) {
+                if (shulkerItems.get(x).getItem() == item) {
                     slots.add(new AvailableSlot(slotId, x, shulkerItems.get(x)));
                     if (limit) {
                         return slots;

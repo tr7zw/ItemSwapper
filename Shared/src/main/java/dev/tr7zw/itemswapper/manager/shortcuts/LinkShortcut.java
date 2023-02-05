@@ -16,15 +16,15 @@ public class LinkShortcut implements Shortcut {
 
     private ItemGroupManager manager = ItemSwapperSharedMod.instance.getItemGroupManager();
     private ResourceLocation nextId;
-    private Component nameOverwrite = null;
+    private Component fallbackName = null;
 
     public LinkShortcut(ResourceLocation nextId) {
         this.nextId = nextId;
     }
 
-    public LinkShortcut(ResourceLocation nextId, Component nameOverwrite) {
+    public LinkShortcut(ResourceLocation nextId, Component fallbackName) {
         this.nextId = nextId;
-        this.nameOverwrite = nameOverwrite;
+        this.fallbackName = fallbackName;
     }
 
     @Override
@@ -32,14 +32,14 @@ public class LinkShortcut implements Shortcut {
         Page page = manager.getPage(nextId);
         if (page instanceof ItemGroupPage group) {
             Component displayName = null;
-            if(nameOverwrite != null) {
-                displayName = nameOverwrite;
-            } else if(group.group().getDisplayName() != null) {
+            if(group.group().getDisplayName() != null) {
                 displayName = group.group().getDisplayName();
+            } else if(fallbackName != null) {
+                displayName = fallbackName;
             }
             return new ItemEntry(group.group().getItem(0).getItem(), null, displayName);
         } else if (page instanceof ListPage list) {
-            return new ItemEntry(list.items()[0], null, nameOverwrite);
+            return new ItemEntry(list.items()[0], null, fallbackName);
         }
         return new ItemEntry(Items.AIR, null);
     }
