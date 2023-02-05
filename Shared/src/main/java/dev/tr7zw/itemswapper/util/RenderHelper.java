@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -91,6 +92,16 @@ public final class RenderHelper {
         }
         return entry.getItem().getDefaultInstance().getHoverName();
     }
+    
+    public static Component getName(ItemIcon entry) {
+        if (entry == null) {
+            return null;
+        }
+        if (entry.nameOverwrite() != null) {
+            return entry.nameOverwrite();
+        }
+        return entry.item().getHoverName();
+    }
 
     public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
@@ -104,6 +115,16 @@ public final class RenderHelper {
             color = textColor.getValue();
         } else if (rarityColor != null && rarityColor.getColor() != null) {
             color = rarityColor.getColor();
+        }
+        RenderHelper.renderGuiItemName(minecraft.font, comp.getString(), originX, originY - (offsetY / 2) - 12, color);
+    }
+    
+    public static void renderSelectedEntryName(Component comp, boolean grayOut, int offsetY) {
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
+        int color = 0xFFFFFF;
+        if (grayOut) {
+            color = 0xAAAAAA;
         }
         RenderHelper.renderGuiItemName(minecraft.font, comp.getString(), originX, originY - (offsetY / 2) - 12, color);
     }

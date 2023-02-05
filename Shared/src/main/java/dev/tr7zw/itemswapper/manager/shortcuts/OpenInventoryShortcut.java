@@ -2,7 +2,8 @@ package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import net.minecraft.network.chat.Component;
@@ -10,7 +11,7 @@ import net.minecraft.world.item.Items;
 
 public class OpenInventoryShortcut implements Shortcut {
 
-    private final ItemEntry icon = new ItemEntry(Items.CHEST, null, Component.literal("Open Inventory"));
+    private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(), Component.literal("Open Inventory"));
     private final SwitchItemOverlay overlay;
 
     public OpenInventoryShortcut(SwitchItemOverlay overlay) {
@@ -18,7 +19,7 @@ public class OpenInventoryShortcut implements Shortcut {
     }
 
     @Override
-    public ItemEntry getIcon() {
+    public Icon getIcon() {
         return icon;
     }
 

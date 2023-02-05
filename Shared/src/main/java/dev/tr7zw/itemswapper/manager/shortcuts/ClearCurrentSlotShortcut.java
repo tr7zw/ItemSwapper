@@ -9,20 +9,22 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
 
-    private final ItemEntry icon = new ItemEntry(Items.BARRIER, null, Component.literal("Clear Slot"));
+    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"), Component.literal("Clear Slot"));
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
@@ -33,7 +35,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     }
 
     @Override
-    public ItemEntry getIcon() {
+    public Icon getIcon() {
         return icon;
     }
 

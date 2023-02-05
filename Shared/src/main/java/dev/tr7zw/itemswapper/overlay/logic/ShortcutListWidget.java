@@ -2,14 +2,19 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut.ActionType;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 
 public class ShortcutListWidget extends ItemGridWidget {
 
@@ -34,18 +39,28 @@ public class ShortcutListWidget extends ItemGridWidget {
     @Override
     protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwriteAvailable) {
-        ItemEntry item = list.get(guiSlot.id()).getIcon();
-        itemRenderList.add(
-                () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
-                        item.getItem().getDefaultInstance(), 1,
-                        false, 1));
+        Icon icon = list.get(guiSlot.id()).getIcon();
+        if (icon instanceof ItemIcon item) {
+            itemRenderList.add(
+                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                            item.item(), 1,
+                            false, 1));
+        } else if(icon instanceof TextureIcon texture) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, texture.texture());
+            GuiComponent.blit(poseStack, x-1, y, (int)this.itemRenderer.blitOffset + 500, 0, 0, 24, 24, 24, 24);
+        }
     }
 
     @Override
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
-        ItemEntry slot = list.get(selected.id()).getIcon();
-        RenderHelper.renderSelectedItemName(RenderHelper.getName(slot),
-                slot.getItem().getDefaultInstance(), false, yOffset);
+        Icon icon = list.get(selected.id()).getIcon();
+        if (icon instanceof ItemIcon item) {
+            RenderHelper.renderSelectedItemName(RenderHelper.getName(item),
+                    item.item(), false, yOffset);
+        } else if(icon instanceof TextureIcon texture) {
+            RenderHelper.renderSelectedEntryName(texture.name(), false, yOffset);
+        }
     }
 
     @Override

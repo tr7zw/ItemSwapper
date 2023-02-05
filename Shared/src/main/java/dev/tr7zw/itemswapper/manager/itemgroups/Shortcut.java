@@ -2,7 +2,7 @@ package dev.tr7zw.itemswapper.manager.itemgroups;
 
 public interface Shortcut {
 
-    public ItemEntry getIcon();
+    public Icon getIcon();
 
     public void invoke(ActionType action);
 
