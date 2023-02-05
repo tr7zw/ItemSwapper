@@ -1,15 +1,15 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
-import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Items;
+import net.minecraft.resources.ResourceLocation;
 
 public class BackShortcut implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.HOPPER.getDefaultInstance(), Component.literal("Back"));
+    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"), Component.translatable("text.itemswapper.back"));
     private final SwitchItemOverlay overlay;
 
     public BackShortcut(SwitchItemOverlay overlay) {

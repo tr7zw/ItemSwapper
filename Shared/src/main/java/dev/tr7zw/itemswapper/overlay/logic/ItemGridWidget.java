@@ -63,12 +63,12 @@ public abstract class ItemGridWidget implements GuiWidget {
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-            float blit = parent.getBlitOffset();
-            parent.setBlitOffset((int) this.itemRenderer.blitOffset);
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
-            GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
-            parent.setBlitOffset((int) blit);
+                float blit = parent.getBlitOffset();
+                parent.setBlitOffset((int) this.itemRenderer.blitOffset);
+                RenderSystem.setShader(GameRenderer::getPositionTexShader);
+                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
+                GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
+                parent.setBlitOffset((int) blit);
         }
         renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
     }

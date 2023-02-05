@@ -24,7 +24,7 @@ import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
 
-    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"), Component.literal("Clear Slot"));
+    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"), Component.translatable("text.itemswapper.clearSlot"));
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();

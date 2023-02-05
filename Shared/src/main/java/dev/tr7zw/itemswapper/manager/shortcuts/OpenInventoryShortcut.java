@@ -11,7 +11,7 @@ import net.minecraft.world.item.Items;
 
 public class OpenInventoryShortcut implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(), Component.literal("Open Inventory"));
+    private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(), Component.translatable("text.itemswapper.openInventory"));
     private final SwitchItemOverlay overlay;
 
     public OpenInventoryShortcut(SwitchItemOverlay overlay) {
