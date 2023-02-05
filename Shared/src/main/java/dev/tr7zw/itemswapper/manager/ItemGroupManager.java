@@ -10,6 +10,7 @@ import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -18,8 +19,8 @@ public class ItemGroupManager {
 
     private Map<ResourceLocation, ItemGroup> groupMapping = new HashMap<>();
     private Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
-    private Map<ResourceLocation, Item[]> listKeyMapping = new HashMap<>();
-    private Map<Item, Item[]> listMapping = new HashMap<>();
+    private Map<ResourceLocation, ItemList> listKeyMapping = new HashMap<>();
+    private Map<Item, ItemList> listMapping = new HashMap<>();
 
     public void reset() {
         listKeyMapping.clear();
@@ -70,7 +71,7 @@ public class ItemGroupManager {
             if (group != null) {
                 return new ItemGroupPage(group);
             }
-            Item[] list = listKeyMapping.get(clicked.getLink());
+            ItemList list = listKeyMapping.get(clicked.getLink());
             if (list != null) {
                 return new ListPage(list);
             }
@@ -129,16 +130,18 @@ public class ItemGroupManager {
         return list.get(0);
     }
 
-    public void registerListCollection(ResourceLocation resourceLocation, Item[] items) {
-        for (Item i : items) {
-            if (i != Items.AIR) {
-                listMapping.put(i, items);
+    public void registerListCollection(ItemList items) {
+        if(!items.isDisableAutoLink()) {
+            for (Item i : items.getItems()) {
+                if (i != Items.AIR) {
+                    listMapping.put(i, items);
+                }
             }
         }
-        listKeyMapping.put(resourceLocation, items);
+        listKeyMapping.put(items.getId(), items);
     }
 
-    public Item[] getList(Item item) {
+    public ItemList getList(Item item) {
         if (listMapping.containsKey(item)) {
             return listMapping.get(item);
         }
@@ -170,7 +173,7 @@ public class ItemGroupManager {
     public record ItemGroupPage(ItemGroup group) implements Page {
     }
 
-    public record ListPage(Item[] items) implements Page {
+    public record ListPage(ItemList items) implements Page {
     }
 
     public record NoPage() implements Page {

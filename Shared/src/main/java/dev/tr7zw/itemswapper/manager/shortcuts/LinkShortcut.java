@@ -40,7 +40,13 @@ public class LinkShortcut implements Shortcut {
             }
             return new ItemIcon(group.group().getItem(0).getItem().getDefaultInstance(), displayName);
         } else if (page instanceof ListPage list) {
-            return new ItemIcon(list.items()[0].getDefaultInstance(), fallbackName);
+            Component displayName = null;
+            if (list.items().getDisplayName() != null) {
+                displayName = list.items().getDisplayName();
+            } else if (fallbackName != null) {
+                displayName = fallbackName;
+            }
+            return new ItemIcon(list.items().getItems()[0].getDefaultInstance(), displayName);
         }
         return new ItemIcon(Items.AIR.getDefaultInstance(), Component.empty());
     }

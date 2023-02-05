@@ -12,8 +12,7 @@
     "shortcuts": [
         {
             "type": "link",
-            "displayName": "text.itemswapper.palette.tools",
-            "target": "itemswapper:list/tools"
+            "target": "itemswapper:v2/hoes"
         }
     ]
 }

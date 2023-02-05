@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
@@ -68,8 +69,8 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                                 .registerItemGroup(group.withPriority(200).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(),
-                                items);
+                        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(
+                                ItemList.builder().withId(entry.getKey()).withItems(items).build());
                     }
                 }
             } catch (Exception ex) {
@@ -90,6 +91,23 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             processPalette(jsonLocation, obj);
             return;
         }
+        if (type.equals("list")) {
+            processList(jsonLocation, obj);
+            return;
+        }
+    }
+
+    private void processList(ResourceLocation jsonLocation, JsonObject json) {
+        dev.tr7zw.itemswapper.manager.itemgroups.ItemList.Builder group = ItemList.builder().withId(jsonLocation);
+        if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
+            group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
+        }
+        if (json.has("displayName") && json.get("displayName").isJsonPrimitive()) {
+            group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
+        }
+        group.withItems(getItemArray(jsonLocation, json.get("items"), false));
+
+        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(group.build());
     }
 
     private void processPalette(ResourceLocation jsonLocation, JsonObject json) {

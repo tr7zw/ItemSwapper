@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
@@ -131,7 +132,7 @@ public abstract class ItemSwapperSharedMod {
         }
 
         Item itemInHand = minecraft.player.getMainHandItem().getItem();
-        Item[] entries = itemGroupManager.getList(itemInHand);
+        ItemList entries = itemGroupManager.getList(itemInHand);
 
         if (entries != null) {
             openListSwitchScreen(new ItemListOverlay(entries));

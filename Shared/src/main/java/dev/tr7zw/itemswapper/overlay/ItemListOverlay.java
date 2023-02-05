@@ -14,6 +14,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
@@ -53,12 +54,12 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
-    private Item[] itemSelection;
+    private ItemList itemSelection;
     private List<AvailableSlot> entries = new ArrayList<>();
     private int selectedEntry = 0;
     private double selectY = 0;
 
-    public ItemListOverlay(Item[] itemSelection) {
+    public ItemListOverlay(ItemList itemSelection) {
         super(Component.empty());
         super.passEvents = true;
         this.itemSelection = itemSelection;
@@ -123,7 +124,7 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
         // first slot is always the current item
         entries.add(new AvailableSlot(-1, minecraft.player.getInventory().selected,
                 minecraft.player.getInventory().getSelected()));
-        for (Item item : itemSelection) {
+        for (Item item : itemSelection.getItems()) {
             List<AvailableSlot> ids = providerManager.findSlotsMatchingItem(item, false,
                     ConfigManager.getInstance().getConfig().ignoreHotbar);
             for (AvailableSlot id : ids) {

@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
@@ -20,10 +21,10 @@ import net.minecraft.world.item.Item;
 
 public class ListContentWidget extends ItemGridWidget {
 
-    private final Item[] itemSelection;
+    private final ItemList itemSelection;
     private final List<AvailableSlot> entries = new ArrayList<>();
 
-    public ListContentWidget(Item[] items, int x, int y) {
+    public ListContentWidget(ItemList items, int x, int y) {
         super(x, y);
         this.itemSelection = items;
         refreshList();
@@ -32,7 +33,7 @@ public class ListContentWidget extends ItemGridWidget {
 
     private void refreshList() {
         entries.clear();
-        for (Item item : itemSelection) {
+        for (Item item : itemSelection.getItems()) {
             List<AvailableSlot> ids = providerManager.findSlotsMatchingItem(item, false, false);
             for (AvailableSlot id : ids) {
                 if (!entries.contains(id)) {
