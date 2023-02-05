@@ -36,9 +36,9 @@ public abstract class ItemSwapperSharedMod {
 
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
     public static final String MODID = "itemswapper";
+    private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static ItemSwapperSharedMod instance;
-    private final Minecraft minecraft = Minecraft.getInstance();
     private final ConfigManager configManager = ConfigManager.getInstance();
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
@@ -70,13 +70,10 @@ public abstract class ItemSwapperSharedMod {
             lateInitCompleted = true;
             lateInit();
         }
-        Overlay overlay = Minecraft.getInstance().getOverlay();
-        Screen screen = Minecraft.getInstance().screen;
+        Screen screen = minecraft.screen;
 
         if (keybind.isDown()) {
-            if (overlay instanceof ItemSwapperUI ui) {
-                onPress(ui);
-            } else if (screen instanceof ItemSwapperUI ui) {
+            if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
             } else if (screen != null) {
                 // not our screen, don't do anything
@@ -86,9 +83,6 @@ public abstract class ItemSwapperSharedMod {
         } else {
             pressed = false;
 
-            if (!configManager.getConfig().toggleMode && overlay instanceof ItemSwapperUI ui) {
-                closeScreen(ui);
-            }
             if (!configManager.getConfig().toggleMode && screen instanceof ItemSwapperUI ui) {
                 closeScreen(ui);
             }
@@ -97,20 +91,20 @@ public abstract class ItemSwapperSharedMod {
 
     private void onPress(ItemSwapperUI overlay) {
         if (!itemGroupManager.isResourcepackSelected()) {
-            this.minecraft.player.displayClientMessage(
+            minecraft.player.displayClientMessage(
                     Component.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
                     true);
         }
 
         if (!pressed && isModDisabled()) {
             pressed = true;
-            this.minecraft.gui.setOverlayMessage(
+            minecraft.gui.setOverlayMessage(
                     Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
             return;
         }
 
         if (!pressed && !enableShulkers && !bypassExcepted) {
-            this.minecraft.setScreen(
+            minecraft.setScreen(
                     new ConfirmScreen(this::acceptBypassCallback,
                             Component.translatable("text.itemswapper.confirm.title"),
                             Component.translatable("text.itemswapper.confirm.description")));
@@ -157,49 +151,49 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public static void openInventoryScreen() {
-        if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+        if (minecraft.screen instanceof SwitchItemOverlay overlay) {
             overlay.openInventory();
-            Minecraft.getInstance().getSoundManager().resume();
-            Minecraft.getInstance().mouseHandler.grabMouse();
+            minecraft.getSoundManager().resume();
+            minecraft.mouseHandler.grabMouse();
             return;
         }
-        Minecraft.getInstance().setScreen(SwitchItemOverlay.createInventoryOverlay());
-        Minecraft.getInstance().getSoundManager().resume();
-        Minecraft.getInstance().mouseHandler.grabMouse();
+        minecraft.setScreen(SwitchItemOverlay.createInventoryOverlay());
+        minecraft.getSoundManager().resume();
+        minecraft.mouseHandler.grabMouse();
     }
 
     public static void openListSwitchScreen(ItemListOverlay entries) {
-        Minecraft.getInstance().setScreen(entries);
-        Minecraft.getInstance().getSoundManager().resume();
-        Minecraft.getInstance().mouseHandler.grabMouse();
+        minecraft.setScreen(entries);
+        minecraft.getSoundManager().resume();
+        minecraft.mouseHandler.grabMouse();
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
-        if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+        if (minecraft.screen instanceof SwitchItemOverlay overlay) {
             overlay.openItemGroup(group);
             return;
         }
-        Minecraft.getInstance().setScreen(SwitchItemOverlay.createPaletteOverlay(group));
-        Minecraft.getInstance().getSoundManager().resume();
-        Minecraft.getInstance().mouseHandler.grabMouse();
+        minecraft.setScreen(SwitchItemOverlay.createPaletteOverlay(group));
+        minecraft.getSoundManager().resume();
+        minecraft.mouseHandler.grabMouse();
     }
 
     public void openPage(Page page) {
-        if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+        if (minecraft.screen instanceof SwitchItemOverlay overlay) {
             overlay.openPage(page);
             return;
         }
-        Minecraft.getInstance().setScreen(SwitchItemOverlay.createPageOverlay(page));
-        Minecraft.getInstance().getSoundManager().resume();
-        Minecraft.getInstance().mouseHandler.grabMouse();
+        minecraft.setScreen(SwitchItemOverlay.createPageOverlay(page));
+        minecraft.getSoundManager().resume();
+        minecraft.mouseHandler.grabMouse();
     }
 
     public static void closeScreen(@NotNull ItemSwapperUI xtOverlay) {
         xtOverlay.onOverlayClose();
         if (xtOverlay instanceof Overlay) {
-            Minecraft.getInstance().setOverlay(null);
+            minecraft.setOverlay(null);
         } else if (xtOverlay instanceof Screen) {
-            Minecraft.getInstance().setScreen(null);
+            minecraft.setScreen(null);
         }
     }
 
@@ -240,7 +234,7 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.fallbackInventory",
                                 () -> configManager.getConfig().fallbackInventory,
                                 b -> configManager.getConfig().fallbackInventory = b));
-                
+
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
             }
 
@@ -288,7 +282,7 @@ public abstract class ItemSwapperSharedMod {
             bypassExcepted = true;
         }
 
-        this.minecraft.setScreen(null);
+        minecraft.setScreen(null);
     }
 
     public ClientProviderManager getClientProviderManager() {

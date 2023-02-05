@@ -32,9 +32,9 @@ public class LinkShortcut implements Shortcut {
         Page page = manager.getPage(nextId);
         if (page instanceof ItemGroupPage group) {
             Component displayName = null;
-            if(group.group().getDisplayName() != null) {
+            if (group.group().getDisplayName() != null) {
                 displayName = group.group().getDisplayName();
-            } else if(fallbackName != null) {
+            } else if (fallbackName != null) {
                 displayName = fallbackName;
             }
             return new ItemEntry(group.group().getItem(0).getItem(), null, displayName);

@@ -27,7 +27,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final SwitchItemOverlay overlay;
-    
+
     public ClearCurrentSlotShortcut(SwitchItemOverlay overlay) {
         this.overlay = overlay;
     }
@@ -57,7 +57,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
-        if(action == ActionType.CLICK) {
+        if (action == ActionType.CLICK) {
             overlay.hideClearSlotShortcut = true;
             // reopen to re-init the UI
             overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));

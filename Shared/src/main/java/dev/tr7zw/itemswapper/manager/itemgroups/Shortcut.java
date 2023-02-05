@@ -13,8 +13,8 @@ public interface Shortcut {
     public default boolean isVisible() {
         return true;
     }
-    
-    public enum ActionType{
+
+    public enum ActionType {
         CLICK, CLOSE
     }
 

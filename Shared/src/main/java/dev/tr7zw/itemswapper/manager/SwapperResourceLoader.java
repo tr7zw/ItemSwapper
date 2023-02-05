@@ -60,10 +60,12 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (items != null) {
                     Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                     if (entry.getKey().getPath().startsWith("wheel_primary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(100).build());
+                        ItemSwapperSharedMod.instance.getItemGroupManager()
+                                .registerItemGroup(group.withPriority(100).build());
                     }
                     if (entry.getKey().getPath().startsWith("wheel_secondary/")) {
-                        ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.withPriority(200).build());
+                        ItemSwapperSharedMod.instance.getItemGroupManager()
+                                .registerItemGroup(group.withPriority(200).build());
                     }
                     if (entry.getKey().getPath().startsWith("list/")) {
                         ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(entry.getKey(),
@@ -129,21 +131,26 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
         ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(group.build());
     }
-    
+
     private List<Shortcut> processShortcuts(ResourceLocation jsonLocation, JsonElement object) {
         if (object == null || !object.isJsonArray()) {
             return Collections.emptyList();
         }
         List<Shortcut> shortcuts = new ArrayList<>();
         object.getAsJsonArray().forEach(el -> {
-            if(!el.isJsonObject()) {
+            if (!el.isJsonObject()) {
                 return;
             }
             JsonObject entry = el.getAsJsonObject();
-            if(entry.has("type") && entry.get("type").isJsonPrimitive() && "link".equals(entry.get("type").getAsString())) {
-                String displayname = entry.has("displayName") && entry.get("displayName").isJsonPrimitive() ? entry.get("displayName").getAsString() : null;
+            if (entry.has("type") && entry.get("type").isJsonPrimitive()
+                    && "link".equals(entry.get("type").getAsString())) {
+                String displayname = entry.has("displayName") && entry.get("displayName").isJsonPrimitive()
+                        ? entry.get("displayName").getAsString()
+                        : null;
                 try {
-                    shortcuts.add(new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()), displayname != null ? Component.translatable(displayname) : null));
+                    shortcuts.add(
+                            new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()),
+                                    displayname != null ? Component.translatable(displayname) : null));
                 } catch (Exception ex) {
                     ItemSwapperSharedMod.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
                 }

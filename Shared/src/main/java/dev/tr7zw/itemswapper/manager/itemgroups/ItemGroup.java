@@ -43,7 +43,7 @@ public class ItemGroup {
     public ResourceLocation getId() {
         return id;
     }
-    
+
     public Component getDisplayName() {
         return displayName;
     }
