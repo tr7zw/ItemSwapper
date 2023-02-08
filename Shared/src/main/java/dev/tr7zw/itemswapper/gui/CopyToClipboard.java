@@ -17,8 +17,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -36,7 +35,7 @@ public class CopyToClipboard extends ImageButton {
     private Item[] lastItems = null;
 
     public CopyToClipboard(int i, int j) {
-        super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT, null, CommonComponents.EMPTY);
+        super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT, null);
     }
 
     @Override
@@ -69,7 +68,7 @@ public class CopyToClipboard extends ImageButton {
         RenderSystem.enableDepthTest();
         RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore
-        blit(poseStack, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
+        blit(poseStack, this.x, this.y, 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
                 TEXTURE_WIDTH,
                 TEXTURE_HEIGHT);
         this.renderToolTip(poseStack, i, j);
@@ -83,7 +82,7 @@ public class CopyToClipboard extends ImageButton {
     }
 
     private String arrayToJson(Item[] itemArray) {
-        List<String> names = Arrays.stream(itemArray).map(is -> BuiltInRegistries.ITEM.getKey(is).toString()).toList();
+        List<String> names = Arrays.stream(itemArray).map(is -> Registry.ITEM.getKey(is).toString()).toList();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         return gson.toJson(names);

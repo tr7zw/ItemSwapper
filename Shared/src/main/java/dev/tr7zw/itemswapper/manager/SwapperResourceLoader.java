@@ -22,7 +22,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.Registry;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -185,7 +185,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         object.getAsJsonArray().forEach(el -> {
             if (el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
-                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
+                Item item = Registry.ITEM.get(resourceLocation);
                 ItemEntry entry = new ItemEntry(item, null);
                 if (!itemList.contains(entry)) {
                     itemList.add(entry);
@@ -194,7 +194,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             if (el.isJsonObject()) {
                 JsonObject obj = el.getAsJsonObject();
                 ResourceLocation resourceLocation = new ResourceLocation(obj.get("id").getAsString());
-                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
+                Item item = Registry.ITEM.get(resourceLocation);
                 ResourceLocation link = null;
                 try {
                     link = new ResourceLocation(obj.get("link").getAsString());
@@ -253,7 +253,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         json.getAsJsonArray().forEach(el -> {
             if (el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
-                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
+                Item item = Registry.ITEM.get(resourceLocation);
                 if (item.equals(Items.AIR)) {
                     ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                     if (pallet) {
