@@ -14,7 +14,7 @@ public class RecordNameProvider implements NameProvider {
     @Override
     public Set<Item> getItemHandlers() {
         // TODO late init this, so other mods music discs are loaded?
-        return ((RecordItemAccess)(Object) Items.MUSIC_DISC_CAT).getAllRecords();
+        return ((RecordItemAccess) (Object) Items.MUSIC_DISC_CAT).getAllRecords();
     }
 
     @Override

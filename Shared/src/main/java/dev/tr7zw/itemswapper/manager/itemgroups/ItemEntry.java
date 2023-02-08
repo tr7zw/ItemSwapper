@@ -9,11 +9,11 @@ public class ItemEntry {
     private final Item item;
     private final ResourceLocation link;
     private final Component nameOverwride;
-    
+
     public ItemEntry(Item item, ResourceLocation link) {
         this(item, link, null);
     }
-    
+
     public ItemEntry(Item item, ResourceLocation link, Component nameOverwride) {
         this.item = item;
         this.link = link;

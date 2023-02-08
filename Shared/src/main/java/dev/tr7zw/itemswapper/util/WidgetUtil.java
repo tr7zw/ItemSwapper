@@ -75,7 +75,11 @@ public class WidgetUtil {
     }
 
     public static void setupDynamicSlots(WidgetArea widgetArea, List<GuiSlot> slots, int length) {
-        if (length <= 3) {
+        if (length <= 1) {
+            setupSlots(widgetArea, slots, 1, 1, false, null);
+        } else if (length <= 2) {
+            setupSlots(widgetArea, slots, 2, 1, false, null);
+        } else if (length <= 3) {
             setupSlots(widgetArea, slots, 3, 1, false, BACKGROUND_3_LOCATION);
         } else if (length <= 4) {
             setupSlots(widgetArea, slots, 2, 2, false, BACKGROUND_4_LOCATION);

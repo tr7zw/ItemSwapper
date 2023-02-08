@@ -2,24 +2,30 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut.ActionType;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 
 public class ShortcutListWidget extends ItemGridWidget {
-    
+
     private final List<Shortcut> list;
 
     public ShortcutListWidget(List<Shortcut> list, int x, int y) {
-        super(x,y);
-        this.list = list;
-        WidgetUtil.setupSlots(widgetArea, slots, 1, list.size(), false, null);
+        super(x, y);
+        this.list = list.stream().filter(Shortcut::isVisible).toList();
+        WidgetUtil.setupSlots(widgetArea, slots, 1, this.list.size(), false, null);
     }
-    
+
     @Override
     public List<GuiSlot> getSlots() {
         return slots;
@@ -29,36 +35,47 @@ public class ShortcutListWidget extends ItemGridWidget {
     public WidgetArea getWidgetArea() {
         return widgetArea;
     }
-    
+
     @Override
-    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot, boolean overwriteAvailable) {
-        ItemEntry item = list.get(guiSlot.id()).getIcon();
-        itemRenderList.add(
-                () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
-                        item.getItem().getDefaultInstance(), 1,
-                        false, 1));
+    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+            boolean overwriteAvailable) {
+        Icon icon = list.get(guiSlot.id()).getIcon();
+        if (icon instanceof ItemIcon item) {
+            itemRenderList.add(
+                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                            item.item(), 1,
+                            false, 1));
+        } else if(icon instanceof TextureIcon texture) {
+            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            RenderSystem.setShaderTexture(0, texture.texture());
+            GuiComponent.blit(poseStack, x-1, y, (int)this.itemRenderer.blitOffset + 500, 0, 0, 24, 24, 24, 24);
+        }
     }
 
     @Override
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
-        ItemEntry slot = list.get(selected.id()).getIcon();
-        RenderHelper.renderSelectedItemName(RenderHelper.getName(slot),
-                slot.getItem().getDefaultInstance(), false, yOffset);
+        Icon icon = list.get(selected.id()).getIcon();
+        if (icon instanceof ItemIcon item) {
+            RenderHelper.renderSelectedItemName(RenderHelper.getName(item),
+                    item.item(), false, yOffset);
+        } else if(icon instanceof TextureIcon texture) {
+            RenderHelper.renderSelectedEntryName(texture.name(), false, yOffset);
+        }
     }
 
     @Override
     public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
-        if(shortcut.acceptClick()) {
-            shortcut.invoke();
+        if (shortcut.acceptClick()) {
+            shortcut.invoke(ActionType.CLICK);
         }
     }
 
     @Override
     public void onClose(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
-        if(shortcut.acceptClose()) {
-            shortcut.invoke();
+        if (shortcut.acceptClose()) {
+            shortcut.invoke(ActionType.CLOSE);
         }
     }
 

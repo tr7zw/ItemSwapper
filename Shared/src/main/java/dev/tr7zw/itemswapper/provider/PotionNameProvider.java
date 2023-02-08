@@ -17,8 +17,9 @@ import net.minecraft.world.item.alchemy.PotionUtils;
 
 public class PotionNameProvider implements NameProvider {
 
-    private static Set<Item> potions = Sets.newHashSet(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW);
-    
+    private static Set<Item> potions = Sets.newHashSet(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION,
+            Items.TIPPED_ARROW);
+
     @Override
     public Set<Item> getItemHandlers() {
         return potions;
@@ -48,5 +49,5 @@ public class PotionNameProvider implements NameProvider {
         }
         return comp;
     }
-    
+
 }
