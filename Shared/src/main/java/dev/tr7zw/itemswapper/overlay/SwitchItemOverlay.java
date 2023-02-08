@@ -22,6 +22,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.overlay.logic.ContainerWidget;
@@ -69,6 +70,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         if (!hideClearSlotShortcut) {
             shortcutList.add(new ClearCurrentSlotShortcut(this));
         }
+        shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage(), Component.translatable("text.itemswapper.lastItem")));
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
         shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview")));
@@ -115,6 +117,9 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
     }
 
     public void openPage(Page page) {
+        if(!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1))) {
+            return; // this exact page is already open
+        }
         if (page instanceof ItemGroupPage group) {
             openItemGroup(group.group());
         } else if (page instanceof ListPage list) {

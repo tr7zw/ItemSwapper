@@ -26,5 +26,6 @@
   "text.itemswapper.overview": "Overview",
   "text.itemswapper.clearSlot": "Clear Slot",
   "text.itemswapper.back": "Back",
-  "text.itemswapper.openInventory": "Open Inventory"
+  "text.itemswapper.openInventory": "Open Inventory",
+  "text.itemswapper.lastItem": "Last Item"
 }

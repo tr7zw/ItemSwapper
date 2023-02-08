@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
@@ -79,6 +80,8 @@ public class InventoryWidget extends ItemGridWidget {
                         hudSlot, minecraft.player.getInventory().selected,
                         ClickType.SWAP, this.minecraft.player);
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+                ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
+                ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
             }
         }
     }

@@ -1,19 +1,32 @@
 package dev.tr7zw.itemswapper.util;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.jetbrains.annotations.NotNull;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
+import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public final class ItemUtil {
 
+    private static final Minecraft minecraft = Minecraft.getInstance();
+    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    private static final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
+    
     private ItemUtil() {
         // private
     }
@@ -64,6 +77,29 @@ public final class ItemUtil {
             return provider.getDisplayName(item);
         }
         return item.getHoverName();
+    }
+    
+    public static boolean grabItem(Item item, boolean ignoreHotbar) {
+        List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, true, ignoreHotbar);
+        if (!slots.isEmpty()) {
+            AvailableSlot slot = slots.get(0);
+            OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
+            if (event.canceled().get()) {
+                // interaction canceled by some other mod
+                return false;
+            }
+            if (slot.inventory() == -1) {
+                int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
+                minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
+                        hudSlot, minecraft.player.getInventory().selected,
+                        ClickType.SWAP, minecraft.player);
+            } else {
+                NetworkUtil.swapItem(slot.inventory(), slot.slot());
+            }
+            clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+            return true;
+        }
+        return false;
     }
 
 }

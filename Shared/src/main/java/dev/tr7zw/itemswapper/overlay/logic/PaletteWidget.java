@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
@@ -68,25 +69,14 @@ public class PaletteWidget extends ItemGridWidget {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
                 minecraft.gameMode.handleCreativeModeItemAdd(entry.getItem().getDefaultInstance().copy(),
                         36 + minecraft.player.getInventory().selected);
+                ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
+                ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
                 return;
             }
-            List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(entry.getItem(), true, false);
-            if (!slots.isEmpty()) {
-                AvailableSlot slot = slots.get(0);
-                OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-                if (event.canceled().get()) {
-                    // interaction canceled by some other mod
-                    return;
-                }
-                if (slot.inventory() == -1) {
-                    int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                    this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
-                            hudSlot, minecraft.player.getInventory().selected,
-                            ClickType.SWAP, this.minecraft.player);
-                } else {
-                    NetworkUtil.swapItem(slot.inventory(), slot.slot());
-                }
-                clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+            boolean changed = ItemUtil.grabItem(entry.getItem(), false);
+            if(changed) {
+                ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
+                ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
             }
         }
     }

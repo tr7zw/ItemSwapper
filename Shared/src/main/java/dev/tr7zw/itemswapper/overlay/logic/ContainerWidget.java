@@ -91,6 +91,8 @@ public class ContainerWidget extends ItemGridWidget {
             }
             NetworkUtil.swapItem(slot.inventory(), slot.slot());
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
+            ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
+            ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
         }
     }
 

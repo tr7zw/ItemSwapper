@@ -50,6 +50,8 @@ public abstract class ItemSwapperSharedMod {
             "itemswapper.controlls");
     private boolean pressed = false;
     private boolean lateInitCompleted = false;
+    private Item lastItem;
+    private Page lastPage;
 
     public void init() {
         instance = this;
@@ -293,4 +295,21 @@ public abstract class ItemSwapperSharedMod {
     public KeyMapping getKeybind() {
         return keybind;
     }
+
+    public Item getLastItem() {
+        return lastItem;
+    }
+
+    public void setLastItem(Item lastItem) {
+        this.lastItem = lastItem;
+    }
+
+    public Page getLastPage() {
+        return lastPage;
+    }
+
+    public void setLastPage(Page lastPage) {
+        this.lastPage = lastPage;
+    }
+    
 }
