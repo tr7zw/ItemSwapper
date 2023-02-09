@@ -6,6 +6,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 
@@ -48,7 +49,7 @@ public class LastItemShortcut implements Shortcut {
 
     @Override
     public boolean isVisible() {
-        return lastItem != null && lastPage != null;
+        return lastItem != null && lastPage != null && !Minecraft.getInstance().player.isCreative();
     }
 
 }
