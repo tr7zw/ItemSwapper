@@ -25,6 +25,7 @@ import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.RestockShortcut;
 import dev.tr7zw.itemswapper.overlay.logic.ContainerWidget;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
@@ -71,6 +72,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
             shortcutList.add(new ClearCurrentSlotShortcut(this));
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage(), Component.translatable("text.itemswapper.lastItem")));
+        shortcutList.add(new RestockShortcut());
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
         shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview")));
