@@ -45,4 +45,9 @@ public class RestockShortcut implements Shortcut {
         return true;
     }
 
+    @Override
+    public boolean isVisible() {
+        return !Minecraft.getInstance().player.isCreative();
+    }
+
 }

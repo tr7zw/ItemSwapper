@@ -48,7 +48,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
 
     @Override
     public boolean isVisible() {
-        return !minecraft.player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty();
+        return !minecraft.player.getItemInHand(InteractionHand.MAIN_HAND).isEmpty() && !Minecraft.getInstance().player.isCreative();
     }
 
 }
