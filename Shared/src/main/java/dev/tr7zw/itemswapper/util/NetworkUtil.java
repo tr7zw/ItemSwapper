@@ -16,6 +16,7 @@ public class NetworkUtil {
             "enableshulker");
     public static final ResourceLocation disableModMessage = new ResourceLocation(ItemSwapperMod.MODID, "disable");
     public static final ResourceLocation swapMessage = new ResourceLocation(ItemSwapperMod.MODID, "swap");
+    public static final ResourceLocation refillMessage = new ResourceLocation(ItemSwapperMod.MODID, "refill");
 
     private NetworkUtil() {
         throw new IllegalStateException("Utility class");
@@ -38,4 +39,12 @@ public class NetworkUtil {
         Minecraft.getInstance().getConnection()
                 .send(new ServerboundCustomPayloadPacket(swapMessage, new FriendlyByteBuf(buf)));
     }
+    
+    public static void refillItem(int targetSlot) {
+        ByteBuf buf = Unpooled.buffer(4);
+        buf.writeInt(targetSlot);
+        Minecraft.getInstance().getConnection()
+                .send(new ServerboundCustomPayloadPacket(refillMessage, new FriendlyByteBuf(buf)));
+    }
+    
 }

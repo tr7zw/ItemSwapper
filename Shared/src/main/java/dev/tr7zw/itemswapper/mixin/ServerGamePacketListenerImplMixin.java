@@ -32,21 +32,68 @@ public class ServerGamePacketListenerImplMixin {
         // Don't apply this logic, if the server has the mod disabled.
         if (NetworkUtil.swapMessage.equals(serverboundCustomPayloadPacket.getIdentifier())
                 && !configManager.getConfig().serverPreventModUsage) {
-            try {
-                FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
-                int inventory = buf.readInt();
-                int slot = buf.readInt();
-                ItemStack shulker = player.getInventory().items.get(inventory);
-                NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
-                if (content != null) {
-                    ItemStack tmp = content.get(slot);
-                    content.set(slot, player.getInventory().getSelected());
-                    player.getInventory().setItem(player.getInventory().selected, tmp);
-                    ShulkerHelper.setItem(shulker, content);
-                }
-            } catch (Throwable th) {
-                network_logger.error("Error handeling network packet!", th);
+            swapItem(serverboundCustomPayloadPacket);
+        }
+        if (NetworkUtil.refillMessage.equals(serverboundCustomPayloadPacket.getIdentifier())
+                && !configManager.getConfig().serverPreventModUsage) {
+            refillSlot(serverboundCustomPayloadPacket);
+        }
+    }
+
+    private void swapItem(ServerboundCustomPayloadPacket serverboundCustomPayloadPacket) {
+        try {
+            FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
+            int inventory = buf.readInt();
+            int slot = buf.readInt();
+            ItemStack shulker = player.getInventory().items.get(inventory);
+            NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
+            if (content != null) {
+                ItemStack tmp = content.get(slot);
+                content.set(slot, player.getInventory().getSelected());
+                player.getInventory().setItem(player.getInventory().selected, tmp);
+                ShulkerHelper.setItem(shulker, content);
             }
+        } catch (Throwable th) {
+            network_logger.error("Error handeling network packet!", th);
+        }
+    }
+
+    private void refillSlot(ServerboundCustomPayloadPacket serverboundCustomPayloadPacket) {
+        try {
+            FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
+            int targetSlot = buf.readInt();
+            ItemStack target = player.getInventory().getItem(targetSlot);
+            int space = target.getMaxStackSize() - target.getCount();
+            if(space <= 0) {
+                // nothing to do
+                return;
+            }
+            for(int i = 0; i < player.getInventory().items.size(); i++) {
+                ItemStack shulker = player.getInventory().items.get(i);
+                NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
+                if(content != null) {
+                    boolean boxChanged = false;
+                    for(int entry = 0; entry < content.size(); entry++) {
+                        ItemStack boxItem = content.get(entry);
+                        if(ItemStack.isSameItemSameTags(boxItem, target)) {
+                            // same, use to restock
+                            int amount = Math.min(space, boxItem.getCount());
+                            target.setCount(target.getCount() + amount);
+                            boxItem.setCount(boxItem.getCount() - amount);
+                            space -= amount;
+                            boxChanged = true;
+                            if(space <= 0) {
+                                break;
+                            }
+                        }
+                    }
+                    if(boxChanged) {
+                        ShulkerHelper.setItem(shulker, content);
+                    }
+                }
+            }
+        } catch (Throwable th) {
+            network_logger.error("Error handeling network packet!", th);
         }
     }
 
