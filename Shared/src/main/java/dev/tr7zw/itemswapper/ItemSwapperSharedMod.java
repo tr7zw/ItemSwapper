@@ -206,6 +206,8 @@ public abstract class ItemSwapperSharedMod {
             @Override
             public void initialize() {
                 List<OptionInstance<?>> options = new ArrayList<>();
+                options.add(getOnOffOption("text.itemswapper.showTooltips", () -> configManager.getConfig().showTooltips,
+                        b -> configManager.getConfig().showTooltips = b));
                 options.add(getOnOffOption("text.itemswapper.toggleMode", () -> configManager.getConfig().toggleMode,
                         b -> configManager.getConfig().toggleMode = b));
                 options.add(getOnOffOption("text.itemswapper.showCursor", () -> configManager.getConfig().showCursor,
