@@ -13,6 +13,7 @@ public class OpenInventoryShortcut implements Shortcut {
 
     private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(), Component.translatable("text.itemswapper.openInventory"));
     private final SwitchItemOverlay overlay;
+    private final Component hoverText = Component.translatable("text.itemswapper.openInventory.tooltip");
 
     public OpenInventoryShortcut(SwitchItemOverlay overlay) {
         this.overlay = overlay;
@@ -41,6 +42,11 @@ public class OpenInventoryShortcut implements Shortcut {
     @Override
     public boolean isVisible() {
         return !(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1) instanceof InventoryPage);
+    }
+    
+    @Override
+    public Component getHoverText() {
+        return hoverText;
     }
 
 }
