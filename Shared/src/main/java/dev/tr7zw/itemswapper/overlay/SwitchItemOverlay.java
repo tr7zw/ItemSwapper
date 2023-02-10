@@ -71,7 +71,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         if (!hideClearSlotShortcut) {
             shortcutList.add(new ClearCurrentSlotShortcut(this));
         }
-        shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage(), Component.translatable("text.itemswapper.lastItem")));
+        shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage()));
         shortcutList.add(new RestockShortcut());
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
@@ -176,6 +176,9 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
                     selectionHandler.getWidgets().get(0).titleYOffset(), forceAvailable);
+            if(configManager.getConfig().showTooltips) {
+                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, poseStack, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
+            }
         }
 
         if (configManager.getConfig().showCursor && !hideCursor) {

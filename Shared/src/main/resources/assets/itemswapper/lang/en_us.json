@@ -33,10 +33,17 @@
   "text.itemswapper.disableShulkers.tooltip": "Shulkerboxes can not be opened inside the inventory. No items will be pulled out of them.",
   "text.itemswapper.fallbackInventory": "Fallback To Inventory",
   "text.itemswapper.fallbackInventory.tooltip": "Open the inventory instead of doing nothing, when the current item has nothing assigned to it.",
+  "text.itemswapper.showTooltips": "Show Tooltips",
+  "text.itemswapper.showTooltips.tooltip": "Show tooltips with explanations for the buttons in the UI.",
   "text.itemswapper.overview": "Overview",
   "text.itemswapper.clearSlot": "Clear Slot",
+  "text.itemswapper.clearSlot.tooltip": "Move the current item in hand to a free slot in the inventory or a container.",
   "text.itemswapper.back": "Back",
+  "text.itemswapper.back.tooltip": "Navigate back to the previous palette.",
   "text.itemswapper.openInventory": "Open Inventory",
+  "text.itemswapper.openInventory.tooltip": "Open the inventory to access items and containers.",
   "text.itemswapper.lastItem": "Last Item",
-  "text.itemswapper.restockAll": "Restock All"
+  "text.itemswapper.lastItem.tooltip": "This is the last item you swapped to. Select it to grab it again. Clicking it will open the palette that contained it.",
+  "text.itemswapper.restockAll": "Restock All",
+  "text.itemswapper.restockAll.tooltip": "Fill up item stacks in the inventory using items from containers."
 }

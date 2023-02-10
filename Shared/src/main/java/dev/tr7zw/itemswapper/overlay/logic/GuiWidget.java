@@ -16,6 +16,10 @@ public interface GuiWidget {
     public void render(GuiComponent parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable);
 
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable);
+    
+    public default void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x, double y) {
+        
+    }
 
     /**
      * A click is done via the middle mouse key

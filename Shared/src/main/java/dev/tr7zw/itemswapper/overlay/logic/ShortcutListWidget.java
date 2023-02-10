@@ -79,4 +79,15 @@ public class ShortcutListWidget extends ItemGridWidget {
         }
     }
 
+    @Override
+    public void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x, double y) {
+        Shortcut shortcut = list.get(selected.id());
+        if(shortcut.getHoverText() != null) {
+            poseStack.pushPose();
+            poseStack.translate(0, 0, 100);
+            overlay.renderTooltip(poseStack, minecraft.font.split(shortcut.getHoverText(), 170), (int)x, (int)y);
+            poseStack.popPose();
+        }
+    }
+
 }

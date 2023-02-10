@@ -13,6 +13,7 @@ import net.minecraft.world.item.Items;
 public class RestockShortcut implements Shortcut {
 
     private final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(), Component.translatable("text.itemswapper.restockAll"));
+    private final Component hoverText = Component.translatable("text.itemswapper.restockAll.tooltip");
 
     public RestockShortcut() {
 
@@ -48,6 +49,11 @@ public class RestockShortcut implements Shortcut {
     @Override
     public boolean isVisible() {
         return !Minecraft.getInstance().player.isCreative();
+    }
+    
+    @Override
+    public Component getHoverText() {
+        return hoverText;
     }
 
 }
