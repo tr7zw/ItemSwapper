@@ -14,12 +14,12 @@ public class LastItemShortcut implements Shortcut {
 
     private Item lastItem;
     private Page lastPage;
-    private Component displayName = null;
+    private Component displayName = Component.translatable("text.itemswapper.lastItem");
+    private final Component hoverText = Component.translatable("text.itemswapper.lastItem.tooltip");
 
-    public LastItemShortcut(Item lastItem, Page lastPage, Component displayName) {
+    public LastItemShortcut(Item lastItem, Page lastPage) {
         this.lastItem = lastItem;
         this.lastPage = lastPage;
-        this.displayName = displayName;
     }
 
     @Override
@@ -50,6 +50,11 @@ public class LastItemShortcut implements Shortcut {
     @Override
     public boolean isVisible() {
         return lastItem != null && lastPage != null && !Minecraft.getInstance().player.isCreative();
+    }
+    
+    @Override
+    public Component getHoverText() {
+        return hoverText;
     }
 
 }

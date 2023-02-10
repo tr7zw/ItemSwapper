@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.config;
 public class Config {
 
     public int configVersion = 1;
+    public boolean showTooltips = true;
     public boolean toggleMode = false;
     public boolean showCursor = true;
     public boolean serverPreventModUsage = false;

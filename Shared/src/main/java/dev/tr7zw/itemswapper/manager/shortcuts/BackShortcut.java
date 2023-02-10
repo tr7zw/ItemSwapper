@@ -11,6 +11,7 @@ public class BackShortcut implements Shortcut {
 
     private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"), Component.translatable("text.itemswapper.back"));
     private final SwitchItemOverlay overlay;
+    private final Component hoverText = Component.translatable("text.itemswapper.back.tooltip");
 
     public BackShortcut(SwitchItemOverlay overlay) {
         this.overlay = overlay;
@@ -42,6 +43,11 @@ public class BackShortcut implements Shortcut {
     public boolean isVisible() {
         // one entry is the current page!
         return overlay.getPageHistory().size() > 1;
+    }
+
+    @Override
+    public Component getHoverText() {
+        return hoverText;
     }
 
 }
