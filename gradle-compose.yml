@@ -1,16 +1,17 @@
-version: '0.0.1'
-source: "https://github.com/tr7zw/ForgeFabricComposeTemplate/tree/1.19.3-fabriconly-mcpublish/"
+version: '0.0.2'
+source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.3"
 replacements:
-  group: "dev.tr7zw"
   name: "ItemSwapper"
   id: "itemswapper"
   version: "0.3.2"
-  author: "tr7zw"
-  dependencies: ""
   relocationpackage: "dev.tr7zw.itemswapper"
-  licensename: "LICENSE"
   modrinthid: RPOSBQgq
   curseforgeid: 694358
+enabledFlags:
+  - autopublish
+  - publishFabric
+  - modrinth
+  - curseforge
 rootProject:
   template: "."
 subProjects:

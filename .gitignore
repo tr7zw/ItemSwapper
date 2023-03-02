@@ -31,6 +31,7 @@ bin/
 # fabric
 
 run/
+logs/
 
 # compose
 
@@ -38,3 +39,4 @@ run/
 *.properties
 gradle/wrapper
 VersionShared
+UtilityCode
