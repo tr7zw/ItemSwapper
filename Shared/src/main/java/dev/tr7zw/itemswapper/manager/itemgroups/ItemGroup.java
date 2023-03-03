@@ -159,6 +159,47 @@ public class ItemGroup {
         public ItemGroup build() {
             return new ItemGroup(this);
         }
+
+        public ResourceLocation getId() {
+            return id;
+        }
+
+        public Component getDisplayName() {
+            return displayName;
+        }
+
+        public int getPriority() {
+            return priority;
+        }
+
+        public boolean isDisableAutoLink() {
+            return disableAutoLink;
+        }
+
+        public ResourceLocation getFallbackLink() {
+            return fallbackLink;
+        }
+
+        public ResourceLocation getForcedLink() {
+            return forcedLink;
+        }
+
+        public ItemEntry[] getItems() {
+            return items;
+        }
+
+        public Set<Item> getOpenOnlyItems() {
+            return openOnlyItems;
+        }
+
+        public Set<Item> getIgnoreItems() {
+            return ignoreItems;
+        }
+
+        public List<Shortcut> getShortcuts() {
+            return shortcuts;
+        }
+
     }
 
 }
