@@ -48,7 +48,8 @@ public class ShortcutListWidget extends ItemGridWidget {
         } else if(icon instanceof TextureIcon texture) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, texture.texture());
-            GuiComponent.blit(poseStack, x-1, y, (int)this.itemRenderer.blitOffset + 500, 0, 0, 24, 24, 24, 24);
+            //FIXME
+            GuiComponent.blit(poseStack, x-1, y, /*(int)this.itemRenderer.blitOffset +*/ 500, 0, 0, 24, 24, 24, 24);
         }
     }
 

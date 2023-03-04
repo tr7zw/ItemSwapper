@@ -45,11 +45,12 @@ public abstract class ItemGridWidget implements GuiWidget {
         }
         RenderSystem.enableBlend();
         itemRenderList.forEach(Runnable::run);
-        float blit = this.itemRenderer.blitOffset;
-        this.itemRenderer.blitOffset += 300;
+        //FIXME
+//        float blit = this.itemRenderer.blitOffset;
+//        this.itemRenderer.blitOffset += 300;
         RenderSystem.enableBlend();
         lateRenderList.forEach(Runnable::run);
-        this.itemRenderer.blitOffset = blit;
+//        this.itemRenderer.blitOffset = blit;
     }
 
     private void renderSelection(GuiComponent parent, PoseStack poseStack, int listId, int x, int y,
@@ -63,12 +64,13 @@ public abstract class ItemGridWidget implements GuiWidget {
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-                float blit = parent.getBlitOffset();
-                parent.setBlitOffset((int) this.itemRenderer.blitOffset);
+            //FIXME
+//                float blit = parent.getBlitOffset();
+//                parent.setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
-                GuiComponent.blit(poseStack, x - 1, y, parent.getBlitOffset(), 0, 0, 24, 24, 24, 24);
-                parent.setBlitOffset((int) blit);
+                GuiComponent.blit(poseStack, x - 1, y, /*parent.getBlitOffset()*/ 200, 0, 0, 24, 24, 24, 24);
+//                parent.setBlitOffset((int) blit);
         }
         renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
     }

@@ -63,7 +63,7 @@ public class CopyToClipboard extends ImageButton {
     }
 
     @Override
-    public void renderButton(@NotNull PoseStack poseStack, int i, int j, float f) {
+    public void renderWidget(@NotNull PoseStack poseStack, int i, int j, float f) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         RenderSystem.enableDepthTest();

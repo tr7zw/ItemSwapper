@@ -90,6 +90,11 @@ public class TestUtil {
             public FormattedCharSequence getVisualOrder(FormattedText formattedText) {
                 return null;
             }
+
+            @Override
+            public String getOrDefault(String paramString1, String paramString2) {
+                return (String) storage.getOrDefault(paramString1, paramString2);
+            }
         };
     }
     

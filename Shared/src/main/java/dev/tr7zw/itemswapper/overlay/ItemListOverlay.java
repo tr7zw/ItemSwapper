@@ -99,10 +99,11 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
             renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
-        float blit = this.itemRenderer.blitOffset;
-        this.itemRenderer.blitOffset += 300;
+        //FIXME
+//        float blit = this.itemRenderer.blitOffset;
+//        this.itemRenderer.blitOffset += 300;
         lateRenderList.forEach(Runnable::run);
-        this.itemRenderer.blitOffset = blit;
+//        this.itemRenderer.blitOffset = blit;
     }
 
     @Override
@@ -176,16 +177,17 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
         if (selectedEntry == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
-                float blit = getBlitOffset();
-                setBlitOffset((int) this.itemRenderer.blitOffset);
+                //FIXME
+//                float blit = getBlitOffset();
+//                setBlitOffset((int) this.itemRenderer.blitOffset);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
                 blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
-                setBlitOffset((int) blit);
+//                setBlitOffset((int) blit);
             });
         }
         itemRenderList.add(() -> {
-            renderSlot(x + 4, y + 4, minecraft.player, slot.item(), 1);
+            renderSlot(poseStack, x + 4, y + 4, minecraft.player, slot.item(), 1);
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
@@ -195,11 +197,11 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
         });
     }
 
-    private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {
+    private void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
-            this.itemRenderer.renderAndDecorateItem(arg, arg2, x, y, k);
+            this.itemRenderer.renderAndDecorateItem(poseStack, arg, arg2, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, x, y);
+            this.itemRenderer.renderGuiItemDecorations(poseStack, this.minecraft.font, arg2, x, y);
         }
     }
 
