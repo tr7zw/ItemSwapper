@@ -19,6 +19,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroupModifier;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemListModifier;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
@@ -41,13 +42,17 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
     }
 
     private List<ItemGroup.Builder> itemGroups = new ArrayList<>();
+    private List<ItemList.Builder> itemLists = new ArrayList<>();
     private List<ItemGroupModifier> itemGroupModifiers = new ArrayList<>();
+    private List<ItemListModifier> itemListModifiers = new ArrayList<>();
 
     @Override
     protected void apply(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager,
             ProfilerFiller profilerFiller) {
         itemGroups.clear();
         itemGroupModifiers.clear();
+        itemListModifiers.clear();
+        itemLists.clear();
         ItemSwapperSharedMod.LOGGER.info("Processing item groups: " + map.keySet());
         ItemSwapperSharedMod.instance.getItemGroupManager().reset();
         for (Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
@@ -57,6 +62,8 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         registerItemGroups();
         itemGroups.clear();
         itemGroupModifiers.clear();
+        itemListModifiers.clear();
+        itemLists.clear();
     }
 
     private void processEntry(Entry<ResourceLocation, JsonElement> entry) {
@@ -82,8 +89,8 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     itemGroups.add(group.withPriority(200));
                 }
                 if (entry.getKey().getPath().startsWith("list/")) {
-                    ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(
-                            ItemList.builder().withId(entry.getKey()).withItems(items).build());
+                    itemLists.add(
+                            ItemList.builder().withId(entry.getKey()).withItems(items));
                 }
             }
         } catch (Exception ex) {
@@ -98,26 +105,48 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         for (int i = 0; i < itemGroups.size(); i++) {
             ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(itemGroups.get(i).build());
         }
+        for(int i = 0; i < itemLists.size(); i++) {
+            ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(itemLists.get(i).build());
+        }
     }
 
     /**
-     * This entire thing can probably be done a lot smarter and cleaner. But this should work for now
+     * This entire thing can probably be done a lot smarter and cleaner. But this
+     * should work for now
      */
     private void applyModifications() {
         for (int i = 0; i < itemGroupModifiers.size(); i++) {
             ItemGroupModifier modifier = itemGroupModifiers.get(i);
             for (ItemGroup.Builder group : itemGroups) {
-                if(modifier.getTarget().equals(group.getId())) {
+                if (modifier.getTarget().equals(group.getId())) {
                     List<ItemEntry> entries = new ArrayList<>(Arrays.asList(group.getItems()));
-                    if(modifier.getRemoveItems() != null) {
-                        for(ItemEntry remove : modifier.getRemoveItems()) {
+                    if (modifier.getRemoveItems() != null) {
+                        for (ItemEntry remove : modifier.getRemoveItems()) {
                             entries.removeIf(entry -> (entry.getItem().equals(remove.getItem())));
                         }
                     }
-                    if(modifier.getAddItems() != null) {
+                    if (modifier.getAddItems() != null) {
                         entries.addAll(Arrays.asList(modifier.getAddItems()));
                     }
                     group.withItems(entries.toArray(new ItemEntry[0]));
+                    break;
+                }
+            }
+        }
+        for (int i = 0; i < itemListModifiers.size(); i++) {
+            ItemListModifier modifier = itemListModifiers.get(i);
+            for (ItemList.Builder list : itemLists) {
+                if (modifier.getTarget().equals(list.getId())) {
+                    List<Item> entries = new ArrayList<>(Arrays.asList(list.getItems()));
+                    if (modifier.getRemoveItems() != null) {
+                        for (Item remove : modifier.getRemoveItems()) {
+                            entries.removeIf(entry -> (entry.equals(remove)));
+                        }
+                    }
+                    if (modifier.getAddItems() != null) {
+                        entries.addAll(Arrays.asList(modifier.getAddItems()));
+                    }
+                    list.withItems(entries.toArray(new Item[0]));
                     break;
                 }
             }
@@ -139,6 +168,10 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             processPaletteModification(jsonLocation, obj);
             return;
         }
+        if (type.equals("listModification")) {
+            processListModification(jsonLocation, obj);
+            return;
+        }
         if (type.equals("list")) {
             processList(jsonLocation, obj);
             return;
@@ -155,7 +188,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
         group.withItems(getItemArray(jsonLocation, json.get("items"), false));
 
-        ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(group.build());
+        itemLists.add(group);
     }
 
     private void processPalette(ResourceLocation jsonLocation, JsonObject json) {
@@ -196,6 +229,21 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
         itemGroups.add(group);
+    }
+
+    private void processListModification(ResourceLocation jsonLocation, JsonObject json) {
+        dev.tr7zw.itemswapper.manager.itemgroups.ItemListModifier.Builder changes = ItemListModifier.builder();
+        if (json.has("target") && json.get("target").isJsonPrimitive()) {
+            try {
+                changes.withTarget(new ResourceLocation(json.getAsJsonPrimitive("target").getAsString()));
+            } catch (Exception ex) {
+                ItemSwapperSharedMod.LOGGER.warn("Invalid target in " + jsonLocation);
+                return;
+            }
+        }
+        changes.withAddItems(getItemArray(jsonLocation, json.get("addItems"), false));
+        changes.withRemoveItems(getItemArray(jsonLocation, json.get("removeItems"), false));
+        itemListModifiers.add(changes.build());
     }
 
     private void processPaletteModification(ResourceLocation jsonLocation, JsonObject json) {

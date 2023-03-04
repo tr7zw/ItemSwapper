@@ -70,6 +70,23 @@ public class ItemList {
         public ItemList build() {
             return new ItemList(this);
         }
+
+        public ResourceLocation getId() {
+            return id;
+        }
+
+        public Component getDisplayName() {
+            return displayName;
+        }
+
+        public Item[] getItems() {
+            return items;
+        }
+
+        public boolean isDisableAutoLink() {
+            return disableAutoLink;
+        }
+        
     }
 
 }
