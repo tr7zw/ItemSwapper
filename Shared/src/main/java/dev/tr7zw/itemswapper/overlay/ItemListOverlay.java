@@ -177,13 +177,12 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
         if (selectedEntry == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
-                //FIXME
-//                float blit = getBlitOffset();
-//                setBlitOffset((int) this.itemRenderer.blitOffset);
+                poseStack.pushPose();
+                poseStack.translate(0, 0, 300);
                 RenderSystem.setShader(GameRenderer::getPositionTexShader);
                 RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
                 blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
-//                setBlitOffset((int) blit);
+                poseStack.popPose();
             });
         }
         itemRenderList.add(() -> {
