@@ -6,11 +6,20 @@ public interface Shortcut {
 
     public Icon getIcon();
 
-    public void invoke(ActionType action);
+    /**
+     * 
+     * @param action
+     * @return true if the UI should be kept open if possible
+     */
+    public boolean invoke(ActionType action);
 
-    public boolean acceptClose();
+    public default boolean acceptPrimaryClick() {
+        return true;
+    }
 
-    public boolean acceptClick();
+    public default boolean acceptSecondaryClick() {
+        return true;
+    }
     
     public default Component getHoverText() {
         return null;
@@ -21,7 +30,7 @@ public interface Shortcut {
     }
 
     public enum ActionType {
-        CLICK, CLOSE
+        SECONDARY_CLICK, PRIMARY_CLICK
     }
 
 }

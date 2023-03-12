@@ -64,19 +64,20 @@ public class ShortcutListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
-        if (shortcut.acceptClick()) {
-            shortcut.invoke(ActionType.CLICK);
+        if (shortcut.acceptSecondaryClick()) {
+            shortcut.invoke(ActionType.SECONDARY_CLICK);
         }
     }
 
     @Override
-    public void onClose(SwitchItemOverlay overlay, GuiSlot slot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
-        if (shortcut.acceptClose()) {
-            shortcut.invoke(ActionType.CLOSE);
+        if (shortcut.acceptPrimaryClick()) {
+            return shortcut.invoke(ActionType.PRIMARY_CLICK);
         }
+        return true;
     }
 
     @Override

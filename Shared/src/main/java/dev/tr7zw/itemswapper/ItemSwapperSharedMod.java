@@ -87,7 +87,7 @@ public abstract class ItemSwapperSharedMod {
             pressed = false;
 
             if (!configManager.getConfig().toggleMode && screen instanceof ItemSwapperUI ui) {
-                closeScreen(ui);
+                onPrimaryClick(ui, true);
             }
         }
     }
@@ -121,7 +121,7 @@ public abstract class ItemSwapperSharedMod {
                 return;
             }
         } else if (!pressed) {
-            closeScreen(overlay);
+            onPrimaryClick(overlay, true);
         }
 
         pressed = true;
@@ -191,12 +191,14 @@ public abstract class ItemSwapperSharedMod {
         minecraft.mouseHandler.grabMouse();
     }
 
-    public static void closeScreen(@NotNull ItemSwapperUI xtOverlay) {
-        xtOverlay.onOverlayClose();
-        if (xtOverlay instanceof Overlay) {
-            minecraft.setOverlay(null);
-        } else if (xtOverlay instanceof Screen) {
-            minecraft.setScreen(null);
+    public static void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {
+        boolean keepOpen = xtOverlay.onPrimaryClick();
+        if(forceClose || !keepOpen) {
+            if (xtOverlay instanceof Overlay) {
+                minecraft.setOverlay(null);
+            } else if (xtOverlay instanceof Screen) {
+                minecraft.setScreen(null);
+            }
         }
     }
 

@@ -137,7 +137,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    public void handleSwitchSelection() {
+    public void onSecondaryClick() {
 
     }
 
@@ -147,13 +147,13 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    public void onOverlayClose() {
+    public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
             if (event.canceled().get()) {
                 // interaction canceled by some other mod
-                return;
+                return true;
             }
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
@@ -165,6 +165,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
+        return false;
     }
 
     private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,

@@ -25,17 +25,8 @@ public class OpenInventoryShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke(ActionType action) {
+    public boolean invoke(ActionType action) {
         ItemSwapperSharedMod.openInventoryScreen();
-    }
-
-    @Override
-    public boolean acceptClose() {
-        return false;
-    }
-
-    @Override
-    public boolean acceptClick() {
         return true;
     }
 

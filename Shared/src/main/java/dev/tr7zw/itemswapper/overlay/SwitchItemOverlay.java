@@ -199,16 +199,17 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         selectionHandler.updateSelection(x, y);
     }
 
-    public void handleSwitchSelection() {
+    public void onSecondaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            selectionHandler.getSelectedWidget().onClick(this, selectionHandler.getSelectedSlot());
+            selectionHandler.getSelectedWidget().onSecondaryClick(this, selectionHandler.getSelectedSlot());
         }
     }
 
-    public void onOverlayClose() {
+    public boolean onPrimaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            selectionHandler.getSelectedWidget().onClose(this, selectionHandler.getSelectedSlot());
+            return selectionHandler.getSelectedWidget().onPrimaryClick(this, selectionHandler.getSelectedSlot());
         }
+        return true;
     }
 
 }

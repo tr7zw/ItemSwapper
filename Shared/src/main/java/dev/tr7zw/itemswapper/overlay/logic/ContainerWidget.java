@@ -68,7 +68,7 @@ public class ContainerWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
@@ -80,20 +80,22 @@ public class ContainerWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
             if (event.canceled().get()) {
                 // interaction canceled by some other mod
-                return;
+                return true;
             }
             NetworkUtil.swapItem(slot.inventory(), slot.slot());
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
             ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
             ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+            return false;
         }
+        return true;
     }
 
     @Override

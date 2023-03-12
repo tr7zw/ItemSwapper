@@ -52,17 +52,8 @@ public class LinkShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke(ActionType action) {
+    public boolean invoke(ActionType action) {
         ItemSwapperSharedMod.instance.openPage(manager.getPage(nextId));
-    }
-
-    @Override
-    public boolean acceptClose() {
-        return false;
-    }
-
-    @Override
-    public boolean acceptClick() {
         return true;
     }
 

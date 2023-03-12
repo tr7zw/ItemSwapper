@@ -25,7 +25,7 @@ public class RestockShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke(ActionType action) {
+    public boolean invoke(ActionType action) {
         NonNullList<ItemStack> items = Minecraft.getInstance().player.getInventory().items;
         for(int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
@@ -34,15 +34,6 @@ public class RestockShortcut implements Shortcut {
                 NetworkUtil.refillItem(i);
             }
         }
-    }
-
-    @Override
-    public boolean acceptClose() {
-        return true;
-    }
-
-    @Override
-    public boolean acceptClick() {
         return true;
     }
 

@@ -28,22 +28,13 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke(ActionType action) {
+    public boolean invoke(ActionType action) {
         ItemUtil.grabItem(Items.AIR, true);
-        if (action == ActionType.CLICK) {
+        if (action == ActionType.SECONDARY_CLICK) {
             overlay.hideClearSlotShortcut = true;
             // reopen to re-init the UI
             overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));
         }
-    }
-
-    @Override
-    public boolean acceptClose() {
-        return true;
-    }
-
-    @Override
-    public boolean acceptClick() {
         return true;
     }
 

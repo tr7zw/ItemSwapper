@@ -49,7 +49,7 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         ItemEntry entry = itemGroup.getItem(slot.id());
         if (entry != null && entry.getItem() != Items.AIR) {
             overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, entry, -1));
@@ -58,7 +58,7 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
         if (entry != null && entry.getItem() != Items.AIR) {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
@@ -66,14 +66,16 @@ public class PaletteWidget extends ItemGridWidget {
                         36 + minecraft.player.getInventory().selected);
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
-                return;
+                return false;
             }
             boolean changed = ItemUtil.grabItem(entry.getItem(), false);
             if(changed) {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                return false;
             }
         }
+        return true;
     }
 
     @Override

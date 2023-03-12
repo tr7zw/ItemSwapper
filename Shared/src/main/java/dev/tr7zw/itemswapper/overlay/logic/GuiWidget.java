@@ -26,15 +26,16 @@ public interface GuiWidget {
      * 
      * @param slot
      */
-    public void onClick(SwitchItemOverlay overlay, GuiSlot slot);
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot);
 
     /**
      * Close is called when letting go from the key/re-pressing it in toggle
      * mode/left click
      * 
      * @param slot
+     * @return should the ui stay open if possible
      */
-    public void onClose(SwitchItemOverlay overlay, GuiSlot slot);
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot slot);
 
     public default int titleYOffset() {
         return getWidgetArea().getBackgroundSizeY();

@@ -23,19 +23,10 @@ public class BackShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke(ActionType action) {
+    public boolean invoke(ActionType action) {
         // remove the current page
         overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1);
         overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));
-    }
-
-    @Override
-    public boolean acceptClose() {
-        return false;
-    }
-
-    @Override
-    public boolean acceptClick() {
         return true;
     }
 

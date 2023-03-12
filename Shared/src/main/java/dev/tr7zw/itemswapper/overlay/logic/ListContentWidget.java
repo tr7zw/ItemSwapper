@@ -66,21 +66,21 @@ public class ListContentWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         // doesn't link anywhere
     }
 
     @Override
-    public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         if (guiSlot.id() > entries.size() - 1) {
-            return;
+            return true;
         }
         AvailableSlot entry = entries.get(guiSlot.id());
         if (entry != null && !entry.item().isEmpty()) {
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(entry, new AtomicBoolean()));
             if (event.canceled().get()) {
                 // interaction canceled by some other mod
-                return;
+                return true;
             }
             if (entry.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(entry.slot());
@@ -91,7 +91,9 @@ public class ListContentWidget extends ItemGridWidget {
                 NetworkUtil.swapItem(entry.inventory(), entry.slot());
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(entry));
+            return false;
         }
+        return true;
     }
 
     @Override
