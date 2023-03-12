@@ -187,7 +187,15 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
         }
         group.withItems(getItemArray(jsonLocation, json.get("items"), false));
-
+        Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
+        if (openOnly != null && openOnly.length > 0) {
+            group.withOpenOnlyItems(new HashSet<>(Arrays.asList(openOnly)));
+        }
+        Item[] ignoreItems = getItemArray(jsonLocation, json.get("ignoreItems"), false);
+        if (ignoreItems != null && ignoreItems.length > 0) {
+            group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
+        }
+        
         itemLists.add(group);
     }
 
