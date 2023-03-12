@@ -176,7 +176,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
-                    selectionHandler.getWidgets().get(0).titleYOffset(), forceAvailable);
+                    selectionHandler.getWidgets().get(0).titleYOffset(), selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40, forceAvailable);
             if(configManager.getConfig().showTooltips) {
                 selectionHandler.getSelectedWidget().renderSelectedTooltip(this, poseStack, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
             }

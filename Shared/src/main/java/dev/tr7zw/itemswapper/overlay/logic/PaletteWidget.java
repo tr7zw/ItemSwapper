@@ -80,7 +80,7 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         ItemEntry slot = itemGroup.getItem(selected.id());
         if (slot == null) {
             return;
@@ -88,10 +88,10 @@ public class PaletteWidget extends ItemGridWidget {
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
-                    availableSlots.get(0).item(), false, yOffset);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth);
         } else {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
-                    slot.getItem().getDefaultInstance(), !overwrideAvailable, yOffset);
+                    slot.getItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth);
         }
 
     }

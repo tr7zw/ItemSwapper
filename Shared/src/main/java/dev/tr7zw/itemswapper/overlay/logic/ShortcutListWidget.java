@@ -64,16 +64,16 @@ public class ShortcutListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         Icon icon = list.get(selected.id()).getIcon();
         if (icon instanceof ItemIcon item) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(item),
-                    item.item(), false, yOffset);
+                    item.item(), false, yOffset, maxWidth);
         } else if (icon instanceof LinkIcon link) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(link),
-                    link.item(), false, yOffset);
+                    link.item(), false, yOffset, maxWidth);
         } else if (icon instanceof TextureIcon texture) {
-            RenderHelper.renderSelectedEntryName(texture.name(), false, yOffset);
+            RenderHelper.renderSelectedEntryName(texture.name(), false, yOffset, maxWidth);
         }
     }
 

@@ -90,11 +90,11 @@ public class InventoryWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(availableSlots.get(0).item()),
-                    availableSlots.get(0).item(), false, yOffset);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth);
         }
     }
 
