@@ -34,13 +34,12 @@ import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
+public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
 

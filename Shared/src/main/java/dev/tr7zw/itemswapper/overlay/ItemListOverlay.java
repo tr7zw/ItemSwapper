@@ -19,7 +19,6 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
@@ -31,7 +30,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemListOverlay extends Screen implements ItemSwapperUI {
+public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
@@ -201,12 +200,6 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
             this.itemRenderer.renderGuiItemDecorations(this.minecraft.font, arg2, x, y);
         }
-    }
-
-    @Override
-    public boolean mouseScrolled(double d, double e, double f) {
-        onScroll(f);
-        return true;
     }
 
 }
