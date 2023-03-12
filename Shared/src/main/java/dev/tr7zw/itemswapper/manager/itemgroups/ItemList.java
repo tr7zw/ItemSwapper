@@ -11,6 +11,7 @@ public class ItemList {
 
     private final ResourceLocation id;
     private final Component displayName;
+    private final Item icon;
     private final Item[] items;
     private final Set<Item> openOnlyItems;
     private final Set<Item> ignoreItems;
@@ -19,6 +20,7 @@ public class ItemList {
     private ItemList(Builder builder) {
         this.id = builder.id;
         this.displayName = builder.displayName;
+        this.icon = builder.icon;
         this.items = builder.items;
         this.openOnlyItems = builder.openOnlyItems;
         this.ignoreItems = builder.ignoreItems;
@@ -31,6 +33,10 @@ public class ItemList {
 
     public Component getDisplayName() {
         return displayName;
+    }
+
+    public Item getIcon() {
+        return icon;
     }
 
     public boolean isDisableAutoLink() {
@@ -56,6 +62,7 @@ public class ItemList {
     public static final class Builder {
         private ResourceLocation id;
         private Component displayName;
+        private Item icon;
         private Item[] items;
         private Set<Item> openOnlyItems = Collections.emptySet();
         private Set<Item> ignoreItems = Collections.emptySet();
@@ -71,6 +78,11 @@ public class ItemList {
 
         public Builder withDisplayName(Component displayName) {
             this.displayName = displayName;
+            return this;
+        }
+
+        public Builder withIcon(Item icon) {
+            this.icon = icon;
             return this;
         }
 

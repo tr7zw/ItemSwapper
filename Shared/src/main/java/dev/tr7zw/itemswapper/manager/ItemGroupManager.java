@@ -188,6 +188,6 @@ public class ItemGroupManager {
     public record ContainerPage(int containerSlotId) implements Page {
     }
 
-    private static NoPage NO_PAGE = new NoPage();
+    private static final NoPage NO_PAGE = new NoPage();
 
 }

@@ -11,6 +11,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public class LinkShortcut implements Shortcut {
@@ -38,7 +39,11 @@ public class LinkShortcut implements Shortcut {
             } else if (fallbackName != null) {
                 displayName = fallbackName;
             }
-            return new ItemIcon(group.group().getItem(0).getItem().getDefaultInstance(), displayName);
+            ItemStack icon = group.group().getItem(0).getItem().getDefaultInstance();
+            if(group.group().getIcon() != null && group.group().getIcon() != Items.AIR) {
+                icon = group.group().getIcon().getDefaultInstance();
+            }
+            return new ItemIcon(icon, displayName);
         } else if (page instanceof ListPage list) {
             Component displayName = null;
             if (list.items().getDisplayName() != null) {
@@ -46,7 +51,11 @@ public class LinkShortcut implements Shortcut {
             } else if (fallbackName != null) {
                 displayName = fallbackName;
             }
-            return new ItemIcon(list.items().getItems()[0].getDefaultInstance(), displayName);
+            ItemStack icon = list.items().getItems()[0].getDefaultInstance();
+            if(list.items().getIcon() != null && list.items().getIcon() != Items.AIR) {
+                icon = list.items().getIcon().getDefaultInstance();
+            }
+            return new ItemIcon(icon, displayName);
         }
         return new ItemIcon(Items.AIR.getDefaultInstance(), Component.empty());
     }

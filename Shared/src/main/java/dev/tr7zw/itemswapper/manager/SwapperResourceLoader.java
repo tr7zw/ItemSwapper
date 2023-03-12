@@ -195,7 +195,9 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         if (ignoreItems != null && ignoreItems.length > 0) {
             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
         }
-        
+        if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
+            group.withIcon(BuiltInRegistries.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
+        }
         itemLists.add(group);
     }
 
@@ -236,6 +238,9 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
         }
         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
+        if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
+            group.withIcon(BuiltInRegistries.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
+        }
         itemGroups.add(group);
     }
 
