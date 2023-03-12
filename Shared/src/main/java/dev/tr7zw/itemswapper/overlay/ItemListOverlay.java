@@ -203,4 +203,10 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
         }
     }
 
+    @Override
+    public boolean mouseScrolled(double d, double e, double f) {
+        onScroll(f);
+        return true;
+    }
+
 }
