@@ -71,7 +71,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             shortcutList.add(new ClearCurrentSlotShortcut(this));
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage()));
-        shortcutList.add(new RestockShortcut());
+        if(ItemSwapperSharedMod.instance.isEnableRefill()) {
+            shortcutList.add(new RestockShortcut());
+        }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
         shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview")));

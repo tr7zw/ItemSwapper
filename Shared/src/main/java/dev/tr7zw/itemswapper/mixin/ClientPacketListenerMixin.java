@@ -29,6 +29,13 @@ public class ClientPacketListenerMixin {
                 ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
             }
         }
+        if (NetworkUtil.enableRefillMessage.equals(clientboundCustomPayloadPacket.getIdentifier())) {
+            try {
+                ItemSwapperSharedMod.instance.setEnableRefill(clientboundCustomPayloadPacket.getData().readBoolean());
+            } catch (Throwable th) {
+                ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+            }
+        }
     }
 
 }

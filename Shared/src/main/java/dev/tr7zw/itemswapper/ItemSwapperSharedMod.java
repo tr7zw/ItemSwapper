@@ -44,6 +44,7 @@ public abstract class ItemSwapperSharedMod {
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
     private boolean enableShulkers = false;
+    private boolean enableRefill = false;
     private boolean modDisabled = false;
     private boolean bypassExcepted = false;
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
@@ -270,6 +271,14 @@ public abstract class ItemSwapperSharedMod {
 
     public boolean areShulkersEnabled() {
         return this.enableShulkers;
+    }
+
+    public boolean isEnableRefill() {
+        return enableRefill;
+    }
+
+    public void setEnableRefill(boolean enableRefill) {
+        this.enableRefill = enableRefill;
     }
 
     public void setBypassExcepted(boolean bypassExcepted) {
