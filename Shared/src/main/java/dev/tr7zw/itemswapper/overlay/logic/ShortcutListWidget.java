@@ -7,21 +7,26 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut.ActionType;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
 
 public class ShortcutListWidget extends ItemGridWidget {
 
+    private final ResourceLocation parentId;
     private final List<Shortcut> list;
 
-    public ShortcutListWidget(List<Shortcut> list, int x, int y) {
+    public ShortcutListWidget(ResourceLocation parentId, List<Shortcut> list, int x, int y) {
         super(x, y);
+        this.parentId = parentId;
         this.list = list.stream().filter(Shortcut::isVisible).toList();
         WidgetUtil.setupSlots(widgetArea, slots, 1, this.list.size(), false, null);
     }
@@ -44,11 +49,17 @@ public class ShortcutListWidget extends ItemGridWidget {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
                             item.item(), 1,
-                            false, 1));
-        } else if(icon instanceof TextureIcon texture) {
+                                SlotEffect.NONE, 1));
+        } else if (icon instanceof LinkIcon item) {
+            boolean grayedOut = parentId != null && parentId.equals(item.nextId());
+            itemRenderList.add(
+                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                            item.item(), 1,
+                                grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
+        } else if (icon instanceof TextureIcon texture) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, texture.texture());
-            GuiComponent.blit(poseStack, x-1, y, (int)this.itemRenderer.blitOffset + 500, 0, 0, 24, 24, 24, 24);
+            GuiComponent.blit(poseStack, x - 1, y, (int) this.itemRenderer.blitOffset + 500, 0, 0, 24, 24, 24, 24);
         }
     }
 
@@ -58,7 +69,10 @@ public class ShortcutListWidget extends ItemGridWidget {
         if (icon instanceof ItemIcon item) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(item),
                     item.item(), false, yOffset);
-        } else if(icon instanceof TextureIcon texture) {
+        } else if (icon instanceof LinkIcon link) {
+            RenderHelper.renderSelectedItemName(RenderHelper.getName(link),
+                    link.item(), false, yOffset);
+        } else if (icon instanceof TextureIcon texture) {
             RenderHelper.renderSelectedEntryName(texture.name(), false, yOffset);
         }
     }
@@ -81,12 +95,13 @@ public class ShortcutListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x, double y) {
+    public void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x,
+            double y) {
         Shortcut shortcut = list.get(selected.id());
-        if(shortcut.getHoverText() != null) {
+        if (shortcut.getHoverText() != null) {
             poseStack.pushPose();
             poseStack.translate(0, 0, 100);
-            overlay.renderTooltip(poseStack, minecraft.font.split(shortcut.getHoverText(), 170), (int)x, (int)y);
+            overlay.renderTooltip(poseStack, minecraft.font.split(shortcut.getHoverText(), 170), (int) x, (int) y);
             poseStack.popPose();
         }
     }

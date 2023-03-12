@@ -11,5 +11,8 @@ public sealed interface Icon {
     
     public record TextureIcon(ResourceLocation texture, Component name) implements Icon {
     };
+    
+    public record LinkIcon(ItemStack item, Component nameOverwrite, ResourceLocation nextId) implements Icon {
+    };
 
 }

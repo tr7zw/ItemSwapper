@@ -13,6 +13,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
+import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.world.item.Items;
 
@@ -38,13 +39,13 @@ public class PaletteWidget extends ItemGridWidget {
         if (!slots.isEmpty() && !overwrideAvailable) {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            false, slots.get(0).amount().get()));
+                            SlotEffect.NONE, slots.get(0).amount().get()));
 
         } else if (guiSlot.id() <= itemGroup.getItems().length - 1) {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
                             itemGroup.getItems()[guiSlot.id()].getItem().getDefaultInstance(), 1,
-                            !overwrideAvailable, 1));
+                            !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
         }
     }
 

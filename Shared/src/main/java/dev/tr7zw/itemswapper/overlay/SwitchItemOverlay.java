@@ -103,9 +103,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         initShortcuts();
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getId(), shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
-        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getShortcuts(),
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getId(), itemGroup.getShortcuts(),
                 -mainWidget.getWidgetArea().getMouseBoundsX() - ItemSwapperUI.slotSize, 1));
     }
 
@@ -115,7 +115,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         initShortcuts();
         GuiWidget mainWidget = new ListContentWidget(items, 0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(items.getId(), shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
     }
 
@@ -144,7 +144,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         initShortcuts();
         InventoryWidget mainWidget = new InventoryWidget(0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
@@ -163,7 +163,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         initShortcuts();
         ContainerWidget mainWidget = new ContainerWidget(0, 0, slotId);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 

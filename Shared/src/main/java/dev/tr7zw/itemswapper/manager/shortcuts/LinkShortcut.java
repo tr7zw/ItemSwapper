@@ -8,6 +8,7 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.NoPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -43,7 +44,7 @@ public class LinkShortcut implements Shortcut {
             if(group.group().getIcon() != null && group.group().getIcon() != Items.AIR) {
                 icon = group.group().getIcon().getDefaultInstance();
             }
-            return new ItemIcon(icon, displayName);
+            return new LinkIcon(icon, displayName, nextId);
         } else if (page instanceof ListPage list) {
             Component displayName = null;
             if (list.items().getDisplayName() != null) {
@@ -55,7 +56,7 @@ public class LinkShortcut implements Shortcut {
             if(list.items().getIcon() != null && list.items().getIcon() != Items.AIR) {
                 icon = list.items().getIcon().getDefaultInstance();
             }
-            return new ItemIcon(icon, displayName);
+            return new LinkIcon(icon, displayName, nextId);
         }
         return new ItemIcon(Items.AIR.getDefaultInstance(), Component.empty());
     }

@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -30,15 +31,21 @@ public final class RenderHelper {
     }
 
     public static void renderUnavailableItem(PoseStack poseStack, LivingEntity livingEntity, ItemStack itemStack, int i,
-            int j, int k) {
+            int j, int k, SlotEffect effect) {
         if (itemStack.isEmpty())
             return;
         BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
         blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
         int l = i;
         int m = j;
+        int color = 0;
+        if(effect == SlotEffect.RED) {
+            color = 822018048;
+        } else if(effect == SlotEffect.GRAY) {
+            color = -1879048192;
+        }
         // these values need to be fixed when the texture size gets fixed.
-        GuiComponent.fill(poseStack, l - 1, m - 1, l + 17, m + 17, 822018048);
+        GuiComponent.fill(poseStack, l - 1, m - 1, l + 17, m + 17, color);
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
         itemRenderer.renderAndDecorateFakeItem(itemStack, l, m);
         if (k == 0)
@@ -64,14 +71,18 @@ public final class RenderHelper {
                 poseStack.last().pose(), bufferSource, false, 0, 15728880);
         bufferSource.endBatch();
     }
+    
+    public enum SlotEffect {
+        NONE, RED, GRAY
+    }
 
-    public static void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, boolean grayOut,
+    public static void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
             int count) {
         if (!arg2.isEmpty()) {
             ItemStack copy = arg2.copy();
             copy.setCount(1);
-            if (grayOut) {
-                RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k);
+            if (effect != SlotEffect.NONE) {
+                RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k, effect);
                 return;
             }
             minecraft.getItemRenderer().renderAndDecorateItem(arg, copy, x, y, k);
@@ -102,6 +113,17 @@ public final class RenderHelper {
         }
         return entry.item().getHoverName();
     }
+    
+    public static Component getName(LinkIcon entry) {
+        if (entry == null) {
+            return null;
+        }
+        if (entry.nameOverwrite() != null) {
+            return entry.nameOverwrite();
+        }
+        return entry.item().getHoverName();
+    }
+
 
     public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
