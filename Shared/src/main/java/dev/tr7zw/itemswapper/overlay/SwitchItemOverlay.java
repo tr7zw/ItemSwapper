@@ -76,7 +76,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview")));
+        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview"), null));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {
