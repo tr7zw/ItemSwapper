@@ -329,8 +329,12 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (obj.has("name") && obj.get("name").isJsonPrimitive()) {
                     displayName = obj.getAsJsonPrimitive("name").getAsString();
                 }
+                boolean actAsLink = false;
+                if (obj.has("actAsLink") && obj.get("actAsLink").isJsonPrimitive()) {
+                    actAsLink = obj.getAsJsonPrimitive("actAsLink").getAsBoolean();
+                }
                 ItemEntry entry = new ItemEntry(item, link,
-                        displayName != null ? Component.translatable(displayName) : null);
+                        displayName != null ? Component.translatable(displayName) : null, actAsLink);
                 if (!itemList.contains(entry)) {
                     itemList.add(entry);
                 }

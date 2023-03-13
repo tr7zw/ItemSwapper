@@ -61,6 +61,10 @@ public class PaletteWidget extends ItemGridWidget {
     @Override
     public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
+        if(entry != null && entry.isActAsLink()) {
+            onSecondaryClick(overlay, guiSlot);
+            return true;
+        }
         if (entry != null && entry.getItem() != Items.AIR) {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
                 minecraft.gameMode.handleCreativeModeItemAdd(entry.getItem().getDefaultInstance().copy(),
