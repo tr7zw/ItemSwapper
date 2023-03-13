@@ -289,10 +289,14 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 String displayname = entry.has("displayName") && entry.get("displayName").isJsonPrimitive()
                         ? entry.get("displayName").getAsString()
                         : null;
+                Item icon = null;
+                if (entry.has("icon") && entry.get("icon").isJsonPrimitive()) {
+                    icon = BuiltInRegistries.ITEM.get(new ResourceLocation(entry.get("icon").getAsString()));
+                }
                 try {
                     shortcuts.add(
                             new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()),
-                                    displayname != null ? Component.translatable(displayname) : null));
+                                    displayname != null ? Component.translatable(displayname) : null, icon));
                 } catch (Exception ex) {
                     ItemSwapperSharedMod.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
                 }
