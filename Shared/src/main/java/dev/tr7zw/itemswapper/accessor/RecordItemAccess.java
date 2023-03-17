@@ -13,5 +13,5 @@ import net.minecraft.world.item.Item;
 public interface RecordItemAccess {
 
     public Set<Item> getAllRecords();
-    
+
 }

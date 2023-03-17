@@ -15,6 +15,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 public class ClientProviderManager {
 
@@ -43,7 +44,7 @@ public class ClientProviderManager {
             nameProvider.put(item, provider);
         }
     }
-    
+
     public Set<ItemProvider> getEarlyItemProvider() {
         return earlyItemProvider;
     }
@@ -59,7 +60,7 @@ public class ClientProviderManager {
     public NameProvider getNameProvider(Item item) {
         return nameProvider.get(item);
     }
-    
+
     public List<AvailableSlot> findSlotsMatchingItem(Item item, boolean limit, boolean ignoreHotbar) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
         List<AvailableSlot> ids = new ArrayList<>();
@@ -69,7 +70,7 @@ public class ClientProviderManager {
         }
         for (int i = ignoreHotbar ? 9 : 0; i < items.size(); i++) {
             ItemStack itemStack = items.get(i);
-            if (itemStack.isEmpty()) {
+            if (itemStack.isEmpty() && item != Items.AIR) {
                 continue;
             }
             if (itemStack.getItem() == item) {

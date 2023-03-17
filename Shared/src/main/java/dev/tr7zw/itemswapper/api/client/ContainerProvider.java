@@ -1,9 +1,11 @@
 package dev.tr7zw.itemswapper.api.client;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
 import dev.tr7zw.itemswapper.api.AvailableSlot;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -32,5 +34,7 @@ public interface ContainerProvider {
      *         itemstack can't be used.
      */
     List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId);
+
+    NonNullList<AvailableSlot> getItemStacks(ItemStack itemStack, int slotId);
 
 }

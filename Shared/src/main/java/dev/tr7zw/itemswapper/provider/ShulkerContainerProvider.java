@@ -10,7 +10,9 @@ import com.google.common.collect.Sets;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
+import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -22,28 +24,43 @@ public class ShulkerContainerProvider implements ContainerProvider {
             Items.GREEN_SHULKER_BOX, Items.LIGHT_BLUE_SHULKER_BOX, Items.LIGHT_GRAY_SHULKER_BOX, Items.LIME_SHULKER_BOX,
             Items.MAGENTA_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.PURPLE_SHULKER_BOX,
             Items.RED_SHULKER_BOX, Items.WHITE_SHULKER_BOX, Items.YELLOW_SHULKER_BOX);
-    
+    private ConfigManager configManager = ConfigManager.getInstance();
+
     @Override
     public Set<Item> getItemHandlers() {
         return shulkers;
     }
 
     @Override
-    public List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotid) {
-        if(!ItemSwapperSharedMod.instance.areShulkersEnabled()) {
+    public List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId) {
+        if (!ItemSwapperSharedMod.instance.areShulkersEnabled() || configManager.getConfig().disableShulkers) {
             return Collections.emptyList();
         }
         List<ItemStack> shulkerItems = ShulkerHelper.getItems(itemStack);
         List<AvailableSlot> slots = new ArrayList<>();
         if (shulkerItems != null) {
             for (int x = 0; x < shulkerItems.size(); x++) {
-                if (!(shulkerItems.get(x)).isEmpty()
-                        && shulkerItems.get(x).getItem() == item) {
-                    slots.add(new AvailableSlot(slotid, x, shulkerItems.get(x)));
-                    if(limit) {
+                if (shulkerItems.get(x).getItem() == item) {
+                    slots.add(new AvailableSlot(slotId, x, shulkerItems.get(x)));
+                    if (limit) {
                         return slots;
                     }
                 }
+            }
+        }
+        return slots;
+    }
+
+    @Override
+    public NonNullList<AvailableSlot> getItemStacks(ItemStack itemStack, int slotId) {
+        if (!ItemSwapperSharedMod.instance.areShulkersEnabled() || configManager.getConfig().disableShulkers) {
+            return NonNullList.create();
+        }
+        List<ItemStack> shulkerItems = ShulkerHelper.getItems(itemStack);
+        NonNullList<AvailableSlot> slots = NonNullList.create();
+        if (shulkerItems != null) {
+            for (int x = 0; x < shulkerItems.size(); x++) {
+                slots.add(new AvailableSlot(slotId, x, shulkerItems.get(x)));
             }
         }
         return slots;

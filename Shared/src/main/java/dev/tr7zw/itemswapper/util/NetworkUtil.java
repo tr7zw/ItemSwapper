@@ -14,15 +14,23 @@ public class NetworkUtil {
 
     public static final ResourceLocation enableShulkerMessage = new ResourceLocation(ItemSwapperMod.MODID,
             "enableshulker");
+    public static final ResourceLocation enableRefillMessage = new ResourceLocation(ItemSwapperMod.MODID,
+            "enablerefill");
     public static final ResourceLocation disableModMessage = new ResourceLocation(ItemSwapperMod.MODID, "disable");
     public static final ResourceLocation swapMessage = new ResourceLocation(ItemSwapperMod.MODID, "swap");
+    public static final ResourceLocation refillMessage = new ResourceLocation(ItemSwapperMod.MODID, "refill");
 
     private NetworkUtil() {
         throw new IllegalStateException("Utility class");
     }
 
-    public static void sendServerSupportPacket(ServerPlayer player, boolean enabled) {
+    public static void sendShulkerSupportPacket(ServerPlayer player, boolean enabled) {
         player.connection.send(new ClientboundCustomPayloadPacket(enableShulkerMessage,
+                new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
+    }
+    
+    public static void sendRefillSupportPacket(ServerPlayer player, boolean enabled) {
+        player.connection.send(new ClientboundCustomPayloadPacket(enableRefillMessage,
                 new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
     }
 
@@ -38,4 +46,12 @@ public class NetworkUtil {
         Minecraft.getInstance().getConnection()
                 .send(new ServerboundCustomPayloadPacket(swapMessage, new FriendlyByteBuf(buf)));
     }
+    
+    public static void refillItem(int targetSlot) {
+        ByteBuf buf = Unpooled.buffer(4);
+        buf.writeInt(targetSlot);
+        Minecraft.getInstance().getConnection()
+                .send(new ServerboundCustomPayloadPacket(refillMessage, new FriendlyByteBuf(buf)));
+    }
+    
 }

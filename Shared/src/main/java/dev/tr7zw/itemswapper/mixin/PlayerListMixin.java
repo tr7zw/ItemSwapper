@@ -19,7 +19,8 @@ public class PlayerListMixin {
         if (ConfigManager.getInstance().getConfig().serverPreventModUsage) {
             NetworkUtil.sendDisableModPacket(arg2, true);
         } else {
-            NetworkUtil.sendServerSupportPacket(arg2, true);
+            NetworkUtil.sendShulkerSupportPacket(arg2, true);
+            NetworkUtil.sendRefillSupportPacket(arg2, true);
         }
     }
 

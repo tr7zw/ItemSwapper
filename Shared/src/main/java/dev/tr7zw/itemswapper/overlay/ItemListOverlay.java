@@ -12,9 +12,9 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
-import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
@@ -30,7 +30,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemListOverlay extends XTOverlay {
+public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
@@ -53,12 +53,14 @@ public class ItemListOverlay extends XTOverlay {
     private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
-    private Item[] itemSelection;
+    private ItemList itemSelection;
     private List<AvailableSlot> entries = new ArrayList<>();
     private int selectedEntry = 0;
     private double selectY = 0;
 
-    public ItemListOverlay(Item[] itemSelection) {
+    public ItemListOverlay(ItemList itemSelection) {
+        super(Component.empty());
+        super.passEvents = true;
         this.itemSelection = itemSelection;
         refreshList();
     }
@@ -121,7 +123,7 @@ public class ItemListOverlay extends XTOverlay {
         // first slot is always the current item
         entries.add(new AvailableSlot(-1, minecraft.player.getInventory().selected,
                 minecraft.player.getInventory().getSelected()));
-        for (Item item : itemSelection) {
+        for (Item item : itemSelection.getItems()) {
             List<AvailableSlot> ids = providerManager.findSlotsMatchingItem(item, false,
                     ConfigManager.getInstance().getConfig().ignoreHotbar);
             for (AvailableSlot id : ids) {
@@ -135,23 +137,23 @@ public class ItemListOverlay extends XTOverlay {
     }
 
     @Override
-    public void handleSwitchSelection() {
+    public void onSecondaryClick() {
 
     }
-    
+
     @Override
     public boolean lockMouse() {
         return !ConfigManager.getInstance().getConfig().unlockListMouse;
     }
 
     @Override
-    public void onClose() {
+    public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
-            if(event.canceled().get()) {
+            if (event.canceled().get()) {
                 // interaction canceled by some other mod
-                return;
+                return true;
             }
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
@@ -163,6 +165,7 @@ public class ItemListOverlay extends XTOverlay {
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
+        return false;
     }
 
     private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
@@ -183,24 +186,13 @@ public class ItemListOverlay extends XTOverlay {
         }
         itemRenderList.add(() -> {
             renderSlot(x + 4, y + 4, minecraft.player, slot.item(), 1);
-            var name = getDisplayname(slot.item());
+            var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
             }
             drawString(poseStack, minecraft.font, name,
                     x + 27, y + 9, -1);
         });
-    }
-
-    private Component getDisplayname(ItemStack item) {
-        if (item.hasCustomHoverName()) {
-            return item.getHoverName();
-        }
-        NameProvider provider = providerManager.getNameProvider(item.getItem());
-        if(provider != null) {
-            return provider.getDisplayName(item);
-        }
-        return item.getHoverName();
     }
 
     private void renderSlot(int x, int y, Player arg, ItemStack arg2, int k) {

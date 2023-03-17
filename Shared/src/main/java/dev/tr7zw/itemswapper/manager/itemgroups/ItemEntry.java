@@ -9,15 +9,17 @@ public class ItemEntry {
     private final Item item;
     private final ResourceLocation link;
     private final Component nameOverwride;
-    
+    private final boolean actAsLink;
+
     public ItemEntry(Item item, ResourceLocation link) {
-        this(item, link, null);
+        this(item, link, null, false);
     }
-    
-    public ItemEntry(Item item, ResourceLocation link, Component nameOverwride) {
+
+    public ItemEntry(Item item, ResourceLocation link, Component nameOverwride, boolean actAsLink) {
         this.item = item;
         this.link = link;
         this.nameOverwride = nameOverwride;
+        this.actAsLink = actAsLink;
     }
 
     public Item getItem() {
@@ -32,4 +34,8 @@ public class ItemEntry {
         return nameOverwride;
     }
 
+    public boolean isActAsLink() {
+        return actAsLink;
+    }
+    
 }

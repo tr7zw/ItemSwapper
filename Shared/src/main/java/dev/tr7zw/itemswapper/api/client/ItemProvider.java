@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.api.client;
 
+import java.util.Collections;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.api.AvailableSlot;
