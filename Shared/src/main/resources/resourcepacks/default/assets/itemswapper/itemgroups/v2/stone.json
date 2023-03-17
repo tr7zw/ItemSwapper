@@ -1,0 +1,32 @@
+{
+    "type": "palette",
+    "priority": 40,
+    "displayName": "Stone",
+    "items": [
+    "minecraft:stone",
+    "minecraft:stone_stairs",
+    "minecraft:stone_slab",
+    "minecraft:stone_pressure_plate",
+    "minecraft:stone_button",
+    "minecraft:smooth_stone",
+    "minecraft:smooth_stone_slab"
+	],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stonebrick"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/cobblestone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/andesite"
+        }
+    ]
+}

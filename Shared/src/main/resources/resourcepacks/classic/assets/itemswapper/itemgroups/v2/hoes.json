@@ -2,7 +2,7 @@
     "type": "list",
     "displayName": "text.itemswapper.palette.hoes",
     "disableAutoLink": true,
-	"icon": "minecraft:iron_hoe",
+    "icon": "minecraft:iron_hoe",
     "items": [
         "minecraft:netherite_hoe",
         "minecraft:diamond_hoe",

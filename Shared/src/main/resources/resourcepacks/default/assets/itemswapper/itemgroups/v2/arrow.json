@@ -1,0 +1,10 @@
+{
+    "type": "list",
+    "priority": 100,
+    "displayName": "Arrows",
+    "items": [
+    "minecraft:arrow",
+    "minecraft:spectral_arrow",
+    "minecraft:tipped_arrow"
+]
+}

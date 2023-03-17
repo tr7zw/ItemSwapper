@@ -1,0 +1,123 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "The Directory",
+    "disableAutoLink": true,	
+	"icon": "minecraft:book",
+    "items": [
+	{
+		"id": "minecraft:magma_block",
+		"name": "The Nether",
+		"link": "itemswapper:v2/netherterrain",
+		"actAsLink": true
+	},
+	{
+		"id": "minecraft:chorus_flower",
+		"name": "The End",
+		"link": "itemswapper:v2/purpur",
+		"actAsLink": true
+	},
+	{
+		"id": "minecraft:prismarine_bricks",
+		"name": "The Oceans",
+		"link": "itemswapper:v2/prismarine",
+		"actAsLink": true
+	},	
+	{
+		"id": "minecraft:diamond",
+		"name": "Precious Resources",
+		"link": "itemswapper:v2/ores",
+		"actAsLink": true
+	},	
+	{
+		"id": "minecraft:magenta_dye",
+		"name": "Dyes",
+		"link": "itemswapper:v2/dyes",
+		"actAsLink": true
+	},
+	{
+		"id": "minecraft:basalt",
+		"name": "The Depths",
+		"link": "itemswapper:v2/basalt",
+		"actAsLink": true
+	},		
+	{
+		"id": "minecraft:stone",
+		"name": "Stone",
+		"link": "itemswapper:v2/stone",
+		"actAsLink": true
+	},	
+	{
+		"id": "minecraft:bricks",
+		"name": "Earthen",
+		"link": "itemswapper:v2/bricks",
+		"actAsLink": true
+	},		
+	{
+		"id": "minecraft:chiseled_quartz_block",
+		"name": "Marbled",
+		"link": "itemswapper:v2/quartz",
+		"actAsLink": true
+	},		
+	{
+		"id": "minecraft:copper_block",
+		"name": "Copper",
+		"link": "itemswapper:v2/copper",
+		"actAsLink": true
+	},				
+	{
+		"id": "minecraft:oak_log",
+		"name": "Core Wood",
+		"link": "itemswapper:v2/oak",
+		"actAsLink": true
+	},
+	{
+		"id": "minecraft:acacia_log",
+		"name": "Speciality Wood",
+		"link": "itemswapper:v2/acacia",
+		"actAsLink": true
+	},	
+	{
+		"id": "minecraft:warped_stem",
+		"name": "Nether Wood",
+		"link": "itemswapper:v2/warped",
+		"actAsLink": true
+	},
+	{
+		"id": "minecraft:melon",
+		"name": "Nature",
+		"link": "itemswapper:v2/natural",
+		"actAsLink": true
+	},	
+	{
+		"id": "minecraft:wheat_seeds",
+		"name": "Seeds, Saplings & Vegatables",
+		"link": "itemswapper:v2/seeds",
+		"actAsLink": true
+	}
+
+
+	],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/directory_technical"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional"
+        },			
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/tools"
+        },	
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/weapons"
+        },	
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/consumables"
+        }			
+    ]
+}

@@ -1,0 +1,31 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Skulk",	
+	"icon": "minecraft:sculk_sensor",
+    "items": [ 
+    "minecraft:sculk",
+    "minecraft:sculk_vein",
+    "minecraft:sculk_catalyst",
+    "minecraft:sculk_shrieker",
+    "minecraft:sculk_sensor"
+    ],   
+	"shortcuts": [
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/basalt"
+        },	
+        {
+            "type": "link",
+            "target": "itemswapper:v2/deepslate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/blackstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/sculk"
+        }		
+	]
+}

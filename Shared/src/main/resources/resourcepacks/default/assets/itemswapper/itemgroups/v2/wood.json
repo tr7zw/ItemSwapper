@@ -1,0 +1,39 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "Wood",
+    "ignoreItems": ["minecraft:bamboo_block"],
+    "items": [
+
+    "minecraft:oak_wood",
+    "minecraft:spruce_wood",	
+    "minecraft:birch_wood",
+    "minecraft:dark_oak_wood",
+	
+    "minecraft:acacia_wood",	
+    "minecraft:jungle_wood",	
+    "minecraft:mangrove_wood",
+    "minecraft:bamboo_block",
+	
+    "minecraft:warped_hyphae",	
+    "minecraft:crimson_hyphae"
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/logs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/strippedlogs"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/strippedwood"
+        }		
+	]
+}

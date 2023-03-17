@@ -1,0 +1,37 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "Wooden Trapdoor",
+    "items": [
+    "minecraft:oak_trapdoor",
+    "minecraft:spruce_trapdoor",
+    "minecraft:birch_trapdoor",
+    "minecraft:dark_oak_trapdoor",	
+
+    "minecraft:acacia_trapdoor",	
+    "minecraft:jungle_trapdoor",
+    "minecraft:mangrove_trapdoor",
+    "minecraft:bamboo_trapdoor",
+
+    "minecraft:warped_trapdoor",	
+    "minecraft:crimson_trapdoor"
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodentrapdoors"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/doors"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenfencegate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenfences"
+        }	
+	]
+}

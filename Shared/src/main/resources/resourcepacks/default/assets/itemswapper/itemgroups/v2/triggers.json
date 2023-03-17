@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "Redstone Triggers",
+	"icon": "minecraft:daylight_detector",
+    "items": 
+	
+			[
+			  "minecraft:iron_trapdoor",
+			  "minecraft:iron_door",
+			  "minecraft:daylight_detector",
+			  "minecraft:oak_button",
+			  "minecraft:stone_button",
+			  "minecraft:oak_pressure_plate",
+			  "minecraft:stone_pressure_plate",
+			  "minecraft:heavy_weighted_pressure_plate",
+			  "minecraft:light_weighted_pressure_plate",
+			  "minecraft:lever",
+			  "minecraft:tripwire_hook",
+			  "minecraft:string"
+		],
+
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/redstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/redstone_functional"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/triggers"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/rail"
+        }		
+    ]
+}

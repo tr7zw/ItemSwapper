@@ -1,0 +1,17 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "Ice & Snow",
+    "items": 
+[
+  "minecraft:ice",
+  "minecraft:packed_ice",
+  "minecraft:blue_ice",
+  "minecraft:carved_pumpkin",
+  "minecraft:snow_block",
+  "minecraft:snow",
+  "minecraft:snowball"
+
+]
+
+}

@@ -1,0 +1,33 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Granite",
+	"icon": "minecraft:polished_granite",
+    "items": [ 
+    "minecraft:granite",
+    "minecraft:granite_stairs",
+    "minecraft:granite_slab",
+    "minecraft:granite_wall",
+    "minecraft:polished_granite",
+    "minecraft:polished_granite_stairs",
+    "minecraft:polished_granite_slab"
+    ],   
+	"shortcuts": [
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/bricks"
+        },	
+        {
+            "type": "link",
+            "target": "itemswapper:v2/granite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/mud"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/dirt"
+        }				
+	]
+}

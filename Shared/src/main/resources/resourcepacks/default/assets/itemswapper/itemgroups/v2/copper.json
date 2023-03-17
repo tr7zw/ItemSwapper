@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Copper",
+    "items": [ 
+
+  "minecraft:copper_block",
+  "minecraft:cut_copper",
+  "minecraft:cut_copper_stairs",
+  "minecraft:cut_copper_slab",
+  "minecraft:waxed_copper_block",
+  "minecraft:waxed_cut_copper",
+  "minecraft:waxed_cut_copper_stairs",
+  "minecraft:waxed_cut_copper_slab"
+
+],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper_exposed"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper_weathered"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper_oxidized"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/honeycomb_weathering"
+        }			
+		
+		
+	]
+}

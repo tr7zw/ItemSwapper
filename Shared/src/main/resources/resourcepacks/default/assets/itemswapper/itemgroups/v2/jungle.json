@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Jungle",
+    "items": [
+
+    "minecraft:jungle_log",
+    "minecraft:jungle_wood",
+    "minecraft:stripped_jungle_log",
+    "minecraft:stripped_jungle_wood",
+	
+    "minecraft:jungle_planks",
+    "minecraft:jungle_stairs",
+    "minecraft:jungle_slab",
+
+    "minecraft:jungle_trapdoor",
+    "minecraft:jungle_door",
+    "minecraft:jungle_fence_gate",	
+    "minecraft:jungle_fence",
+
+    "minecraft:jungle_sign",
+    "minecraft:jungle_hanging_sign",
+    "minecraft:jungle_button",
+    "minecraft:jungle_pressure_plate"
+
+
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/acacia"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/jungle"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/mangrove"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/bamboo"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/cherry"
+        }
+	]
+}

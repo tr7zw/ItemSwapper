@@ -1,0 +1,23 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "Orange",
+    "items": 
+	
+		[
+		  "minecraft:orange_dye",
+		  "minecraft:orange_concrete_powder",
+		  "minecraft:orange_concrete",
+		  "minecraft:orange_terracotta",
+		  "minecraft:orange_glazed_terracotta",
+		  "minecraft:orange_wool",
+		  "minecraft:orange_carpet",
+		  "minecraft:orange_stained_glass",
+		  "minecraft:orange_stained_glass_pane",
+		  "minecraft:orange_candle",
+		  "minecraft:orange_banner",
+		  "minecraft:orange_bed"
+		]
+
+
+}

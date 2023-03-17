@@ -11,6 +11,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
@@ -23,8 +24,12 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         // Register default resource pack
         FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
                 container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "default"), container,
+                        new ResourceLocation("itemswapper", "default"), container, Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
+        FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
+                container -> ResourceManagerHelper.registerBuiltinResourcePack(
+                        new ResourceLocation("itemswapper", "classic"), container, Component.translatable("text.itemswapper.resourcepack.classic"),
+                        ResourcePackActivationType.NORMAL));
         
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperSharedMod.LOGGER.info("Adding MidnightControls support!");

@@ -1,0 +1,37 @@
+{
+    "type": "palette",
+    "priority": 150,
+    "displayName": "Nether Terrain",
+	"icon": "minecraft:magma_block",
+    "items": [ 
+  "minecraft:netherrack",
+  "minecraft:crimson_nylium",
+  "minecraft:warped_nylium",
+  "minecraft:nether_quartz_ore",
+  "minecraft:nether_gold_ore",
+  "minecraft:gravel",
+  "minecraft:soul_sand",
+  "minecraft:soul_soil",
+  "minecraft:magma_block",
+  "minecraft:glowstone",
+
+  "minecraft:obsidian",
+  "minecraft:crying_obsidian"
+  
+  
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/netherterrain"
+        },
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/netherbrick"
+        },	
+        {
+            "type": "link",
+            "target": "itemswapper:v2/netherflora"
+        }
+	]
+}

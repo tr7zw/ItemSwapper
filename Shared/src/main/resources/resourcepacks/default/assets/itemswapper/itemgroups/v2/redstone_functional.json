@@ -1,0 +1,43 @@
+{
+    "type": "palette",
+    "priority": 20,
+    "displayName": "Redstone Functional",
+	"icon": "minecraft:sticky_piston",
+    "items": 
+	
+		[
+		  "minecraft:piston",
+		  "minecraft:sticky_piston",
+		  "minecraft:slime_block",
+		  "minecraft:honey_block",
+		  "minecraft:hopper",
+		  "minecraft:dispenser",
+		  "minecraft:dropper",
+		  "minecraft:chest",
+		  "minecraft:trapped_chest",
+		  "minecraft:redstone_lamp",
+		  "minecraft:cauldron",
+		  "minecraft:composter",
+		  "minecraft:lectern",
+		  "minecraft:tnt"
+		],
+
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/redstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/redstone_functional"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/triggers"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/rail"
+        }		
+    ]
+}

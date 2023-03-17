@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "Wooden Planks",
+    "items": [
+
+    "minecraft:oak_planks",
+    "minecraft:spruce_planks",
+    "minecraft:birch_planks",
+    "minecraft:dark_oak_planks",
+	
+    "minecraft:acacia_planks", 	
+    "minecraft:jungle_planks",	
+    "minecraft:mangrove_planks",
+	"minecraft:bamboo_planks",
+    "minecraft:bamboo_mosaic",	
+	
+    "minecraft:warped_planks",	
+    "minecraft:crimson_planks"
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/planktypes"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenstairs"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenslabs"
+        }	
+	]
+}

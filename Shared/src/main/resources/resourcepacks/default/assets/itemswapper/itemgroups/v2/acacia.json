@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Acacia",
+    "items": [
+
+    "minecraft:acacia_log",
+    "minecraft:acacia_wood",
+    "minecraft:stripped_acacia_log",
+    "minecraft:stripped_acacia_wood",
+	
+    "minecraft:acacia_planks",
+    "minecraft:acacia_stairs",
+    "minecraft:acacia_slab",
+
+    "minecraft:acacia_trapdoor",
+    "minecraft:acacia_door",
+    "minecraft:acacia_fence_gate",	
+    "minecraft:acacia_fence",
+
+    "minecraft:acacia_sign",
+    "minecraft:acacia_hanging_sign",
+    "minecraft:acacia_button",	
+    "minecraft:acacia_pressure_plate"
+
+
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/acacia"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/jungle"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/mangrove"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/bamboo"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/cherry"
+        }
+	]
+}

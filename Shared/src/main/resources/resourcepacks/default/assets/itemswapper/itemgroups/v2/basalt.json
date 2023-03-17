@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Slate & Basalt",	
+	"icon": "minecraft:basalt",
+    "items": [  
+
+
+	"minecraft:tuff",
+
+    "minecraft:deepslate",	
+    "minecraft:cobbled_deepslate",
+	
+    "minecraft:cobbled_deepslate_stairs",
+    "minecraft:cobbled_deepslate_slab",
+    "minecraft:cobbled_deepslate_wall",	
+
+	
+    "minecraft:basalt",
+    "minecraft:polished_basalt",
+    "minecraft:smooth_basalt"
+    ],   
+	"shortcuts": [
+	    {
+            "type": "link",
+            "target": "itemswapper:v2/basalt"
+        },	
+        {
+            "type": "link",
+            "target": "itemswapper:v2/deepslate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/blackstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/sculk"
+        }		
+	]
+}

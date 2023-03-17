@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "Wooden Stairs",
+    "items": [
+	
+    "minecraft:oak_stairs",
+    "minecraft:spruce_stairs",
+    "minecraft:birch_stairs",
+    "minecraft:dark_oak_stairs",
+
+    "minecraft:acacia_stairs",	
+    "minecraft:jungle_stairs",
+    "minecraft:mangrove_stairs",
+    "minecraft:bamboo_stairs",	
+    "minecraft:bamboo_mosaic_stairs",	
+	
+    "minecraft:warped_stairs",
+    "minecraft:crimson_stairs"
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/planktypes"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenstairs"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenslabs"
+        }	
+	]
+}

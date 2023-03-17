@@ -1,0 +1,13 @@
+{
+    "type": "list",
+    "priority": 100,
+    "displayName": "Potions",
+	"openOnlyItems": [
+	"minecraft:glass_bottle"	
+	]	,
+    "items": [
+    "minecraft:potion",
+    "minecraft:splash_potion",
+    "minecraft:lingering_potion"
+]
+}

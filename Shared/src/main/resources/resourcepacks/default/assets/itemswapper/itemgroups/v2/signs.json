@@ -1,0 +1,39 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "Signs",
+    "items": [
+	
+    "minecraft:oak_sign",
+    "minecraft:spruce_sign",
+    "minecraft:birch_sign",
+    "minecraft:dark_oak_sign",	
+
+    "minecraft:acacia_sign",	
+    "minecraft:jungle_sign",
+    "minecraft:mangrove_sign",
+    "minecraft:bamboo_sign",
+
+    "minecraft:warped_sign",
+    "minecraft:crimson_sign"
+
+    ],   
+	"shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/signs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/hangingsigns"
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenbuttons"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/woodenpressureplates"
+        }
+	]
+}
