@@ -71,11 +71,11 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();
         for(int line = 0; line < text.size(); line++) {
-            poseStack.translate(0.0D, 0.0D, (minecraft.getItemRenderer().blitOffset + 200.0F));
+            poseStack.translate(0.0D, 0.0D, (200.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                     .immediate(Tesselator.getInstance().getBuilder());
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2), y - (font.lineHeight * (text.size() - line)), color, true,
-                    poseStack.last().pose(), bufferSource, false, 0, 15728880);
+                    poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
             bufferSource.endBatch();
         }
     }
