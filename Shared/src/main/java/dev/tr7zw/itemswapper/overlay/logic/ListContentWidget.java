@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
+import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
@@ -55,32 +56,32 @@ public class ListContentWidget extends ItemGridWidget {
         if (!slots.isEmpty() && !overwrideAvailable) {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            false, slots.get(0).amount().get()));
+                            SlotEffect.NONE, slots.get(0).amount().get()));
 
         } else if (guiSlot.id() <= entries.size() - 1) {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
                             entries.get(guiSlot.id()).item(), 1,
-                            !overwrideAvailable, 1));
+                            !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
         }
     }
 
     @Override
-    public void onClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         // doesn't link anywhere
     }
 
     @Override
-    public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         if (guiSlot.id() > entries.size() - 1) {
-            return;
+            return true;
         }
         AvailableSlot entry = entries.get(guiSlot.id());
         if (entry != null && !entry.item().isEmpty()) {
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(entry, new AtomicBoolean()));
             if (event.canceled().get()) {
                 // interaction canceled by some other mod
-                return;
+                return true;
             }
             if (entry.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(entry.slot());
@@ -91,11 +92,13 @@ public class ListContentWidget extends ItemGridWidget {
                 NetworkUtil.swapItem(entry.inventory(), entry.slot());
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(entry));
+            return false;
         }
+        return true;
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         if (selected.id() > entries.size() - 1) {
             return;
         }
@@ -104,7 +107,7 @@ public class ListContentWidget extends ItemGridWidget {
             return;
         }
         RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()),
-                slot.item(), false, yOffset);
+                slot.item(), false, yOffset, maxWidth);
 
     }
 

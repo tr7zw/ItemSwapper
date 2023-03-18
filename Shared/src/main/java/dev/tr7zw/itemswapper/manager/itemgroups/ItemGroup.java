@@ -18,6 +18,7 @@ public class ItemGroup {
 
     private final ResourceLocation id;
     private final Component displayName;
+    private final Item icon;
     private final int priority;
     private final boolean disableAutoLink;
     private final ResourceLocation fallbackLink;
@@ -30,6 +31,7 @@ public class ItemGroup {
     private ItemGroup(Builder builder) {
         this.id = builder.id;
         this.displayName = builder.displayName;
+        this.icon = builder.icon;
         this.priority = builder.priority;
         this.disableAutoLink = builder.disableAutoLink;
         this.fallbackLink = builder.fallbackLink;
@@ -46,6 +48,10 @@ public class ItemGroup {
 
     public Component getDisplayName() {
         return displayName;
+    }
+    
+    public Item getIcon() {
+        return icon;
     }
 
     public int getPriority() {
@@ -94,6 +100,7 @@ public class ItemGroup {
     public static final class Builder {
         private ResourceLocation id;
         private Component displayName;
+        private Item icon;
         private int priority;
         private boolean disableAutoLink;
         private ResourceLocation fallbackLink;
@@ -113,6 +120,11 @@ public class ItemGroup {
 
         public Builder withDisplayName(Component displayName) {
             this.displayName = displayName;
+            return this;
+        }
+
+        public Builder withIcon(Item icon) {
+            this.icon = icon;
             return this;
         }
 
@@ -156,10 +168,6 @@ public class ItemGroup {
             return this;
         }
 
-        public ItemGroup build() {
-            return new ItemGroup(this);
-        }
-
         public ResourceLocation getId() {
             return id;
         }
@@ -200,6 +208,9 @@ public class ItemGroup {
             return shortcuts;
         }
 
+        public ItemGroup build() {
+            return new ItemGroup(this);
+        }
     }
 
 }

@@ -28,23 +28,14 @@ public class LastItemShortcut implements Shortcut {
     }
 
     @Override
-    public void invoke(ActionType action) {
-        if(action == ActionType.CLICK) {
+    public boolean invoke(ActionType action) {
+        if(action == ActionType.SECONDARY_CLICK) {
             ItemSwapperSharedMod.instance.openPage(lastPage);
+            return true;
         } else {
             ItemUtil.grabItem(lastItem, true);
+            return false;
         }
-        
-    }
-
-    @Override
-    public boolean acceptClose() {
-        return true;
-    }
-
-    @Override
-    public boolean acceptClick() {
-        return true;
     }
 
     @Override

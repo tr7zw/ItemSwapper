@@ -53,7 +53,7 @@ public class MidnightControllsSupport implements CompatHandler{
                     @NotNull ButtonState action) {
                 // remove screen check
                 if(action == ButtonState.PRESS && client.screen instanceof ItemSwapperUI ui) {
-                    ui.handleSwitchSelection();
+                    ui.onSecondaryClick();
                 }
                 return false;
             }

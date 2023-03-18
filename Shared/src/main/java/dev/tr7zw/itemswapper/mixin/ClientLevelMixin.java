@@ -14,6 +14,7 @@ public class ClientLevelMixin {
     @Inject(method = "disconnect", at = @At("HEAD"))
     public void disconnect(CallbackInfo ci) {
         ItemSwapperSharedMod.instance.setEnableShulkers(false);
+        ItemSwapperSharedMod.instance.setEnableRefill(false);
         ItemSwapperSharedMod.instance.setModDisabled(false);
         ItemSwapperSharedMod.instance.setBypassExcepted(false);
     }

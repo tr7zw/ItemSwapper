@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
+import dev.tr7zw.itemswapper.config.CacheManager;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
@@ -30,6 +31,7 @@ import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 
@@ -40,14 +42,21 @@ public abstract class ItemSwapperSharedMod {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     public static ItemSwapperSharedMod instance;
+
     private final ConfigManager configManager = ConfigManager.getInstance();
+    private final CacheManager cacheManager = CacheManager.getInstance();
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
+    private final List<String> enableOnIp = cacheManager.getCache().enableOnIp;
+    private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
+
+    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
+
     private boolean enableShulkers = false;
+    private boolean enableRefill = false;
     private boolean modDisabled = false;
-    private boolean bypassExcepted = false;
-    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
-            "itemswapper.controlls");
+    private boolean disabledByPlayer = false;
+    private boolean bypassAccepted = false;
     private boolean pressed = false;
     private boolean lateInitCompleted = false;
     private Item lastItem;
@@ -75,7 +84,15 @@ public abstract class ItemSwapperSharedMod {
         }
         Screen screen = minecraft.screen;
 
-        if (keybind.isDown()) {
+        ServerData server = Minecraft.getInstance().getCurrentServer();
+
+        if (server != null && disableOnIp.contains(server.ip) && !disabledByPlayer) {
+            setDisabledByPlayer(true);
+            LOGGER.info("Itemswapper is deactivated for the server {}, because the player did not accept the warning!", server.ip);
+        } else if (isModDisabled()) {
+            minecraft.gui.setOverlayMessage(
+                    Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+        } else if (keybind.isDown()) {
             if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
             } else if (screen != null) {
@@ -87,13 +104,13 @@ public abstract class ItemSwapperSharedMod {
             pressed = false;
 
             if (!configManager.getConfig().toggleMode && screen instanceof ItemSwapperUI ui) {
-                closeScreen(ui);
+                onPrimaryClick(ui, true);
             }
         }
     }
 
     private void onPress(ItemSwapperUI overlay) {
-        if (!itemGroupManager.isResourcepackSelected()) {
+        if (minecraft.player != null && !itemGroupManager.isResourcepackSelected()) {
             minecraft.player.displayClientMessage(
                     Component.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
                     true);
@@ -106,25 +123,30 @@ public abstract class ItemSwapperSharedMod {
             return;
         }
 
-        if (!pressed && !enableShulkers && !bypassExcepted) {
-            minecraft.setScreen(
-                    new ConfirmScreen(this::acceptBypassCallback,
-                            Component.translatable("text.itemswapper.confirm.title"),
-                            Component.translatable("text.itemswapper.confirm.description")));
-            pressed = true;
-            return;
-        }
+        ServerData server = Minecraft.getInstance().getCurrentServer();
 
-        if (!pressed && overlay == null) {
-            if (couldOpenScreen()) {
-                pressed = true;
-                return;
+        if(!pressed) {
+            if (isDisabledByPlayer()) {
+                minecraft.gui.setOverlayMessage(
+                        Component.translatable("text.itemswapper.disabledByPlayer").withStyle(ChatFormatting.RED), false);
+            } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
+                openConfirmationScreen();
+            } else if (overlay == null) {
+                if (couldOpenScreen()) {
+                    pressed = true;
+                    return;
+                }
+            } else {
+                onPrimaryClick(overlay, true);
             }
-        } else if (!pressed) {
-            closeScreen(overlay);
         }
-
         pressed = true;
+    }
+
+    private void openConfirmationScreen() {
+        minecraft.setScreen(
+                new ConfirmScreen(this::acceptBypassCallback, Component.translatable("text.itemswapper.confirm.title"),
+                        Component.translatable("text.itemswapper.confirm.description")));
     }
 
     private boolean couldOpenScreen() {
@@ -191,12 +213,14 @@ public abstract class ItemSwapperSharedMod {
         minecraft.mouseHandler.grabMouse();
     }
 
-    public static void closeScreen(@NotNull ItemSwapperUI xtOverlay) {
-        xtOverlay.onOverlayClose();
-        if (xtOverlay instanceof Overlay) {
-            minecraft.setOverlay(null);
-        } else if (xtOverlay instanceof Screen) {
-            minecraft.setScreen(null);
+    public static void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {
+        boolean keepOpen = xtOverlay.onPrimaryClick();
+        if(forceClose || !keepOpen) {
+            if (xtOverlay instanceof Overlay) {
+                minecraft.setOverlay(null);
+            } else if (xtOverlay instanceof Screen) {
+                minecraft.setScreen(null);
+            }
         }
     }
 
@@ -270,8 +294,16 @@ public abstract class ItemSwapperSharedMod {
         return this.enableShulkers;
     }
 
+    public boolean isEnableRefill() {
+        return enableRefill;
+    }
+
+    public void setEnableRefill(boolean enableRefill) {
+        this.enableRefill = enableRefill;
+    }
+
     public void setBypassExcepted(boolean bypassExcepted) {
-        this.bypassExcepted = bypassExcepted;
+        this.bypassAccepted = bypassExcepted;
     }
 
     public void setModDisabled(boolean value) {
@@ -283,10 +315,18 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private void acceptBypassCallback(boolean accepted) {
-        if (accepted) {
-            bypassExcepted = true;
-        }
+        ServerData server = Minecraft.getInstance().getCurrentServer();
 
+        if (server != null) {
+            if (accepted) {
+                bypassAccepted = true;
+                cacheManager.getCache().enableOnIp.add(server.ip);
+            } else {
+                cacheManager.getCache().disableOnIp.add(server.ip);
+            }
+            cacheManager.writeConfig();
+            ItemSwapperSharedMod.LOGGER.info("Add {} to cached ip-addresses", server.ip);
+        }
         minecraft.setScreen(null);
     }
 
@@ -294,6 +334,14 @@ public abstract class ItemSwapperSharedMod {
         return clientProviderManager;
     }
 
+    public boolean isDisabledByPlayer() {
+        return disabledByPlayer;
+    }
+
+    public void setDisabledByPlayer(boolean disabledByPlayer) {
+        this.disabledByPlayer = disabledByPlayer;
+    }
+    
     public KeyMapping getKeybind() {
         return keybind;
     }

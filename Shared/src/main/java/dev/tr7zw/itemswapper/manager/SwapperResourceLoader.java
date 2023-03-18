@@ -187,7 +187,17 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
         }
         group.withItems(getItemArray(jsonLocation, json.get("items"), false));
-
+        Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
+        if (openOnly != null && openOnly.length > 0) {
+            group.withOpenOnlyItems(new HashSet<>(Arrays.asList(openOnly)));
+        }
+        Item[] ignoreItems = getItemArray(jsonLocation, json.get("ignoreItems"), false);
+        if (ignoreItems != null && ignoreItems.length > 0) {
+            group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
+        }
+        if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
+            group.withIcon(BuiltInRegistries.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
+        }
         itemLists.add(group);
     }
 
@@ -228,6 +238,9 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
         }
         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
+        if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
+            group.withIcon(BuiltInRegistries.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
+        }
         itemGroups.add(group);
     }
 
@@ -276,10 +289,14 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 String displayname = entry.has("displayName") && entry.get("displayName").isJsonPrimitive()
                         ? entry.get("displayName").getAsString()
                         : null;
+                Item icon = null;
+                if (entry.has("icon") && entry.get("icon").isJsonPrimitive()) {
+                    icon = BuiltInRegistries.ITEM.get(new ResourceLocation(entry.get("icon").getAsString()));
+                }
                 try {
                     shortcuts.add(
                             new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()),
-                                    displayname != null ? Component.translatable(displayname) : null));
+                                    displayname != null ? Component.translatable(displayname) : null, icon));
                 } catch (Exception ex) {
                     ItemSwapperSharedMod.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
                 }
@@ -316,8 +333,12 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (obj.has("name") && obj.get("name").isJsonPrimitive()) {
                     displayName = obj.getAsJsonPrimitive("name").getAsString();
                 }
+                boolean actAsLink = false;
+                if (obj.has("actAsLink") && obj.get("actAsLink").isJsonPrimitive()) {
+                    actAsLink = obj.getAsJsonPrimitive("actAsLink").getAsBoolean();
+                }
                 ItemEntry entry = new ItemEntry(item, link,
-                        displayName != null ? Component.translatable(displayName) : null);
+                        displayName != null ? Component.translatable(displayName) : null, actAsLink);
                 if (!itemList.contains(entry)) {
                     itemList.add(entry);
                 }

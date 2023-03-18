@@ -34,13 +34,12 @@ import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
+public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
 
@@ -72,10 +71,12 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
             shortcutList.add(new ClearCurrentSlotShortcut(this));
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage()));
-        shortcutList.add(new RestockShortcut());
+        if(ItemSwapperSharedMod.instance.isEnableRefill()) {
+            shortcutList.add(new RestockShortcut());
+        }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview")));
+        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview"), null));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {
@@ -102,9 +103,9 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         initShortcuts();
         GuiWidget mainWidget = new PaletteWidget(itemGroup, 0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getId(), shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
-        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getShortcuts(),
+        selectionHandler.addWidget(new ShortcutListWidget(itemGroup.getId(), itemGroup.getShortcuts(),
                 -mainWidget.getWidgetArea().getMouseBoundsX() - ItemSwapperUI.slotSize, 1));
     }
 
@@ -114,7 +115,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         initShortcuts();
         GuiWidget mainWidget = new ListContentWidget(items, 0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(items.getId(), shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
     }
 
@@ -143,7 +144,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         initShortcuts();
         InventoryWidget mainWidget = new InventoryWidget(0, 0);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
@@ -162,7 +163,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         initShortcuts();
         ContainerWidget mainWidget = new ContainerWidget(0, 0, slotId);
         selectionHandler.addWidget(mainWidget);
-        selectionHandler.addWidget(new ShortcutListWidget(shortcutList,
+        selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
@@ -175,7 +176,7 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         }
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
-                    selectionHandler.getWidgets().get(0).titleYOffset(), forceAvailable);
+                    selectionHandler.getWidgets().get(0).titleYOffset(), selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40, forceAvailable);
             if(configManager.getConfig().showTooltips) {
                 selectionHandler.getSelectedWidget().renderSelectedTooltip(this, poseStack, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
             }
@@ -200,16 +201,17 @@ public class SwitchItemOverlay extends Screen implements ItemSwapperUI {
         selectionHandler.updateSelection(x, y);
     }
 
-    public void handleSwitchSelection() {
+    public void onSecondaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            selectionHandler.getSelectedWidget().onClick(this, selectionHandler.getSelectedSlot());
+            selectionHandler.getSelectedWidget().onSecondaryClick(this, selectionHandler.getSelectedSlot());
         }
     }
 
-    public void onOverlayClose() {
+    public boolean onPrimaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            selectionHandler.getSelectedWidget().onClose(this, selectionHandler.getSelectedSlot());
+            return selectionHandler.getSelectedWidget().onPrimaryClick(this, selectionHandler.getSelectedSlot());
         }
+        return true;
     }
 
 }

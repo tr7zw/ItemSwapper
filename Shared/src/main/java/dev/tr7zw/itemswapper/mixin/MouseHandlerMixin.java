@@ -28,8 +28,6 @@ public class MouseHandlerMixin {
     private double accumulatedDY;
 
     private final ConfigManager configManager = ConfigManager.getInstance();
-    private boolean middleIsPressed = false;
-    private boolean leftIsPressed = false;
 
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)
     public void turnPlayer(CallbackInfo ci) {
@@ -62,40 +60,6 @@ public class MouseHandlerMixin {
         } else {
             this.accumulatedDX = 0.0D;
             this.accumulatedDY = 0.0D;
-        }
-    }
-
-    @Inject(method = "onPress", at = @At("TAIL"))
-    private void onPress(long l, int i, int j, int k, CallbackInfo ci) {
-        if (this.minecraft.getOverlay() instanceof ItemSwapperUI over) {
-            onPress(i, over);
-        } else if (this.minecraft.screen instanceof ItemSwapperUI over) {
-            onPress(i, over);
-        } else {
-            middleIsPressed = false;
-            leftIsPressed = false;
-        }
-    }
-
-    private void onPress(int i, ItemSwapperUI over) {
-        if (!leftIsPressed && i == 0) {
-            over.close();
-            leftIsPressed = true;
-        } else {
-            leftIsPressed = false;
-        }
-        if (!middleIsPressed && i == 2) {
-            middleIsPressed = true;
-            over.handleSwitchSelection();
-        } else {
-            middleIsPressed = false;
-        }
-    }
-
-    @Inject(method = "onScroll", at = @At("TAIL"))
-    private void onScroll(long l, double d, double e, CallbackInfo ci) {
-        if (Minecraft.getInstance().getOverlay() instanceof ItemSwapperUI over) {
-            over.onScroll(Math.signum(e));
         }
     }
 

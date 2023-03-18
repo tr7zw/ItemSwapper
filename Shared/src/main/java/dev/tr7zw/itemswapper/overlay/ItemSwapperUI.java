@@ -1,7 +1,5 @@
 package dev.tr7zw.itemswapper.overlay;
 
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-
 public interface ItemSwapperUI {
 
     public static final int slotSize = 22;
@@ -9,13 +7,12 @@ public interface ItemSwapperUI {
 
     public abstract void handleInput(double x, double y);
 
-    public abstract void handleSwitchSelection();
+    public abstract void onSecondaryClick();
 
-    public default void close() {
-        ItemSwapperSharedMod.closeScreen(this);
-    }
-
-    public abstract void onOverlayClose();
+    /**
+     * @return true if the UI should stay open
+     */
+    public abstract boolean onPrimaryClick();
 
     public default boolean lockMouse() {
         return true;

@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
+import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
@@ -48,12 +49,12 @@ public class InventoryWidget extends ItemGridWidget {
         if (!slots.isEmpty()) {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            false, slots.get(0).amount().get()));
+                            SlotEffect.NONE, slots.get(0).amount().get()));
         }
     }
 
     @Override
-    public void onClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
@@ -65,7 +66,7 @@ public class InventoryWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onClose(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
@@ -73,7 +74,7 @@ public class InventoryWidget extends ItemGridWidget {
                 OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
                 if (event.canceled().get()) {
                     // interaction canceled by some other mod
-                    return;
+                    return true;
                 }
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
@@ -82,16 +83,18 @@ public class InventoryWidget extends ItemGridWidget {
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
                 ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
                 ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                return false;
             }
         }
+        return true;
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(availableSlots.get(0).item()),
-                    availableSlots.get(0).item(), false, yOffset);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth);
         }
     }
 

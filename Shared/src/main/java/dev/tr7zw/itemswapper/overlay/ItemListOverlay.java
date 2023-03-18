@@ -19,7 +19,6 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.Component;
@@ -31,7 +30,7 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class ItemListOverlay extends Screen implements ItemSwapperUI {
+public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
@@ -139,7 +138,7 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
     }
 
     @Override
-    public void handleSwitchSelection() {
+    public void onSecondaryClick() {
 
     }
 
@@ -149,13 +148,13 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
     }
 
     @Override
-    public void onOverlayClose() {
+    public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
             if (event.canceled().get()) {
                 // interaction canceled by some other mod
-                return;
+                return true;
             }
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
@@ -167,6 +166,7 @@ public class ItemListOverlay extends Screen implements ItemSwapperUI {
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
         }
+        return false;
     }
 
     private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
