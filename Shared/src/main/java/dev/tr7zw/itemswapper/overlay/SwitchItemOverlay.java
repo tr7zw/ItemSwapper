@@ -51,6 +51,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     public int globalYOffset = 0;
     public boolean forceAvailable = false;
     public boolean hideCursor = false;
+    public boolean hideShortcuts = false;
     private List<Shortcut> shortcutList = Collections.emptyList();
     private List<Page> lastPages = new ArrayList<>();
     public boolean hideClearSlotShortcut = false;
@@ -67,6 +68,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private void initShortcuts() {
         shortcutList = new ArrayList<>();
+        if(hideShortcuts) {
+            return;
+        }
         if (!hideClearSlotShortcut) {
             shortcutList.add(new ClearCurrentSlotShortcut(this));
         }
