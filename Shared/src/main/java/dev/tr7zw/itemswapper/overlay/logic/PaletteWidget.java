@@ -35,6 +35,13 @@ public class PaletteWidget extends ItemGridWidget {
     @Override
     protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
+        ItemEntry entry = itemGroup.getItem(guiSlot.id());
+        if(entry.isActAsLink()) {
+            itemRenderList.add(
+                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
+                            SlotEffect.NONE, 1));
+            return;
+        }
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty() && !overwrideAvailable) {
             itemRenderList.add(
@@ -87,6 +94,11 @@ public class PaletteWidget extends ItemGridWidget {
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         ItemEntry slot = itemGroup.getItem(selected.id());
         if (slot == null) {
+            return;
+        }
+        if(slot.isActAsLink()) {
+            RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
+                    slot.getItem().getDefaultInstance(), false, yOffset, maxWidth);
             return;
         }
         List<AvailableSlot> availableSlots = getItem(selected.id());
