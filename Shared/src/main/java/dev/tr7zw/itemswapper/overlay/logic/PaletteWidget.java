@@ -36,7 +36,7 @@ public class PaletteWidget extends ItemGridWidget {
     protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
-        if(entry.isActAsLink()) {
+        if(entry != null && entry.isActAsLink()) {
             itemRenderList.add(
                     () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
                             SlotEffect.NONE, 1));
