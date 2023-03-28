@@ -3,7 +3,7 @@ source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.4"
 replacements:
   name: "ItemSwapper"
   id: "itemswapper"
-  version: "0.3.2"
+  version: "0.4.0"
   relocationpackage: "dev.tr7zw.itemswapper"
   modrinthid: RPOSBQgq
   curseforgeid: 694358
