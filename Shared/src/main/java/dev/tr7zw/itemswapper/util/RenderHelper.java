@@ -27,7 +27,6 @@ import net.minecraft.world.item.ItemStack;
 public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
-    private static float blitOffset;
 
     private RenderHelper() {
         // private
@@ -37,6 +36,7 @@ public final class RenderHelper {
             int j, int k, SlotEffect effect) {
         if (itemStack.isEmpty())
             return;
+        float blitOffset = 0;
         BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
         blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
         int l = i;
@@ -50,9 +50,9 @@ public final class RenderHelper {
         // these values need to be fixed when the texture size gets fixed.
         GuiComponent.fill(poseStack, l - 1, m - 1, l + 17, m + 17, color);
         ItemRenderer itemRenderer = minecraft.getItemRenderer();
-        itemRenderer.renderAndDecorateFakeItem(itemStack, l, m);
+        itemRenderer.renderAndDecorateFakeItem(poseStack, itemStack, l, m);
         if (k == 0)
-            itemRenderer.renderGuiItemDecorations(minecraft.font, itemStack, l, m);
+            itemRenderer.renderGuiItemDecorations(poseStack, minecraft.font, itemStack, l, m);
         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
 
@@ -71,11 +71,11 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();
         for(int line = 0; line < text.size(); line++) {
-            poseStack.translate(0.0D, 0.0D, (minecraft.getItemRenderer().blitOffset + 200.0F));
+            poseStack.translate(0.0D, 0.0D, (400.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                     .immediate(Tesselator.getInstance().getBuilder());
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2), y - (font.lineHeight * (text.size() - line)), color, true,
-                    poseStack.last().pose(), bufferSource, false, 0, 15728880);
+                    poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
             bufferSource.endBatch();
         }
     }
@@ -83,11 +83,11 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
-        poseStack.translate(0.0D, 0.0D, (minecraft.getItemRenderer().blitOffset + 200.0F));
+        poseStack.translate(0.0D, 0.0D, 400.0F);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                 .immediate(Tesselator.getInstance().getBuilder());
-        font.drawInBatch(string2, i, j, color, true,
-                poseStack.last().pose(), bufferSource, false, 0, 15728880);
+        font.drawInBatch(string2, (float)i, (float)j, color, true,
+                poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
     }
     
@@ -98,18 +98,22 @@ public final class RenderHelper {
     public static void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
             int count) {
         if (!arg2.isEmpty()) {
+            poseStack.pushPose();
+            poseStack.translate(0, 0, 200);
             ItemStack copy = arg2.copy();
             copy.setCount(1);
             if (effect != SlotEffect.NONE) {
                 RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k, effect);
+                poseStack.popPose();
                 return;
             }
-            minecraft.getItemRenderer().renderAndDecorateItem(arg, copy, x, y, k);
+            minecraft.getItemRenderer().renderAndDecorateItem(poseStack, arg, copy, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            minecraft.getItemRenderer().renderGuiItemDecorations(minecraft.font, copy, x, y);
+            minecraft.getItemRenderer().renderGuiItemDecorations(poseStack, minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color);
+            poseStack.popPose();
         }
     }
 
