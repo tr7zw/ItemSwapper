@@ -71,7 +71,7 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();
         for(int line = 0; line < text.size(); line++) {
-            poseStack.translate(0.0D, 0.0D, (200.0F));
+            poseStack.translate(0.0D, 0.0D, (400.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                     .immediate(Tesselator.getInstance().getBuilder());
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2), y - (font.lineHeight * (text.size() - line)), color, true,
@@ -83,7 +83,7 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
-        poseStack.translate(0.0D, 0.0D, 200.0F);
+        poseStack.translate(0.0D, 0.0D, 400.0F);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                 .immediate(Tesselator.getInstance().getBuilder());
         font.drawInBatch(string2, (float)i, (float)j, color, true,
