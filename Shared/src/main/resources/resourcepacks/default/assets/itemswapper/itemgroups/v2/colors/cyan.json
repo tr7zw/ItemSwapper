@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 250,
-    "displayName": "Cyan",
+    "displayName": "text.itemswapper.palette.color.cyan",
     "items": 
 	
 		[

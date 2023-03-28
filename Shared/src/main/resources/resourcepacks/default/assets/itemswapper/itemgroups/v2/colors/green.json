@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 250,
-    "displayName": "Green",
+    "displayName": "text.itemswapper.palette.color.green",
     "items": 
 	
 		[

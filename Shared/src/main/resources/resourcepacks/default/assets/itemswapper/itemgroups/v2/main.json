@@ -1,98 +1,111 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "The Directory",
+    "displayName": "text.itemswapper.directory.title",
     "disableAutoLink": true,	
 	"icon": "minecraft:book",
     "items": [
 	{
 		"id": "minecraft:magma_block",
-		"name": "The Nether",
-		"link": "itemswapper:v2/netherterrain",
+		"name": "text.itemswapper.directory.nether",
+		"link": "itemswapper:v2/the_nether/netherterrain",
 		"actAsLink": true
 	},
 	{
 		"id": "minecraft:chorus_flower",
-		"name": "The End",
-		"link": "itemswapper:v2/purpur",
+		"name": "text.itemswapper.directory.end",
+		"link": "itemswapper:v2/the_end/purpur",
 		"actAsLink": true
 	},
 	{
 		"id": "minecraft:prismarine_bricks",
-		"name": "The Oceans",
-		"link": "itemswapper:v2/prismarine",
+		"name": "text.itemswapper.directory.ocean",
+		"link": "itemswapper:v2/the_oceans/prismarine",
 		"actAsLink": true
 	},	
-	{
-		"id": "minecraft:diamond",
-		"name": "Precious Resources",
-		"link": "itemswapper:v2/ores",
-		"actAsLink": true
-	},	
-	{
-		"id": "minecraft:magenta_dye",
-		"name": "Dyes",
-		"link": "itemswapper:v2/dyes",
-		"actAsLink": true
-	},
+
 	{
 		"id": "minecraft:basalt",
-		"name": "The Depths",
-		"link": "itemswapper:v2/basalt",
+		"name": "text.itemswapper.directory.depths",
+		"link": "itemswapper:v2/the_depths/basalt",
 		"actAsLink": true
-	},		
+	},	
 	{
 		"id": "minecraft:stone",
-		"name": "Stone",
-		"link": "itemswapper:v2/stone",
+		"name": "text.itemswapper.directory.stone",
+		"link": "itemswapper:v2/stone/stone",
 		"actAsLink": true
 	},	
 	{
 		"id": "minecraft:bricks",
-		"name": "Earthen",
-		"link": "itemswapper:v2/bricks",
+		"name": "text.itemswapper.directory.earthen",
+		"link": "itemswapper:v2/earthen/bricks",
 		"actAsLink": true
 	},		
 	{
 		"id": "minecraft:chiseled_quartz_block",
-		"name": "Marbled",
-		"link": "itemswapper:v2/quartz",
+		"name": "text.itemswapper.directory.marble",
+		"link": "itemswapper:v2/marbled/quartz",
 		"actAsLink": true
-	},		
+	},	
+	{
+		"id": "minecraft:sandstone",
+		"name": "text.itemswapper.directory.sand",
+		"link": "itemswapper:v2/sand/sand",
+		"actAsLink": true
+	},
 	{
 		"id": "minecraft:copper_block",
-		"name": "Copper",
-		"link": "itemswapper:v2/copper",
+		"name": "text.itemswapper.directory.copper",
+		"link": "itemswapper:v2/copper/copper",
 		"actAsLink": true
-	},				
+	},	
+	{
+		"id": "minecraft:ice",
+		"name": "text.itemswapper.directory.ice",
+		"link": "itemswapper:v2/ice/ice",
+		"actAsLink": true
+	},								
 	{
 		"id": "minecraft:oak_log",
-		"name": "Core Wood",
-		"link": "itemswapper:v2/oak",
+		"name": "text.itemswapper.directory.wood_core",
+		"link": "itemswapper:v2/wood/oak",
 		"actAsLink": true
 	},
 	{
 		"id": "minecraft:acacia_log",
-		"name": "Speciality Wood",
-		"link": "itemswapper:v2/acacia",
+		"name": "text.itemswapper.directory.wood_speciality",
+		"link": "itemswapper:v2/wood/acacia",
 		"actAsLink": true
 	},	
 	{
 		"id": "minecraft:warped_stem",
-		"name": "Nether Wood",
-		"link": "itemswapper:v2/warped",
+		"name": "text.itemswapper.directory.wood_nether",
+		"link": "itemswapper:v2/wood/warped",
 		"actAsLink": true
 	},
 	{
 		"id": "minecraft:melon",
-		"name": "Nature",
-		"link": "itemswapper:v2/natural",
+		"name": "text.itemswapper.directory.nature",
+		"link": "itemswapper:v2/nature/natural",
 		"actAsLink": true
 	},	
 	{
 		"id": "minecraft:wheat_seeds",
-		"name": "Seeds, Saplings & Vegatables",
-		"link": "itemswapper:v2/seeds",
+		"name": "text.itemswapper.directory.seeds",
+		"link": "itemswapper:v2/growable/seeds",
+		"actAsLink": true
+	},
+	{
+		"id": "minecraft:diamond",
+		"name": "text.itemswapper.directory.ores",
+		"link": "itemswapper:v2/precious_materials/ores",
+		"actAsLink": true
+	},		
+	{
+		"id": "minecraft:magenta_dye",
+		"name": "text.itemswapper.directory.colors",
+		"link": "itemswapper:v2/colors/dyes",
 		"actAsLink": true
 	}
 
@@ -101,11 +114,11 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/directory_technical"
+            "target": "itemswapper:v2/technical/directory_technical"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/functional"
+            "target": "itemswapper:v2/functional/functional"
         },			
 	    {
             "type": "link",
@@ -117,7 +130,7 @@
         },	
 	    {
             "type": "link",
-            "target": "itemswapper:v2/consumables"
+            "target": "itemswapper:v2/consumables/consumables"
         }			
     ]
 }

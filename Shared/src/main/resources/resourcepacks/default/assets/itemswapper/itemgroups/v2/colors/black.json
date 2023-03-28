@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 250,
-    "displayName": "Black",
+    "displayName": "text.itemswapper.palette.color.black",
     "items": 
 	
 		[
