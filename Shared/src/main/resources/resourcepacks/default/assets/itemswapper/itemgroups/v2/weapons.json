@@ -1,0 +1,23 @@
+{
+    "type": "list",
+    "priority": 20,
+    "displayName": "Weapons",
+    "items": [
+    "minecraft:netherite_sword",
+    "minecraft:diamond_sword",
+    "minecraft:iron_sword",
+    "minecraft:golden_sword",
+    "minecraft:stone_sword",
+    "minecraft:wooden_sword",
+    "minecraft:bow",
+    "minecraft:trident",
+    "minecraft:crossbow",
+    "minecraft:shield",
+    "minecraft:netherite_axe",
+    "minecraft:diamond_axe",
+    "minecraft:iron_axe",
+    "minecraft:golden_axe",
+    "minecraft:stone_axe",
+    "minecraft:wooden_axe"
+]
+}

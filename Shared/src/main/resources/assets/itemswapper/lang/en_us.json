@@ -46,5 +46,7 @@
   "text.itemswapper.lastItem": "Last Item",
   "text.itemswapper.lastItem.tooltip": "This is the last item you swapped to. Select it to grab it again. Clicking it will open the palette that contained it.",
   "text.itemswapper.restockAll": "Restock All",
-  "text.itemswapper.restockAll.tooltip": "Fill up item stacks in the inventory using items from containers."
+  "text.itemswapper.restockAll.tooltip": "Fill up item stacks in the inventory using items from containers.",
+  "text.itemswapper.resourcepack.classic": "ItemSwapper Classic Pack",
+  "text.itemswapper.resourcepack.default": "ItemSwapper Default Pack"
 }
