@@ -88,12 +88,13 @@ public abstract class ItemSwapperSharedMod {
 
         if (server != null && disableOnIp.contains(server.ip) && !disabledByPlayer) {
             setDisabledByPlayer(true);
-            LOGGER.info("Itemswapper is deactivated for the server {}, because the player did not accept the warning!", server.ip);
-        } else if (isModDisabled()) {
-            minecraft.gui.setOverlayMessage(
-                    Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+            LOGGER.info("Itemswapper is deactivated for the server {}, because the player did not accept the warning!",
+                    server.ip);
         } else if (keybind.isDown()) {
-            if (screen instanceof ItemSwapperUI ui) {
+            if (isModDisabled()) {
+                minecraft.gui.setOverlayMessage(
+                        Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+            } else if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
             } else if (screen != null) {
                 // not our screen, don't do anything
