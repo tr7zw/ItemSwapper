@@ -23,10 +23,11 @@ public class BackShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
         // remove the current page
         overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1);
         overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));
+        overlay.selectIcon("back");
         return true;
     }
 
@@ -39,6 +40,11 @@ public class BackShortcut implements Shortcut {
     @Override
     public Component getHoverText() {
         return hoverText;
+    }
+
+    @Override
+    public String getSelector() {
+        return "back";
     }
 
 }

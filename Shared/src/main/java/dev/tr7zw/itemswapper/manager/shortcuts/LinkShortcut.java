@@ -9,6 +9,7 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -29,7 +30,7 @@ public class LinkShortcut implements Shortcut {
         this.displayIcon = null;
     }
 
-    public LinkShortcut(ResourceLocation nextId, Component displayName, Item icon) {
+    public LinkShortcut( ResourceLocation nextId, Component displayName, Item icon) {
         this.nextId = nextId;
         this.displayName = displayName;
         this.displayIcon = icon;
@@ -71,8 +72,10 @@ public class LinkShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(ActionType action) {
-        ItemSwapperSharedMod.instance.openPage(manager.getPage(nextId));
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
+        if(overlay.openPage(manager.getPage(nextId))) {
+            overlay.selectIcon("link|" + nextId.toString());
+        }
         return true;
     }
 
@@ -80,6 +83,11 @@ public class LinkShortcut implements Shortcut {
     public boolean isVisible() {
         Page page = manager.getPage(nextId);
         return page != null && !(page instanceof NoPage);
+    }
+
+    @Override
+    public String getSelector() {
+        return "link|" + nextId.toString();
     }
 
 }

@@ -57,6 +57,20 @@ public class GuiSelectionHandler {
         }
     }
 
+    public boolean select(String selector) {
+        for (GuiWidget widget : widgets) {
+            for (GuiSlot slot : widget.getSlots()) {
+                if(selector.equals(widget.getSelector(slot))) {
+                    int halfSlot = slot.size() / 2;
+                    this.cursorX = slot.x() + 3 + widget.getWidgetArea().getX() + halfSlot;
+                    this.cursorY = slot.y() + 3 + widget.getWidgetArea().getY() + halfSlot;
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
     public GuiWidget getSelectedWidget() {
         return selectedWidget;
     }

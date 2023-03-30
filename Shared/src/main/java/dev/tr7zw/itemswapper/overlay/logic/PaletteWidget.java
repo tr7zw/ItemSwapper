@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class PaletteWidget extends ItemGridWidget {
@@ -60,8 +61,10 @@ public class PaletteWidget extends ItemGridWidget {
     public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         ItemEntry entry = itemGroup.getItem(slot.id());
         if (entry != null && entry.getItem() != Items.AIR) {
-            overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, entry, -1));
-
+            // try to open the new page
+            if (overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, entry, -1))) {
+                overlay.selectIcon("item|" + Item.getId(entry.getItem()));
+            }
         }
     }
 
@@ -110,6 +113,15 @@ public class PaletteWidget extends ItemGridWidget {
                     slot.getItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth);
         }
 
+    }
+
+    @Override
+    public String getSelector(GuiSlot slot) {
+        ItemEntry entry = itemGroup.getItem(slot.id());
+        if(entry != null) {
+            return "item|" + Item.getId(entry.getItem());
+        }
+        return null;
     }
 
 }

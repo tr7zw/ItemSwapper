@@ -16,6 +16,7 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.ContainerPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.NoPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
@@ -72,7 +73,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             return;
         }
         if (!hideClearSlotShortcut) {
-            shortcutList.add(new ClearCurrentSlotShortcut(this));
+            shortcutList.add(new ClearCurrentSlotShortcut());
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage()));
         if(ItemSwapperSharedMod.instance.isEnableRefill()) {
@@ -123,9 +124,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
     }
 
-    public void openPage(Page page) {
-        if(!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1))) {
-            return; // this exact page is already open
+    public boolean openPage(Page page) {
+        if(page instanceof NoPage || (!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1)))) {
+            return false; // this exact page is already open
         }
         if (page instanceof ItemGroupPage group) {
             openItemGroup(group.group());
@@ -136,6 +137,11 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         } else if (page instanceof ContainerPage container) {
             openContainer(container.containerSlotId());
         }
+        return true;
+    }
+    
+    public boolean selectIcon(String selector) {
+        return selectionHandler.select(selector);
     }
 
     public List<Page> getPageHistory() {
@@ -217,5 +223,5 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         return true;
     }
-
+    
 }

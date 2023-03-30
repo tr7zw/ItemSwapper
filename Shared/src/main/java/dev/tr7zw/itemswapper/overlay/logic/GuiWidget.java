@@ -40,5 +40,9 @@ public interface GuiWidget {
     public default int titleYOffset() {
         return getWidgetArea().getBackgroundSizeY();
     }
+    
+    public default String getSelector(GuiSlot slot) {
+        return null;
+    }
 
 }

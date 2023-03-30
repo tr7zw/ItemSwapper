@@ -25,7 +25,7 @@ public class OpenInventoryShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
         ItemSwapperSharedMod.openInventoryScreen();
         return true;
     }
@@ -38,6 +38,11 @@ public class OpenInventoryShortcut implements Shortcut {
     @Override
     public Component getHoverText() {
         return hoverText;
+    }
+
+    @Override
+    public String getSelector() {
+        return "openInventory";
     }
 
 }

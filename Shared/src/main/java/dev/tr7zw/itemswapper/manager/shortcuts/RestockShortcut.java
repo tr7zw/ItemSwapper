@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import net.minecraft.client.Minecraft;
@@ -25,7 +26,7 @@ public class RestockShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
         NonNullList<ItemStack> items = Minecraft.getInstance().player.getInventory().items;
         for(int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
@@ -45,6 +46,11 @@ public class RestockShortcut implements Shortcut {
     @Override
     public Component getHoverText() {
         return hoverText;
+    }
+
+    @Override
+    public String getSelector() {
+        return "restock";
     }
 
 }

@@ -81,7 +81,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
         if (shortcut.acceptSecondaryClick()) {
-            shortcut.invoke(ActionType.SECONDARY_CLICK);
+            shortcut.invoke(overlay, ActionType.SECONDARY_CLICK);
         }
     }
 
@@ -89,7 +89,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
         Shortcut shortcut = list.get(slot.id());
         if (shortcut.acceptPrimaryClick()) {
-            return shortcut.invoke(ActionType.PRIMARY_CLICK);
+            return shortcut.invoke(overlay, ActionType.PRIMARY_CLICK);
         }
         return true;
     }
@@ -104,6 +104,11 @@ public class ShortcutListWidget extends ItemGridWidget {
             overlay.renderTooltip(poseStack, minecraft.font.split(shortcut.getHoverText(), 170), (int) x, (int) y);
             poseStack.popPose();
         }
+    }
+
+    @Override
+    public String getSelector(GuiSlot slot) {
+        return list.get(slot.id()).getSelector();
     }
 
 }

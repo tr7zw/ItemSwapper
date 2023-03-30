@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.manager.itemgroups;
 
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import net.minecraft.network.chat.Component;
 
 public interface Shortcut {
@@ -11,7 +12,7 @@ public interface Shortcut {
      * @param action
      * @return true if the UI should be kept open if possible
      */
-    public boolean invoke(ActionType action);
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action);
 
     public default boolean acceptPrimaryClick() {
         return true;
@@ -29,6 +30,8 @@ public interface Shortcut {
         return true;
     }
 
+    public String getSelector();
+    
     public enum ActionType {
         SECONDARY_CLICK, PRIMARY_CLICK
     }

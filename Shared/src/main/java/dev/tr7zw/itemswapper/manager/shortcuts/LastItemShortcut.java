@@ -4,6 +4,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.client.Minecraft;
@@ -28,7 +29,7 @@ public class LastItemShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
         if(action == ActionType.SECONDARY_CLICK) {
             ItemSwapperSharedMod.instance.openPage(lastPage);
             return true;
@@ -46,6 +47,11 @@ public class LastItemShortcut implements Shortcut {
     @Override
     public Component getHoverText() {
         return hoverText;
+    }
+
+    @Override
+    public String getSelector() {
+        return "lastItem";
     }
 
 }

@@ -15,12 +15,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
 
     private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"), Component.translatable("text.itemswapper.clearSlot"));
     private final Minecraft minecraft = Minecraft.getInstance();
-    private final SwitchItemOverlay overlay;
     private final Component hoverText = Component.translatable("text.itemswapper.clearSlot.tooltip");
-
-    public ClearCurrentSlotShortcut(SwitchItemOverlay overlay) {
-        this.overlay = overlay;
-    }
 
     @Override
     public Icon getIcon() {
@@ -28,7 +23,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
         ItemUtil.grabItem(Items.AIR, true);
         if (action == ActionType.SECONDARY_CLICK) {
             overlay.hideClearSlotShortcut = true;
@@ -46,6 +41,11 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     @Override
     public Component getHoverText() {
         return hoverText;
+    }
+
+    @Override
+    public String getSelector() {
+        return "clearSlot";
     }
 
 
