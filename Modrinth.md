@@ -22,6 +22,9 @@ Adds an item switch interface triggered by pressing a hotkey(Default: `R`). Depe
 
 - [Xisumavoid](https://www.youtube.com/xisumavoid) for the idea/video of the concept
 - [LizardOfOz](https://www.youtube.com/LizardOfOz) Designer
+- [Stridey](https://modrinth.com/user/Stridey) Textures
+- [DnatorGames](https://twitter.com/DnatorGames) Logo
+- [Ratty](https://github.com/RodentMastermind) for the help with the resource pack
 
 ## Images
 

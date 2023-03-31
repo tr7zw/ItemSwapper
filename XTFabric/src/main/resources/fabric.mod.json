@@ -13,6 +13,7 @@
           "homepage": "https://tr7zw.dev",
           "discord": "https://discord.gg/UdfNaDtbwb",
           "youtube": "https://www.youtube.com/tr7zw",
+          "mastodon": "https://mastodon.social/@tr7zw",
           "github": "https://github.com/tr7zw"
         }
       }
@@ -32,6 +33,13 @@
           "twitter": "https://twitter.com/LizardOfOz_",
           "youtube": "https://www.youtube.com/LizardOfOz",
           "github": "https://github.com/lizard-of-oz"
+        }
+      },
+      {
+        "name": "Stridey",
+        "contact": {
+          "twitter": "https://twitter.com/Strideyyyy",
+          "github": "https://github.com/StrideyGH"
         }
       }
     ],
@@ -63,5 +71,12 @@
     "depends": {
       "fabric-api": "*",
       "minecraft": ">=1.19.3"
+    },
+    "custom": {
+      "modmenu": {
+        "links": {
+          "modmenu.discord": "https://discord.gg/UdfNaDtbwb"
+        }
+      }
     }
   }
