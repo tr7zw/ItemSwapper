@@ -2,6 +2,10 @@
     "type": "list",
     "priority": 100,
     "displayName": "text.itemswapper.palette.misc.buckets",
+	"ignoreItems": [
+    "minecraft:bucket",
+    "minecraft:water_bucket"
+	],		
     "items": [
     "minecraft:bucket",
     "minecraft:water_bucket",

@@ -11,7 +11,8 @@
   "minecraft:jungle_sapling",
   "minecraft:mangrove_propagule",
   "minecraft:warped_fungus",
-  "minecraft:crimson_fungus"
+  "minecraft:crimson_fungus",
+	"minecraft:bone_meal"
 			],
     "shortcuts": [
         {

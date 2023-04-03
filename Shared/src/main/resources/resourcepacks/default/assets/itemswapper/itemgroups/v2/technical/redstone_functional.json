@@ -42,6 +42,11 @@
         {
             "type": "link",
             "target": "itemswapper:v2/technical/fluid"
-        }		
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/musical"
+        }	
+		
     ]
 }

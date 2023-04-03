@@ -107,7 +107,32 @@
 		"name": "text.itemswapper.directory.colors",
 		"link": "itemswapper:v2/colors/dyes",
 		"actAsLink": true
-	}
+	},		
+	{
+		"id": "minecraft:white_wool",
+		"name": "text.itemswapper.directory.wool",
+		"link": "itemswapper:v2/colored_items/wool",
+		"actAsLink": true
+	},		
+	{
+		"id": "minecraft:red_glazed_terracotta",
+		"name": "text.itemswapper.directory.terracotta",
+		"link": "itemswapper:v2/colored_items/terracotta",
+		"actAsLink": true
+	},		
+	{
+		"id": "minecraft:glass",
+		"name": "text.itemswapper.directory.glass",
+		"link": "itemswapper:v2/colored_items/glass",
+		"actAsLink": true
+	}	
+,		
+	{
+		"id": "minecraft:cyan_concrete",
+		"name": "text.itemswapper.directory.concrete",
+		"link": "itemswapper:v2/colored_items/concrete",
+		"actAsLink": true
+	}		
 
 
 	],
