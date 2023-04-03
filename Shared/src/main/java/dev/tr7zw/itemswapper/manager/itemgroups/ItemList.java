@@ -16,6 +16,7 @@ public class ItemList {
     private final Set<Item> openOnlyItems;
     private final Set<Item> ignoreItems;
     private final boolean disableAutoLink;
+    private final ResourceLocation link;
 
     private ItemList(Builder builder) {
         this.id = builder.id;
@@ -25,6 +26,7 @@ public class ItemList {
         this.openOnlyItems = builder.openOnlyItems;
         this.ignoreItems = builder.ignoreItems;
         this.disableAutoLink = builder.disableAutoLink;
+        this.link = builder.link;
     }
 
     public ResourceLocation getId() {
@@ -55,6 +57,10 @@ public class ItemList {
         return ignoreItems;
     }
 
+    public ResourceLocation getLink() {
+        return link;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -67,6 +73,7 @@ public class ItemList {
         private Set<Item> openOnlyItems = Collections.emptySet();
         private Set<Item> ignoreItems = Collections.emptySet();
         private boolean disableAutoLink;
+        private ResourceLocation link;
 
         private Builder() {
         }
@@ -103,6 +110,11 @@ public class ItemList {
 
         public Builder withDisableAutoLink(boolean disableAutoLink) {
             this.disableAutoLink = disableAutoLink;
+            return this;
+        }
+
+        public Builder withLink(ResourceLocation link) {
+            this.link = link;
             return this;
         }
 

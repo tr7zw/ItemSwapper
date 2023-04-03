@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "text.itemswapper.palette.functional.decorative":,
+    "displayName": "text.itemswapper.palette.functional.decorative",
 	"icon": "minecraft:glow_item_frame",
     "items": 
 		[

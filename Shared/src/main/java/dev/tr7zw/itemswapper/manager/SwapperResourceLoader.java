@@ -186,6 +186,13 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         if (json.has("displayName") && json.get("displayName").isJsonPrimitive()) {
             group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
         }
+        if (json.has("link") && json.get("link").isJsonPrimitive()) {
+            try {
+                group.withLink(new ResourceLocation(json.getAsJsonPrimitive("link").getAsString()));
+            } catch (Exception ex) {
+                ItemSwapperSharedMod.LOGGER.warn("Invalid link in " + jsonLocation);
+            }
+        }
         group.withItems(getItemArray(jsonLocation, json.get("items"), false));
         Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
         if (openOnly != null && openOnly.length > 0) {
@@ -324,10 +331,12 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ResourceLocation resourceLocation = new ResourceLocation(obj.get("id").getAsString());
                 Item item = BuiltInRegistries.ITEM.get(resourceLocation);
                 ResourceLocation link = null;
-                try {
-                    link = new ResourceLocation(obj.get("link").getAsString());
-                } catch (Exception ex) {
-                    ItemSwapperSharedMod.LOGGER.warn("Invalid item link in " + jsonLocation);
+                if(obj.has("link") && obj.get("link").isJsonPrimitive()) {
+                    try {
+                        link = new ResourceLocation(obj.get("link").getAsString());
+                    } catch (Exception ex) {
+                        ItemSwapperSharedMod.LOGGER.warn("Invalid item link in " + jsonLocation);
+                    }
                 }
                 String displayName = null;
                 if (obj.has("name") && obj.get("name").isJsonPrimitive()) {

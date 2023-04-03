@@ -1,4 +1,7 @@
 {
+	"text.itemswapper.list.tools": "Tools",
+	"text.itemswapper.list.weapons": "Weapons",
+
 	"text.itemswapper.directory.title": "The Directory",
 	"text.itemswapper.directory.nether": "The Nether",
 	"text.itemswapper.directory.end": "The End",

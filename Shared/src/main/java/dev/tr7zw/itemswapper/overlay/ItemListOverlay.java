@@ -14,6 +14,8 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
@@ -139,7 +141,14 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     @Override
     public void onSecondaryClick() {
-
+        if(this.itemSelection.getLink() != null) {
+            Page linkedPage = ItemSwapperSharedMod.instance.getItemGroupManager().getPage(this.itemSelection.getLink());
+            if(linkedPage != null && linkedPage instanceof ListPage listPage) {
+                this.itemSelection = listPage.items();
+                selectY = 0;
+                refreshList();
+            }
+        }
     }
 
     @Override
