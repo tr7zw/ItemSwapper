@@ -72,9 +72,9 @@ public class LinkShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         if(overlay.openPage(manager.getPage(nextId))) {
-            overlay.selectIcon("link|" + nextId.toString());
+            overlay.selectIcon("link|" + nextId.toString(), xOffset, yOffset);
         }
         return true;
     }

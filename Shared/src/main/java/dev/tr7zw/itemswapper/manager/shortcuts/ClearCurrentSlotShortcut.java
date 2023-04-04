@@ -23,7 +23,7 @@ public class ClearCurrentSlotShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         ItemUtil.grabItem(Items.AIR, true);
         if (action == ActionType.SECONDARY_CLICK) {
             overlay.hideClearSlotShortcut = true;

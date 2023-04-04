@@ -23,11 +23,11 @@ public class BackShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         // remove the current page
         overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1);
         overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));
-        overlay.selectIcon("back");
+        overlay.selectIcon("back", xOffset, yOffset);
         return true;
     }
 

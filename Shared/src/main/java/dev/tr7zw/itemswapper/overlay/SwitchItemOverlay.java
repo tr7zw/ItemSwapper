@@ -140,8 +140,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         return true;
     }
     
-    public boolean selectIcon(String selector) {
-        return selectionHandler.select(selector);
+    public boolean selectIcon(String selector, int xOffset, int yOffset) {
+        return selectionHandler.select(selector, xOffset, yOffset);
     }
 
     public List<Page> getPageHistory() {
@@ -213,13 +213,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     public void onSecondaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            selectionHandler.getSelectedWidget().onSecondaryClick(this, selectionHandler.getSelectedSlot());
+            selectionHandler.getSelectedWidget().onSecondaryClick(this, selectionHandler.getSelectedSlot(), (int)selectionHandler.getOffsetX(), (int)selectionHandler.getOffsetY());
         }
     }
 
     public boolean onPrimaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            return selectionHandler.getSelectedWidget().onPrimaryClick(this, selectionHandler.getSelectedSlot());
+            return selectionHandler.getSelectedWidget().onPrimaryClick(this, selectionHandler.getSelectedSlot(), (int)selectionHandler.getOffsetX(), (int)selectionHandler.getOffsetY());
         }
         return true;
     }

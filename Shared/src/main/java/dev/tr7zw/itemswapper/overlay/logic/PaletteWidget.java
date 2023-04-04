@@ -58,21 +58,21 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
         ItemEntry entry = itemGroup.getItem(slot.id());
         if (entry != null && entry.getItem() != Items.AIR) {
             // try to open the new page
             if (overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(itemGroup, entry, -1))) {
-                overlay.selectIcon("item|" + Item.getId(entry.getItem()));
+                overlay.selectIcon("item|" + Item.getId(entry.getItem()), xOffset, yOffset);
             }
         }
     }
 
     @Override
-    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot, int xOffset, int yOffset) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
         if(entry != null && entry.isActAsLink()) {
-            onSecondaryClick(overlay, guiSlot);
+            onSecondaryClick(overlay, guiSlot, xOffset, yOffset);
             return true;
         }
         if (entry != null && entry.getItem() != Items.AIR) {

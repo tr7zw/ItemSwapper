@@ -12,7 +12,7 @@ public interface Shortcut {
      * @param action
      * @return true if the UI should be kept open if possible
      */
-    public boolean invoke(SwitchItemOverlay overlay, ActionType action);
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset);
 
     public default boolean acceptPrimaryClick() {
         return true;

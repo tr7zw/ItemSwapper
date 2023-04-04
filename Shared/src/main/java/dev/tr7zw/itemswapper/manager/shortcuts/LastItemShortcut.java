@@ -29,7 +29,7 @@ public class LastItemShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         if(action == ActionType.SECONDARY_CLICK) {
             ItemSwapperSharedMod.instance.openPage(lastPage);
             return true;

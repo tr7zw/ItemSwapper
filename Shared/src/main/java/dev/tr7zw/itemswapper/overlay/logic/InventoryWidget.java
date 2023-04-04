@@ -54,7 +54,7 @@ public class InventoryWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot, int xOffset, int yOffset) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
@@ -66,7 +66,7 @@ public class InventoryWidget extends ItemGridWidget {
     }
 
     @Override
-    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot, int xOffset, int yOffset) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);

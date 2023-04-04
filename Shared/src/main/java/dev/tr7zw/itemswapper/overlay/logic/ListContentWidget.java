@@ -67,12 +67,12 @@ public class ListContentWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
         // doesn't link anywhere
     }
 
     @Override
-    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot, int xOffset, int yOffset) {
         if (guiSlot.id() > entries.size() - 1) {
             return true;
         }

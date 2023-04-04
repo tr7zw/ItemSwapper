@@ -15,6 +15,8 @@ public class GuiSelectionHandler {
     private double limitX = 5;
     private double limitY = 5;
     private double deadZone = 1;
+    private double offsetX = 0;
+    private double offsetY = 0;
 
     public void updateSelection(double x, double y) {
         cursorX += x;
@@ -49,6 +51,8 @@ public class GuiSelectionHandler {
                     best = mouseDist;
                     selectedWidget = widget;
                     selectedSlot = slot;
+                    offsetX = cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot;
+                    offsetY = cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot;
                 }
             }
         }
@@ -57,13 +61,13 @@ public class GuiSelectionHandler {
         }
     }
 
-    public boolean select(String selector) {
+    public boolean select(String selector, int xOffset, int yOffset) {
         for (GuiWidget widget : widgets) {
             for (GuiSlot slot : widget.getSlots()) {
                 if(selector.equals(widget.getSelector(slot))) {
                     int halfSlot = slot.size() / 2;
-                    this.cursorX = slot.x() + 3 + widget.getWidgetArea().getX() + halfSlot;
-                    this.cursorY = slot.y() + 3 + widget.getWidgetArea().getY() + halfSlot;
+                    this.cursorX = slot.x() + 3 + widget.getWidgetArea().getX() + halfSlot + xOffset;
+                    this.cursorY = slot.y() + 3 + widget.getWidgetArea().getY() + halfSlot + yOffset;
                     return true;
                 }
             }
@@ -123,6 +127,14 @@ public class GuiSelectionHandler {
 
     public double getLimitY() {
         return limitY;
+    }
+
+    public double getOffsetX() {
+        return offsetX;
+    }
+
+    public double getOffsetY() {
+        return offsetY;
     }
 
 }

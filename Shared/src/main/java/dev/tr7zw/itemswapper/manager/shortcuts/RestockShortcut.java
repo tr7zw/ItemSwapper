@@ -26,7 +26,7 @@ public class RestockShortcut implements Shortcut {
     }
 
     @Override
-    public boolean invoke(SwitchItemOverlay overlay, ActionType action) {
+    public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         NonNullList<ItemStack> items = Minecraft.getInstance().player.getInventory().items;
         for(int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);

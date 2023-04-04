@@ -78,18 +78,18 @@ public class ShortcutListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
         Shortcut shortcut = list.get(slot.id());
         if (shortcut.acceptSecondaryClick()) {
-            shortcut.invoke(overlay, ActionType.SECONDARY_CLICK);
+            shortcut.invoke(overlay, ActionType.SECONDARY_CLICK, xOffset, yOffset);
         }
     }
 
     @Override
-    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot slot) {
+    public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
         Shortcut shortcut = list.get(slot.id());
         if (shortcut.acceptPrimaryClick()) {
-            return shortcut.invoke(overlay, ActionType.PRIMARY_CLICK);
+            return shortcut.invoke(overlay, ActionType.PRIMARY_CLICK, xOffset, yOffset);
         }
         return true;
     }
