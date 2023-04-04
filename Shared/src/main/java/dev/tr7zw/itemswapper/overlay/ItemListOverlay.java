@@ -195,7 +195,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             });
         }
         itemRenderList.add(() -> {
+            poseStack.pushPose();
+            poseStack.translate(0, 0, 400);
             renderSlot(poseStack, x + 4, y + 4, minecraft.player, slot.item(), 1);
+            poseStack.popPose();
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
