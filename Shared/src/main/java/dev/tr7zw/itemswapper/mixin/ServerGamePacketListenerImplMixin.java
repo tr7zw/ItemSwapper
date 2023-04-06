@@ -63,6 +63,9 @@ public class ServerGamePacketListenerImplMixin {
             FriendlyByteBuf buf = serverboundCustomPayloadPacket.getData();
             int targetSlot = buf.readInt();
             ItemStack target = player.getInventory().getItem(targetSlot);
+            if(target == null || target.isEmpty()) {
+                return;
+            }
             int space = target.getMaxStackSize() - target.getCount();
             if(space <= 0) {
                 // nothing to do

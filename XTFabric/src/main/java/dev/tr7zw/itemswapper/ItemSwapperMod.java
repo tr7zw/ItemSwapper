@@ -45,6 +45,14 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                             ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
                         }
                     });
+            ClientPlayNetworking.registerReceiver(NetworkUtil.enableRefillMessage,
+                    (client1, handler, buf, responseSender) -> {
+                        try {
+                            ItemSwapperSharedMod.instance.setEnableRefill(buf.readBoolean());
+                        } catch (Throwable th) {
+                            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                        }
+                    });
             ClientPlayNetworking.registerReceiver(NetworkUtil.disableModMessage,
                     (client12, handler, buf, responseSender) -> {
                         try {
