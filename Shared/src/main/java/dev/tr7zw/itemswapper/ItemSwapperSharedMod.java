@@ -136,7 +136,7 @@ public abstract class ItemSwapperSharedMod {
             } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
-                if(enableOnIp.contains(server.ip) && !bypassAccepted) {
+                if(!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
                     minecraft.gui.setOverlayMessage(
                             Component.translatable("text.itemswapper.usedwhitelist").withStyle(ChatFormatting.GOLD), false);
