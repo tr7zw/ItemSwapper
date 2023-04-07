@@ -17,6 +17,7 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.overlay.EditListScreen;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
@@ -28,11 +29,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.Button.OnPress;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.datafix.fixes.OptionsAddTextBackgroundFix;
 import net.minecraft.world.item.Item;
 
 public abstract class ItemSwapperSharedMod {
@@ -228,6 +232,8 @@ public abstract class ItemSwapperSharedMod {
     public Screen createConfigScreen(Screen parent) {
         return new CustomConfigScreen(parent, "text.itemswapper.title") {
 
+            private CustomConfigScreen inst = this;
+            
             @Override
             public void initialize() {
                 List<OptionInstance<?>> options = new ArrayList<>();
@@ -266,6 +272,18 @@ public abstract class ItemSwapperSharedMod {
                                 b -> configManager.getConfig().fallbackInventory = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
+                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.whitelist"), new OnPress() {
+                    @Override
+                    public void onPress(Button button) {
+                        Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, true));
+                    }
+                }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
+                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.blacklist"), new OnPress() {
+                    @Override
+                    public void onPress(Button button) {
+                        Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
+                    }
+                }).pos(this.width / 2 - 160, this.height - 27).size(50, 20).build());
             }
 
             @Override
