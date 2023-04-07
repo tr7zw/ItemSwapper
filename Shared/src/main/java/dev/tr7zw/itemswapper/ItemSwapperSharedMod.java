@@ -36,7 +36,6 @@ import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.datafix.fixes.OptionsAddTextBackgroundFix;
 import net.minecraft.world.item.Item;
 
 public abstract class ItemSwapperSharedMod {
@@ -137,6 +136,11 @@ public abstract class ItemSwapperSharedMod {
             } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
+                if(enableOnIp.contains(server.ip) && !bypassAccepted) {
+                    bypassAccepted = true;
+                    minecraft.gui.setOverlayMessage(
+                            Component.translatable("text.itemswapper.usedwhitelist").withStyle(ChatFormatting.GOLD), false);
+                }
                 if (couldOpenScreen()) {
                     pressed = true;
                     return;

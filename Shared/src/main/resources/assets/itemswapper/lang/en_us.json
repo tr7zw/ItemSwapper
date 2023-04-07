@@ -51,5 +51,6 @@
   "text.itemswapper.resourcepack.default": "ItemSwapper Default Pack",
   "text.itemswapper.whitelist": "Whitelist",
   "text.itemswapper.blacklist": "Blacklist",
-  "text.itemswapper.remove": "Remove"
+  "text.itemswapper.remove": "Remove",
+  "text.itemswapper.usedwhitelist": "Used the whitelist to enable the mod. It's still not supported by the server!"
 }
