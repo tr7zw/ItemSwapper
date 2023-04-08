@@ -1,0 +1,309 @@
+From 9675e3dbd3c665e87c1dd88aa385ebc3f99af2f6 Mon Sep 17 00:00:00 2001
+From: tr7zw <tr7zw@live.de>
+Date: Sat, 8 Apr 2023 21:56:20 +0200
+Subject: [PATCH] Backport 1.18.2
+
+---
+ .github/workflows/tag.yml                     |  4 --
+ .../itemswapper/ItemSwapperSharedMod.java     |  8 ++--
+ .../accessor/InstrumentItemAccess.java        | 17 -------
+ .../itemswapper/gui/CopyToClipboard.java      |  5 ++-
+ .../mixin/InstrumentItemMixin.java            | 44 -------------------
+ .../provider/InstrumentItemNameProvider.java  | 36 ---------------
+ .../provider/PotionNameProvider.java          |  2 +-
+ .../main/resources/itemswapper.mixins.json    |  3 +-
+ .../resourcepacks/classic/pack.mcmeta         |  2 +-
+ .../resourcepacks/default/pack.mcmeta         |  2 +-
+ XTFabric/src/main/resources/fabric.mod.json   |  2 +-
+ gradle-compose.yml                            |  2 +-
+ 12 files changed, 12 insertions(+), 115 deletions(-)
+ delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/accessor/InstrumentItemAccess.java
+ delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/mixin/InstrumentItemMixin.java
+ delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/provider/InstrumentItemNameProvider.java
+
+diff --git a/.github/workflows/tag.yml b/.github/workflows/tag.yml
+index 9f6df99..33abf01 100644
+--- a/.github/workflows/tag.yml
++++ b/.github/workflows/tag.yml
+@@ -29,9 +29,5 @@ jobs:
+           curseforge-id: 694358
+           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}  
+           loaders: fabric
+-          game-versions: |
+-            1.19
+-            1.19.1
+-            1.19.2
+           name: ${{github.ref_name}} - Fabric
+           files: '*Fabric/build/libs/!(*-@(dev|sources|javadoc|all)).jar'
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
+index c1cbe05..fa41bf3 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
+@@ -21,7 +21,6 @@ import dev.tr7zw.itemswapper.overlay.EditListScreen;
+ import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
+ import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
+ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+-import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
+ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
+ import dev.tr7zw.itemswapper.provider.RecordNameProvider;
+ import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
+@@ -29,7 +28,7 @@ import dev.tr7zw.util.ComponentProvider;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.client.KeyMapping;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.OptionInstance;
++import net.minecraft.client.Option;
+ import net.minecraft.client.gui.components.Button;
+ import net.minecraft.client.gui.components.Button.OnPress;
+ import net.minecraft.client.gui.screens.ConfirmScreen;
+@@ -76,7 +75,6 @@ public abstract class ItemSwapperSharedMod {
+         clientProviderManager.registerContainerProvider(new ShulkerContainerProvider());
+         clientProviderManager.registerNameProvider(new PotionNameProvider());
+         clientProviderManager.registerNameProvider(new RecordNameProvider());
+-        clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
+     }
+ 
+     public void clientTick() {
+@@ -240,7 +238,7 @@ public abstract class ItemSwapperSharedMod {
+             
+             @Override
+             public void initialize() {
+-                List<OptionInstance<?>> options = new ArrayList<>();
++                List<Option> options = new ArrayList<>();
+                 options.add(getOnOffOption("text.itemswapper.showTooltips", () -> configManager.getConfig().showTooltips,
+                         b -> configManager.getConfig().showTooltips = b));
+                 options.add(getOnOffOption("text.itemswapper.toggleMode", () -> configManager.getConfig().toggleMode,
+@@ -275,7 +273,7 @@ public abstract class ItemSwapperSharedMod {
+                                 () -> configManager.getConfig().fallbackInventory,
+                                 b -> configManager.getConfig().fallbackInventory = b));
+ 
+-                getOptions().addSmall(options.toArray(new OptionInstance[0]));
++                getOptions().addSmall(options.toArray(new Option[0]));
+                 this.addRenderableWidget(new Button(this.width / 2 - 210, this.height - 27, 50, 20, ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
+                     @Override
+                     public void onPress(Button button) {
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/accessor/InstrumentItemAccess.java b/Shared/src/main/java/dev/tr7zw/itemswapper/accessor/InstrumentItemAccess.java
+deleted file mode 100644
+index 0e9bafd..0000000
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/accessor/InstrumentItemAccess.java
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package dev.tr7zw.itemswapper.accessor;
+-
+-import java.util.Optional;
+-import java.util.Set;
+-
+-import net.minecraft.core.Holder;
+-import net.minecraft.world.item.Instrument;
+-import net.minecraft.world.item.Item;
+-import net.minecraft.world.item.ItemStack;
+-
+-public interface InstrumentItemAccess {
+-
+-    public Set<Item> getItems();
+-
+-    public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack);
+-
+-}
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
+index cc96992..4f2e05f 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
+@@ -4,6 +4,7 @@ import static dev.tr7zw.itemswapper.util.ItemUtil.itemstackToSingleItem;
+ 
+ import java.util.Arrays;
+ import java.util.List;
++import java.util.UUID;
+ 
+ import org.jetbrains.annotations.NotNull;
+ 
+@@ -36,7 +37,7 @@ public class CopyToClipboard extends ImageButton {
+     private Item[] lastItems = null;
+ 
+     public CopyToClipboard(int i, int j) {
+-        super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT, null, CommonComponents.EMPTY);
++        super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT, null, ComponentProvider.empty());
+     }
+ 
+     @Override
+@@ -58,7 +59,7 @@ public class CopyToClipboard extends ImageButton {
+ 
+         Minecraft.getInstance().keyboardHandler.setClipboard(json);
+         ItemSwapperMod.LOGGER.info(json);
+-        instance.player.sendSystemMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"));
++        instance.player.sendMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"), UUID.randomUUID());
+ 
+     }
+ 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/InstrumentItemMixin.java b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/InstrumentItemMixin.java
+deleted file mode 100644
+index 6bcb489..0000000
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/InstrumentItemMixin.java
++++ /dev/null
+@@ -1,44 +0,0 @@
+-package dev.tr7zw.itemswapper.mixin;
+-
+-import java.util.HashSet;
+-import java.util.Optional;
+-import java.util.Set;
+-
+-import org.spongepowered.asm.mixin.Mixin;
+-import org.spongepowered.asm.mixin.Shadow;
+-import org.spongepowered.asm.mixin.injection.At;
+-import org.spongepowered.asm.mixin.injection.Inject;
+-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+-
+-import dev.tr7zw.itemswapper.accessor.InstrumentItemAccess;
+-import net.minecraft.core.Holder;
+-import net.minecraft.tags.TagKey;
+-import net.minecraft.world.item.Instrument;
+-import net.minecraft.world.item.InstrumentItem;
+-import net.minecraft.world.item.Item;
+-import net.minecraft.world.item.ItemStack;
+-
+-@Mixin(InstrumentItem.class)
+-public abstract class InstrumentItemMixin implements InstrumentItemAccess {
+-
+-    private Set<Item> items = new HashSet<>();
+-
+-    @Inject(method = "<init>", at = @At("RETURN"))
+-    public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
+-        items.add((Item) (Object) this);
+-    }
+-
+-    @Override
+-    public Set<Item> getItems() {
+-        return items;
+-    }
+-
+-    @Override
+-    public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
+-        return getInstrument(itemStack);
+-    }
+-
+-    @Shadow
+-    protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
+-
+-}
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/provider/InstrumentItemNameProvider.java b/Shared/src/main/java/dev/tr7zw/itemswapper/provider/InstrumentItemNameProvider.java
+deleted file mode 100644
+index 848b500..0000000
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/provider/InstrumentItemNameProvider.java
++++ /dev/null
+@@ -1,36 +0,0 @@
+-package dev.tr7zw.itemswapper.provider;
+-
+-import java.util.Optional;
+-import java.util.Set;
+-
+-import dev.tr7zw.itemswapper.accessor.InstrumentItemAccess;
+-import dev.tr7zw.itemswapper.api.client.NameProvider;
+-import net.minecraft.Util;
+-import net.minecraft.core.Holder;
+-import net.minecraft.network.chat.Component;
+-import net.minecraft.resources.ResourceKey;
+-import net.minecraft.world.item.Instrument;
+-import net.minecraft.world.item.Item;
+-import net.minecraft.world.item.ItemStack;
+-import net.minecraft.world.item.Items;
+-
+-public class InstrumentItemNameProvider implements NameProvider {
+-
+-    @Override
+-    public Set<Item> getItemHandlers() {
+-        return ((InstrumentItemAccess) (Object) Items.GOAT_HORN).getItems();
+-    }
+-
+-    @Override
+-    public Component getDisplayName(ItemStack item) {
+-        Optional<ResourceKey<Instrument>> optional = ((InstrumentItemAccess) (Object) item.getItem())
+-                .getOptionalInstrument(item)
+-                .flatMap(Holder::unwrapKey);
+-        if (optional.isPresent()) {
+-            return Component
+-                    .translatable(Util.makeDescriptionId("instrument", optional.get().location()));
+-        }
+-        return item.getHoverName();
+-    }
+-
+-}
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/provider/PotionNameProvider.java b/Shared/src/main/java/dev/tr7zw/itemswapper/provider/PotionNameProvider.java
+index 76e529e..06a63e9 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/provider/PotionNameProvider.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/provider/PotionNameProvider.java
+@@ -40,7 +40,7 @@ public class PotionNameProvider implements NameProvider {
+     }
+ 
+     private MutableComponent formatEffect(MobEffectInstance effect) {
+-        MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
++        MutableComponent comp = ComponentProvider.literal("").append(effect.getEffect().getDisplayName());
+         if (effect.getAmplifier() > 1) {
+             comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));
+         }
+diff --git a/Shared/src/main/resources/itemswapper.mixins.json b/Shared/src/main/resources/itemswapper.mixins.json
+index 9c52e08..94b50ed 100644
+--- a/Shared/src/main/resources/itemswapper.mixins.json
++++ b/Shared/src/main/resources/itemswapper.mixins.json
+@@ -14,8 +14,7 @@
+     "ClientLevelMixin",
+     "AbstractContainerScreenMixin",
+     "ContainerScreenMixin",
+-    "RecordItemMixin",
+-    "InstrumentItemMixin"
++    "RecordItemMixin"
+   ],
+   "injectors": {
+     "defaultRequire": 1
+diff --git a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
+index 6acef8d..be14e5a 100644
+--- a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
++++ b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
+@@ -1,6 +1,6 @@
+ {
+   "pack": {
+-    "pack_format": 9,
++    "pack_format": 8,
+     "description": "ItemSwapper classic palettes"
+   }
+ }
+\ No newline at end of file
+diff --git a/Shared/src/main/resources/resourcepacks/default/pack.mcmeta b/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
+index ddc434c..86ae325 100644
+--- a/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
++++ b/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
+@@ -1,6 +1,6 @@
+ {
+   "pack": {
+-    "pack_format": 9,
++    "pack_format": 8,
+     "description": "ItemSwapper default palettes V2"
+   }
+ }
+\ No newline at end of file
+diff --git a/XTFabric/src/main/resources/fabric.mod.json b/XTFabric/src/main/resources/fabric.mod.json
+index 2e473ee..5026dad 100644
+--- a/XTFabric/src/main/resources/fabric.mod.json
++++ b/XTFabric/src/main/resources/fabric.mod.json
+@@ -70,7 +70,7 @@
+   
+     "depends": {
+       "fabric": "*",
+-      "minecraft": ">=1.19 <=1.19.2"
++      "minecraft": "1.18.2"
+     },
+     "custom": {
+       "modmenu": {
+diff --git a/gradle-compose.yml b/gradle-compose.yml
+index 3b658ed..92e1ac5 100644
+--- a/gradle-compose.yml
++++ b/gradle-compose.yml
+@@ -1,5 +1,5 @@
+ version: '0.0.2'
+-source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.2"
++source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.18.2"
+ replacements:
+   name: "ItemSwapper"
+   id: "itemswapper"
+-- 
+2.32.0.windows.2
+

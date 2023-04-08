@@ -38,9 +38,5 @@ jobs:
           curseforge-id: 694358
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}  
           loaders: fabric
-          game-versions: |
-            1.19
-            1.19.1
-            1.19.2
           name: ${{github.ref_name}} - Fabric
           files: 'workspace/*Fabric/build/libs/!(*-@(dev|sources|javadoc|all)).jar'
