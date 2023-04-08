@@ -1,4 +1,4 @@
-From 43911426cb4a2fedf4279f8e653e4583024e7596 Mon Sep 17 00:00:00 2001
+From bdb80ff2a508bd3824c278a4ec30b7d391f05c6f Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sun, 2 Apr 2023 20:54:46 +0200
 Subject: [PATCH] Backport to 1.19.3
@@ -30,10 +30,10 @@ index 6bd5b2d..10f879b 100644
          RenderSystem.setShaderTexture(0, texture);
          RenderSystem.enableDepthTest();
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
-index cfcf758..e05283f 100644
+index d625802..2540261 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
-@@ -98,11 +98,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+@@ -100,11 +100,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
              renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
          }
          itemRenderList.forEach(Runnable::run);
@@ -48,7 +48,7 @@ index cfcf758..e05283f 100644
      }
  
      @Override
-@@ -177,12 +176,12 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+@@ -186,12 +185,12 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
          if (selectedEntry == id) {
              itemRenderList = lateRenderList;
              lateRenderList.add(() -> {
@@ -64,7 +64,7 @@ index cfcf758..e05283f 100644
              });
          }
          itemRenderList.add(() -> {
-@@ -198,9 +197,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+@@ -210,9 +209,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
  
      private void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k) {
          if (!arg2.isEmpty()) {
@@ -109,7 +109,7 @@ index df43055..3875238 100644
          renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
      }
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
-index 777cac9..471ec9a 100644
+index e1e3e5a..95fc5bb 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
 @@ -59,7 +59,7 @@ public class ShortcutListWidget extends ItemGridWidget {
