@@ -1,4 +1,4 @@
-From 88eec25c2c2cfa65393df96b506d704fa7932e43 Mon Sep 17 00:00:00 2001
+From 65b7b838600623b38e1d5c90b204ecc48e07dc60 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sun, 2 Apr 2023 20:54:46 +0200
 Subject: [PATCH] Backport to 1.19.3
