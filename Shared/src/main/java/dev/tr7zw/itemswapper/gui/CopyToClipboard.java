@@ -14,12 +14,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -58,7 +58,7 @@ public class CopyToClipboard extends ImageButton {
 
         Minecraft.getInstance().keyboardHandler.setClipboard(json);
         ItemSwapperMod.LOGGER.info(json);
-        instance.player.sendSystemMessage(Component.translatable("text.itemswapper.button.copyToClipboard.success"));
+        instance.player.sendSystemMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"));
 
     }
 
@@ -78,7 +78,7 @@ public class CopyToClipboard extends ImageButton {
     public void renderToolTip(@NotNull PoseStack poseStack, int i, int j) {
         if (this.isHovered && instance.screen != null) {
             instance.screen.renderTooltip(poseStack,
-                    Component.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
+                    ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
         }
     }
 

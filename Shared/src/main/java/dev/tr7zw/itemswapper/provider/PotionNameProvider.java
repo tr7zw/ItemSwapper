@@ -6,6 +6,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 import dev.tr7zw.itemswapper.api.client.NameProvider;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.StringUtil;
@@ -39,12 +40,12 @@ public class PotionNameProvider implements NameProvider {
     }
 
     private MutableComponent formatEffect(MobEffectInstance effect) {
-        MutableComponent comp = Component.empty().append(effect.getEffect().getDisplayName());
+        MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
         if (effect.getAmplifier() > 1) {
-            comp.append(" ").append(Component.translatable("potion.potency." + effect.getAmplifier()));
+            comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));
         }
         if (effect.getDuration() > 1) {
-            comp.append(" (").append(Component.literal(StringUtil.formatTickDuration(effect.getDuration())))
+            comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration())))
                     .append(")");
         }
         return comp;

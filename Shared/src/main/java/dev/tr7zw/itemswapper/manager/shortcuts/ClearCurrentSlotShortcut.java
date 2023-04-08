@@ -5,6 +5,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -13,9 +14,9 @@ import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
 
-    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"), Component.translatable("text.itemswapper.clearSlot"));
+    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"), ComponentProvider.translatable("text.itemswapper.clearSlot"));
     private final Minecraft minecraft = Minecraft.getInstance();
-    private final Component hoverText = Component.translatable("text.itemswapper.clearSlot.tooltip");
+    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");
 
     @Override
     public Icon getIcon() {

@@ -34,9 +34,9 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -60,7 +60,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     private final ConfigManager configManager = ConfigManager.getInstance();
 
     private SwitchItemOverlay() {
-        super(Component.empty());
+        super(ComponentProvider.empty());
         super.passEvents = true;
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
@@ -81,7 +81,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), Component.translatable("text.itemswapper.overview"), null));
+        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), ComponentProvider.translatable("text.itemswapper.overview"), null));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {

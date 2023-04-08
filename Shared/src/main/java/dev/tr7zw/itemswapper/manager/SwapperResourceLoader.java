@@ -17,15 +17,15 @@ import com.google.gson.JsonObject;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroupModifier;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemListModifier;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
@@ -184,7 +184,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
         }
         if (json.has("displayName") && json.get("displayName").isJsonPrimitive()) {
-            group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
+            group.withDisplayName(ComponentProvider.translatable(json.get("displayName").getAsString()));
         }
         if (json.has("link") && json.get("link").isJsonPrimitive()) {
             try {
@@ -233,7 +233,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
         }
         if (json.has("displayName") && json.get("displayName").isJsonPrimitive()) {
-            group.withDisplayName(Component.translatable(json.get("displayName").getAsString()));
+            group.withDisplayName(ComponentProvider.translatable(json.get("displayName").getAsString()));
         }
         group.withItems(processItems(jsonLocation, json.get("items")));
         Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
@@ -303,7 +303,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 try {
                     shortcuts.add(
                             new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()),
-                                    displayname != null ? Component.translatable(displayname) : null, icon));
+                                    displayname != null ? ComponentProvider.translatable(displayname) : null, icon));
                 } catch (Exception ex) {
                     ItemSwapperSharedMod.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
                 }
@@ -347,7 +347,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     actAsLink = obj.getAsJsonPrimitive("actAsLink").getAsBoolean();
                 }
                 ItemEntry entry = new ItemEntry(item, link,
-                        displayName != null ? Component.translatable(displayName) : null, actAsLink);
+                        displayName != null ? ComponentProvider.translatable(displayName) : null, actAsLink);
                 if (!itemList.contains(entry)) {
                     itemList.add(entry);
                 }

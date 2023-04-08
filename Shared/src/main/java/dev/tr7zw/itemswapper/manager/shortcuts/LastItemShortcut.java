@@ -4,9 +4,10 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
-import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -15,8 +16,8 @@ public class LastItemShortcut implements Shortcut {
 
     private Item lastItem;
     private Page lastPage;
-    private Component displayName = Component.translatable("text.itemswapper.lastItem");
-    private final Component hoverText = Component.translatable("text.itemswapper.lastItem.tooltip");
+    private Component displayName = ComponentProvider.translatable("text.itemswapper.lastItem");
+    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.lastItem.tooltip");
 
     public LastItemShortcut(Item lastItem, Page lastPage) {
         this.lastItem = lastItem;

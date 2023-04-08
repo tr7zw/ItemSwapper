@@ -19,11 +19,11 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -61,7 +61,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private double selectY = 0;
 
     public ItemListOverlay(ItemList itemSelection) {
-        super(Component.empty());
+        super(ComponentProvider.empty());
         super.passEvents = true;
         this.itemSelection = itemSelection;
         refreshList();

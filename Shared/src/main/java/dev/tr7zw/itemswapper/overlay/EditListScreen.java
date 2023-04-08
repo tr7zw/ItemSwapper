@@ -5,6 +5,7 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.config.CacheManager;
+import dev.tr7zw.util.ComponentProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
@@ -22,14 +23,14 @@ public class EditListScreen extends OptionsSubScreen {
     private final boolean whitelist;
 
     public EditListScreen(final Screen screen, final Options options, boolean whitelist) {
-        super(screen, options, whitelist ? Component.translatable("text.itemswapper.whitelist")
-                : Component.translatable("text.itemswapper.blacklist"));
+        super(screen, options, whitelist ? ComponentProvider.translatable("text.itemswapper.whitelist")
+                : ComponentProvider.translatable("text.itemswapper.blacklist"));
         this.whitelist = whitelist;
     }
 
     protected void init() {
         this.addWidget((this.selectionList = new EntrySelectionList(this.minecraft)));
-        this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.remove"), button -> {
+        this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.remove"), button -> {
             EntrySelectionList.ListEntry entry = this.selectionList.getSelected();
             if(entry == null) {
                 return;
@@ -90,7 +91,7 @@ public class EditListScreen extends OptionsSubScreen {
 
             public ListEntry(final String string) {
                 this.string = string;
-                this.text = Component.literal(string);
+                this.text = ComponentProvider.literal(string);
             }
 
             public void render(final PoseStack poseStack, final int i, final int j, final int k, final int l,

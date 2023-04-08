@@ -9,8 +9,9 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
-import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -68,7 +69,7 @@ public class LinkShortcut implements Shortcut {
             }
             return new LinkIcon(icon, name, nextId);
         }
-        return new ItemIcon(Items.AIR.getDefaultInstance(), Component.empty());
+        return new ItemIcon(Items.AIR.getDefaultInstance(), ComponentProvider.empty());
     }
 
     @Override

@@ -4,14 +4,15 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class BackShortcut implements Shortcut {
 
-    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"), Component.translatable("text.itemswapper.back"));
+    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"), ComponentProvider.translatable("text.itemswapper.back"));
     private final SwitchItemOverlay overlay;
-    private final Component hoverText = Component.translatable("text.itemswapper.back.tooltip");
+    private final Component hoverText = ComponentProvider.translatable("text.itemswapper.back.tooltip");
 
     public BackShortcut(SwitchItemOverlay overlay) {
         this.overlay = overlay;

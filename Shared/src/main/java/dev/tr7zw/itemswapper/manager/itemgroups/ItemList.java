@@ -1,11 +1,11 @@
 package dev.tr7zw.itemswapper.manager.itemgroups;
 
+import java.util.Collections;
 import java.util.Set;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import java.util.Collections;
 
 public class ItemList {
 

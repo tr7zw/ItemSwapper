@@ -25,6 +25,7 @@ import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
+import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -35,7 +36,6 @@ import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 
 public abstract class ItemSwapperSharedMod {
@@ -96,7 +96,7 @@ public abstract class ItemSwapperSharedMod {
         } else if (keybind.isDown()) {
             if (isModDisabled()) {
                 minecraft.gui.setOverlayMessage(
-                        Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
             } else if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
             } else if (screen != null) {
@@ -116,14 +116,14 @@ public abstract class ItemSwapperSharedMod {
     private void onPress(ItemSwapperUI overlay) {
         if (minecraft.player != null && !itemGroupManager.isResourcepackSelected()) {
             minecraft.player.displayClientMessage(
-                    Component.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
+                    ComponentProvider.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
                     true);
         }
 
         if (!pressed && isModDisabled()) {
             pressed = true;
             minecraft.gui.setOverlayMessage(
-                    Component.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+                    ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
             return;
         }
 
@@ -132,14 +132,14 @@ public abstract class ItemSwapperSharedMod {
         if(!pressed) {
             if (isDisabledByPlayer()) {
                 minecraft.gui.setOverlayMessage(
-                        Component.translatable("text.itemswapper.disabledByPlayer").withStyle(ChatFormatting.RED), false);
+                        ComponentProvider.translatable("text.itemswapper.disabledByPlayer").withStyle(ChatFormatting.RED), false);
             } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
                 if(!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
                     minecraft.gui.setOverlayMessage(
-                            Component.translatable("text.itemswapper.usedwhitelist").withStyle(ChatFormatting.GOLD), false);
+                            ComponentProvider.translatable("text.itemswapper.usedwhitelist").withStyle(ChatFormatting.GOLD), false);
                 }
                 if (couldOpenScreen()) {
                     pressed = true;
@@ -154,8 +154,8 @@ public abstract class ItemSwapperSharedMod {
 
     private void openConfirmationScreen() {
         minecraft.setScreen(
-                new ConfirmScreen(this::acceptBypassCallback, Component.translatable("text.itemswapper.confirm.title"),
-                        Component.translatable("text.itemswapper.confirm.description")));
+                new ConfirmScreen(this::acceptBypassCallback, ComponentProvider.translatable("text.itemswapper.confirm.title"),
+                        ComponentProvider.translatable("text.itemswapper.confirm.description")));
     }
 
     private boolean couldOpenScreen() {
@@ -276,13 +276,13 @@ public abstract class ItemSwapperSharedMod {
                                 b -> configManager.getConfig().fallbackInventory = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
-                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.whitelist"), new OnPress() {
+                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
                     @Override
                     public void onPress(Button button) {
                         Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, true));
                     }
                 }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
-                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.blacklist"), new OnPress() {
+                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
                     @Override
                     public void onPress(Button button) {
                         Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
