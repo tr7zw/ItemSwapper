@@ -1,9 +1,11 @@
-From ab93685205d82151785b70b62e015c20215d04fa Mon Sep 17 00:00:00 2001
+From ef68edbfa627ea05aba73dca016d55bc2b021d72 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
-Date: Sat, 8 Apr 2023 02:50:53 +0200
+Date: Sat, 8 Apr 2023 20:51:01 +0200
 Subject: [PATCH] Backport to 1.19.2
 
 ---
+ .github/workflows/build.yml                        |  7 -------
+ .github/workflows/tag.yml                          |  4 ++++
  .../tr7zw/itemswapper/ItemSwapperSharedMod.java    |  8 ++++----
  .../dev/tr7zw/itemswapper/gui/CopyToClipboard.java |  6 +++---
  .../itemswapper/manager/SwapperResourceLoader.java | 14 +++++++-------
@@ -14,26 +16,56 @@ Subject: [PATCH] Backport to 1.19.2
  .../java/dev/tr7zw/itemswapper/ItemSwapperMod.java |  5 ++---
  XTFabric/src/main/resources/fabric.mod.json        |  4 ++--
  gradle-compose.yml                                 |  2 +-
- 10 files changed, 26 insertions(+), 27 deletions(-)
+ 12 files changed, 30 insertions(+), 34 deletions(-)
 
+diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
+index 26c1be7..4fe10be 100644
+--- a/.github/workflows/build.yml
++++ b/.github/workflows/build.yml
+@@ -25,10 +25,3 @@ jobs:
+           name: Artifacts
+           path: |
+             XTFabric/build/libs/*
+-      - name: Test Report
+-        uses: dorny/test-reporter@v1
+-        if: success() || failure()
+-        with:
+-          name: JUnit Tests
+-          path: '**/build/test-results/test/TEST-*.xml'
+-          reporter: java-junit        
+\ No newline at end of file
+diff --git a/.github/workflows/tag.yml b/.github/workflows/tag.yml
+index 33abf01..9f6df99 100644
+--- a/.github/workflows/tag.yml
++++ b/.github/workflows/tag.yml
+@@ -29,5 +29,9 @@ jobs:
+           curseforge-id: 694358
+           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}  
+           loaders: fabric
++          game-versions: |
++            1.19
++            1.19.1
++            1.19.2
+           name: ${{github.ref_name}} - Fabric
+           files: '*Fabric/build/libs/!(*-@(dev|sources|javadoc|all)).jar'
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
-index 795e01f..02c1d76 100644
+index 13e0223..c1cbe05 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
 @@ -276,18 +276,18 @@ public abstract class ItemSwapperSharedMod {
                                  b -> configManager.getConfig().fallbackInventory = b));
  
                  getOptions().addSmall(options.toArray(new OptionInstance[0]));
--                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.whitelist"), new OnPress() {
-+                this.addRenderableWidget(new Button(this.width / 2 - 210, this.height - 27, 50, 20,Component.translatable("text.itemswapper.whitelist"), new OnPress() {
+-                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
++                this.addRenderableWidget(new Button(this.width / 2 - 210, this.height - 27, 50, 20, ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
                      @Override
                      public void onPress(Button button) {
                          Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, true));
                      }
 -                }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
--                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.blacklist"), new OnPress() {
+-                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
 +                }));
-+                this.addRenderableWidget(new Button(this.width / 2 - 160, this.height - 27, 50, 20, Component.translatable("text.itemswapper.blacklist"), new OnPress() {
++                this.addRenderableWidget(new Button(this.width / 2 - 160, this.height - 27, 50, 20, ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
                      @Override
                      public void onPress(Button button) {
                          Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
@@ -44,18 +76,18 @@ index 795e01f..02c1d76 100644
  
              @Override
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-index 10f879b..6f25288 100644
+index bbbe6c5..cc96992 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-@@ -17,7 +17,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+@@ -18,7 +18,7 @@ import dev.tr7zw.util.ComponentProvider;
  import net.minecraft.client.Minecraft;
  import net.minecraft.client.gui.components.ImageButton;
  import net.minecraft.client.renderer.GameRenderer;
 -import net.minecraft.core.registries.BuiltInRegistries;
 +import net.minecraft.core.Registry;
  import net.minecraft.network.chat.CommonComponents;
- import net.minecraft.network.chat.Component;
  import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.world.item.Item;
 @@ -69,7 +69,7 @@ public class CopyToClipboard extends ImageButton {
          RenderSystem.enableDepthTest();
          RenderSystem.enableBlend();
@@ -75,18 +107,18 @@ index 10f879b..6f25288 100644
  
          return gson.toJson(names);
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java b/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java
-index 211b452..c5c65ed 100644
+index d4db0b0..efd1b66 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java
-@@ -24,7 +24,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
- import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+@@ -25,7 +25,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
  import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
  import dev.tr7zw.itemswapper.util.ItemUtil;
+ import dev.tr7zw.util.ComponentProvider;
 -import net.minecraft.core.registries.BuiltInRegistries;
 +import net.minecraft.core.Registry;
- import net.minecraft.network.chat.Component;
  import net.minecraft.resources.ResourceLocation;
  import net.minecraft.server.packs.resources.ResourceManager;
+ import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 @@ -203,7 +203,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
              group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
          }
@@ -155,19 +187,19 @@ index e55dc92..ffac0d2 100644
      }
  }
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
-index 2bd1803..208bc76 100644
+index 1eeaa0b..1c2d2aa 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
-@@ -29,7 +29,7 @@ public class EditListScreen extends OptionsSubScreen {
+@@ -30,7 +30,7 @@ public class EditListScreen extends OptionsSubScreen {
  
      protected void init() {
          this.addWidget((this.selectionList = new EntrySelectionList(this.minecraft)));
--        this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.remove"), button -> {
-+        this.addRenderableWidget(new Button(this.width / 2 - 155, this.height - 38, 150, 20, Component.translatable("text.itemswapper.remove"), button -> {
+-        this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.remove"), button -> {
++        this.addRenderableWidget(new Button(this.width / 2 - 155, this.height - 38, 150, 20, ComponentProvider.translatable("text.itemswapper.remove"), button -> {
              EntrySelectionList.ListEntry entry = this.selectionList.getSelected();
              if(entry == null) {
                  return;
-@@ -41,10 +41,10 @@ public class EditListScreen extends OptionsSubScreen {
+@@ -42,10 +42,10 @@ public class EditListScreen extends OptionsSubScreen {
              }
              CacheManager.getInstance().writeConfig();
              this.selectionList.remove(entry);
@@ -234,7 +266,7 @@ index 460cf08..46bb9e9 100644
          
          FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
 diff --git a/XTFabric/src/main/resources/fabric.mod.json b/XTFabric/src/main/resources/fabric.mod.json
-index cdcea0c..a6d78d4 100644
+index cdcea0c..2e473ee 100644
 --- a/XTFabric/src/main/resources/fabric.mod.json
 +++ b/XTFabric/src/main/resources/fabric.mod.json
 @@ -69,8 +69,8 @@
@@ -244,7 +276,7 @@ index cdcea0c..a6d78d4 100644
 -      "fabric-api": "*",
 -      "minecraft": "1.19.3"
 +      "fabric": "*",
-+      "minecraft": "1.19.2"
++      "minecraft": ">=1.19 <=1.19.2"
      },
      "custom": {
        "modmenu": {
