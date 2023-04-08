@@ -1,0 +1,264 @@
+From ab93685205d82151785b70b62e015c20215d04fa Mon Sep 17 00:00:00 2001
+From: tr7zw <tr7zw@live.de>
+Date: Sat, 8 Apr 2023 02:50:53 +0200
+Subject: [PATCH] Backport to 1.19.2
+
+---
+ .../tr7zw/itemswapper/ItemSwapperSharedMod.java    |  8 ++++----
+ .../dev/tr7zw/itemswapper/gui/CopyToClipboard.java |  6 +++---
+ .../itemswapper/manager/SwapperResourceLoader.java | 14 +++++++-------
+ .../mixin/AbstractContainerScreenMixin.java        |  2 +-
+ .../tr7zw/itemswapper/overlay/EditListScreen.java  |  8 ++++----
+ .../resources/resourcepacks/classic/pack.mcmeta    |  2 +-
+ .../resources/resourcepacks/default/pack.mcmeta    |  2 +-
+ .../java/dev/tr7zw/itemswapper/ItemSwapperMod.java |  5 ++---
+ XTFabric/src/main/resources/fabric.mod.json        |  4 ++--
+ gradle-compose.yml                                 |  2 +-
+ 10 files changed, 26 insertions(+), 27 deletions(-)
+
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
+index 795e01f..02c1d76 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
+@@ -276,18 +276,18 @@ public abstract class ItemSwapperSharedMod {
+                                 b -> configManager.getConfig().fallbackInventory = b));
+ 
+                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
+-                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.whitelist"), new OnPress() {
++                this.addRenderableWidget(new Button(this.width / 2 - 210, this.height - 27, 50, 20,Component.translatable("text.itemswapper.whitelist"), new OnPress() {
+                     @Override
+                     public void onPress(Button button) {
+                         Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, true));
+                     }
+-                }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
+-                this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.blacklist"), new OnPress() {
++                }));
++                this.addRenderableWidget(new Button(this.width / 2 - 160, this.height - 27, 50, 20, Component.translatable("text.itemswapper.blacklist"), new OnPress() {
+                     @Override
+                     public void onPress(Button button) {
+                         Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
+                     }
+-                }).pos(this.width / 2 - 160, this.height - 27).size(50, 20).build());
++                }));
+             }
+ 
+             @Override
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
+index 10f879b..6f25288 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
+@@ -17,7 +17,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.components.ImageButton;
+ import net.minecraft.client.renderer.GameRenderer;
+-import net.minecraft.core.registries.BuiltInRegistries;
++import net.minecraft.core.Registry;
+ import net.minecraft.network.chat.CommonComponents;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.resources.ResourceLocation;
+@@ -69,7 +69,7 @@ public class CopyToClipboard extends ImageButton {
+         RenderSystem.enableDepthTest();
+         RenderSystem.enableBlend();
+         // FIXME: Cursed and broken, but doesn't scale everything anymore
+-        blit(poseStack, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
++        blit(poseStack, this.x, this.y, 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
+                 TEXTURE_WIDTH,
+                 TEXTURE_HEIGHT);
+         this.renderToolTip(poseStack, i, j);
+@@ -83,7 +83,7 @@ public class CopyToClipboard extends ImageButton {
+     }
+ 
+     private String arrayToJson(Item[] itemArray) {
+-        List<String> names = Arrays.stream(itemArray).map(is -> BuiltInRegistries.ITEM.getKey(is).toString()).toList();
++        List<String> names = Arrays.stream(itemArray).map(is -> Registry.ITEM.getKey(is).toString()).toList();
+         Gson gson = new GsonBuilder().setPrettyPrinting().create();
+ 
+         return gson.toJson(names);
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java b/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java
+index 211b452..c5c65ed 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/manager/SwapperResourceLoader.java
+@@ -24,7 +24,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup.Builder;
+ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+ import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
+ import dev.tr7zw.itemswapper.util.ItemUtil;
+-import net.minecraft.core.registries.BuiltInRegistries;
++import net.minecraft.core.Registry;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.server.packs.resources.ResourceManager;
+@@ -203,7 +203,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
+             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
+         }
+         if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
+-            group.withIcon(BuiltInRegistries.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
++            group.withIcon(Registry.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
+         }
+         itemLists.add(group);
+     }
+@@ -246,7 +246,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
+         }
+         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
+         if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
+-            group.withIcon(BuiltInRegistries.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
++            group.withIcon(Registry.ITEM.get(new ResourceLocation(json.get("icon").getAsString())));
+         }
+         itemGroups.add(group);
+     }
+@@ -298,7 +298,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
+                         : null;
+                 Item icon = null;
+                 if (entry.has("icon") && entry.get("icon").isJsonPrimitive()) {
+-                    icon = BuiltInRegistries.ITEM.get(new ResourceLocation(entry.get("icon").getAsString()));
++                    icon = Registry.ITEM.get(new ResourceLocation(entry.get("icon").getAsString()));
+                 }
+                 try {
+                     shortcuts.add(
+@@ -320,7 +320,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
+         object.getAsJsonArray().forEach(el -> {
+             if (el.isJsonPrimitive()) {
+                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
+-                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
++                Item item = Registry.ITEM.get(resourceLocation);
+                 ItemEntry entry = new ItemEntry(item, null);
+                 if (!itemList.contains(entry)) {
+                     itemList.add(entry);
+@@ -329,7 +329,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
+             if (el.isJsonObject()) {
+                 JsonObject obj = el.getAsJsonObject();
+                 ResourceLocation resourceLocation = new ResourceLocation(obj.get("id").getAsString());
+-                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
++                Item item = Registry.ITEM.get(resourceLocation);
+                 ResourceLocation link = null;
+                 if(obj.has("link") && obj.get("link").isJsonPrimitive()) {
+                     try {
+@@ -392,7 +392,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
+         json.getAsJsonArray().forEach(el -> {
+             if (el.isJsonPrimitive()) {
+                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
+-                Item item = BuiltInRegistries.ITEM.get(resourceLocation);
++                Item item = Registry.ITEM.get(resourceLocation);
+                 if (item.equals(Items.AIR)) {
+                     ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
+                     if (pallet) {
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
+index e55dc92..ffac0d2 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
+@@ -56,7 +56,7 @@ public class AbstractContainerScreenMixin extends Screen {
+     @Inject(method = "render", at = @At("TAIL"))
+     private void render(PoseStack poseStack, int i, int j, float f, CallbackInfo info) {
+         if (copyToClipboardBtn != null) {
+-            copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
++            copyToClipboardBtn.x = this.leftPos + this.imageWidth - 20;
+         }
+     }
+ }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
+index 2bd1803..208bc76 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
+@@ -29,7 +29,7 @@ public class EditListScreen extends OptionsSubScreen {
+ 
+     protected void init() {
+         this.addWidget((this.selectionList = new EntrySelectionList(this.minecraft)));
+-        this.addRenderableWidget(Button.builder(Component.translatable("text.itemswapper.remove"), button -> {
++        this.addRenderableWidget(new Button(this.width / 2 - 155, this.height - 38, 150, 20, Component.translatable("text.itemswapper.remove"), button -> {
+             EntrySelectionList.ListEntry entry = this.selectionList.getSelected();
+             if(entry == null) {
+                 return;
+@@ -41,10 +41,10 @@ public class EditListScreen extends OptionsSubScreen {
+             }
+             CacheManager.getInstance().writeConfig();
+             this.selectionList.remove(entry);
+-        }).bounds(this.width / 2 - 155, this.height - 38, 150, 20).build());
+-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_BACK, button -> {
++        }));
++        this.addRenderableWidget(new Button(this.width / 2 - 155 + 160, this.height - 38, 150, 20, CommonComponents.GUI_BACK, button -> {
+             this.minecraft.setScreen(this.lastScreen);
+-        }).bounds(this.width / 2 - 155 + 160, this.height - 38, 150, 20).build());
++        }));
+         super.init();
+     }
+ 
+diff --git a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
+index e2aeda5..6acef8d 100644
+--- a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
++++ b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
+@@ -1,6 +1,6 @@
+ {
+   "pack": {
+-    "pack_format": 12,
++    "pack_format": 9,
+     "description": "ItemSwapper classic palettes"
+   }
+ }
+\ No newline at end of file
+diff --git a/Shared/src/main/resources/resourcepacks/default/pack.mcmeta b/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
+index 792e962..ddc434c 100644
+--- a/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
++++ b/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
+@@ -1,6 +1,6 @@
+ {
+   "pack": {
+-    "pack_format": 12,
++    "pack_format": 9,
+     "description": "ItemSwapper default palettes V2"
+   }
+ }
+\ No newline at end of file
+diff --git a/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java b/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java
+index 460cf08..46bb9e9 100644
+--- a/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java
++++ b/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java
+@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+ import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+ import net.fabricmc.loader.api.FabricLoader;
+-import net.minecraft.network.chat.Component;
+ import net.minecraft.resources.ResourceLocation;
+ 
+ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
+@@ -24,11 +23,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
+         // Register default resource pack
+         FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
+                 container -> ResourceManagerHelper.registerBuiltinResourcePack(
+-                        new ResourceLocation("itemswapper", "default"), container, Component.translatable("text.itemswapper.resourcepack.default"),
++                        new ResourceLocation("itemswapper", "default"), container,
+                         ResourcePackActivationType.DEFAULT_ENABLED));
+         FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
+                 container -> ResourceManagerHelper.registerBuiltinResourcePack(
+-                        new ResourceLocation("itemswapper", "classic"), container, Component.translatable("text.itemswapper.resourcepack.classic"),
++                        new ResourceLocation("itemswapper", "classic"), container,
+                         ResourcePackActivationType.NORMAL));
+         
+         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
+diff --git a/XTFabric/src/main/resources/fabric.mod.json b/XTFabric/src/main/resources/fabric.mod.json
+index cdcea0c..a6d78d4 100644
+--- a/XTFabric/src/main/resources/fabric.mod.json
++++ b/XTFabric/src/main/resources/fabric.mod.json
+@@ -69,8 +69,8 @@
+     ],
+   
+     "depends": {
+-      "fabric-api": "*",
+-      "minecraft": "1.19.3"
++      "fabric": "*",
++      "minecraft": "1.19.2"
+     },
+     "custom": {
+       "modmenu": {
+diff --git a/gradle-compose.yml b/gradle-compose.yml
+index baff1b5..3b658ed 100644
+--- a/gradle-compose.yml
++++ b/gradle-compose.yml
+@@ -1,5 +1,5 @@
+ version: '0.0.2'
+-source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.3"
++source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.2"
+ replacements:
+   name: "ItemSwapper"
+   id: "itemswapper"
+-- 
+2.32.0.windows.2
+
