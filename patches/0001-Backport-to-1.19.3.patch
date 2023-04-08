@@ -1,4 +1,4 @@
-From bdb80ff2a508bd3824c278a4ec30b7d391f05c6f Mon Sep 17 00:00:00 2001
+From 88eec25c2c2cfa65393df96b506d704fa7932e43 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sun, 2 Apr 2023 20:54:46 +0200
 Subject: [PATCH] Backport to 1.19.3
@@ -17,7 +17,7 @@ Subject: [PATCH] Backport to 1.19.3
  10 files changed, 33 insertions(+), 36 deletions(-)
 
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-index 6bd5b2d..10f879b 100644
+index 32199aa..bbbe6c5 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
 @@ -63,7 +63,7 @@ public class CopyToClipboard extends ImageButton {
@@ -30,7 +30,7 @@ index 6bd5b2d..10f879b 100644
          RenderSystem.setShaderTexture(0, texture);
          RenderSystem.enableDepthTest();
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
-index d625802..2540261 100644
+index 577fb7b..04edb5b 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
 @@ -100,11 +100,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
@@ -109,7 +109,7 @@ index df43055..3875238 100644
          renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
      }
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
-index e1e3e5a..95fc5bb 100644
+index 586e0b2..64899c2 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
 @@ -59,7 +59,7 @@ public class ShortcutListWidget extends ItemGridWidget {
