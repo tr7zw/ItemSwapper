@@ -17,6 +17,7 @@ public class ClientLevelMixin {
         ItemSwapperSharedMod.instance.setEnableRefill(false);
         ItemSwapperSharedMod.instance.setModDisabled(false);
         ItemSwapperSharedMod.instance.setBypassExcepted(false);
+        ItemSwapperSharedMod.instance.setDisabledByPlayer(false);
     }
 
 }
