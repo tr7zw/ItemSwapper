@@ -1,4 +1,4 @@
-From ef68edbfa627ea05aba73dca016d55bc2b021d72 Mon Sep 17 00:00:00 2001
+From e14cd464f4124a2db6669487af63f9af411120b8 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sat, 8 Apr 2023 20:51:01 +0200
 Subject: [PATCH] Backport to 1.19.2
