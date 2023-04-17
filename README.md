@@ -14,7 +14,7 @@ Adds an item switch interface triggered by pressing a hotkey(Default: `R`). Depe
 - Switch between items from shulker boxes in the inventory(requires the mod/plugin on the server)
 - Item wheel for block pallets
 - Item list for dynamic items like tools, food, potions, etc.
-- Fully customizable via resource packs
+- Fully customizable via resource packs([Documentation](docs/1.%20Resource%20Pack%20Overview.md))
 
 ## Dependencies
 
