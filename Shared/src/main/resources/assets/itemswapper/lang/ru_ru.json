@@ -28,7 +28,7 @@
   "text.itemswapper.unlockListMouse": "Движение камеры в списках",
   "text.itemswapper.unlockListMouse.tooltip": "Разрешает движение камерой при открытом списке. Для взаимодействия со списком будет использоваться колесо мыши.",
   "text.itemswapper.button.copyToClipboard.tooltip": "Превью скопировано как JSON",
-  "text.itemswapper.button.copyToClipboard.success": "Ваше превью было успешно скопировано. Проверьте буфер обмена системы, или проверьте текущий лог-файл.",
+  "text.itemswapper.button.copyToClipboard.success": "Ваше превью было успешно скопировано. Проверьте буфер обмена системы или текущий лог-файл.",
   "text.itemswapper.disabledByPlayer": "Вы отключили мод на этом сервере!",
   "text.itemswapper.disableShulkers": "Отключить шалкеровые ящики",
   "text.itemswapper.disableShulkers.tooltip": "Шалкеровые ящики в инвентаре будут недоступны для открытия из инвентаря. Предметы из них будет не достать.",
