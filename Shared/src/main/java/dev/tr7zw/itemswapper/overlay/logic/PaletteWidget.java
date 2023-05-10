@@ -3,8 +3,6 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.Collections;
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
@@ -15,6 +13,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -34,24 +33,24 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
         if(entry != null && entry.isActAsLink()) {
             itemRenderList.add(
-                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
+                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
                             SlotEffect.NONE, 1));
             return;
         }
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty() && !overwrideAvailable) {
             itemRenderList.add(
-                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
+                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
                             SlotEffect.NONE, slots.get(0).amount().get()));
 
         } else if (guiSlot.id() <= itemGroup.getItems().length - 1) {
             itemRenderList.add(
-                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
                             itemGroup.getItems()[guiSlot.id()].getItem().getDefaultInstance(), 1,
                             !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
         }

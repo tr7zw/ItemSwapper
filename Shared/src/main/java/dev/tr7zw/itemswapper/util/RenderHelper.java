@@ -12,10 +12,9 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
@@ -32,7 +31,7 @@ public final class RenderHelper {
         // private
     }
 
-    public static void renderUnavailableItem(PoseStack poseStack, LivingEntity livingEntity, ItemStack itemStack, int i,
+    public static void renderUnavailableItem(GuiGraphics graphics, LivingEntity livingEntity, ItemStack itemStack, int i,
             int j, int k, SlotEffect effect) {
         if (itemStack.isEmpty())
             return;
@@ -48,11 +47,10 @@ public final class RenderHelper {
             color = -1879048192;
         }
         // these values need to be fixed when the texture size gets fixed.
-        GuiComponent.fill(poseStack, l - 1, m - 1, l + 17, m + 17, color);
-        ItemRenderer itemRenderer = minecraft.getItemRenderer();
-        itemRenderer.renderAndDecorateFakeItem(poseStack, itemStack, l, m);
+        graphics.fill( l - 1, m - 1, l + 17, m + 17, color);
+        graphics.renderFakeItem(itemStack, l, m);
         if (k == 0)
-            itemRenderer.renderGuiItemDecorations(poseStack, minecraft.font, itemStack, l, m);
+            graphics.renderItemDecorations(minecraft.font, itemStack, l, m);
         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
 
@@ -95,25 +93,25 @@ public final class RenderHelper {
         NONE, RED, GRAY
     }
 
-    public static void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
+    public static void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
             int count) {
         if (!arg2.isEmpty()) {
-            poseStack.pushPose();
-            poseStack.translate(0, 0, 200);
+            graphics.pose().pushPose();
+            graphics.pose().translate(0, 0, 200);
             ItemStack copy = arg2.copy();
             copy.setCount(1);
             if (effect != SlotEffect.NONE) {
-                RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k, effect);
-                poseStack.popPose();
+                RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
+                graphics.pose().popPose();
                 return;
             }
-            minecraft.getItemRenderer().renderAndDecorateItem(poseStack, arg, copy, x, y, k);
+            graphics.renderItem(arg, copy, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            minecraft.getItemRenderer().renderGuiItemDecorations(poseStack, minecraft.font, copy, x, y);
+            graphics.renderItemDecorations(minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color);
-            poseStack.popPose();
+            graphics.pose().popPose();
         }
     }
 

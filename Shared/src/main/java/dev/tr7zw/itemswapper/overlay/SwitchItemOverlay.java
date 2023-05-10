@@ -36,6 +36,7 @@ import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -61,7 +62,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private SwitchItemOverlay() {
         super(ComponentProvider.empty());
-        super.passEvents = true;
+//        super.passEvents = true; //FIXME
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
         }
@@ -178,28 +179,27 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    public void render(PoseStack poseStack, int no1, int no2, float f) {
+    public void render(GuiGraphics graphics, int no1, int no2, float f) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
         for (GuiWidget widget : selectionHandler.getWidgets()) {
-            widget.render(this, poseStack, originX, originY, forceAvailable);
+            widget.render(this, graphics, originX, originY, forceAvailable);
         }
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
                     selectionHandler.getWidgets().get(0).titleYOffset(), selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40, forceAvailable);
             if(configManager.getConfig().showTooltips) {
-                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, poseStack, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
+                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, graphics, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
             }
         }
 
         if (configManager.getConfig().showCursor && !hideCursor) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
-            poseStack.pushPose();
-            poseStack.translate(0, 0, 1000);
-            blit(poseStack, originX + (int) selectionHandler.getCursorX() - 8,
+            graphics.pose().pushPose();
+            graphics.pose().translate(0, 0, 1000);
+            graphics.blit(WIDGETS_LOCATION, originX + (int) selectionHandler.getCursorX() - 8,
                     originY + (int) selectionHandler.getCursorY() - 8, 240, 0, 15, 15);
-            poseStack.popPose();
+            graphics.pose().popPose();
         }
     }
 

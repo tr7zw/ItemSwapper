@@ -2,10 +2,9 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 
 public interface GuiWidget {
 
@@ -13,11 +12,11 @@ public interface GuiWidget {
 
     public WidgetArea getWidgetArea();
 
-    public void render(GuiComponent parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable);
+    public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable);
 
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable);
     
-    public default void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x, double y) {
+    public default void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected, double x, double y) {
         
     }
 

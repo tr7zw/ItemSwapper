@@ -2,14 +2,13 @@ package dev.tr7zw.itemswapper.overlay;
 
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import dev.tr7zw.itemswapper.config.CacheManager;
 import dev.tr7zw.util.ComponentProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
@@ -49,10 +48,10 @@ public class EditListScreen extends OptionsSubScreen {
         super.init();
     }
 
-    public void render(final PoseStack poseStack, final int i, final int j, final float f) {
-        this.selectionList.render(poseStack, i, j, f);
-        drawCenteredString(poseStack, this.font, this.title, this.width / 2, 16, 16777215);
-        super.render(poseStack, i, j, f);
+    public void render(final GuiGraphics graphics, final int i, final int j, final float f) {
+        this.selectionList.render(graphics, i, j, f);
+        graphics.drawCenteredString(this.font, this.title, this.width / 2, 16, 16777215);
+        super.render(graphics, i, j, f);
     }
 
     @Environment(EnvType.CLIENT)
@@ -80,8 +79,8 @@ public class EditListScreen extends OptionsSubScreen {
             return super.getRowWidth() + 50;
         }
 
-        protected void renderBackground(final PoseStack poseStack) {
-            EditListScreen.this.renderBackground(poseStack);
+        protected void renderBackground(final GuiGraphics graphics) {
+            EditListScreen.this.renderBackground(graphics);
         }
 
         @Environment(EnvType.CLIENT)
@@ -94,12 +93,12 @@ public class EditListScreen extends OptionsSubScreen {
                 this.text = ComponentProvider.literal(string);
             }
 
-            public void render(final PoseStack poseStack, final int i, final int j, final int k, final int l,
+            public void render(final GuiGraphics graphics, final int i, final int j, final int k, final int l,
                     final int m, final int n, final int o, final boolean bl, final float f) {
-                EditListScreen.this.font.drawShadow(poseStack, this.text,
-                        (float) (EntrySelectionList.this.width / 2
+                graphics.drawString(EditListScreen.this.font, this.text,
+                        (int) (EntrySelectionList.this.width / 2
                                 - EditListScreen.this.font.width((FormattedText) this.text) / 2),
-                        (float) (j + 1), 16777215);
+                        (int) (j + 1), 16777215);
             }
 
             public boolean mouseClicked(final double d, final double e, final int i) {

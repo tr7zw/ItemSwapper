@@ -14,6 +14,7 @@ import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.gui.CopyToClipboard;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -54,7 +55,7 @@ public class AbstractContainerScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void render(PoseStack poseStack, int i, int j, float f, CallbackInfo info) {
+    private void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo info) {
         if (copyToClipboardBtn != null) {
             copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
         }

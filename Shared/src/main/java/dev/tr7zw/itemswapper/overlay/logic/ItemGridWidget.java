@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
@@ -12,8 +11,8 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 
 public abstract class ItemGridWidget implements GuiWidget {
@@ -31,15 +30,15 @@ public abstract class ItemGridWidget implements GuiWidget {
         this.widgetArea.setY(y);
     }
 
-    public void render(GuiComponent parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable) {
+    public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable) {
         originX += getWidgetArea().getX();
         originY += getWidgetArea().getY();
-        WidgetUtil.renderBackground(getWidgetArea(), poseStack, originX, originY);
+        WidgetUtil.renderBackground(getWidgetArea(), graphics, originX, originY);
         RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         for (int i = 0; i < getSlots().size(); i++) {
-            renderSelection(parent, poseStack, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
+            renderSelection(parent, graphics, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
                     itemRenderList,
                     lateRenderList, overwrideAvailable);
         }
@@ -49,25 +48,22 @@ public abstract class ItemGridWidget implements GuiWidget {
         lateRenderList.forEach(Runnable::run);
     }
 
-    private void renderSelection(GuiComponent parent, PoseStack poseStack, int listId, int x, int y,
+    private void renderSelection(Screen parent, GuiGraphics graphics, int listId, int x, int y,
             List<Runnable> itemRenderList,
             List<Runnable> lateRenderList,
             boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
-            RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
-            parent.blit(poseStack, x, y, 24, 22, 29, 24);
+            graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
         }
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
-                GuiComponent.blit(poseStack, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
+                graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
         }
-        renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
+        renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);
     }
 
-    protected abstract void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList,
+    protected abstract void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList,
             GuiSlot guiSlot, boolean overwrideAvailable);
 
     @Override

@@ -7,12 +7,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -29,7 +28,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     }
 
     @Inject(method = "render", at = @At("HEAD"))
-    public void render(PoseStack poseStack, int i, int j, float f, CallbackInfo ci) {
+    public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
         if (!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }
@@ -43,6 +42,6 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         overlay.hideShortcuts = true;
         overlay.hideCursor = true;
         overlay.openItemGroup(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build()); // init after setting values
-        overlay.render(poseStack, 0, 0, f);
+        overlay.render(graphics, 0, 0, f);
     }
 }

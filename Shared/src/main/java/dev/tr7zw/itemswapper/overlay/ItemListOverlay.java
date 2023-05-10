@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
@@ -22,6 +21,7 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.MutableComponent;
@@ -62,13 +62,13 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     public ItemListOverlay(ItemList itemSelection) {
         super(ComponentProvider.empty());
-        super.passEvents = true;
+//        super.passEvents = true; // FIXME
         this.itemSelection = itemSelection;
         refreshList();
     }
 
     @Override
-    public void render(PoseStack poseStack, int paramInt1, int paramInt2, float paramFloat) {
+    public void render(GuiGraphics graphics, int paramInt1, int paramInt2, float paramFloat) {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -97,7 +97,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             } else {
                 RenderSystem.setShaderTexture(0, MIDDLE_LOCATION);
             }
-            renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
+            renderEntry(graphics, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
         //FIXME
@@ -178,41 +178,39 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         return false;
     }
 
-    private void renderEntry(PoseStack poseStack, int id, int x, int y, List<Runnable> itemRenderList,
+    private void renderEntry(GuiGraphics graphics, int id, int x, int y, List<Runnable> itemRenderList,
             List<Runnable> lateRenderList) {
-        blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
+//        graphics.blit(poseStack, x, y, 0, 0, 24, 24, 24, 24); // FIXME
         // dummy item code
         AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
             itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
-                poseStack.pushPose();
-                poseStack.translate(0, 0, 300);
-                RenderSystem.setShader(GameRenderer::getPositionTexShader);
-                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
-                blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
-                poseStack.popPose();
+                graphics.pose().pushPose();
+                graphics.pose().translate(0, 0, 300);
+                graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
+                graphics.pose().popPose();
             });
         }
         itemRenderList.add(() -> {
-            poseStack.pushPose();
-            poseStack.translate(0, 0, 400);
-            renderSlot(poseStack, x + 4, y + 4, minecraft.player, slot.item(), 1);
-            poseStack.popPose();
+            graphics.pose().pushPose();
+            graphics.pose().translate(0, 0, 400);
+            renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
+            graphics.pose().popPose();
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
             }
-            drawString(poseStack, minecraft.font, name,
+            graphics.drawString(minecraft.font, name,
                     x + 27, y + 9, -1);
         });
     }
 
-    private void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k) {
+    private void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
-            this.itemRenderer.renderAndDecorateItem(poseStack, arg, arg2, x, y, k);
+            graphics.renderItem(arg, arg2, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
-            this.itemRenderer.renderGuiItemDecorations(poseStack, this.minecraft.font, arg2, x, y);
+            graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
         }
     }
 

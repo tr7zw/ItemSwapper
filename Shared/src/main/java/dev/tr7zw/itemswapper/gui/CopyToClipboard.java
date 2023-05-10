@@ -10,14 +10,13 @@ import org.jetbrains.annotations.NotNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ImageButton;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -63,21 +62,19 @@ public class CopyToClipboard extends ImageButton {
     }
 
     @Override
-    public void renderWidget(@NotNull PoseStack poseStack, int i, int j, float f) {
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, texture);
+    public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
         RenderSystem.enableDepthTest();
         RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore
-        blit(poseStack, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
+        graphics.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
                 TEXTURE_WIDTH,
                 TEXTURE_HEIGHT);
-        this.renderToolTip(poseStack, i, j);
+        this.renderToolTip(graphics, i, j);
     }
 
-    public void renderToolTip(@NotNull PoseStack poseStack, int i, int j) {
+    public void renderToolTip(@NotNull GuiGraphics graphics, int i, int j) {
         if (this.isHovered && instance.screen != null) {
-            instance.screen.renderTooltip(poseStack,
+            graphics.renderTooltip(Minecraft.getInstance().font, 
                     ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
         }
     }
