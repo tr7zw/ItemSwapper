@@ -26,6 +26,8 @@ public class MouseHandlerMixin {
     private double accumulatedDX;
     @Shadow
     private double accumulatedDY;
+    @Shadow
+    private int fakeRightMouse;
 
     private final ConfigManager configManager = ConfigManager.getInstance();
 

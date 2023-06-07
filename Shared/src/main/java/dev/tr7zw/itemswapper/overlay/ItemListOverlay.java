@@ -23,7 +23,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -51,8 +50,6 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private static final double entrySize = 33;
     private static final int yOffset = 75;
     private static final int slotSize = 18;
-    private final Minecraft minecraft = Minecraft.getInstance();
-    private final ItemRenderer itemRenderer = minecraft.getItemRenderer();
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private ItemList itemSelection;
@@ -62,7 +59,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     public ItemListOverlay(ItemList itemSelection) {
         super(ComponentProvider.empty());
-//        super.passEvents = true; // FIXME
+        this.minecraft = Minecraft.getInstance();
         this.itemSelection = itemSelection;
         refreshList();
     }
@@ -84,20 +81,19 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             boolean endBottom = i == 0;
             boolean midBottom = i == start;
             boolean midTop = i == start + limit - 1;
+            ResourceLocation background = MIDDLE_LOCATION;
             if (endTop && endBottom) {
-                RenderSystem.setShaderTexture(0, SINGLE_LOCATION);
+                background = SINGLE_LOCATION;
             } else if (endBottom) {
-                RenderSystem.setShaderTexture(0, BOTTOM_LOCATION);
+                background = BOTTOM_LOCATION;
             } else if (endTop) {
-                RenderSystem.setShaderTexture(0, TOP_LOCATION);
+                background = TOP_LOCATION;
             } else if (midTop) {
-                RenderSystem.setShaderTexture(0, MIDDLE_TOP_LOCATION);
+                background = MIDDLE_TOP_LOCATION;
             } else if (midBottom) {
-                RenderSystem.setShaderTexture(0, MIDDLE_BOTTOM_LOCATION);
-            } else {
-                RenderSystem.setShaderTexture(0, MIDDLE_LOCATION);
+                background = MIDDLE_BOTTOM_LOCATION;
             }
-            renderEntry(graphics, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
+            renderEntry(graphics, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
         //FIXME
@@ -178,9 +174,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         return false;
     }
 
-    private void renderEntry(GuiGraphics graphics, int id, int x, int y, List<Runnable> itemRenderList,
+    private void renderEntry(GuiGraphics graphics, ResourceLocation background, int id, int x, int y, List<Runnable> itemRenderList,
             List<Runnable> lateRenderList) {
-//        graphics.blit(poseStack, x, y, 0, 0, 24, 24, 24, 24); // FIXME
+        graphics.blit(background, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
         AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
