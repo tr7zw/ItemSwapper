@@ -96,11 +96,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             renderEntry(graphics, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
-        //FIXME
-//        float blit = this.itemRenderer.blitOffset;
-//        this.itemRenderer.blitOffset += 300;
         lateRenderList.forEach(Runnable::run);
-//        this.itemRenderer.blitOffset = blit;
     }
 
     @Override

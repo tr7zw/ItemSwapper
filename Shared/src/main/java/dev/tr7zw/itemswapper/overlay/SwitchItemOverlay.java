@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
@@ -62,7 +61,6 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private SwitchItemOverlay() {
         super(ComponentProvider.empty());
-//        super.passEvents = true; //FIXME
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
             forceAvailable = true;
         }
