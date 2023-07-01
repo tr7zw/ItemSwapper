@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.tr7zw.itemswapper.util.ViveCraftSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -54,6 +55,7 @@ public abstract class ItemSwapperSharedMod {
     private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
 
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
+    protected KeyMapping openInventoryKeybind = new KeyMapping("key.itemswapper.openInventory", InputConstants.UNKNOWN.getValue(), "ItemSwapper");
 
     private boolean enableShulkers = false;
     private boolean enableRefill = false;
@@ -104,11 +106,20 @@ public abstract class ItemSwapperSharedMod {
             } else {
                 onPress(null);
             }
+        } else if (openInventoryKeybind.isDown()) {
+            if (isModDisabled()) {
+                minecraft.gui.setOverlayMessage(
+                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+            } else if (screen == null) {
+                ItemSwapperSharedMod.openInventoryScreen();
+            }
         } else {
             pressed = false;
 
-            if (!configManager.getConfig().toggleMode && screen instanceof ItemSwapperUI ui) {
-                onPrimaryClick(ui, true);
+            if (screen instanceof ItemSwapperUI ui) {
+                if (!configManager.getConfig().toggleMode && !ViveCraftSupport.getInstance().isActive()) {
+                    onPrimaryClick(ui, true);
+                }
             }
         }
     }
@@ -129,14 +140,14 @@ public abstract class ItemSwapperSharedMod {
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
 
-        if(!pressed) {
+        if (!pressed) {
             if (isDisabledByPlayer()) {
                 minecraft.gui.setOverlayMessage(
                         ComponentProvider.translatable("text.itemswapper.disabledByPlayer").withStyle(ChatFormatting.RED), false);
             } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
-                if(!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
+                if (!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
                     minecraft.gui.setOverlayMessage(
                             ComponentProvider.translatable("text.itemswapper.usedwhitelist").withStyle(ChatFormatting.GOLD), false);
@@ -224,7 +235,7 @@ public abstract class ItemSwapperSharedMod {
 
     public static void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {
         boolean keepOpen = xtOverlay.onPrimaryClick();
-        if(forceClose || !keepOpen) {
+        if (forceClose || !keepOpen) {
             if (xtOverlay instanceof Overlay) {
                 minecraft.setOverlay(null);
             } else if (xtOverlay instanceof Screen) {
@@ -237,7 +248,7 @@ public abstract class ItemSwapperSharedMod {
         return new CustomConfigScreen(parent, "text.itemswapper.title") {
 
             private CustomConfigScreen inst = this;
-            
+
             @Override
             public void initialize() {
                 List<OptionInstance<?>> options = new ArrayList<>();
@@ -274,6 +285,13 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.fallbackInventory",
                                 () -> configManager.getConfig().fallbackInventory,
                                 b -> configManager.getConfig().fallbackInventory = b));
+
+                if (ViveCraftSupport.getInstance().isAvailable()) {
+                    options.add(
+                            getOnOffOption("text.itemswapper.vivecraftCompat",
+                                    () -> configManager.getConfig().vivecraftCompat,
+                                    b -> configManager.getConfig().vivecraftCompat = b));
+                }
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
                 this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
@@ -364,7 +382,7 @@ public abstract class ItemSwapperSharedMod {
     public void setDisabledByPlayer(boolean disabledByPlayer) {
         this.disabledByPlayer = disabledByPlayer;
     }
-    
+
     public KeyMapping getKeybind() {
         return keybind;
     }
@@ -384,5 +402,5 @@ public abstract class ItemSwapperSharedMod {
     public void setLastPage(Page lastPage) {
         this.lastPage = lastPage;
     }
-    
+
 }

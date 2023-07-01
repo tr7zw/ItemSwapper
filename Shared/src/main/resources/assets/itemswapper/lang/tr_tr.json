@@ -1,5 +1,6 @@
 {
   "key.itemswapper.itemswitcher": "Eşya Değiş",
+  "key.itemswapper.openInventory": "Envanteri Aç",
   "text.itemswapper.title": "Item Swapper",
   "text.itemswapper.toggleMode": "Aç-Kapa Modu",
   "text.itemswapper.showCursor": "İmleci Göster",
@@ -12,5 +13,6 @@
   "text.itemswapper.resourcepack.notSelected": "Uyarı! Item Swapper uyumlu hiç bir resourcepack aktif değil!",
   "text.itemswapper.unlockListMouse": "Listeler için Fare'yi aktifleştir",
   "text.itemswapper.button.copyToClipboard.tooltip": "Önizlemeyi JSON olarak Panoya Kopyala",
-  "text.itemswapper.button.copyToClipboard.success": "Önizleme Panonuza başarıyla kopyalandı. - İşletim sisteminizin panosunu kontrol edin, alternatif olarak aktif log dosyanıza göz atın."
+  "text.itemswapper.button.copyToClipboard.success": "Önizleme Panonuza başarıyla kopyalandı. - İşletim sisteminizin panosunu kontrol edin, alternatif olarak aktif log dosyanıza göz atın.",
+  "text.itemswapper.vivecraftCompat": "İmleç hareketi için doğrudan giriş kullanın.\nFare hızı yok sayılacak, geçiş modu zorunlu olarak açık."
 }

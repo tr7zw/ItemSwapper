@@ -34,6 +34,7 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
+import dev.tr7zw.itemswapper.util.ViveCraftSupport;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -69,14 +70,14 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private void initShortcuts() {
         shortcutList = new ArrayList<>();
-        if(hideShortcuts) {
+        if (hideShortcuts) {
             return;
         }
         if (!hideClearSlotShortcut) {
             shortcutList.add(new ClearCurrentSlotShortcut());
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage()));
-        if(ItemSwapperSharedMod.instance.isEnableRefill()) {
+        if (ItemSwapperSharedMod.instance.isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
         shortcutList.add(new OpenInventoryShortcut(this));
@@ -125,7 +126,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     public boolean openPage(Page page) {
-        if(page instanceof NoPage || (!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1)))) {
+        if (page instanceof NoPage || (!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1)))) {
             return false; // this exact page is already open
         }
         if (page instanceof ItemGroupPage group) {
@@ -139,7 +140,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         return true;
     }
-    
+
     public boolean selectIcon(String selector, int xOffset, int yOffset) {
         return selectionHandler.select(selector, xOffset, yOffset);
     }
@@ -178,21 +179,25 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    public void render(PoseStack poseStack, int no1, int no2, float f) {
+    public void render(PoseStack poseStack, int mouseX, int mouseY, float f) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
+
+        // Pass raw mouse position to the selection handler for ViveCraft compatibility
+        selectionHandler.updateMousePosition(mouseX - originX, mouseY - originY);
+
         for (GuiWidget widget : selectionHandler.getWidgets()) {
             widget.render(this, poseStack, originX, originY, forceAvailable);
         }
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
                     selectionHandler.getWidgets().get(0).titleYOffset(), selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40, forceAvailable);
-            if(configManager.getConfig().showTooltips) {
+            if (configManager.getConfig().showTooltips) {
                 selectionHandler.getSelectedWidget().renderSelectedTooltip(this, poseStack, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
             }
         }
 
-        if (configManager.getConfig().showCursor && !hideCursor) {
+        if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
             poseStack.pushPose();
