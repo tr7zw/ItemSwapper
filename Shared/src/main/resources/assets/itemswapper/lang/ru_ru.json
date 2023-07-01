@@ -1,5 +1,6 @@
 {
   "key.itemswapper.itemswitcher": "Сменить предмет",
+  "key.itemswapper.openInventory": "Открыть инвентарь",
   "key.itemswapper.toggleitem": "Переключить предмет",
   "key.itemswapper.moveup": "Переместить наверх",
   "key.itemswapper.movedown": "Переместить вниз",
@@ -52,5 +53,7 @@
   "text.itemswapper.whitelist": "Белый список",
   "text.itemswapper.blacklist": "Чёрный список",
   "text.itemswapper.remove": "Убрать",
-  "text.itemswapper.usedwhitelist": "Для включения мода был использован белый список. Мод всё ещё не поддерживается сервером!"
+  "text.itemswapper.usedwhitelist": "Для включения мода был использован белый список. Мод всё ещё не поддерживается сервером!",
+  "text.itemswapper.vivecraftCompat": "Совместимость с Vivecraft",
+  "text.itemswapper.vivecraftCompat.tooltip": "Использовать прямой ввод для перемещения курсора.\nСкорость мыши будет игнорироваться, режим переключения будет принудительно включен."
 }
