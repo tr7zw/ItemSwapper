@@ -14,5 +14,6 @@
   "text.itemswapper.unlockListMouse": "Listeler için Fare'yi aktifleştir",
   "text.itemswapper.button.copyToClipboard.tooltip": "Önizlemeyi JSON olarak Panoya Kopyala",
   "text.itemswapper.button.copyToClipboard.success": "Önizleme Panonuza başarıyla kopyalandı. - İşletim sisteminizin panosunu kontrol edin, alternatif olarak aktif log dosyanıza göz atın.",
-  "text.itemswapper.vivecraftCompat": "İmleç hareketi için doğrudan giriş kullanın.\nFare hızı yok sayılacak, geçiş modu zorunlu olarak açık."
+  "text.itemswapper.vivecraftCompat": "Vivecraft Uyumluluğu",
+  "text.itemswapper.vivecraftCompat.tooltip": "İmleç hareketi için doğrudan giriş kullanın.\nFare hızı yok sayılacak, geçiş modu zorunlu olarak açık."
 }

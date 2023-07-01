@@ -23,5 +23,6 @@
 	"text.itemswapper.button.copyToClipboard.tooltip": "העתק תצוגה מקדימה כ-JSON",
 	"text.itemswapper.button.copyToClipboard.success": "הועתק תצוגה מקדימה בהצלחה. - בדוק את הלוח העתקים של מערכת ההפעלה שלך, או בדוק את היומן הנוחכי שלך לחלופין",
 	"text.itemswapper.disableShulkers": "בטל תיבות שולקר",
-	"text.itemswapper.vivecraftCompat": "השתמש בקלט ישיר לתנועת הסמן.\nמהירות העכבר תתעלם, מצב החלפה יהיה כבוי."
+	"text.itemswapper.vivecraftCompat": "תאימות Vivecraft",
+	"text.itemswapper.vivecraftCompat.tooltip": "השתמש בקלט ישיר לתנועת הסמן.\nמהירות העכבר תתעלם, מצב החלפה יהיה כבוי."
 }

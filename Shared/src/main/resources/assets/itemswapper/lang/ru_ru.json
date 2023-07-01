@@ -54,5 +54,6 @@
   "text.itemswapper.blacklist": "Чёрный список",
   "text.itemswapper.remove": "Убрать",
   "text.itemswapper.usedwhitelist": "Для включения мода был использован белый список. Мод всё ещё не поддерживается сервером!",
-  "text.itemswapper.vivecraftCompat": "Использовать прямой ввод для перемещения курсора.\nСкорость мыши будет игнорироваться, режим переключения будет принудительно включен."
+  "text.itemswapper.vivecraftCompat": "Совместимость с Vivecraft",
+  "text.itemswapper.vivecraftCompat.tooltip": "Использовать прямой ввод для перемещения курсора.\nСкорость мыши будет игнорироваться, режим переключения будет принудительно включен."
 }
