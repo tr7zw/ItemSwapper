@@ -15,5 +15,6 @@ public class Config {
     public float controllerSpeed = 8f;
     public float mouseSpeed = 1f;
     public boolean fallbackInventory = true;
+    public boolean vivecraftCompat = true;
 
 }

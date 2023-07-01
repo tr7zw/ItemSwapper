@@ -1,5 +1,6 @@
 {
   "key.itemswapper.itemswitcher": "Switch Item",
+  "key.itemswapper.openInventory": "Open Inventory",
   "key.itemswapper.toggleitem": "Toggle Item",
   "key.itemswapper.moveup": "Move Up",
   "key.itemswapper.movedown": "Move Down",
@@ -52,5 +53,7 @@
   "text.itemswapper.whitelist": "Whitelist",
   "text.itemswapper.blacklist": "Blacklist",
   "text.itemswapper.remove": "Remove",
-  "text.itemswapper.usedwhitelist": "Used the whitelist to enable the mod. It's still not supported by the server!"
+  "text.itemswapper.usedwhitelist": "Used the whitelist to enable the mod. It's still not supported by the server!",
+  "text.itemswapper.vivecraftCompat": "ViveCraft Compatibility",
+  "text.itemswapper.vivecraftCompat.tooltip": "Use direct input for cursor movement.\nMouse speed will be ignored, toggle mode is forced to on."
 }

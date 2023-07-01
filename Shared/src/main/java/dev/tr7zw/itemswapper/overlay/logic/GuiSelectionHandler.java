@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.tr7zw.itemswapper.util.ViveCraftSupport;
 import net.minecraft.util.Mth;
 
 public class GuiSelectionHandler {
@@ -10,6 +11,8 @@ public class GuiSelectionHandler {
     private List<GuiWidget> widgets = new ArrayList<>();
     private GuiWidget selectedWidget = null;
     private GuiSlot selectedSlot = null;
+    private double mouseX = 0;
+    private double mouseY = 0;
     private double cursorX = 0;
     private double cursorY = 0;
     private double limitX = 5;
@@ -19,11 +22,22 @@ public class GuiSelectionHandler {
     private double offsetY = 0;
 
     public void updateSelection(double x, double y) {
-        cursorX += x;
-        cursorY += y;
-        cursorX = Mth.clamp(cursorX, -limitX, limitX);
-        cursorY = Mth.clamp(cursorY, -limitY, limitY);
+        if (ViveCraftSupport.getInstance().isActive()) {
+            // Direct mouse input
+            cursorX = mouseX;
+            cursorY = mouseY;
+        } else {
+            cursorX += x;
+            cursorY += y;
+            cursorX = Mth.clamp(cursorX, -limitX, limitX);
+            cursorY = Mth.clamp(cursorY, -limitY, limitY);
+        }
         updateSelection();
+    }
+
+    public void updateMousePosition(double x, double y) {
+        mouseX = x;
+        mouseY = y;
     }
 
     private void updateSelection() {
@@ -64,7 +78,7 @@ public class GuiSelectionHandler {
     public boolean select(String selector, int xOffset, int yOffset) {
         for (GuiWidget widget : widgets) {
             for (GuiSlot slot : widget.getSlots()) {
-                if(selector.equals(widget.getSelector(slot))) {
+                if (selector.equals(widget.getSelector(slot))) {
                     int halfSlot = slot.size() / 2;
                     this.cursorX = slot.x() + 3 + widget.getWidgetArea().getX() + halfSlot + xOffset;
                     this.cursorY = slot.y() + 3 + widget.getWidgetArea().getY() + halfSlot + yOffset;

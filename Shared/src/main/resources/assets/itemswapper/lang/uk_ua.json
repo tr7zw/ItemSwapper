@@ -1,5 +1,6 @@
 {
   "key.itemswapper.itemswitcher": "Змінити Предмет",
+  "key.itemswapper.openInventory": "Відкрити Інвентар",
   "text.itemswapper.title": "Item Swapper",
   "text.itemswapper.toggleMode": "Режим Увімкнення",
   "text.itemswapper.showCursor": "Показувати Вказівник",
@@ -9,5 +10,6 @@
   "text.itemswapper.creativeCheatMode": "Чити в Творчому Режимі",
   "text.itemswapper.confirm.title": "Увімкнути мод на цьому сервері?",
   "text.itemswapper.confirm.description": "На сервері цей мод не встановлений і не заблокований. Бажаєте ввімкнути мод без підтримки шалкер боксів? Спершу попросіть дозволу у власника/команди серверу. Використання цього моду на сервері без дозволу може призвести до блокування!",
-  "text.itemswapper.resourcepack.notSelected": "Увага! Немає сумісного пакета ресурсів для ItemSwapper!"
+  "text.itemswapper.resourcepack.notSelected": "Увага! Немає сумісного пакета ресурсів для ItemSwapper!",
+  "text.itemswapper.vivecraftCompat": "Використовувати прямий ввід для переміщення курсору.\nШвидкість миші буде ігноруватися, режим перемикання буде примусово ввімкнено."
 }
