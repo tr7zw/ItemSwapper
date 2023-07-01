@@ -23,5 +23,6 @@
   "text.itemswapper.button.copyToClipboard.tooltip": "将预览作为JSON数据复制到剪贴板",
   "text.itemswapper.button.copyToClipboard.success": "已成功将预览复制到剪贴板。 - 查看你操作系统的剪贴板，或查看你当前的日志文件。",
   "text.itemswapper.disableShulkers": "禁用潜影盒",
-  "text.itemswapper.vivecraftCompat": "使用直接输入光标移动。\n鼠标速度将被忽略，切换模式被强制打开。"
+  "text.itemswapper.vivecraftCompat": "ViveCraft 兼容模式",
+  "text.itemswapper.vivecraftCompat.tooltip": "使用直接输入光标移动。\n鼠标速度将被忽略，切换模式被强制打开。"
 }

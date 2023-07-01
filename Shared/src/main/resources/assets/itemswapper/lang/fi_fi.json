@@ -11,5 +11,6 @@
   "text.itemswapper.confirm.title": "Aktivoi modi tässä palvelimessa?",
   "text.itemswapper.confirm.description": "Tämä palvelvin ei ole asentanut tai kieltänyt tätä modia. Haluatko aktivoida modin käytön ilman kuoripiilijälaatikko-tukea? Pyydäthän palvelimen järjestelmänvalvojata lupaa ensin. Tämän modin käyttö ilman lupaa voi saada sinulle porttikiellon!",
   "text.itemswapper.resourcepack.notSelected": "Varoitus! Ei kelvolista resurssipakettia löydetty!",
-  "text.itemswapper.vivecraftCompat": "Käytä suoraa syöttöä osoittimen liikuttamiseen.\nHiiren nopeus ohitetaan, vaihtotila pakotetaan päälle."
+  "text.itemswapper.vivecraftCompat": "Vivecraft-yhteensopivuus",
+  "text.itemswapper.vivecraftCompat.tooltip": "Käytä suoraa syöttöä osoittimen liikuttamiseen.\nHiiren nopeus ohitetaan, vaihtotila pakotetaan päälle."
 }
