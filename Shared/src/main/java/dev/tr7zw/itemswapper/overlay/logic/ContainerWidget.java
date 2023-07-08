@@ -50,6 +50,9 @@ public class ContainerWidget extends ItemGridWidget {
 
     private List<AvailableSlot> getItem(int id) {
         NonNullList<AvailableSlot> items = getItems();
+        if(items.size() <= id) {
+            return Collections.emptyList();
+        }
         if (id != -1 && !items.get(id).item().isEmpty()) {
             return Collections.singletonList(items.get(id));
         }
