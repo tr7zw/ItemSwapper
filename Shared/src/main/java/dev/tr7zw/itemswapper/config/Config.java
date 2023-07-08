@@ -16,5 +16,6 @@ public class Config {
     public float mouseSpeed = 1f;
     public boolean fallbackInventory = true;
     public boolean vivecraftCompat = true;
+    public boolean allowWalkingWithUI = true;
 
 }

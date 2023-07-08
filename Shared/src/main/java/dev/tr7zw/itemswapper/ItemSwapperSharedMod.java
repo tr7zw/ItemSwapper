@@ -45,10 +45,10 @@ public abstract class ItemSwapperSharedMod {
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
     public static final String MODID = "itemswapper";
     private static final Minecraft minecraft = Minecraft.getInstance();
+    private static final ConfigManager configManager = ConfigManager.getInstance();
 
     public static ItemSwapperSharedMod instance;
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
     private final CacheManager cacheManager = CacheManager.getInstance();
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
@@ -235,10 +235,9 @@ public abstract class ItemSwapperSharedMod {
     public static void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {
         boolean keepOpen = xtOverlay.onPrimaryClick();
         if (forceClose || !keepOpen) {
-            if (xtOverlay instanceof Overlay) {
-                minecraft.setOverlay(null);
-            } else if (xtOverlay instanceof Screen) {
-                minecraft.setScreen(null);
+            minecraft.setScreen(null);
+            if(!configManager.getConfig().allowWalkingWithUI) {
+                KeyMapping.setAll();
             }
         }
     }
@@ -291,6 +290,11 @@ public abstract class ItemSwapperSharedMod {
                                     () -> configManager.getConfig().vivecraftCompat,
                                     b -> configManager.getConfig().vivecraftCompat = b));
                 }
+                
+                options.add(
+                        getOnOffOption("text.itemswapper.allowWalkingWithUI",
+                                () -> configManager.getConfig().allowWalkingWithUI,
+                                b -> configManager.getConfig().allowWalkingWithUI = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
                 this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
@@ -384,6 +388,10 @@ public abstract class ItemSwapperSharedMod {
 
     public KeyMapping getKeybind() {
         return keybind;
+    }
+    
+    public KeyMapping getInventoryKeybind() {
+        return openInventoryKeybind;
     }
 
     public Item getLastItem() {
