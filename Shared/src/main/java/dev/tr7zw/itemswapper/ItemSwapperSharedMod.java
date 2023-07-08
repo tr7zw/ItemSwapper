@@ -45,10 +45,10 @@ public abstract class ItemSwapperSharedMod {
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
     public static final String MODID = "itemswapper";
     private static final Minecraft minecraft = Minecraft.getInstance();
-    private static final ConfigManager configManager = ConfigManager.getInstance();
 
     public static ItemSwapperSharedMod instance;
 
+    private final ConfigManager configManager = ConfigManager.getInstance();
     private final CacheManager cacheManager = CacheManager.getInstance();
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
@@ -236,7 +236,7 @@ public abstract class ItemSwapperSharedMod {
         boolean keepOpen = xtOverlay.onPrimaryClick();
         if (forceClose || !keepOpen) {
             minecraft.setScreen(null);
-            if(!configManager.getConfig().allowWalkingWithUI) {
+            if(!ConfigManager.getInstance().getConfig().allowWalkingWithUI) {
                 KeyMapping.setAll();
             }
         }
