@@ -16,7 +16,8 @@
     "ContainerScreenMixin",
     "RecordItemMixin",
     "InstrumentItemMixin",
-    "KeyboardHandlerMixin"
+    "KeyboardHandlerMixin",
+    "KeyMappingMixin"
   ],
   "injectors": {
     "defaultRequire": 1

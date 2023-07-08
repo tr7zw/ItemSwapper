@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
+import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.config.CacheManager;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
@@ -179,7 +180,7 @@ public abstract class ItemSwapperSharedMod {
         ItemList entries = itemGroupManager.getList(itemInHand);
 
         if (entries != null) {
-            openListSwitchScreen(new ItemListOverlay(entries));
+            openScreen(new ItemListOverlay(entries));
             return true;
         } else {
             ItemGroup group = itemGroupManager.getItemPage(itemInHand);
@@ -198,19 +199,9 @@ public abstract class ItemSwapperSharedMod {
     public static void openInventoryScreen() {
         if (minecraft.screen instanceof SwitchItemOverlay overlay) {
             overlay.openInventory();
-            minecraft.getSoundManager().resume();
-            minecraft.mouseHandler.grabMouse();
             return;
         }
-        minecraft.setScreen(SwitchItemOverlay.createInventoryOverlay());
-        minecraft.getSoundManager().resume();
-        minecraft.mouseHandler.grabMouse();
-    }
-
-    public static void openListSwitchScreen(ItemListOverlay entries) {
-        minecraft.setScreen(entries);
-        minecraft.getSoundManager().resume();
-        minecraft.mouseHandler.grabMouse();
+        openScreen(SwitchItemOverlay.createInventoryOverlay());
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
@@ -218,9 +209,7 @@ public abstract class ItemSwapperSharedMod {
             overlay.openItemGroup(group);
             return;
         }
-        minecraft.setScreen(SwitchItemOverlay.createPaletteOverlay(group));
-        minecraft.getSoundManager().resume();
-        minecraft.mouseHandler.grabMouse();
+        openScreen(SwitchItemOverlay.createPaletteOverlay(group));
     }
 
     public void openPage(Page page) {
@@ -228,9 +217,19 @@ public abstract class ItemSwapperSharedMod {
             overlay.openPage(page);
             return;
         }
-        minecraft.setScreen(SwitchItemOverlay.createPageOverlay(page));
+        openScreen(SwitchItemOverlay.createPageOverlay(page));
+    }
+    
+    /**
+     * Opens a screen without unbinding the mouse
+     * 
+     * @param screen
+     */
+    private static void openScreen(Screen screen) {
+        ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(true);
+        minecraft.setScreen(screen);
         minecraft.getSoundManager().resume();
-        minecraft.mouseHandler.grabMouse();
+        ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(false);
     }
 
     public static void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {
