@@ -3,7 +3,6 @@ package dev.tr7zw.itemswapper;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.tr7zw.itemswapper.util.ViveCraftSupport;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -28,6 +27,7 @@ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
+import dev.tr7zw.itemswapper.util.ViveCraftSupport;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -36,7 +36,6 @@ import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.Button.OnPress;
 import net.minecraft.client.gui.screens.ConfirmScreen;
-import net.minecraft.client.gui.screens.Overlay;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
 import net.minecraft.world.item.Item;
@@ -211,7 +210,11 @@ public abstract class ItemSwapperSharedMod {
             overlay.openItemGroup(group);
             return;
         }
-        openScreen(SwitchItemOverlay.createPaletteOverlay(group));
+        SwitchItemOverlay overlay = SwitchItemOverlay.createPaletteOverlay(group);
+        openScreen(overlay);
+        if(configManager.getConfig().startOnItem) {
+            overlay.selectIcon("item|" + Item.getId(minecraft.player.getMainHandItem().getItem()), 0, 0);
+        }
     }
 
     public void openPage(Page page) {
@@ -297,6 +300,10 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.allowWalkingWithUI",
                                 () -> configManager.getConfig().allowWalkingWithUI,
                                 b -> configManager.getConfig().allowWalkingWithUI = b));
+                options.add(
+                        getOnOffOption("text.itemswapper.startOnItem",
+                                () -> configManager.getConfig().startOnItem,
+                                b -> configManager.getConfig().startOnItem = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
                 this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {

@@ -17,5 +17,6 @@ public class Config {
     public boolean fallbackInventory = true;
     public boolean vivecraftCompat = true;
     public boolean allowWalkingWithUI = true;
+    public boolean startOnItem = false;
 
 }

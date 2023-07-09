@@ -57,5 +57,7 @@
   "text.itemswapper.vivecraftCompat": "ViveCraft Compatibility",
   "text.itemswapper.vivecraftCompat.tooltip": "Use direct input for cursor movement.\nMouse speed will be ignored, toggle mode is forced to on.",
   "text.itemswapper.allowWalkingWithUI": "Allow Walking With UI",
-  "text.itemswapper.allowWalkingWithUI.tooltip": "Allows you to walk around while the UI is open. Turning this off makes the mod more vanilla-like."
+  "text.itemswapper.allowWalkingWithUI.tooltip": "Allows you to walk around while the UI is open. Turning this off makes the mod more vanilla-like.",
+  "text.itemswapper.startOnItem": "Start On Item",
+  "text.itemswapper.startOnItem.tooltip": "When opening the UI, the cursor will be on the currently held item."
 }
