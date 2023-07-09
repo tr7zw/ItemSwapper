@@ -30,9 +30,9 @@ Adds an item switch interface triggered by pressing a hotkey(Default: `R`). Depe
 
 ## Images
 
-![Plank Types](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/planktypes.png)
-![Wood Options](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/woodoptions.png)
-![Dyes](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/dyes.png)
-![Tools](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/tools.png)
-![Potions](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/potions.png)
-![Redstone](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.19/img/redstone.png)
+![Plank Types](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.20/img/planktypes.png)
+![Wood Options](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.20/img/woodoptions.png)
+![Dyes](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.20/img/dyes.png)
+![Tools](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.20/img/tools.png)
+![Potions](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.20/img/potions.png)
+![Redstone](https://raw.githubusercontent.com/tr7zw/ItemSwapper/1.20/img/redstone.png)

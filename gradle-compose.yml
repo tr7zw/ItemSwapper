@@ -3,7 +3,7 @@ source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.20"
 replacements:
   name: "ItemSwapper"
   id: "itemswapper"
-  version: "0.4.0"
+  version: "0.5.0"
   relocationpackage: "dev.tr7zw.itemswapper"
   modrinthid: RPOSBQgq
   curseforgeid: 694358
@@ -19,7 +19,7 @@ subProjects:
     template: "Fabric"
     replacements:
       dependencies: "
-      modCompileOnlyApi 'maven.modrinth:midnightcontrols:1.7.4+1.19'\n
+      modCompileOnlyApi 'maven.modrinth:midnightcontrols:1.7.4+1.20'\n
        modCompileOnly 'maven.modrinth:midnightlib:1.0.0-fabric'\n
        modCompileOnly 'org.aperlambda:lambdajcommon:1.8.1'\n
       "
