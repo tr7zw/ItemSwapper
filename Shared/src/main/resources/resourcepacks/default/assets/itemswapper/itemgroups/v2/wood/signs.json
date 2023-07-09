@@ -14,7 +14,10 @@
     "minecraft:mangrove_sign",
 
     "minecraft:warped_sign",
-    "minecraft:crimson_sign"
+    "minecraft:crimson_sign",
+
+    "minecraft:cherry_sign",
+    "minecraft:bamboo_sign"
 
     ],   
 	"shortcuts": [

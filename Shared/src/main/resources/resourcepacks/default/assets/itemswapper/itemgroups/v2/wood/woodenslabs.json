@@ -14,7 +14,10 @@
     "minecraft:mangrove_slab",	
 
     "minecraft:warped_slab",	
-    "minecraft:crimson_slab"
+    "minecraft:crimson_slab",
+
+    "minecraft:cherry_slab",	
+    "minecraft:bamboo_slab"
     ],   
 	"shortcuts": [
         {

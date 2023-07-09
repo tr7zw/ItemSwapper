@@ -14,9 +14,10 @@
     "minecraft:mangrove_hanging_sign",
 	
     "minecraft:warped_hanging_sign",
-    "minecraft:crimson_hanging_sign"
+    "minecraft:crimson_hanging_sign",
 
-
+    "minecraft:cherry_hanging_sign",
+    "minecraft:bamboo_hanging_sign"
     ],   
 	"shortcuts": [
         {

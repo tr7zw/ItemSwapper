@@ -13,7 +13,10 @@
     "minecraft:mangrove_fence",
 	
     "minecraft:warped_fence",	
-    "minecraft:crimson_fence"
+    "minecraft:crimson_fence",
+
+    "minecraft:cherry_fence",	
+    "minecraft:bamboo_fence"
     ],   
 	"shortcuts": [
         {

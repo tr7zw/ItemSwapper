@@ -14,9 +14,10 @@
     "minecraft:mangrove_button",
 
     "minecraft:warped_button",
-    "minecraft:crimson_button"
+    "minecraft:crimson_button",
 
-
+    "minecraft:cherry_button",
+    "minecraft:bamboo_button"
     ],   
 	"shortcuts": [
         {

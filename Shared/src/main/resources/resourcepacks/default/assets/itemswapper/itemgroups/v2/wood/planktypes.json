@@ -14,7 +14,10 @@
     "minecraft:mangrove_planks",
 	
     "minecraft:warped_planks",	
-    "minecraft:crimson_planks"
+    "minecraft:crimson_planks",
+
+    "minecraft:cherry_planks",
+    "minecraft:bamboo_planks"
     ],   
 	"shortcuts": [
         {

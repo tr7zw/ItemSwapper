@@ -19,6 +19,7 @@
     "minecraft:acacia_fence",
 
     "minecraft:acacia_sign",
+    "minecraft:acacia_hanging_sign",
     "minecraft:acacia_button",	
     "minecraft:acacia_pressure_plate"
 
@@ -38,7 +39,14 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/mangrove"
-        }		
-
+        },		
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/bamboo"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/cherry"
+        }
 	]
 }

@@ -13,7 +13,10 @@
     "minecraft:mangrove_door",
 	
     "minecraft:warped_door",	
-    "minecraft:crimson_door"
+    "minecraft:crimson_door",
+
+    "minecraft:cherry_door",
+    "minecraft:bamboo_door"
     ],   
 	"shortcuts": [
         {
