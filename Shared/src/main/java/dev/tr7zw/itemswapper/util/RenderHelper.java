@@ -122,7 +122,7 @@ public final class RenderHelper {
         if (entry.getNameOverwride() != null) {
             return entry.getNameOverwride();
         }
-        return entry.getItem().getDefaultInstance().getHoverName();
+        return ItemUtil.getDisplayname(entry.getItem().getDefaultInstance());
     }
     
     public static Component getName(ItemIcon entry) {

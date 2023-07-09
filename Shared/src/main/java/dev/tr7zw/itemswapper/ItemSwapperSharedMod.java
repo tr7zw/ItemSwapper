@@ -27,6 +27,7 @@ import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
+import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -80,6 +81,7 @@ public abstract class ItemSwapperSharedMod {
         clientProviderManager.registerNameProvider(new PotionNameProvider());
         clientProviderManager.registerNameProvider(new RecordNameProvider());
         clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
+        clientProviderManager.registerNameProvider(new SmithingTemplateItemNameProvider());
     }
 
     public void clientTick() {

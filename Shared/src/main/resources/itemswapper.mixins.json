@@ -17,7 +17,8 @@
     "RecordItemMixin",
     "InstrumentItemMixin",
     "KeyboardHandlerMixin",
-    "KeyMappingMixin"
+    "KeyMappingMixin",
+    "SmithingTemplateItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
