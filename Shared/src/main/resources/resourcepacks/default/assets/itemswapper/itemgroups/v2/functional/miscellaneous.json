@@ -13,7 +13,8 @@
 		  "minecraft:cobweb",
 		  "minecraft:lightning_rod",
 		  "minecraft:bell",
-		  "minecraft:bookshelf"
+		  "minecraft:bookshelf",
+          "minecraft:chiseled_bookshelf"
 		],
 		
     "shortcuts": [

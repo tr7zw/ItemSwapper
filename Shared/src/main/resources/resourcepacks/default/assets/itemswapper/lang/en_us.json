@@ -199,7 +199,9 @@
 	"text.itemswapper.item.musical.note_block.bit": "\"Bit\" (Square wave)",
 	"text.itemswapper.item.musical.note_block.banjo": "Banjo",
 	"text.itemswapper.item.musical.note_block.pling": "\"Pling\" (Electric piano)",
-	"text.itemswapper.item.musical.note_block.harp": "Harp / piano"
+	"text.itemswapper.item.musical.note_block.harp": "Harp / piano",
 	
+	"text.itemswapper.palette.functional.smithing": "Smithing",
+	"text.itemswapper.palette.functional.sherds": "Sherds"
 
 }

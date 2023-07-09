@@ -15,7 +15,8 @@
 		  "minecraft:jungle_leaves",
 		  "minecraft:mangrove_leaves",
 		  "minecraft:mangrove_roots",
-		  "minecraft:muddy_mangrove_roots"
+		  "minecraft:muddy_mangrove_roots",
+          "minecraft:cherry_leaves"
 		],
 
     "shortcuts": [

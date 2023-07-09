@@ -9,7 +9,8 @@
 		  "minecraft:armor_stand",
 		  "minecraft:glow_item_frame",
 		  "minecraft:item_frame",
-		  "minecraft:flower_pot"
+		  "minecraft:flower_pot",
+          "minecraft:decorated_pot"
 		],
 		
     "shortcuts": [
