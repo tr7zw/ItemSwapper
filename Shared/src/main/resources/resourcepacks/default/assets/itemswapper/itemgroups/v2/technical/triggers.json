@@ -1,8 +1,8 @@
 {
     "type": "palette",
     "priority": 30,
-    "displayName": "Redstone Triggers",
-	"icon": "text.itemswapper.palette.technical.triggers",
+    "displayName": "text.itemswapper.palette.technical.triggers",
+	"icon": "minecraft:iron_trapdoor",
     "items": 
 	
 			[
