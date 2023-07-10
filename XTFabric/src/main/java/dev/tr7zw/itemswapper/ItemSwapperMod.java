@@ -1,7 +1,8 @@
 package dev.tr7zw.itemswapper;
 
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
-import dev.tr7zw.itemswapper.util.ViveCraftSupport;
+import dev.tr7zw.itemswapper.support.AmecsAPISupport;
+import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 import net.fabricmc.api.ClientModInitializer;
@@ -51,6 +52,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             } else {
                 ViveCraftSupport.getInstance().init();
             }
+        });
+        
+        FabricLoader.getInstance().getModContainer("amecsapi").ifPresent(mod -> {
+            ItemSwapperSharedMod.LOGGER.info("Adding Amecs-API support!");
+            AmecsAPISupport.getInstance().init();
         });
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {

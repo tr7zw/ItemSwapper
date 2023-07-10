@@ -3,7 +3,7 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.tr7zw.itemswapper.util.ViveCraftSupport;
+import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import net.minecraft.util.Mth;
 
 public class GuiSelectionHandler {

@@ -27,7 +27,8 @@ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
-import dev.tr7zw.itemswapper.util.ViveCraftSupport;
+import dev.tr7zw.itemswapper.support.AmecsAPISupport;
+import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -141,7 +142,6 @@ public abstract class ItemSwapperSharedMod {
         }
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
-
         if (!pressed) {
             if (isDisabledByPlayer()) {
                 minecraft.gui.setOverlayMessage(
@@ -231,10 +231,16 @@ public abstract class ItemSwapperSharedMod {
      * @param screen
      */
     private static void openScreen(Screen screen) {
-        ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(true);
+        if(!AmecsAPISupport.getInstance().isActive()) {
+            ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(true);
+        }
         minecraft.setScreen(screen);
         minecraft.getSoundManager().resume();
-        ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(false);
+        if(AmecsAPISupport.getInstance().isActive()) {
+            minecraft.mouseHandler.grabMouse();
+        } else {
+            ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(false);
+        }
     }
 
     public static void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {

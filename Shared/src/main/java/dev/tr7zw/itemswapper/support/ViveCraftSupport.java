@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.util;
+package dev.tr7zw.itemswapper.support;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.config.Config;

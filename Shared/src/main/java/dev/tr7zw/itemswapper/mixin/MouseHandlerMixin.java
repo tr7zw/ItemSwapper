@@ -4,6 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.Blaze3D;
@@ -11,8 +12,10 @@ import com.mojang.blaze3d.Blaze3D;
 import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
+import dev.tr7zw.itemswapper.support.AmecsAPISupport;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
+import net.minecraft.client.gui.screens.Screen;
 
 @Mixin(MouseHandler.class)
 public class MouseHandlerMixin implements ExtendedMouseHandler {
@@ -69,6 +72,15 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
     public void releaseMouse(CallbackInfo ci) {
         if(keepMouseGrabbed) {
             ci.cancel();
+        }
+    }
+    
+    @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
+    public void grabMouse(Minecraft mc, Screen screen) {
+        if (this.minecraft.screen instanceof ItemSwapperUI && screen == null && AmecsAPISupport.getInstance().isActive()) {
+            // catch this call
+        } else {
+            mc.setScreen(screen);
         }
     }
 
