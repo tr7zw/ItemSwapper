@@ -34,6 +34,7 @@ import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.support.ViveCraftSupport;
+import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -42,8 +43,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
-
-    private static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
 
     public final Minecraft minecraft = Minecraft.getInstance();
     public final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
@@ -200,8 +199,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             graphics.pose().pushPose();
             graphics.pose().translate(0, 0, 1000);
-            graphics.blit(WIDGETS_LOCATION, originX + (int) selectionHandler.getCursorX() - 8,
-                    originY + (int) selectionHandler.getCursorY() - 8, 240, 0, 15, 15);
+            graphics.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
+                    originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             graphics.pose().popPose();
         }
     }

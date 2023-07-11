@@ -53,6 +53,7 @@ public abstract class ItemGridWidget implements GuiWidget {
             List<Runnable> lateRenderList,
             boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
+            // fallback in case of no background texture
             graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
         }
         GuiSlot guiSlot = getSlots().get(listId);

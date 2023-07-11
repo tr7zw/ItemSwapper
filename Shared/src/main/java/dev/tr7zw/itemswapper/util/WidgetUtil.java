@@ -14,6 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 public class WidgetUtil {
 
     public static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    public static final ResourceLocation CURSOR_LOCATION = new ResourceLocation("itemswapper",
+            "textures/gui/cursor.png");
     public static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/selection.png");
     public static final ResourceLocation BACKGROUND_3_LOCATION = new ResourceLocation("itemswapper",

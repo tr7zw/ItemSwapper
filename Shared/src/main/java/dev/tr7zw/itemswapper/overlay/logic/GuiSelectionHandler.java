@@ -58,8 +58,8 @@ public class GuiSelectionHandler {
                 // correct position instead?
                 double mouseDist = Math.sqrt((cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot)
                         * (cursorX - 3 - slot.x() - widget.getWidgetArea().getX() - halfSlot)
-                        + (cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot)
-                                * (cursorY - 3 - slot.y() - widget.getWidgetArea().getY() - halfSlot));
+                        + (cursorY - 4 - slot.y() - widget.getWidgetArea().getY() - halfSlot)
+                                * (cursorY - 4 - slot.y() - widget.getWidgetArea().getY() - halfSlot));
                 double maxDistance = (slot.size() * Math.sqrt(2)) / 2;
                 if (mouseDist < best && mouseDist < maxDistance) {
                     best = mouseDist;
