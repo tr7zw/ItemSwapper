@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "dev.tr7zw.itemswapper.mixin",
   "compatibilityLevel": "JAVA_17",
+  "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
   "mixins": [
     "PlayerListMixin",
     "ServerGamePacketListenerImplMixin"
@@ -18,7 +19,8 @@
     "InstrumentItemMixin",
     "KeyboardHandlerMixin",
     "KeyMappingMixin",
-    "SmithingTemplateItemMixin"
+    "SmithingTemplateItemMixin",
+    "LitematicaMixin"
   ],
   "injectors": {
     "defaultRequire": 1
