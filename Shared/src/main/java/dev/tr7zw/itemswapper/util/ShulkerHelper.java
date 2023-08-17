@@ -39,5 +39,9 @@ public class ShulkerHelper {
         CompoundTag rootTag = ContainerHelper.saveAllItems(tag != null ? tag : new CompoundTag(), items);
         BlockItem.setBlockEntityData(shulker, BlockEntityType.SHULKER_BOX, rootTag);
     }
+    
+    public static boolean isShulker(Item item) {
+        return shulkers.contains(item);
+    }
 
 }

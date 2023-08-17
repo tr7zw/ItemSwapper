@@ -23,6 +23,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
     @Override
     public void initModloader() {
+        new ItemSwapperServerMod().onLoad();
         ClientTickEvents.START_CLIENT_TICK.register(event -> this.clientTick());
         KeyBindingHelper.registerKeyBinding(keybind);
         KeyBindingHelper.registerKeyBinding(openInventoryKeybind);

@@ -24,9 +24,10 @@ import net.minecraft.world.item.Items;
 public final class ItemUtil {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
-    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
+            .getClientProviderManager();
     private static final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
-    
+
     private ItemUtil() {
         // private
     }
@@ -78,11 +79,10 @@ public final class ItemUtil {
         }
         return item.getHoverName();
     }
-    
+
     public static boolean grabItem(Item item, boolean ignoreHotbar) {
-        List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, true, ignoreHotbar);
-        if (!slots.isEmpty()) {
-            AvailableSlot slot = slots.get(0);
+        List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, false, ignoreHotbar);
+        for (AvailableSlot slot : slots) {
             OnSwap event = clientAPI.prepareItemSwapEvent.callEvent(new OnSwap(slot, new AtomicBoolean()));
             if (event.canceled().get()) {
                 // interaction canceled by some other mod
@@ -90,10 +90,13 @@ public final class ItemUtil {
             }
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
-                        hudSlot, minecraft.player.getInventory().selected,
-                        ClickType.SWAP, minecraft.player);
+                minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
+                        minecraft.player.getInventory().selected, ClickType.SWAP, minecraft.player);
             } else {
+                if (ShulkerHelper.isShulker(minecraft.player.getInventory().getSelected().getItem())) {
+                    // Can't put a shulker into a shulker, so search a different spot
+                    continue;
+                }
                 NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
