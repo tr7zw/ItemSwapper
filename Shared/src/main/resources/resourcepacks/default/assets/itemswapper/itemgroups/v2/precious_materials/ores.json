@@ -8,6 +8,8 @@
 		[
 		  "minecraft:coal_ore",
 		  "minecraft:deepslate_coal_ore",
+		  "minecraft:copper_ore",
+		  "minecraft:deepslate_copper_ore",
 		  "minecraft:iron_ore",
 		  "minecraft:deepslate_iron_ore",
 		  "minecraft:gold_ore",
