@@ -1,4 +1,4 @@
-From e14cd464f4124a2db6669487af63f9af411120b8 Mon Sep 17 00:00:00 2001
+From 45eac17c6ec065f6391322d3e9d56580fbfaa572 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sat, 8 Apr 2023 20:51:01 +0200
 Subject: [PATCH] Backport to 1.19.2
@@ -13,10 +13,10 @@ Subject: [PATCH] Backport to 1.19.2
  .../tr7zw/itemswapper/overlay/EditListScreen.java  |  8 ++++----
  .../resources/resourcepacks/classic/pack.mcmeta    |  2 +-
  .../resources/resourcepacks/default/pack.mcmeta    |  2 +-
- .../java/dev/tr7zw/itemswapper/ItemSwapperMod.java |  5 ++---
+ .../java/dev/tr7zw/itemswapper/ItemSwapperMod.java |  9 ++++-----
  XTFabric/src/main/resources/fabric.mod.json        |  4 ++--
  gradle-compose.yml                                 |  2 +-
- 12 files changed, 30 insertions(+), 34 deletions(-)
+ 12 files changed, 32 insertions(+), 36 deletions(-)
 
 diff --git a/.github/workflows/build.yml b/.github/workflows/build.yml
 index 26c1be7..4fe10be 100644
@@ -49,11 +49,11 @@ index 33abf01..9f6df99 100644
            name: ${{github.ref_name}} - Fabric
            files: '*Fabric/build/libs/!(*-@(dev|sources|javadoc|all)).jar'
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
-index 13e0223..c1cbe05 100644
+index f76a9b3..8743929 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
-@@ -276,18 +276,18 @@ public abstract class ItemSwapperSharedMod {
-                                 b -> configManager.getConfig().fallbackInventory = b));
+@@ -310,18 +310,18 @@ public abstract class ItemSwapperSharedMod {
+                                 b -> configManager.getConfig().startOnItem = b));
  
                  getOptions().addSmall(options.toArray(new OptionInstance[0]));
 -                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
@@ -65,13 +65,13 @@ index 13e0223..c1cbe05 100644
 -                }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
 -                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
 +                }));
-+                this.addRenderableWidget(new Button(this.width / 2 - 160, this.height - 27, 50, 20, ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
++            	this.addRenderableWidget(new Button(this.width / 2 - 160, this.height - 27, 50, 20, ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
                      @Override
                      public void onPress(Button button) {
                          Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
                      }
 -                }).pos(this.width / 2 - 160, this.height - 27).size(50, 20).build());
-+                }));
++            	}));
              }
  
              @Override
@@ -174,15 +174,15 @@ index d4db0b0..efd1b66 100644
                      ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                      if (pallet) {
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
-index e55dc92..ffac0d2 100644
+index 75b1272..c4ee766 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
 @@ -56,7 +56,7 @@ public class AbstractContainerScreenMixin extends Screen {
      @Inject(method = "render", at = @At("TAIL"))
-     private void render(PoseStack poseStack, int i, int j, float f, CallbackInfo info) {
+     private void render(PoseStack graphics, int i, int j, float f, CallbackInfo info) {
          if (copyToClipboardBtn != null) {
 -            copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
-+            copyToClipboardBtn.x = this.leftPos + this.imageWidth - 20;
++        	copyToClipboardBtn.x = this.leftPos + this.imageWidth - 20;
          }
      }
  }
@@ -240,30 +240,42 @@ index 792e962..ddc434c 100644
  }
 \ No newline at end of file
 diff --git a/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java b/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java
-index 460cf08..46bb9e9 100644
+index fcf8356..e41d6ce 100644
 --- a/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java
 +++ b/XTFabric/src/main/java/dev/tr7zw/itemswapper/ItemSwapperMod.java
-@@ -11,7 +11,6 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
- import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+@@ -1,5 +1,7 @@
+ package dev.tr7zw.itemswapper;
+ 
++import java.util.Optional;
++
+ import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
+ import dev.tr7zw.itemswapper.support.AmecsAPISupport;
+ import dev.tr7zw.itemswapper.support.ViveCraftSupport;
+@@ -14,11 +16,8 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
  import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
  import net.fabricmc.loader.api.FabricLoader;
+ import net.fabricmc.loader.api.ModContainer;
 -import net.minecraft.network.chat.Component;
  import net.minecraft.resources.ResourceLocation;
  
+-import java.util.Optional;
+-
  public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
-@@ -24,11 +23,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
+ 
+     @Override
+@@ -31,11 +30,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
          // Register default resource pack
          FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
                  container -> ResourceManagerHelper.registerBuiltinResourcePack(
 -                        new ResourceLocation("itemswapper", "default"), container, Component.translatable("text.itemswapper.resourcepack.default"),
-+                        new ResourceLocation("itemswapper", "default"), container,
++                		new ResourceLocation("itemswapper", "default"), container,
                          ResourcePackActivationType.DEFAULT_ENABLED));
          FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
                  container -> ResourceManagerHelper.registerBuiltinResourcePack(
 -                        new ResourceLocation("itemswapper", "classic"), container, Component.translatable("text.itemswapper.resourcepack.classic"),
-+                        new ResourceLocation("itemswapper", "classic"), container,
++                		new ResourceLocation("itemswapper", "classic"), container,
                          ResourcePackActivationType.NORMAL));
-         
+ 
          FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
 diff --git a/XTFabric/src/main/resources/fabric.mod.json b/XTFabric/src/main/resources/fabric.mod.json
 index cdcea0c..2e473ee 100644
@@ -281,7 +293,7 @@ index cdcea0c..2e473ee 100644
      "custom": {
        "modmenu": {
 diff --git a/gradle-compose.yml b/gradle-compose.yml
-index baff1b5..3b658ed 100644
+index fe844c4..b54a40e 100644
 --- a/gradle-compose.yml
 +++ b/gradle-compose.yml
 @@ -1,5 +1,5 @@
