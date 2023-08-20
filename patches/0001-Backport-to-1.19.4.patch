@@ -1,0 +1,838 @@
+From 08af305fa09d6ce99a284de7668defada734db23 Mon Sep 17 00:00:00 2001
+From: tr7zw <tr7zw@live.de>
+Date: Sun, 20 Aug 2023 20:04:25 +0200
+Subject: [PATCH] Backport to 1.19.4
+
+---
+ .../itemswapper/gui/CopyToClipboard.java      | 12 +++---
+ .../mixin/AbstractContainerScreenMixin.java   |  3 +-
+ .../mixin/ContainerScreenMixin.java           |  5 ++-
+ .../itemswapper/overlay/EditListScreen.java   | 23 ++++++------
+ .../itemswapper/overlay/ItemListOverlay.java  | 37 ++++++++++---------
+ .../overlay/SwitchItemOverlay.java            | 19 +++++-----
+ .../overlay/logic/ContainerWidget.java        |  7 ++--
+ .../itemswapper/overlay/logic/GuiWidget.java  |  7 ++--
+ .../overlay/logic/InventoryWidget.java        |  7 ++--
+ .../overlay/logic/ItemGridWidget.java         | 23 +++++++-----
+ .../overlay/logic/ListContentWidget.java      |  9 +++--
+ .../overlay/logic/PaletteWidget.java          | 11 +++---
+ .../overlay/logic/ShortcutListWidget.java     | 26 ++++++++-----
+ .../tr7zw/itemswapper/util/RenderHelper.java  | 28 +++++++-------
+ .../tr7zw/itemswapper/util/WidgetUtil.java    |  8 ++--
+ .../resourcepacks/classic/pack.mcmeta         |  2 +-
+ .../resourcepacks/default/pack.mcmeta         |  2 +-
+ XTFabric/src/main/resources/fabric.mod.json   |  2 +-
+ gradle-compose.yml                            |  2 +-
+ 19 files changed, 129 insertions(+), 104 deletions(-)
+
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
+index ed6bce9..022274b 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
+@@ -10,12 +10,12 @@ import org.jetbrains.annotations.NotNull;
+ import com.google.gson.Gson;
+ import com.google.gson.GsonBuilder;
+ import com.mojang.blaze3d.systems.RenderSystem;
++import com.mojang.blaze3d.vertex.PoseStack;
+ 
+ import dev.tr7zw.itemswapper.ItemSwapperMod;
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.util.ComponentProvider;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.components.ImageButton;
+ import net.minecraft.core.registries.BuiltInRegistries;
+ import net.minecraft.network.chat.CommonComponents;
+@@ -62,19 +62,19 @@ public class CopyToClipboard extends ImageButton {
+     }
+ 
+     @Override
+-    public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
++    public void renderWidget(@NotNull PoseStack poseStack, int i, int j, float f) {
+         RenderSystem.enableDepthTest();
+         RenderSystem.enableBlend();
+         // FIXME: Cursed and broken, but doesn't scale everything anymore
+-        graphics.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
++        blit(poseStack, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
+                 TEXTURE_WIDTH,
+                 TEXTURE_HEIGHT);
+-        this.renderToolTip(graphics, i, j);
++        this.renderToolTip(poseStack, i, j);
+     }
+ 
+-    public void renderToolTip(@NotNull GuiGraphics graphics, int i, int j) {
++    public void renderToolTip(@NotNull PoseStack poseStack, int i, int j) {
+         if (this.isHovered && instance.screen != null) {
+-            graphics.renderTooltip(Minecraft.getInstance().font, 
++            instance.screen.renderTooltip(poseStack,
+                     ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
+         }
+     }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
+index dbaa32c..75b1272 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/AbstractContainerScreenMixin.java
+@@ -14,7 +14,6 @@ import dev.tr7zw.itemswapper.ItemSwapperMod;
+ import dev.tr7zw.itemswapper.config.ConfigManager;
+ import dev.tr7zw.itemswapper.gui.CopyToClipboard;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.screens.Screen;
+ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+ import net.minecraft.network.chat.Component;
+@@ -55,7 +54,7 @@ public class AbstractContainerScreenMixin extends Screen {
+     }
+ 
+     @Inject(method = "render", at = @At("TAIL"))
+-    private void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo info) {
++    private void render(PoseStack graphics, int i, int j, float f, CallbackInfo info) {
+         if (copyToClipboardBtn != null) {
+             copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
+         }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/ContainerScreenMixin.java b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/ContainerScreenMixin.java
+index 80d0497..2d2e534 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/ContainerScreenMixin.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/ContainerScreenMixin.java
+@@ -7,11 +7,12 @@ import org.spongepowered.asm.mixin.injection.At;
+ import org.spongepowered.asm.mixin.injection.Inject;
+ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.config.ConfigManager;
+ import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+ import dev.tr7zw.itemswapper.util.ItemUtil;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+ import net.minecraft.client.gui.screens.inventory.ContainerScreen;
+ import net.minecraft.network.chat.Component;
+@@ -28,7 +29,7 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
+     }
+ 
+     @Inject(method = "render", at = @At("HEAD"))
+-    public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
++    public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
+         if (!ConfigManager.getInstance().getConfig().editMode) {
+             return;
+         }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
+index 97011db..1eeaa0b 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/EditListScreen.java
+@@ -2,13 +2,14 @@ package dev.tr7zw.itemswapper.overlay;
+ 
+ import java.util.List;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.config.CacheManager;
+ import dev.tr7zw.util.ComponentProvider;
+ import net.fabricmc.api.EnvType;
+ import net.fabricmc.api.Environment;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.Options;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.components.Button;
+ import net.minecraft.client.gui.components.ObjectSelectionList;
+ import net.minecraft.client.gui.screens.OptionsSubScreen;
+@@ -48,10 +49,10 @@ public class EditListScreen extends OptionsSubScreen {
+         super.init();
+     }
+ 
+-    public void render(final GuiGraphics graphics, final int i, final int j, final float f) {
+-        this.selectionList.render(graphics, i, j, f);
+-        graphics.drawCenteredString(this.font, this.title, this.width / 2, 16, 16777215);
+-        super.render(graphics, i, j, f);
++    public void render(final PoseStack poseStack, final int i, final int j, final float f) {
++        this.selectionList.render(poseStack, i, j, f);
++        drawCenteredString(poseStack, this.font, this.title, this.width / 2, 16, 16777215);
++        super.render(poseStack, i, j, f);
+     }
+ 
+     @Environment(EnvType.CLIENT)
+@@ -79,8 +80,8 @@ public class EditListScreen extends OptionsSubScreen {
+             return super.getRowWidth() + 50;
+         }
+ 
+-        protected void renderBackground(final GuiGraphics graphics) {
+-            EditListScreen.this.renderBackground(graphics);
++        protected void renderBackground(final PoseStack poseStack) {
++            EditListScreen.this.renderBackground(poseStack);
+         }
+ 
+         @Environment(EnvType.CLIENT)
+@@ -93,12 +94,12 @@ public class EditListScreen extends OptionsSubScreen {
+                 this.text = ComponentProvider.literal(string);
+             }
+ 
+-            public void render(final GuiGraphics graphics, final int i, final int j, final int k, final int l,
++            public void render(final PoseStack poseStack, final int i, final int j, final int k, final int l,
+                     final int m, final int n, final int o, final boolean bl, final float f) {
+-                graphics.drawString(EditListScreen.this.font, this.text,
+-                        (int) (EntrySelectionList.this.width / 2
++                EditListScreen.this.font.drawShadow(poseStack, this.text,
++                        (float) (EntrySelectionList.this.width / 2
+                                 - EditListScreen.this.font.width((FormattedText) this.text) / 2),
+-                        (int) (j + 1), 16777215);
++                        (float) (j + 1), 16777215);
+             }
+ 
+             public boolean mouseClicked(final double d, final double e, final int i) {
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
+index 4bf887d..b8bf2a0 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
+@@ -5,6 +5,7 @@ import java.util.List;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ 
+ import com.mojang.blaze3d.systems.RenderSystem;
++import com.mojang.blaze3d.vertex.PoseStack;
+ 
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.itemswapper.api.AvailableSlot;
+@@ -21,7 +22,6 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
+ import dev.tr7zw.util.ComponentProvider;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.network.chat.MutableComponent;
+ import net.minecraft.resources.ResourceLocation;
+@@ -65,7 +65,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+     }
+ 
+     @Override
+-    public void render(GuiGraphics graphics, int paramInt1, int paramInt2, float paramFloat) {
++    public void render(PoseStack poseStack, int paramInt1, int paramInt2, float paramFloat) {
+         RenderSystem.enableBlend();
+         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+         RenderSystem.setShader(GameRenderer::getPositionTexShader);
+@@ -93,7 +93,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+             } else if (midBottom) {
+                 background = MIDDLE_BOTTOM_LOCATION;
+             }
+-            renderEntry(graphics, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
++            renderEntry(poseStack, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
+         }
+         itemRenderList.forEach(Runnable::run);
+         lateRenderList.forEach(Runnable::run);
+@@ -170,39 +170,42 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+         return false;
+     }
+ 
+-    private void renderEntry(GuiGraphics graphics, ResourceLocation background, int id, int x, int y, List<Runnable> itemRenderList,
++    private void renderEntry(PoseStack poseStack, ResourceLocation texture, int id, int x, int y, List<Runnable> itemRenderList,
+             List<Runnable> lateRenderList) {
+-        graphics.blit(background, x, y, 0, 0, 24, 24, 24, 24);
++    	RenderSystem.setShaderTexture(0, texture);
++        blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
+         // dummy item code
+         AvailableSlot slot = entries.get(id);
+         if (selectedEntry == id) {
+             itemRenderList = lateRenderList;
+             lateRenderList.add(() -> {
+-                graphics.pose().pushPose();
+-                graphics.pose().translate(0, 0, 300);
+-                graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
+-                graphics.pose().popPose();
++                poseStack.pushPose();
++                poseStack.translate(0, 0, 300);
++                RenderSystem.setShader(GameRenderer::getPositionTexShader);
++                RenderSystem.setShaderTexture(0, SELECTION_LOCATION);
++                blit(poseStack, x, y, 0, 0, 24, 24, 24, 24);
++                poseStack.popPose();
+             });
+         }
+         itemRenderList.add(() -> {
+-            graphics.pose().pushPose();
+-            graphics.pose().translate(0, 0, 400);
+-            renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
+-            graphics.pose().popPose();
++            poseStack.pushPose();
++            poseStack.translate(0, 0, 400);
++            renderSlot(poseStack, x + 4, y + 4, minecraft.player, slot.item(), 1);
++            poseStack.popPose();
+             var name = ItemUtil.getDisplayname(slot.item());
+             if (selectedEntry != id && name instanceof MutableComponent mutName) {
+                 mutName.withStyle(ChatFormatting.GRAY);
+             }
+-            graphics.drawString(minecraft.font, name,
++            drawString(poseStack, minecraft.font, name,
+                     x + 27, y + 9, -1);
+         });
+     }
+ 
+-    private void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k) {
++    private void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k) {
+         if (!arg2.isEmpty()) {
+-            graphics.renderItem(arg, arg2, x, y, k);
++            this.itemRenderer.renderAndDecorateItem(poseStack, arg, arg2, x, y, k);
+             RenderSystem.setShader(GameRenderer::getPositionColorShader);
+-            graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
++            this.itemRenderer.renderGuiItemDecorations(poseStack, this.minecraft.font, arg2, x, y);
+         }
+     }
+ 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/SwitchItemOverlay.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/SwitchItemOverlay.java
+index 2b3567d..5f00a15 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/SwitchItemOverlay.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/SwitchItemOverlay.java
+@@ -5,6 +5,7 @@ import java.util.Collections;
+ import java.util.List;
+ 
+ import com.mojang.blaze3d.systems.RenderSystem;
++import com.mojang.blaze3d.vertex.PoseStack;
+ 
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.itemswapper.api.client.ContainerProvider;
+@@ -37,7 +38,6 @@ import dev.tr7zw.itemswapper.support.ViveCraftSupport;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+ import dev.tr7zw.util.ComponentProvider;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.world.item.ItemStack;
+@@ -177,7 +177,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
+     }
+ 
+     @Override
+-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
++    public void render(PoseStack poseStack, int mouseX, int mouseY, float f) {
+         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
+         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
+ 
+@@ -185,23 +185,24 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
+         selectionHandler.updateMousePosition(mouseX - originX, mouseY - originY);
+ 
+         for (GuiWidget widget : selectionHandler.getWidgets()) {
+-            widget.render(this, graphics, originX, originY, forceAvailable);
++            widget.render(this, poseStack, originX, originY, forceAvailable);
+         }
+         if (selectionHandler.getSelectedSlot() != null) {
+             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
+                     selectionHandler.getWidgets().get(0).titleYOffset(), selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40, forceAvailable);
+-            if(configManager.getConfig().showTooltips) {
+-                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, graphics, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
++            if (configManager.getConfig().showTooltips) {
++                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, poseStack, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
+             }
+         }
+ 
+         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()) {
+             RenderSystem.setShader(GameRenderer::getPositionTexShader);
+-            graphics.pose().pushPose();
+-            graphics.pose().translate(0, 0, 1000);
+-            graphics.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
++            RenderSystem.setShaderTexture(0, WidgetUtil.CURSOR_LOCATION);
++            poseStack.pushPose();
++            poseStack.translate(0, 0, 1000);
++            blit(poseStack, originX + (int) selectionHandler.getCursorX() - 12,
+                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
+-            graphics.pose().popPose();
++            poseStack.popPose();
+         }
+     }
+ 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ContainerWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ContainerWidget.java
+index 9f166eb..c46630b 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ContainerWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ContainerWidget.java
+@@ -4,6 +4,8 @@ import java.util.Collections;
+ import java.util.List;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.ItemSwapperMod;
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.itemswapper.api.AvailableSlot;
+@@ -18,7 +20,6 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
+ import dev.tr7zw.itemswapper.util.RenderHelper;
+ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.core.NonNullList;
+ import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.world.item.ItemStack;
+@@ -60,12 +61,12 @@ public class ContainerWidget extends ItemGridWidget {
+     }
+ 
+     @Override
+-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
++    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+             boolean overwrideAvailable) {
+         List<AvailableSlot> slots = getItem(guiSlot.id());
+         if (!slots.isEmpty()) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
+                             SlotEffect.NONE, slots.get(0).amount().get()));
+         }
+     }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/GuiWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/GuiWidget.java
+index e23d56e..c845727 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/GuiWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/GuiWidget.java
+@@ -2,8 +2,9 @@ package dev.tr7zw.itemswapper.overlay.logic;
+ 
+ import java.util.List;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.client.gui.screens.Screen;
+ 
+ public interface GuiWidget {
+@@ -12,11 +13,11 @@ public interface GuiWidget {
+ 
+     public WidgetArea getWidgetArea();
+ 
+-    public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable);
++    public void render(Screen parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable);
+ 
+     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable);
+     
+-    public default void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected, double x, double y) {
++    public default void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x, double y) {
+         
+     }
+ 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/InventoryWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/InventoryWidget.java
+index dc514f3..446c438 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/InventoryWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/InventoryWidget.java
+@@ -4,6 +4,8 @@ import java.util.Collections;
+ import java.util.List;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.ItemSwapperMod;
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.itemswapper.api.AvailableSlot;
+@@ -15,7 +17,6 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
+ import dev.tr7zw.itemswapper.util.RenderHelper;
+ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.core.NonNullList;
+ import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.world.inventory.ClickType;
+@@ -42,12 +43,12 @@ public class InventoryWidget extends ItemGridWidget {
+     }
+ 
+     @Override
+-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
++    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+             boolean overwrideAvailable) {
+         List<AvailableSlot> slots = getItem(guiSlot.id());
+         if (!slots.isEmpty()) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
+                             SlotEffect.NONE, slots.get(0).amount().get()));
+         }
+     }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
+index 3abc3ab..4fcc4e0 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
+@@ -4,6 +4,7 @@ import java.util.ArrayList;
+ import java.util.List;
+ 
+ import com.mojang.blaze3d.systems.RenderSystem;
++import com.mojang.blaze3d.vertex.PoseStack;
+ 
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+@@ -11,8 +12,9 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
+ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+ import net.minecraft.client.Minecraft;
+-import net.minecraft.client.gui.GuiGraphics;
++import net.minecraft.client.gui.GuiComponent;
+ import net.minecraft.client.gui.screens.Screen;
++import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.client.renderer.entity.ItemRenderer;
+ 
+ public abstract class ItemGridWidget implements GuiWidget {
+@@ -30,15 +32,15 @@ public abstract class ItemGridWidget implements GuiWidget {
+         this.widgetArea.setY(y);
+     }
+ 
+-    public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable) {
++    public void render(Screen parent, PoseStack poseStack, int originX, int originY, boolean overwrideAvailable) {
+         originX += getWidgetArea().getX();
+         originY += getWidgetArea().getY();
+-        WidgetUtil.renderBackground(getWidgetArea(), graphics, originX, originY);
++        WidgetUtil.renderBackground(getWidgetArea(), poseStack, originX, originY);
+         RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
+         List<Runnable> itemRenderList = new ArrayList<>();
+         List<Runnable> lateRenderList = new ArrayList<>();
+         for (int i = 0; i < getSlots().size(); i++) {
+-            renderSelection(parent, graphics, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
++            renderSelection(parent, poseStack, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
+                     itemRenderList,
+                     lateRenderList, overwrideAvailable);
+         }
+@@ -48,23 +50,26 @@ public abstract class ItemGridWidget implements GuiWidget {
+         lateRenderList.forEach(Runnable::run);
+     }
+ 
+-    private void renderSelection(Screen parent, GuiGraphics graphics, int listId, int x, int y,
++    private void renderSelection(Screen parent, PoseStack poseStack, int listId, int x, int y,
+             List<Runnable> itemRenderList,
+             List<Runnable> lateRenderList,
+             boolean overwrideAvailable) {
+         if (getWidgetArea().getBackgroundTexture() == null) {
+             // fallback in case of no background texture
+-            graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
++            RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
++            GuiComponent.blit(poseStack, x, y, 24, 22, 29, 24);
+         }
+         GuiSlot guiSlot = getSlots().get(listId);
+         if (guiSlot.selected().get()) {
+             itemRenderList = lateRenderList;
+-                graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
++                RenderSystem.setShader(GameRenderer::getPositionTexShader);
++                RenderSystem.setShaderTexture(0, WidgetUtil.SELECTION_LOCATION);
++                GuiComponent.blit(poseStack, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
+         }
+-        renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);
++        renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
+     }
+ 
+-    protected abstract void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList,
++    protected abstract void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList,
+             GuiSlot guiSlot, boolean overwrideAvailable);
+ 
+     @Override
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ListContentWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ListContentWidget.java
+index 7bafbc1..4f2bd6d 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ListContentWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ListContentWidget.java
+@@ -5,6 +5,8 @@ import java.util.Collections;
+ import java.util.List;
+ import java.util.concurrent.atomic.AtomicBoolean;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.api.AvailableSlot;
+ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
+ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
+@@ -15,7 +17,6 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
+ import dev.tr7zw.itemswapper.util.RenderHelper;
+ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.world.inventory.ClickType;
+ import net.minecraft.world.item.Item;
+ 
+@@ -49,17 +50,17 @@ public class ListContentWidget extends ItemGridWidget {
+     }
+ 
+     @Override
+-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
++    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+             boolean overwrideAvailable) {
+         List<AvailableSlot> slots = getItem(guiSlot.id());
+         if (!slots.isEmpty() && !overwrideAvailable) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
+                             SlotEffect.NONE, slots.get(0).amount().get()));
+ 
+         } else if (guiSlot.id() <= entries.size() - 1) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                             entries.get(guiSlot.id()).item(), 1,
+                             !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
+         }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/PaletteWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/PaletteWidget.java
+index cad62da..5f348d2 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/PaletteWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/PaletteWidget.java
+@@ -3,6 +3,8 @@ package dev.tr7zw.itemswapper.overlay.logic;
+ import java.util.Collections;
+ import java.util.List;
+ 
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.ItemSwapperMod;
+ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.itemswapper.api.AvailableSlot;
+@@ -13,7 +15,6 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
+ import dev.tr7zw.itemswapper.util.RenderHelper;
+ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+-import net.minecraft.client.gui.GuiGraphics;
+ import net.minecraft.world.item.Item;
+ import net.minecraft.world.item.Items;
+ 
+@@ -33,24 +34,24 @@ public class PaletteWidget extends ItemGridWidget {
+     }
+ 
+     @Override
+-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
++    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+             boolean overwrideAvailable) {
+         ItemEntry entry = itemGroup.getItem(guiSlot.id());
+         if(entry != null && entry.isActAsLink()) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
+                             SlotEffect.NONE, 1));
+             return;
+         }
+         List<AvailableSlot> slots = getItem(guiSlot.id());
+         if (!slots.isEmpty() && !overwrideAvailable) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
+                             SlotEffect.NONE, slots.get(0).amount().get()));
+ 
+         } else if (guiSlot.id() <= itemGroup.getItems().length - 1) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                             itemGroup.getItems()[guiSlot.id()].getItem().getDefaultInstance(), 1,
+                             !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
+         }
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
+index e2cdd67..a82d02e 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
+@@ -2,6 +2,9 @@ package dev.tr7zw.itemswapper.overlay.logic;
+ 
+ import java.util.List;
+ 
++import com.mojang.blaze3d.systems.RenderSystem;
++import com.mojang.blaze3d.vertex.PoseStack;
++
+ import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
+ import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+ import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
+@@ -12,7 +15,8 @@ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+ import dev.tr7zw.itemswapper.util.RenderHelper;
+ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
+ import dev.tr7zw.itemswapper.util.WidgetUtil;
+-import net.minecraft.client.gui.GuiGraphics;
++import net.minecraft.client.gui.GuiComponent;
++import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.resources.ResourceLocation;
+ 
+ public class ShortcutListWidget extends ItemGridWidget {
+@@ -38,22 +42,24 @@ public class ShortcutListWidget extends ItemGridWidget {
+     }
+ 
+     @Override
+-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
++    protected void renderSlot(PoseStack poseStack, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+             boolean overwriteAvailable) {
+         Icon icon = list.get(guiSlot.id()).getIcon();
+         if (icon instanceof ItemIcon item) {
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                             item.item(), 1,
+                                 SlotEffect.NONE, 1));
+         } else if (icon instanceof LinkIcon item) {
+             boolean grayedOut = parentId != null && parentId.equals(item.nextId());
+             itemRenderList.add(
+-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
++                    () -> RenderHelper.renderSlot(poseStack, x + 3, y + 4, minecraft.player,
+                             item.item(), 1,
+                                 grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
+         } else if (icon instanceof TextureIcon texture) {
+-            graphics.blit(texture.texture(), x-1, y, 200, 0, 0, 24, 24, 24, 24);
++            RenderSystem.setShader(GameRenderer::getPositionTexShader);
++            RenderSystem.setShaderTexture(0, texture.texture());
++            GuiComponent.blit(poseStack, x-1, y, 200, 0, 0, 24, 24, 24, 24);
+         }
+     }
+ 
+@@ -89,14 +95,14 @@ public class ShortcutListWidget extends ItemGridWidget {
+     }
+ 
+     @Override
+-    public void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected, double x,
++    public void renderSelectedTooltip(SwitchItemOverlay overlay, PoseStack poseStack, GuiSlot selected, double x,
+             double y) {
+         Shortcut shortcut = list.get(selected.id());
+         if (shortcut.getHoverText() != null) {
+-            graphics.pose().pushPose();
+-            graphics.pose().translate(0, 0, 100);
+-            graphics.renderTooltip(minecraft.font, minecraft.font.split(shortcut.getHoverText(), 170), (int) x, (int) y);
+-            graphics.pose().popPose();
++        	poseStack.pushPose();
++        	poseStack.translate(0, 0, 100);
++        	overlay.renderTooltip(poseStack, minecraft.font.split(shortcut.getHoverText(), 170), (int) x, (int) y);
++            poseStack.popPose();
+         }
+     }
+ 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java b/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
+index 85bd4fb..a9c3ae7 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
+@@ -12,9 +12,10 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+ import net.minecraft.ChatFormatting;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.Font;
+-import net.minecraft.client.gui.GuiGraphics;
++import net.minecraft.client.gui.GuiComponent;
+ import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.client.renderer.MultiBufferSource;
++import net.minecraft.client.renderer.entity.ItemRenderer;
+ import net.minecraft.client.resources.model.BakedModel;
+ import net.minecraft.network.chat.Component;
+ import net.minecraft.network.chat.TextColor;
+@@ -31,7 +32,7 @@ public final class RenderHelper {
+         // private
+     }
+ 
+-    public static void renderUnavailableItem(GuiGraphics graphics, LivingEntity livingEntity, ItemStack itemStack, int i,
++    public static void renderUnavailableItem(PoseStack poseStack, LivingEntity livingEntity, ItemStack itemStack, int i,
+             int j, int k, SlotEffect effect) {
+         if (itemStack.isEmpty())
+             return;
+@@ -47,10 +48,11 @@ public final class RenderHelper {
+             color = -1879048192;
+         }
+         // these values need to be fixed when the texture size gets fixed.
+-        graphics.fill( l - 1, m - 1, l + 17, m + 17, color);
+-        graphics.renderFakeItem(itemStack, l, m);
++        GuiComponent.fill(poseStack, l - 1, m - 1, l + 17, m + 17, color);
++        ItemRenderer itemRenderer = minecraft.getItemRenderer();
++        itemRenderer.renderAndDecorateFakeItem(poseStack, itemStack, l, m);
+         if (k == 0)
+-            graphics.renderItemDecorations(minecraft.font, itemStack, l, m);
++            itemRenderer.renderGuiItemDecorations(poseStack, minecraft.font, itemStack, l, m);
+         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
+     }
+ 
+@@ -93,25 +95,25 @@ public final class RenderHelper {
+         NONE, RED, GRAY
+     }
+ 
+-    public static void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
++    public static void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
+             int count) {
+         if (!arg2.isEmpty()) {
+-            graphics.pose().pushPose();
+-            graphics.pose().translate(0, 0, 200);
++            poseStack.pushPose();
++            poseStack.translate(0, 0, 200);
+             ItemStack copy = arg2.copy();
+             copy.setCount(1);
+             if (effect != SlotEffect.NONE) {
+-                RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
+-                graphics.pose().popPose();
++                RenderHelper.renderUnavailableItem(poseStack, arg, copy, x, y, k, effect);
++                poseStack.popPose();
+                 return;
+             }
+-            graphics.renderItem(arg, copy, x, y, k);
++            minecraft.getItemRenderer().renderAndDecorateItem(poseStack, arg, copy, x, y, k);
+             RenderSystem.setShader(GameRenderer::getPositionColorShader);
+-            graphics.renderItemDecorations(minecraft.font, copy, x, y);
++            minecraft.getItemRenderer().renderGuiItemDecorations(poseStack, minecraft.font, copy, x, y);
+             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
+             if (count > 1)
+                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color);
+-            graphics.pose().popPose();
++            poseStack.popPose();
+         }
+     }
+ 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/util/WidgetUtil.java b/Shared/src/main/java/dev/tr7zw/itemswapper/util/WidgetUtil.java
+index 987edb2..378785d 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/util/WidgetUtil.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/util/WidgetUtil.java
+@@ -3,11 +3,12 @@ package dev.tr7zw.itemswapper.util;
+ import java.util.List;
+ 
+ import com.mojang.blaze3d.systems.RenderSystem;
++import com.mojang.blaze3d.vertex.PoseStack;
+ 
+ import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
+ import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
+ import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
+-import net.minecraft.client.gui.GuiGraphics;
++import net.minecraft.client.gui.GuiComponent;
+ import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.resources.ResourceLocation;
+ 
+@@ -61,12 +62,13 @@ public class WidgetUtil {
+         // hiden constructor
+     }
+ 
+-    public static void renderBackground(WidgetArea widgetArea, GuiGraphics graphics, int originX, int originY) {
++    public static void renderBackground(WidgetArea widgetArea, PoseStack poseStack, int originX, int originY) {
+         RenderSystem.enableBlend();
+         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+         RenderSystem.setShader(GameRenderer::getPositionTexShader);
+         if (widgetArea.getBackgroundTexture() != null) {
+-            graphics.blit(widgetArea.getBackgroundTexture(), originX - (widgetArea.getBackgroundSizeX() / 2),
++            RenderSystem.setShaderTexture(0, widgetArea.getBackgroundTexture());
++            GuiComponent.blit(poseStack, originX - (widgetArea.getBackgroundSizeX() / 2),
+                     originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0,
+                     widgetArea.getBackgroundSizeX(),
+                     widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(),
+diff --git a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
+index c74f5e2..4bf5b4c 100644
+--- a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
++++ b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
+@@ -1,6 +1,6 @@
+ {
+   "pack": {
+-    "pack_format": 15,
++    "pack_format": 13,
+     "description": "ItemSwapper classic palettes"
+   }
+ }
+\ No newline at end of file
+diff --git a/Shared/src/main/resources/resourcepacks/default/pack.mcmeta b/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
+index 53441b6..7592bf6 100644
+--- a/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
++++ b/Shared/src/main/resources/resourcepacks/default/pack.mcmeta
+@@ -1,6 +1,6 @@
+ {
+   "pack": {
+-    "pack_format": 15,
++    "pack_format": 13,
+     "description": "ItemSwapper default palettes V2"
+   }
+ }
+\ No newline at end of file
+diff --git a/XTFabric/src/main/resources/fabric.mod.json b/XTFabric/src/main/resources/fabric.mod.json
+index 0065d7f..9be1ef8 100644
+--- a/XTFabric/src/main/resources/fabric.mod.json
++++ b/XTFabric/src/main/resources/fabric.mod.json
+@@ -70,7 +70,7 @@
+   
+     "depends": {
+       "fabric-api": "*",
+-      "minecraft": ">=1.20"
++      "minecraft": "1.19.4"
+     },
+     "custom": {
+       "modmenu": {
+diff --git a/gradle-compose.yml b/gradle-compose.yml
+index eab6a31..e0beea2 100644
+--- a/gradle-compose.yml
++++ b/gradle-compose.yml
+@@ -1,5 +1,5 @@
+ version: '0.0.2'
+-source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.20"
++source: "https://github.com/tr7zw/ModComposeTemplate/tree/1.19.4"
+ replacements:
+   name: "ItemSwapper"
+   id: "itemswapper"
+-- 
+2.32.0.windows.2
+
