@@ -1,11 +1,11 @@
-From 65b7b838600623b38e1d5c90b204ecc48e07dc60 Mon Sep 17 00:00:00 2001
+From 7fa76294246ab30c0d0eb0e3dbf9829bb09cb4b4 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sun, 2 Apr 2023 20:54:46 +0200
 Subject: [PATCH] Backport to 1.19.3
 
 ---
- .../itemswapper/gui/CopyToClipboard.java      |  2 +-
- .../itemswapper/overlay/ItemListOverlay.java  | 17 +++++++------
+ .../itemswapper/gui/CopyToClipboard.java      |  4 +++-
+ .../itemswapper/overlay/ItemListOverlay.java  | 13 ++++++----
  .../overlay/logic/ItemGridWidget.java         | 12 +++++++---
  .../overlay/logic/ShortcutListWidget.java     |  2 +-
  .../tr7zw/itemswapper/util/RenderHelper.java  | 24 ++++++++-----------
@@ -14,41 +14,39 @@ Subject: [PATCH] Backport to 1.19.3
  XTFabric/src/main/resources/fabric.mod.json   |  2 +-
  .../test/java/dev/tr7zw/tests/TestUtil.java   |  4 ----
  gradle-compose.yml                            |  2 +-
- 10 files changed, 33 insertions(+), 36 deletions(-)
+ 10 files changed, 35 insertions(+), 32 deletions(-)
 
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-index 32199aa..bbbe6c5 100644
+index 022274b..684d645 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-@@ -63,7 +63,7 @@ public class CopyToClipboard extends ImageButton {
+@@ -62,7 +62,9 @@ public class CopyToClipboard extends ImageButton {
      }
  
      @Override
 -    public void renderWidget(@NotNull PoseStack poseStack, int i, int j, float f) {
 +    public void renderButton(@NotNull PoseStack poseStack, int i, int j, float f) {
-         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-         RenderSystem.setShaderTexture(0, texture);
++        RenderSystem.setShader(GameRenderer::getPositionTexShader);
++        RenderSystem.setShaderTexture(0, texture);
          RenderSystem.enableDepthTest();
+         RenderSystem.enableBlend();
+         // FIXME: Cursed and broken, but doesn't scale everything anymore
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
-index 577fb7b..04edb5b 100644
+index b8bf2a0..9e32c1f 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
-@@ -100,11 +100,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
-             renderEntry(poseStack, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
+@@ -96,7 +96,10 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+             renderEntry(poseStack, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
          }
          itemRenderList.forEach(Runnable::run);
--        //FIXME
--//        float blit = this.itemRenderer.blitOffset;
--//        this.itemRenderer.blitOffset += 300;
 +        float blit = this.itemRenderer.blitOffset;
 +        this.itemRenderer.blitOffset += 300;
          lateRenderList.forEach(Runnable::run);
--//        this.itemRenderer.blitOffset = blit;
 +        this.itemRenderer.blitOffset = blit;
      }
  
      @Override
-@@ -186,12 +185,12 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+@@ -179,12 +182,12 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
          if (selectedEntry == id) {
              itemRenderList = lateRenderList;
              lateRenderList.add(() -> {
@@ -64,7 +62,7 @@ index 577fb7b..04edb5b 100644
              });
          }
          itemRenderList.add(() -> {
-@@ -210,9 +209,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
+@@ -203,9 +206,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
  
      private void renderSlot(PoseStack poseStack, int x, int y, Player arg, ItemStack arg2, int k) {
          if (!arg2.isEmpty()) {
@@ -77,10 +75,10 @@ index 577fb7b..04edb5b 100644
      }
  
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
-index df43055..3875238 100644
+index 4fcc4e0..0497cb2 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
-@@ -45,8 +45,11 @@ public abstract class ItemGridWidget implements GuiWidget {
+@@ -46,8 +46,11 @@ public abstract class ItemGridWidget implements GuiWidget {
          }
          RenderSystem.enableBlend();
          itemRenderList.forEach(Runnable::run);
@@ -91,8 +89,8 @@ index df43055..3875238 100644
 +        this.itemRenderer.blitOffset = blit;
      }
  
-     private void renderSelection(GuiComponent parent, PoseStack poseStack, int listId, int x, int y,
-@@ -60,9 +63,12 @@ public abstract class ItemGridWidget implements GuiWidget {
+     private void renderSelection(Screen parent, PoseStack poseStack, int listId, int x, int y,
+@@ -62,9 +65,12 @@ public abstract class ItemGridWidget implements GuiWidget {
          GuiSlot guiSlot = getSlots().get(listId);
          if (guiSlot.selected().get()) {
              itemRenderList = lateRenderList;
@@ -109,7 +107,7 @@ index df43055..3875238 100644
          renderSlot(poseStack, x, y, itemRenderList, guiSlot, overwrideAvailable);
      }
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
-index 586e0b2..64899c2 100644
+index a82d02e..005e6a7 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ShortcutListWidget.java
 @@ -59,7 +59,7 @@ public class ShortcutListWidget extends ItemGridWidget {
@@ -122,7 +120,7 @@ index 586e0b2..64899c2 100644
      }
  
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java b/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
-index 07d2e61..6bf6ec0 100644
+index a9c3ae7..b7bb9fd 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
 @@ -27,6 +27,7 @@ import net.minecraft.world.item.ItemStack;
@@ -234,14 +232,14 @@ index 7592bf6..792e962 100644
  }
 \ No newline at end of file
 diff --git a/XTFabric/src/main/resources/fabric.mod.json b/XTFabric/src/main/resources/fabric.mod.json
-index 6dd0a01..cdcea0c 100644
+index 9be1ef8..cdcea0c 100644
 --- a/XTFabric/src/main/resources/fabric.mod.json
 +++ b/XTFabric/src/main/resources/fabric.mod.json
 @@ -70,7 +70,7 @@
    
      "depends": {
        "fabric-api": "*",
--      "minecraft": ">=1.19.3"
+-      "minecraft": "1.19.4"
 +      "minecraft": "1.19.3"
      },
      "custom": {
@@ -262,7 +260,7 @@ index 82547ed..37b7b1d 100644
      }
      
 diff --git a/gradle-compose.yml b/gradle-compose.yml
-index 9845ffe..baff1b5 100644
+index e0beea2..fe844c4 100644
 --- a/gradle-compose.yml
 +++ b/gradle-compose.yml
 @@ -1,5 +1,5 @@
