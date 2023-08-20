@@ -1,4 +1,4 @@
-From 634670511b35748df9748a7c34c2ec2e45380aa9 Mon Sep 17 00:00:00 2001
+From b24eeaa6a93d6807b9ee180a29a3025ce1762bf3 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sun, 2 Apr 2023 20:54:46 +0200
 Subject: [PATCH] Backport to 1.19.3
@@ -13,12 +13,13 @@ Subject: [PATCH] Backport to 1.19.3
  .../overlay/logic/ShortcutListWidget.java     |  2 +-
  .../SmithingTemplateItemNameProvider.java     | 36 -------------------
  .../tr7zw/itemswapper/util/RenderHelper.java  | 24 ++++++-------
+ .../main/resources/itemswapper.mixins.json    |  1 -
  .../resourcepacks/classic/pack.mcmeta         |  2 +-
  .../resourcepacks/default/pack.mcmeta         |  2 +-
  XTFabric/src/main/resources/fabric.mod.json   |  2 +-
  .../test/java/dev/tr7zw/tests/TestUtil.java   |  4 ---
  gradle-compose.yml                            |  2 +-
- 14 files changed, 37 insertions(+), 101 deletions(-)
+ 15 files changed, 37 insertions(+), 102 deletions(-)
  delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/accessor/SmithingTemplateItemAccessor.java
  delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/mixin/SmithingTemplateItemMixin.java
  delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/provider/SmithingTemplateItemNameProvider.java
@@ -330,6 +331,18 @@ index a9c3ae7..b7bb9fd 100644
          }
      }
  
+diff --git a/Shared/src/main/resources/itemswapper.mixins.json b/Shared/src/main/resources/itemswapper.mixins.json
+index 2959ffb..e194cdb 100644
+--- a/Shared/src/main/resources/itemswapper.mixins.json
++++ b/Shared/src/main/resources/itemswapper.mixins.json
+@@ -19,7 +19,6 @@
+     "InstrumentItemMixin",
+     "KeyboardHandlerMixin",
+     "KeyMappingMixin",
+-    "SmithingTemplateItemMixin",
+     "LitematicaMixin"
+   ],
+   "injectors": {
 diff --git a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta b/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
 index 4bf5b4c..e2aeda5 100644
 --- a/Shared/src/main/resources/resourcepacks/classic/pack.mcmeta
