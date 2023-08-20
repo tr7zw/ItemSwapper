@@ -1,26 +1,76 @@
-From 7fa76294246ab30c0d0eb0e3dbf9829bb09cb4b4 Mon Sep 17 00:00:00 2001
+From 634670511b35748df9748a7c34c2ec2e45380aa9 Mon Sep 17 00:00:00 2001
 From: tr7zw <tr7zw@live.de>
 Date: Sun, 2 Apr 2023 20:54:46 +0200
 Subject: [PATCH] Backport to 1.19.3
 
 ---
- .../itemswapper/gui/CopyToClipboard.java      |  4 +++-
- .../itemswapper/overlay/ItemListOverlay.java  | 13 ++++++----
- .../overlay/logic/ItemGridWidget.java         | 12 +++++++---
+ .../itemswapper/ItemSwapperSharedMod.java     |  2 --
+ .../SmithingTemplateItemAccessor.java         |  9 -----
+ .../itemswapper/gui/CopyToClipboard.java      |  5 ++-
+ .../mixin/SmithingTemplateItemMixin.java      | 21 -----------
+ .../itemswapper/overlay/ItemListOverlay.java  | 13 ++++---
+ .../overlay/logic/ItemGridWidget.java         | 14 +++++---
  .../overlay/logic/ShortcutListWidget.java     |  2 +-
- .../tr7zw/itemswapper/util/RenderHelper.java  | 24 ++++++++-----------
+ .../SmithingTemplateItemNameProvider.java     | 36 -------------------
+ .../tr7zw/itemswapper/util/RenderHelper.java  | 24 ++++++-------
  .../resourcepacks/classic/pack.mcmeta         |  2 +-
  .../resourcepacks/default/pack.mcmeta         |  2 +-
  XTFabric/src/main/resources/fabric.mod.json   |  2 +-
- .../test/java/dev/tr7zw/tests/TestUtil.java   |  4 ----
+ .../test/java/dev/tr7zw/tests/TestUtil.java   |  4 ---
  gradle-compose.yml                            |  2 +-
- 10 files changed, 35 insertions(+), 32 deletions(-)
+ 14 files changed, 37 insertions(+), 101 deletions(-)
+ delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/accessor/SmithingTemplateItemAccessor.java
+ delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/mixin/SmithingTemplateItemMixin.java
+ delete mode 100644 Shared/src/main/java/dev/tr7zw/itemswapper/provider/SmithingTemplateItemNameProvider.java
 
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
+index 7f78b87..f76a9b3 100644
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
++++ b/Shared/src/main/java/dev/tr7zw/itemswapper/ItemSwapperSharedMod.java
+@@ -26,7 +26,6 @@ import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
+ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
+ import dev.tr7zw.itemswapper.provider.RecordNameProvider;
+ import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
+-import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
+ import dev.tr7zw.itemswapper.support.AmecsAPISupport;
+ import dev.tr7zw.itemswapper.support.ViveCraftSupport;
+ import dev.tr7zw.util.ComponentProvider;
+@@ -81,7 +80,6 @@ public abstract class ItemSwapperSharedMod {
+         clientProviderManager.registerNameProvider(new PotionNameProvider());
+         clientProviderManager.registerNameProvider(new RecordNameProvider());
+         clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
+-        clientProviderManager.registerNameProvider(new SmithingTemplateItemNameProvider());
+     }
+ 
+     public void clientTick() {
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/accessor/SmithingTemplateItemAccessor.java b/Shared/src/main/java/dev/tr7zw/itemswapper/accessor/SmithingTemplateItemAccessor.java
+deleted file mode 100644
+index c4ebf90..0000000
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/accessor/SmithingTemplateItemAccessor.java
++++ /dev/null
+@@ -1,9 +0,0 @@
+-package dev.tr7zw.itemswapper.accessor;
+-
+-import net.minecraft.network.chat.Component;
+-
+-public interface SmithingTemplateItemAccessor {
+-
+-    public Component getUpgradeDescription();
+-    
+-}
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-index 022274b..684d645 100644
+index 022274b..bbbe6c5 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/gui/CopyToClipboard.java
-@@ -62,7 +62,9 @@ public class CopyToClipboard extends ImageButton {
+@@ -17,6 +17,7 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+ import dev.tr7zw.util.ComponentProvider;
+ import net.minecraft.client.Minecraft;
+ import net.minecraft.client.gui.components.ImageButton;
++import net.minecraft.client.renderer.GameRenderer;
+ import net.minecraft.core.registries.BuiltInRegistries;
+ import net.minecraft.network.chat.CommonComponents;
+ import net.minecraft.resources.ResourceLocation;
+@@ -62,7 +63,9 @@ public class CopyToClipboard extends ImageButton {
      }
  
      @Override
@@ -31,6 +81,33 @@ index 022274b..684d645 100644
          RenderSystem.enableDepthTest();
          RenderSystem.enableBlend();
          // FIXME: Cursed and broken, but doesn't scale everything anymore
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/SmithingTemplateItemMixin.java b/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/SmithingTemplateItemMixin.java
+deleted file mode 100644
+index d35c6cd..0000000
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/mixin/SmithingTemplateItemMixin.java
++++ /dev/null
+@@ -1,21 +0,0 @@
+-package dev.tr7zw.itemswapper.mixin;
+-
+-import org.spongepowered.asm.mixin.Mixin;
+-import org.spongepowered.asm.mixin.Shadow;
+-
+-import dev.tr7zw.itemswapper.accessor.SmithingTemplateItemAccessor;
+-import net.minecraft.network.chat.Component;
+-import net.minecraft.world.item.SmithingTemplateItem;
+-
+-@Mixin(SmithingTemplateItem.class)
+-public class SmithingTemplateItemMixin implements SmithingTemplateItemAccessor{
+-    
+-    @Shadow
+-    private Component upgradeDescription;
+-    
+-    @Override
+-    public Component getUpgradeDescription() {
+-        return upgradeDescription;
+-    }
+-
+-}
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
 index b8bf2a0..9e32c1f 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/ItemListOverlay.java
@@ -75,7 +152,7 @@ index b8bf2a0..9e32c1f 100644
      }
  
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
-index 4fcc4e0..0497cb2 100644
+index 4fcc4e0..ed5788c 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
 +++ b/Shared/src/main/java/dev/tr7zw/itemswapper/overlay/logic/ItemGridWidget.java
 @@ -46,8 +46,11 @@ public abstract class ItemGridWidget implements GuiWidget {
@@ -90,7 +167,13 @@ index 4fcc4e0..0497cb2 100644
      }
  
      private void renderSelection(Screen parent, PoseStack poseStack, int listId, int x, int y,
-@@ -62,9 +65,12 @@ public abstract class ItemGridWidget implements GuiWidget {
+@@ -57,14 +60,17 @@ public abstract class ItemGridWidget implements GuiWidget {
+         if (getWidgetArea().getBackgroundTexture() == null) {
+             // fallback in case of no background texture
+             RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
+-            GuiComponent.blit(poseStack, x, y, 24, 22, 29, 24);
++            parent.blit(poseStack, x, y, 24, 22, 29, 24);
+         }
          GuiSlot guiSlot = getSlots().get(listId);
          if (guiSlot.selected().get()) {
              itemRenderList = lateRenderList;
@@ -119,6 +202,48 @@ index a82d02e..005e6a7 100644
          }
      }
  
+diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/provider/SmithingTemplateItemNameProvider.java b/Shared/src/main/java/dev/tr7zw/itemswapper/provider/SmithingTemplateItemNameProvider.java
+deleted file mode 100644
+index 17cbd15..0000000
+--- a/Shared/src/main/java/dev/tr7zw/itemswapper/provider/SmithingTemplateItemNameProvider.java
++++ /dev/null
+@@ -1,36 +0,0 @@
+-package dev.tr7zw.itemswapper.provider;
+-
+-import java.util.HashSet;
+-import java.util.Set;
+-
+-import dev.tr7zw.itemswapper.accessor.SmithingTemplateItemAccessor;
+-import dev.tr7zw.itemswapper.api.client.NameProvider;
+-import net.minecraft.core.registries.BuiltInRegistries;
+-import net.minecraft.network.chat.Component;
+-import net.minecraft.world.item.Item;
+-import net.minecraft.world.item.ItemStack;
+-import net.minecraft.world.item.SmithingTemplateItem;
+-
+-public class SmithingTemplateItemNameProvider implements NameProvider {
+-
+-    private Set<Item> templates = new HashSet<>();
+-    
+-    public SmithingTemplateItemNameProvider() {
+-        BuiltInRegistries.ITEM.forEach(i -> {
+-            if(i instanceof SmithingTemplateItem) {
+-                templates.add(i);
+-            }
+-        });
+-    }
+-    
+-    @Override
+-    public Set<Item> getItemHandlers() {
+-        return templates;
+-    }
+-
+-    @Override
+-    public Component getDisplayName(ItemStack item) {
+-        return ((SmithingTemplateItemAccessor)(Object)item.getItem()).getUpgradeDescription().plainCopy();
+-    }
+-
+-}
 diff --git a/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java b/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
 index a9c3ae7..b7bb9fd 100644
 --- a/Shared/src/main/java/dev/tr7zw/itemswapper/util/RenderHelper.java
