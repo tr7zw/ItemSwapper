@@ -27,7 +27,7 @@
     "text.itemswapper.confirm.description": "Servern har denna mod varken installerad eller blockerad. Vill du aktivera modden utan shulkerlådsstöd? Vänligen fråga serverägaren/teamet om tillåtelse först. Att använda denna mod på en server utan tillåtelse kan få dig att bli bannlyst!",
     "text.itemswapper.resourcepack.notSelected": "Varning! Inget kompatibelt resurspaket för Föremålsväxlaren är aktiverat!",
     "text.itemswapper.unlockListMouse": "Lås Upp Mus För Listor",
-    "text.itemswapper.unlockListMouse.tooltip": "Allows you to still move the mouse while having a list open. Only the mouse wheel will interact with the list.",
+    "text.itemswapper.unlockListMouse.tooltip": "Låter dig fortfarande flytta musen medan en lista är öppen. Endast mushjulet kommer att interagera med listan.",
     "text.itemswapper.button.copyToClipboard.tooltip": "Kopiera förhandsvisning som JSON till Urklipp",
     "text.itemswapper.button.copyToClipboard.success": "Förhandsgranskningen har kopierats till ditt urklipp. - Kontrollera urklippet för ditt operativsystem, som ett alternativ kolla in din nuvarande loggfil.",
     "text.itemswapper.disabledByPlayer": "Du har inaktiverat moden för denna server!",
