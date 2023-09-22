@@ -39,7 +39,7 @@ public class ServerItemHandler {
     public void refillSlot(ServerPlayer player, PacketByteBufPayload serverboundCustomPayloadPacket) {
         try {
             FriendlyByteBuf buf = serverboundCustomPayloadPacket.data();
-            int targetSlot = buf.readInt();
+            int targetSlot = buf.resetReaderIndex().readInt();
             ItemStack target = player.getInventory().getItem(targetSlot);
             if (target == null || target.isEmpty()) {
                 return;
