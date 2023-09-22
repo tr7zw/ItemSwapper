@@ -79,10 +79,6 @@ public class EditListScreen extends OptionsSubScreen {
             return super.getRowWidth() + 50;
         }
 
-        protected void renderBackground(final GuiGraphics graphics) {
-            EditListScreen.this.renderBackground(graphics);
-        }
-
         @Environment(EnvType.CLIENT)
         public class ListEntry extends ObjectSelectionList.Entry<ListEntry> {
             final String string;

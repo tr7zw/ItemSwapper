@@ -34,7 +34,6 @@ public abstract class ItemGridWidget implements GuiWidget {
         originX += getWidgetArea().getX();
         originY += getWidgetArea().getY();
         WidgetUtil.renderBackground(getWidgetArea(), graphics, originX, originY);
-        RenderSystem.setShaderTexture(0, WidgetUtil.WIDGETS_LOCATION);
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         for (int i = 0; i < getSlots().size(); i++) {
@@ -54,7 +53,7 @@ public abstract class ItemGridWidget implements GuiWidget {
             boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
-            graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
+            graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
         }
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {

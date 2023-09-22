@@ -10,20 +10,20 @@ import org.jetbrains.annotations.NotNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class CopyToClipboard extends ImageButton {
+public class CopyToClipboard extends LegacyTexturedButtonWidget {
     private static final ResourceLocation texture = new ResourceLocation(ItemSwapperSharedMod.MODID,
             "textures/gui/button.png");
     private static final int TEXTURE_WIDTH = 10;
