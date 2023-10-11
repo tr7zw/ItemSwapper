@@ -21,8 +21,9 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     }
     
     @Override
-    public void onScroll(double signum) {
-        onScroll(signum);
+    public boolean mouseScrolled(double d, double e, double f, double g) {
+        onScroll(g);
+        return true;
     }
     
 }
