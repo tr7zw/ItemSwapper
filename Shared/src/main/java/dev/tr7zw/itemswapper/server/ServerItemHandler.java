@@ -17,6 +17,7 @@ public class ServerItemHandler {
     public void swapItem(ServerPlayer player, PacketByteBufPayload serverboundCustomPayloadPacket) {
         try {
             FriendlyByteBuf buf = serverboundCustomPayloadPacket.data();
+            buf.resetReaderIndex();
             int inventory = buf.readInt();
             int slot = buf.readInt();
             if (ShulkerHelper.isShulker(player.getInventory().getSelected().getItem())) {
@@ -39,6 +40,7 @@ public class ServerItemHandler {
     public void refillSlot(ServerPlayer player, PacketByteBufPayload serverboundCustomPayloadPacket) {
         try {
             FriendlyByteBuf buf = serverboundCustomPayloadPacket.data();
+            buf.resetReaderIndex();
             int targetSlot = buf.resetReaderIndex().readInt();
             ItemStack target = player.getInventory().getItem(targetSlot);
             if (target == null || target.isEmpty()) {

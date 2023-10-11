@@ -45,7 +45,7 @@ public abstract class ItemSwapperSharedMod {
 
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
     public static final String MODID = "itemswapper";
-    private static final Minecraft minecraft = Minecraft.getInstance();
+    private static Minecraft minecraft = Minecraft.getInstance();
 
     public static ItemSwapperSharedMod instance;
 
@@ -71,6 +71,7 @@ public abstract class ItemSwapperSharedMod {
 
     public void init() {
         instance = this;
+        minecraft = Minecraft.getInstance();
         LOGGER.info("Loading ItemSwapper!");
 
         initModloader();
