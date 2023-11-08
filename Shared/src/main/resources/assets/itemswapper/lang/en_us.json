@@ -50,6 +50,7 @@
   "text.itemswapper.restockAll.tooltip": "Fill up item stacks in the inventory using items from containers.",
   "text.itemswapper.resourcepack.classic": "ItemSwapper Classic Pack",
   "text.itemswapper.resourcepack.default": "ItemSwapper Default Pack",
+  "text.itemswapper.resourcepack.experimental_addon": "ItemSwapper Default Pack 1.21 Items Addon",
   "text.itemswapper.whitelist": "Whitelist",
   "text.itemswapper.blacklist": "Blacklist",
   "text.itemswapper.remove": "Remove",

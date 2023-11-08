@@ -70,7 +70,7 @@
   
     "depends": {
       "fabric-api": "*",
-      "minecraft": ">=1.20.2"
+      "minecraft": ">=1.20.3-alpha.23.43.a"
     },
     "custom": {
       "modmenu": {
