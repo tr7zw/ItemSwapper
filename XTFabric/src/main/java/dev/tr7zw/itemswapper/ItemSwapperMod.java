@@ -1,9 +1,13 @@
 package dev.tr7zw.itemswapper;
 
+import java.util.Optional;
+
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
+import dev.tr7zw.itemswapper.packets.DisableModPayload;
+import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
+import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import dev.tr7zw.itemswapper.support.AmecsAPISupport;
 import dev.tr7zw.itemswapper.support.ViveCraftSupport;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -16,8 +20,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-
-import java.util.Optional;
 
 public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
 
@@ -61,7 +63,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         });
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
-            ClientPlayNetworking.registerReceiver(NetworkUtil.enableShulkerMessage,
+            ClientPlayNetworking.registerReceiver(ShulkerSupportPayload.ID,
                     (client1, handler, buf, responseSender) -> {
                         try {
                             ItemSwapperSharedMod.instance.setEnableShulkers(buf.readBoolean());
@@ -69,7 +71,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                             ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
                         }
                     });
-            ClientPlayNetworking.registerReceiver(NetworkUtil.enableRefillMessage,
+            ClientPlayNetworking.registerReceiver(RefillSupportPayload.ID,
                     (client1, handler, buf, responseSender) -> {
                         try {
                             ItemSwapperSharedMod.instance.setEnableRefill(buf.readBoolean());
@@ -77,7 +79,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                             ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
                         }
                     });
-            ClientPlayNetworking.registerReceiver(NetworkUtil.disableModMessage,
+            ClientPlayNetworking.registerReceiver(DisableModPayload.ID,
                     (client12, handler, buf, responseSender) -> {
                         try {
                             ItemSwapperSharedMod.instance.setModDisabled(buf.readBoolean());

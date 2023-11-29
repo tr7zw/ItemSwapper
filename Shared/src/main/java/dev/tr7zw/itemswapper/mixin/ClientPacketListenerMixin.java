@@ -6,8 +6,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
-import net.fabricmc.fabric.impl.networking.payload.PacketByteBufPayload;
+import dev.tr7zw.itemswapper.packets.DisableModPayload;
+import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
+import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
@@ -16,28 +17,18 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     public void handleCustomPayload(CustomPacketPayload customPacketPayload, CallbackInfo ci) {
-        if(customPacketPayload instanceof PacketByteBufPayload payload) {
-            if (NetworkUtil.enableShulkerMessage.equals(payload.id())) {
-                try {
-                    ItemSwapperSharedMod.instance.setEnableShulkers(payload.data().readBoolean());
-                } catch (Throwable th) {
-                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
-                }
+        try {
+            if (customPacketPayload instanceof ShulkerSupportPayload payload) {
+                ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());
             }
-            if (NetworkUtil.disableModMessage.equals(payload.id())) {
-                try {
-                    ItemSwapperSharedMod.instance.setModDisabled(payload.data().readBoolean());
-                } catch (Throwable th) {
-                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
-                }
+            if (customPacketPayload instanceof DisableModPayload payload) {
+                ItemSwapperSharedMod.instance.setModDisabled(payload.enabled());
             }
-            if (NetworkUtil.enableRefillMessage.equals(payload.id())) {
-                try {
-                    ItemSwapperSharedMod.instance.setEnableRefill(payload.data().readBoolean());
-                } catch (Throwable th) {
-                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
-                }
+            if (customPacketPayload instanceof RefillSupportPayload payload) {
+                ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
             }
+        } catch (Throwable th) {
+            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
         }
     }
 

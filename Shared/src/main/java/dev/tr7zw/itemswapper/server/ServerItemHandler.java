@@ -3,10 +3,10 @@ package dev.tr7zw.itemswapper.server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import dev.tr7zw.itemswapper.packets.RefillItemPayload;
+import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
-import net.fabricmc.fabric.impl.networking.payload.PacketByteBufPayload;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
@@ -14,21 +14,17 @@ public class ServerItemHandler {
 
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
 
-    public void swapItem(ServerPlayer player, PacketByteBufPayload serverboundCustomPayloadPacket) {
+    public void swapItem(ServerPlayer player, SwapItemPayload payload) {
         try {
-            FriendlyByteBuf buf = serverboundCustomPayloadPacket.data();
-            buf.resetReaderIndex();
-            int inventory = buf.readInt();
-            int slot = buf.readInt();
             if (ShulkerHelper.isShulker(player.getInventory().getSelected().getItem())) {
                 // Don't try to put a shulker into another shulker
                 return;
             }
-            ItemStack shulker = player.getInventory().items.get(inventory);
+            ItemStack shulker = player.getInventory().items.get(payload.inventorySlot());
             NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
             if (content != null) {
-                ItemStack tmp = content.get(slot);
-                content.set(slot, player.getInventory().getSelected());
+                ItemStack tmp = content.get(payload.slot());
+                content.set(payload.slot(), player.getInventory().getSelected());
                 player.getInventory().setItem(player.getInventory().selected, tmp);
                 ShulkerHelper.setItem(shulker, content);
             }
@@ -37,12 +33,9 @@ public class ServerItemHandler {
         }
     }
 
-    public void refillSlot(ServerPlayer player, PacketByteBufPayload serverboundCustomPayloadPacket) {
+    public void refillSlot(ServerPlayer player, RefillItemPayload payload) {
         try {
-            FriendlyByteBuf buf = serverboundCustomPayloadPacket.data();
-            buf.resetReaderIndex();
-            int targetSlot = buf.resetReaderIndex().readInt();
-            ItemStack target = player.getInventory().getItem(targetSlot);
+            ItemStack target = player.getInventory().getItem(payload.slot());
             if (target == null || target.isEmpty()) {
                 return;
             }
