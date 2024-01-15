@@ -45,7 +45,7 @@ public class PotionNameProvider implements NameProvider {
             comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));
         }
         if (effect.getDuration() > 1) {
-            comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration())))
+            comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration(), 20)))
                     .append(")");
         }
         return comp;

@@ -58,8 +58,7 @@ public class EditListScreen extends OptionsSubScreen {
     private class EntrySelectionList
             extends ObjectSelectionList<dev.tr7zw.itemswapper.overlay.EditListScreen.EntrySelectionList.ListEntry> {
         public EntrySelectionList(final Minecraft minecraft) {
-            super(minecraft, EditListScreen.this.width, EditListScreen.this.height, 32,
-                    EditListScreen.this.height - 65 + 4, 18);
+        	super(minecraft, EditListScreen.this.width, EditListScreen.this.height - 93, 32, 18);
             List<String> ips = whitelist ? CacheManager.getInstance().getCache().enableOnIp
                     : CacheManager.getInstance().getCache().disableOnIp;
             ips.forEach((string) -> {

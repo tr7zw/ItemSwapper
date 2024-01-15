@@ -123,7 +123,7 @@ public class TestUtil {
         public List<OptionInstance<?>> options = new ArrayList<>();
         
         public CustomOptionsList() {
-            super(null, 0, 0, 0, 0, 0);
+            super(null, 0, 0, 0, 0);
         }
 
         @Override

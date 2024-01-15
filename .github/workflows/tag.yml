@@ -15,7 +15,7 @@ jobs:
       - name: make gradle wrapper executable
         run: chmod +x ./gradlecw
       - name: build
-        run: ./gradlecw build
+        run: ./gradlecw build -Pbuild.release=true
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
@@ -31,3 +31,4 @@ jobs:
           loaders: fabric
           name: ${{github.ref_name}} - Fabric
           files: '*Fabric/build/libs/!(*-@(dev|sources|javadoc|all)).jar'
+          game-versions: 1.20.4
