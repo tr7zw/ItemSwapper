@@ -18,5 +18,6 @@ public class Config {
     public boolean vivecraftCompat = true;
     public boolean allowWalkingWithUI = true;
     public boolean startOnItem = false;
+    public boolean disablePickblockOnToolsWeapons = false;
 
 }

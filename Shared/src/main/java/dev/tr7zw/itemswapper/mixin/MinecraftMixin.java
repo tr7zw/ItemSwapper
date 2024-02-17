@@ -8,13 +8,18 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -61,9 +66,19 @@ public class MinecraftMixin {
     }
 
     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-    private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack, Type type) {
-        if(creative) {
+    private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
+            Type type) {
+        if (creative) {
             return;
+        }
+        if (ConfigManager.getInstance().getConfig().disablePickblockOnToolsWeapons) {
+            ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
+                    .getList(player.getMainHandItem().getItem());
+            if (list != null && (list.getId().equals(new ResourceLocation("itemswapper", "v2/weapons"))
+                    || list.getId().equals(new ResourceLocation("itemswapper", "v2/tools")))) {
+                ci.cancel();
+                return;
+            }
         }
         int slotId = player.getInventory().findSlotMatchingItem(stack);
         if (slotId != -1) {
