@@ -295,6 +295,11 @@ public abstract class ItemSwapperSharedMod {
                         getOnOffOption("text.itemswapper.fallbackInventory",
                                 () -> configManager.getConfig().fallbackInventory,
                                 b -> configManager.getConfig().fallbackInventory = b));
+                
+                options.add(
+                        getOnOffOption("text.itemswapper.disablePickblockOnToolsWeapons",
+                                () -> configManager.getConfig().disablePickblockOnToolsWeapons,
+                                b -> configManager.getConfig().disablePickblockOnToolsWeapons = b));
 
                 if (ViveCraftSupport.getInstance().isAvailable()) {
                     options.add(

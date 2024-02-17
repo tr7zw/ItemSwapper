@@ -59,5 +59,7 @@
   "text.itemswapper.allowWalkingWithUI": "Allow Walking With UI",
   "text.itemswapper.allowWalkingWithUI.tooltip": "Allows you to walk around while the UI is open. Turning this off makes the mod more vanilla-like.",
   "text.itemswapper.startOnItem": "Start On Item",
-  "text.itemswapper.startOnItem.tooltip": "When opening the UI, the cursor will be on the currently held item."
+  "text.itemswapper.startOnItem.tooltip": "When opening the UI, the cursor will be on the currently held item.",
+  "text.itemswapper.disablePickblockOnToolsWeapons": "Disable Pick Block On Tools/Weapons",
+  "text.itemswapper.disablePickblockOnToolsWeapons.tooltip": "Disables the pick block functionality on tools and weapons they don't end up in Shulkerboxes."
 }
