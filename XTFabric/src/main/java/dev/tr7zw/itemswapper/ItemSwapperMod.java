@@ -31,17 +31,20 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         KeyBindingHelper.registerKeyBinding(openInventoryKeybind);
 
         // Register default resource pack
-        FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
-                container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "default"), container, Component.translatable("text.itemswapper.resourcepack.default"),
+        FabricLoader.getInstance().getModContainer("itemswapper")
+                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+                        new ResourceLocation("itemswapper", "default"), container,
+                        Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
-        FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
-                container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "classic"), container, Component.translatable("text.itemswapper.resourcepack.classic"),
+        FabricLoader.getInstance().getModContainer("itemswapper")
+                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+                        new ResourceLocation("itemswapper", "classic"), container,
+                        Component.translatable("text.itemswapper.resourcepack.classic"),
                         ResourcePackActivationType.NORMAL));
-        FabricLoader.getInstance().getModContainer("itemswapper").ifPresent(
-                container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "experimental_addon"), container, Component.translatable("text.itemswapper.resourcepack.experimental_addon"),
+        FabricLoader.getInstance().getModContainer("itemswapper")
+                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+                        new ResourceLocation("itemswapper", "experimental_addon"), container,
+                        Component.translatable("text.itemswapper.resourcepack.experimental_addon"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
@@ -60,37 +63,34 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                 ViveCraftSupport.getInstance().init();
             }
         });
-        
+
         FabricLoader.getInstance().getModContainer("amecsapi").ifPresent(mod -> {
             ItemSwapperSharedMod.LOGGER.info("Adding Amecs-API support!");
             AmecsAPISupport.getInstance().init();
         });
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
-            ClientPlayNetworking.registerReceiver(ShulkerSupportPayload.ID,
-                    (client1, handler, buf, responseSender) -> {
-                        try {
-                            ItemSwapperSharedMod.instance.setEnableShulkers(buf.readBoolean());
-                        } catch (Throwable th) {
-                            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
-                        }
-                    });
-            ClientPlayNetworking.registerReceiver(RefillSupportPayload.ID,
-                    (client1, handler, buf, responseSender) -> {
-                        try {
-                            ItemSwapperSharedMod.instance.setEnableRefill(buf.readBoolean());
-                        } catch (Throwable th) {
-                            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
-                        }
-                    });
-            ClientPlayNetworking.registerReceiver(DisableModPayload.ID,
-                    (client12, handler, buf, responseSender) -> {
-                        try {
-                            ItemSwapperSharedMod.instance.setModDisabled(buf.readBoolean());
-                        } catch (Throwable th) {
-                            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
-                        }
-                    });
+            ClientPlayNetworking.registerReceiver(ShulkerSupportPayload.ID, (client1, handler, buf, responseSender) -> {
+                try {
+                    ItemSwapperSharedMod.instance.setEnableShulkers(buf.readBoolean());
+                } catch (Throwable th) {
+                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                }
+            });
+            ClientPlayNetworking.registerReceiver(RefillSupportPayload.ID, (client1, handler, buf, responseSender) -> {
+                try {
+                    ItemSwapperSharedMod.instance.setEnableRefill(buf.readBoolean());
+                } catch (Throwable th) {
+                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                }
+            });
+            ClientPlayNetworking.registerReceiver(DisableModPayload.ID, (client12, handler, buf, responseSender) -> {
+                try {
+                    ItemSwapperSharedMod.instance.setModDisabled(buf.readBoolean());
+                } catch (Throwable th) {
+                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                }
+            });
         });
     }
 

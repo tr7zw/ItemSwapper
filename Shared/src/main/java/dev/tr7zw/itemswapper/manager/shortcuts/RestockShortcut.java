@@ -14,7 +14,8 @@ import net.minecraft.world.item.Items;
 
 public class RestockShortcut implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(), ComponentProvider.translatable("text.itemswapper.restockAll"));
+    private final Icon icon = new ItemIcon(Items.SHULKER_BOX.getDefaultInstance(),
+            ComponentProvider.translatable("text.itemswapper.restockAll"));
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.restockAll.tooltip");
 
     public RestockShortcut() {
@@ -29,10 +30,10 @@ public class RestockShortcut implements Shortcut {
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         NonNullList<ItemStack> items = Minecraft.getInstance().player.getInventory().items;
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
             int space = item.getMaxStackSize() - item.getCount();
-            if(space > 0) {
+            if (space > 0) {
                 NetworkUtil.refillItem(i);
             }
         }
@@ -43,7 +44,7 @@ public class RestockShortcut implements Shortcut {
     public boolean isVisible() {
         return !Minecraft.getInstance().player.isCreative();
     }
-    
+
     @Override
     public Component getHoverText() {
         return hoverText;

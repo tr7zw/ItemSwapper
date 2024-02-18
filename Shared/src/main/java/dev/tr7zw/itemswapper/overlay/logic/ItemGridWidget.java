@@ -38,8 +38,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         List<Runnable> lateRenderList = new ArrayList<>();
         for (int i = 0; i < getSlots().size(); i++) {
             renderSelection(parent, graphics, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
-                    itemRenderList,
-                    lateRenderList, overwrideAvailable);
+                    itemRenderList, lateRenderList, overwrideAvailable);
         }
         RenderSystem.enableBlend();
         itemRenderList.forEach(Runnable::run);
@@ -48,9 +47,7 @@ public abstract class ItemGridWidget implements GuiWidget {
     }
 
     private void renderSelection(Screen parent, GuiGraphics graphics, int listId, int x, int y,
-            List<Runnable> itemRenderList,
-            List<Runnable> lateRenderList,
-            boolean overwrideAvailable) {
+            List<Runnable> itemRenderList, List<Runnable> lateRenderList, boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
@@ -58,7 +55,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-                graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
+            graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
         }
         renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);
     }

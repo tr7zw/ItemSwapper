@@ -3,13 +3,13 @@
     "priority": 100,
     "displayName": "text.itemswapper.palette.misc.devices",
     "items": [
-    "minecraft:fishing_rod",
-    "minecraft:spyglass",
-    "minecraft:compass",
-    "minecraft:clock",
-    "minecraft:filled_map",
-    "minecraft:map",
-    "minecraft:recovery_compass",
-	"minecraft:goat_horn"
-]
+        "minecraft:fishing_rod",
+        "minecraft:spyglass",
+        "minecraft:compass",
+        "minecraft:clock",
+        "minecraft:filled_map",
+        "minecraft:map",
+        "minecraft:recovery_compass",
+        "minecraft:goat_horn"
+    ]
 }

@@ -20,9 +20,9 @@ public class ShulkerHelper {
             Items.GREEN_SHULKER_BOX, Items.LIGHT_BLUE_SHULKER_BOX, Items.LIGHT_GRAY_SHULKER_BOX, Items.LIME_SHULKER_BOX,
             Items.MAGENTA_SHULKER_BOX, Items.ORANGE_SHULKER_BOX, Items.PINK_SHULKER_BOX, Items.PURPLE_SHULKER_BOX,
             Items.RED_SHULKER_BOX, Items.WHITE_SHULKER_BOX, Items.YELLOW_SHULKER_BOX);
-    
+
     public static NonNullList<ItemStack> getItems(ItemStack shulker) {
-        if(!shulkers.contains(shulker.getItem())) {
+        if (!shulkers.contains(shulker.getItem())) {
             return null;
         }
         CompoundTag tag = BlockItem.getBlockEntityData(shulker);
@@ -39,7 +39,7 @@ public class ShulkerHelper {
         CompoundTag rootTag = ContainerHelper.saveAllItems(tag != null ? tag : new CompoundTag(), items);
         BlockItem.setBlockEntityData(shulker, BlockEntityType.SHULKER_BOX, rootTag);
     }
-    
+
     public static boolean isShulker(Item item) {
         return shulkers.contains(item);
     }

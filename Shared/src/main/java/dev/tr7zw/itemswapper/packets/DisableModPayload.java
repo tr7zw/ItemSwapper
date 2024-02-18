@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 public record DisableModPayload(boolean enabled) implements CustomPacketPayload {
 
     public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "disable");
-    
+
     @Override
     public ResourceLocation id() {
         return ID;

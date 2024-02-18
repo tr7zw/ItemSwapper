@@ -30,8 +30,7 @@ public interface ContainerProvider {
      *                  rest will be ignored
      * @return A list of {@link AvailableSlot}s that can be swapped to right now.
      *         Return an {@link Collections#emptyList() emptyList} when nothing is
-     *         found/the
-     *         itemstack can't be used.
+     *         found/the itemstack can't be used.
      */
     List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId);
 

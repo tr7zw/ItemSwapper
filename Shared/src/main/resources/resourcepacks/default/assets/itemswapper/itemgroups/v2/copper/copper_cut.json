@@ -3,19 +3,16 @@
     "priority": 100,
     "displayName": "text.itemswapper.palette.copper.copper_cut",
     "items": [
-
         "minecraft:cut_copper",
         "minecraft:exposed_cut_copper",
         "minecraft:weathered_cut_copper",
-        "minecraft:oxidized_cut_copper",		
-		
-		"minecraft:waxed_cut_copper",
-		"minecraft:waxed_exposed_cut_copper",        
-		"minecraft:waxed_weathered_cut_copper",
+        "minecraft:oxidized_cut_copper",
+        "minecraft:waxed_cut_copper",
+        "minecraft:waxed_exposed_cut_copper",
+        "minecraft:waxed_weathered_cut_copper",
         "minecraft:waxed_oxidized_cut_copper"
-
-    ],   
-	"shortcuts": [
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_blocks"
@@ -23,7 +20,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_cut"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_stairs"
@@ -35,8 +32,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/copper/honeycomb_type"
-        }			
-		
-		
-	]
+        }
+    ]
 }

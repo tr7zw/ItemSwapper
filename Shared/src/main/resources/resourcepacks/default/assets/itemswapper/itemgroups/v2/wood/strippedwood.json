@@ -2,24 +2,22 @@
     "type": "palette",
     "priority": 200,
     "displayName": "text.itemswapper.palette.wood.strippedwood",
-	"ignoreItems": ["minecraft:stripped_bamboo_block"],
+    "ignoreItems": [
+        "minecraft:stripped_bamboo_block"
+    ],
     "items": [
-
-    "minecraft:stripped_oak_wood",
-    "minecraft:stripped_spruce_wood",	
-    "minecraft:stripped_birch_wood",
-    "minecraft:stripped_dark_oak_wood",
-	
-    "minecraft:stripped_acacia_wood",	
-    "minecraft:stripped_jungle_wood",	
-    "minecraft:stripped_mangrove_wood",	
-	
-	"minecraft:stripped_warped_hyphae",
-    "minecraft:stripped_crimson_hyphae",
-	
-    "minecraft:stripped_cherry_wood"
-    ],   
-	"shortcuts": [
+        "minecraft:stripped_oak_wood",
+        "minecraft:stripped_spruce_wood",
+        "minecraft:stripped_birch_wood",
+        "minecraft:stripped_dark_oak_wood",
+        "minecraft:stripped_acacia_wood",
+        "minecraft:stripped_jungle_wood",
+        "minecraft:stripped_mangrove_wood",
+        "minecraft:stripped_warped_hyphae",
+        "minecraft:stripped_crimson_hyphae",
+        "minecraft:stripped_cherry_wood"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/logs"
@@ -27,7 +25,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/strippedlogs"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/wood/wood"
@@ -35,6 +33,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/strippedwood"
-        }		
-	]
+        }
+    ]
 }

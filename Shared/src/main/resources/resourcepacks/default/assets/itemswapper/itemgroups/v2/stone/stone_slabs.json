@@ -3,14 +3,13 @@
     "priority": 49,
     "displayName": "text.itemswapper.palette.stone.stone_slabs",
     "items": [
-    "minecraft:stone_brick_slab",
-    "minecraft:cobblestone_slab",
-    "minecraft:stone_slab",
-    "minecraft:polished_andesite_slab",
-    "minecraft:andesite_slab",
-    "minecraft:mossy_stone_brick_slab",
-    "minecraft:mossy_cobblestone_slab"
-	
+        "minecraft:stone_brick_slab",
+        "minecraft:cobblestone_slab",
+        "minecraft:stone_slab",
+        "minecraft:polished_andesite_slab",
+        "minecraft:andesite_slab",
+        "minecraft:mossy_stone_brick_slab",
+        "minecraft:mossy_cobblestone_slab"
     ],
     "shortcuts": [
         {

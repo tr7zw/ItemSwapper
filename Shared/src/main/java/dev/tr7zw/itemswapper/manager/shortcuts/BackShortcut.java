@@ -10,7 +10,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class BackShortcut implements Shortcut {
 
-    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"), ComponentProvider.translatable("text.itemswapper.back"));
+    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"),
+            ComponentProvider.translatable("text.itemswapper.back"));
     private final SwitchItemOverlay overlay;
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.back.tooltip");
 

@@ -88,7 +88,7 @@ public class GuiSelectionHandler {
         }
         return false;
     }
-    
+
     public GuiWidget getSelectedWidget() {
         return selectedWidget;
     }

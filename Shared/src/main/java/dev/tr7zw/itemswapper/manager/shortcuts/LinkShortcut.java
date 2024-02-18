@@ -31,7 +31,7 @@ public class LinkShortcut implements Shortcut {
         this.displayIcon = null;
     }
 
-    public LinkShortcut( ResourceLocation nextId, Component displayName, Item icon) {
+    public LinkShortcut(ResourceLocation nextId, Component displayName, Item icon) {
         this.nextId = nextId;
         this.displayName = displayName;
         this.displayIcon = icon;
@@ -74,7 +74,7 @@ public class LinkShortcut implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        if(overlay.openPage(manager.getPage(nextId))) {
+        if (overlay.openPage(manager.getPage(nextId))) {
             overlay.selectIcon("link|" + nextId.toString(), xOffset, yOffset);
         }
         return true;

@@ -11,9 +11,8 @@
         "minecraft:waxed_exposed_cut_copper",
         "minecraft:waxed_exposed_cut_copper_stairs",
         "minecraft:waxed_exposed_cut_copper_slab"
-		
-],   
-	"shortcuts": [
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper"
@@ -21,7 +20,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_exposed"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_weathered"
@@ -33,8 +32,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/copper/honeycomb_weathering"
-        }			
-		
-		
-	]
+        }
+    ]
 }

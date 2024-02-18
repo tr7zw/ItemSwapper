@@ -1,22 +1,21 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "text.itemswapper.palette.earthen.dirt",	
-	"icon": "minecraft:grass_block",
+    "displayName": "text.itemswapper.palette.earthen.dirt",
+    "icon": "minecraft:grass_block",
     "items": [
-		"minecraft:dirt",
-		"minecraft:coarse_dirt",
-		"minecraft:rooted_dirt",
-		"minecraft:grass_block",
-		"minecraft:mycelium",
-		"minecraft:podzol"
-		
-    ],   
-	"shortcuts": [
-	    {
+        "minecraft:dirt",
+        "minecraft:coarse_dirt",
+        "minecraft:rooted_dirt",
+        "minecraft:grass_block",
+        "minecraft:mycelium",
+        "minecraft:podzol"
+    ],
+    "shortcuts": [
+        {
             "type": "link",
             "target": "itemswapper:v2/earthen/bricks"
-        },	
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/earthen/granite"
@@ -28,6 +27,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/earthen/dirt"
-        }				
-	]
+        }
+    ]
 }

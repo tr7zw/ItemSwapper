@@ -57,7 +57,8 @@ public abstract class ItemSwapperSharedMod {
     private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
 
     protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
-    protected KeyMapping openInventoryKeybind = new KeyMapping("key.itemswapper.openInventory", InputConstants.UNKNOWN.getValue(), "ItemSwapper");
+    protected KeyMapping openInventoryKeybind = new KeyMapping("key.itemswapper.openInventory",
+            InputConstants.UNKNOWN.getValue(), "ItemSwapper");
 
     private boolean enableShulkers = false;
     private boolean enableRefill = false;
@@ -102,7 +103,8 @@ public abstract class ItemSwapperSharedMod {
         } else if (keybind.isDown()) {
             if (isModDisabled()) {
                 minecraft.gui.setOverlayMessage(
-                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED),
+                        false);
             } else if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
             } else if (screen != null) {
@@ -113,7 +115,8 @@ public abstract class ItemSwapperSharedMod {
         } else if (openInventoryKeybind.isDown()) {
             if (isModDisabled()) {
                 minecraft.gui.setOverlayMessage(
-                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED), false);
+                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED),
+                        false);
             } else if (screen == null) {
                 ItemSwapperSharedMod.openInventoryScreen();
             }
@@ -130,9 +133,8 @@ public abstract class ItemSwapperSharedMod {
 
     private void onPress(ItemSwapperUI overlay) {
         if (minecraft.player != null && !itemGroupManager.isResourcepackSelected()) {
-            minecraft.player.displayClientMessage(
-                    ComponentProvider.translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED),
-                    true);
+            minecraft.player.displayClientMessage(ComponentProvider
+                    .translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED), true);
         }
 
         if (!pressed && isModDisabled()) {
@@ -145,15 +147,15 @@ public abstract class ItemSwapperSharedMod {
         ServerData server = Minecraft.getInstance().getCurrentServer();
         if (!pressed) {
             if (isDisabledByPlayer()) {
-                minecraft.gui.setOverlayMessage(
-                        ComponentProvider.translatable("text.itemswapper.disabledByPlayer").withStyle(ChatFormatting.RED), false);
+                minecraft.gui.setOverlayMessage(ComponentProvider.translatable("text.itemswapper.disabledByPlayer")
+                        .withStyle(ChatFormatting.RED), false);
             } else if (server != null && !enableOnIp.contains(server.ip) && !enableShulkers && !bypassAccepted) {
                 openConfirmationScreen();
             } else if (overlay == null) {
                 if (!bypassAccepted && server != null && enableOnIp.contains(server.ip)) {
                     bypassAccepted = true;
-                    minecraft.gui.setOverlayMessage(
-                            ComponentProvider.translatable("text.itemswapper.usedwhitelist").withStyle(ChatFormatting.GOLD), false);
+                    minecraft.gui.setOverlayMessage(ComponentProvider.translatable("text.itemswapper.usedwhitelist")
+                            .withStyle(ChatFormatting.GOLD), false);
                 }
                 if (couldOpenScreen()) {
                     pressed = true;
@@ -167,9 +169,9 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private void openConfirmationScreen() {
-        minecraft.setScreen(
-                new ConfirmScreen(this::acceptBypassCallback, ComponentProvider.translatable("text.itemswapper.confirm.title"),
-                        ComponentProvider.translatable("text.itemswapper.confirm.description")));
+        minecraft.setScreen(new ConfirmScreen(this::acceptBypassCallback,
+                ComponentProvider.translatable("text.itemswapper.confirm.title"),
+                ComponentProvider.translatable("text.itemswapper.confirm.description")));
     }
 
     private boolean couldOpenScreen() {
@@ -213,7 +215,7 @@ public abstract class ItemSwapperSharedMod {
         }
         SwitchItemOverlay overlay = SwitchItemOverlay.createPaletteOverlay(group);
         openScreen(overlay);
-        if(configManager.getConfig().startOnItem) {
+        if (configManager.getConfig().startOnItem) {
             overlay.selectIcon("item|" + Item.getId(minecraft.player.getMainHandItem().getItem()), 0, 0);
         }
     }
@@ -225,19 +227,19 @@ public abstract class ItemSwapperSharedMod {
         }
         openScreen(SwitchItemOverlay.createPageOverlay(page));
     }
-    
+
     /**
      * Opens a screen without unbinding the mouse
      * 
      * @param screen
      */
     private static void openScreen(Screen screen) {
-        if(!AmecsAPISupport.getInstance().isActive()) {
+        if (!AmecsAPISupport.getInstance().isActive()) {
             ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(true);
         }
         minecraft.setScreen(screen);
         minecraft.getSoundManager().resume();
-        if(AmecsAPISupport.getInstance().isActive()) {
+        if (AmecsAPISupport.getInstance().isActive()) {
             minecraft.mouseHandler.grabMouse();
         } else {
             ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(false);
@@ -248,7 +250,7 @@ public abstract class ItemSwapperSharedMod {
         boolean keepOpen = xtOverlay.onPrimaryClick();
         if (forceClose || !keepOpen) {
             minecraft.setScreen(null);
-            if(!ConfigManager.getInstance().getConfig().allowWalkingWithUI) {
+            if (!ConfigManager.getInstance().getConfig().allowWalkingWithUI) {
                 KeyMapping.setAll();
             }
         }
@@ -262,8 +264,8 @@ public abstract class ItemSwapperSharedMod {
             @Override
             public void initialize() {
                 List<OptionInstance<?>> options = new ArrayList<>();
-                options.add(getOnOffOption("text.itemswapper.showTooltips", () -> configManager.getConfig().showTooltips,
-                        b -> configManager.getConfig().showTooltips = b));
+                options.add(getOnOffOption("text.itemswapper.showTooltips",
+                        () -> configManager.getConfig().showTooltips, b -> configManager.getConfig().showTooltips = b));
                 options.add(getOnOffOption("text.itemswapper.toggleMode", () -> configManager.getConfig().toggleMode,
                         b -> configManager.getConfig().toggleMode = b));
                 options.add(getOnOffOption("text.itemswapper.showCursor", () -> configManager.getConfig().showCursor,
@@ -273,17 +275,14 @@ public abstract class ItemSwapperSharedMod {
                 options.add(getOnOffOption("text.itemswapper.creativeCheatMode",
                         () -> configManager.getConfig().creativeCheatMode,
                         b -> configManager.getConfig().creativeCheatMode = b));
-                options.add(
-                        getOnOffOption("text.itemswapper.ignoreHotbar", () -> configManager.getConfig().ignoreHotbar,
-                                b -> configManager.getConfig().ignoreHotbar = b));
-                options.add(
-                        getOnOffOption("text.itemswapper.unlockListMouse",
-                                () -> configManager.getConfig().unlockListMouse,
-                                b -> configManager.getConfig().unlockListMouse = b));
-                options.add(
-                        getOnOffOption("text.itemswapper.disableShulkers",
-                                () -> configManager.getConfig().disableShulkers,
-                                b -> configManager.getConfig().disableShulkers = b));
+                options.add(getOnOffOption("text.itemswapper.ignoreHotbar",
+                        () -> configManager.getConfig().ignoreHotbar, b -> configManager.getConfig().ignoreHotbar = b));
+                options.add(getOnOffOption("text.itemswapper.unlockListMouse",
+                        () -> configManager.getConfig().unlockListMouse,
+                        b -> configManager.getConfig().unlockListMouse = b));
+                options.add(getOnOffOption("text.itemswapper.disableShulkers",
+                        () -> configManager.getConfig().disableShulkers,
+                        b -> configManager.getConfig().disableShulkers = b));
 
                 options.add(getDoubleOption("text.itemswapper.controllerSpeed", 1, 16, 0.1f,
                         () -> (double) configManager.getConfig().controllerSpeed,
@@ -291,45 +290,43 @@ public abstract class ItemSwapperSharedMod {
                 options.add(getDoubleOption("text.itemswapper.mouseSpeed", 0.1f, 3, 0.1f,
                         () -> (double) configManager.getConfig().mouseSpeed,
                         d -> configManager.getConfig().mouseSpeed = d.floatValue()));
-                options.add(
-                        getOnOffOption("text.itemswapper.fallbackInventory",
-                                () -> configManager.getConfig().fallbackInventory,
-                                b -> configManager.getConfig().fallbackInventory = b));
-                
-                options.add(
-                        getOnOffOption("text.itemswapper.disablePickblockOnToolsWeapons",
-                                () -> configManager.getConfig().disablePickblockOnToolsWeapons,
-                                b -> configManager.getConfig().disablePickblockOnToolsWeapons = b));
+                options.add(getOnOffOption("text.itemswapper.fallbackInventory",
+                        () -> configManager.getConfig().fallbackInventory,
+                        b -> configManager.getConfig().fallbackInventory = b));
+
+                options.add(getOnOffOption("text.itemswapper.disablePickblockOnToolsWeapons",
+                        () -> configManager.getConfig().disablePickblockOnToolsWeapons,
+                        b -> configManager.getConfig().disablePickblockOnToolsWeapons = b));
 
                 if (ViveCraftSupport.getInstance().isAvailable()) {
-                    options.add(
-                            getOnOffOption("text.itemswapper.vivecraftCompat",
-                                    () -> configManager.getConfig().vivecraftCompat,
-                                    b -> configManager.getConfig().vivecraftCompat = b));
+                    options.add(getOnOffOption("text.itemswapper.vivecraftCompat",
+                            () -> configManager.getConfig().vivecraftCompat,
+                            b -> configManager.getConfig().vivecraftCompat = b));
                 }
-                
-                options.add(
-                        getOnOffOption("text.itemswapper.allowWalkingWithUI",
-                                () -> configManager.getConfig().allowWalkingWithUI,
-                                b -> configManager.getConfig().allowWalkingWithUI = b));
-                options.add(
-                        getOnOffOption("text.itemswapper.startOnItem",
-                                () -> configManager.getConfig().startOnItem,
-                                b -> configManager.getConfig().startOnItem = b));
+
+                options.add(getOnOffOption("text.itemswapper.allowWalkingWithUI",
+                        () -> configManager.getConfig().allowWalkingWithUI,
+                        b -> configManager.getConfig().allowWalkingWithUI = b));
+                options.add(getOnOffOption("text.itemswapper.startOnItem", () -> configManager.getConfig().startOnItem,
+                        b -> configManager.getConfig().startOnItem = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
-                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
-                    @Override
-                    public void onPress(Button button) {
-                        Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, true));
-                    }
-                }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
-                this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
-                    @Override
-                    public void onPress(Button button) {
-                        Minecraft.getInstance().setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
-                    }
-                }).pos(this.width / 2 - 160, this.height - 27).size(50, 20).build());
+                this.addRenderableWidget(
+                        Button.builder(ComponentProvider.translatable("text.itemswapper.whitelist"), new OnPress() {
+                            @Override
+                            public void onPress(Button button) {
+                                Minecraft.getInstance()
+                                        .setScreen(new EditListScreen(inst, Minecraft.getInstance().options, true));
+                            }
+                        }).pos(this.width / 2 - 210, this.height - 27).size(50, 20).build());
+                this.addRenderableWidget(
+                        Button.builder(ComponentProvider.translatable("text.itemswapper.blacklist"), new OnPress() {
+                            @Override
+                            public void onPress(Button button) {
+                                Minecraft.getInstance()
+                                        .setScreen(new EditListScreen(inst, Minecraft.getInstance().options, false));
+                            }
+                        }).pos(this.width / 2 - 160, this.height - 27).size(50, 20).build());
             }
 
             @Override
@@ -410,7 +407,7 @@ public abstract class ItemSwapperSharedMod {
     public KeyMapping getKeybind() {
         return keybind;
     }
-    
+
     public KeyMapping getInventoryKeybind() {
         return openInventoryKeybind;
     }

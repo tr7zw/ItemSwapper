@@ -13,8 +13,8 @@ public class WidgetArea {
     private int mouseBoundsX;
     private int mouseBoundsY;
 
-    public WidgetArea(int backgroundSizeX, int backgroundSizeY, int backgroundTextureSizeX,
-            int backgroundTextureSizeY, ResourceLocation backgroundTexture, int mouseBoundsX, int mouseBoundsY) {
+    public WidgetArea(int backgroundSizeX, int backgroundSizeY, int backgroundTextureSizeX, int backgroundTextureSizeY,
+            ResourceLocation backgroundTexture, int mouseBoundsX, int mouseBoundsY) {
         this.backgroundSizeX = backgroundSizeX;
         this.backgroundSizeY = backgroundSizeY;
         this.backgroundTextureSizeX = backgroundTextureSizeX;

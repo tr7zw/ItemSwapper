@@ -131,13 +131,13 @@ public class ItemGroupManager {
     }
 
     public void registerListCollection(ItemList items) {
-        if(!items.isDisableAutoLink()) {
+        if (!items.isDisableAutoLink()) {
             for (Item i : items.getItems()) {
                 if (i != Items.AIR && !items.getIgnoreItems().contains(i)) {
                     listMapping.put(i, items);
                 }
             }
-            for(Item i : items.getOpenOnlyItems()) {
+            for (Item i : items.getOpenOnlyItems()) {
                 listMapping.put(i, items);
             }
         }

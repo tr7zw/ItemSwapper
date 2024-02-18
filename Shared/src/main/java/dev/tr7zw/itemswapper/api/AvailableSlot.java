@@ -6,10 +6,10 @@ import net.minecraft.world.item.ItemStack;
 
 /**
  * @param inventory The inventory containing the item. -1 is the player
- *                  inventory, positive numbers point to a container inside
- *                  the player inventory(shulkers). Other unique negative ids
- *                  can be used by other mods to point to other inventories like
- *                  the enderchest.
+ *                  inventory, positive numbers point to a container inside the
+ *                  player inventory(shulkers). Other unique negative ids can be
+ *                  used by other mods to point to other inventories like the
+ *                  enderchest.
  * @param slot      The slot id inside the inventory
  * @param item      The item used for rendering/reference
  * @parm amount Only used to calculate the amount of available total items
@@ -18,10 +18,10 @@ public record AvailableSlot(int inventory, int slot, ItemStack item, AtomicInteg
 
     /**
      * @param inventory The inventory containing the item. -1 is the player
-     *                  inventory, positive numbers point to a container inside
-     *                  the player inventory(shulkers). Other unique negative ids
-     *                  can be used by other mods to point to other inventories like
-     *                  the enderchest.
+     *                  inventory, positive numbers point to a container inside the
+     *                  player inventory(shulkers). Other unique negative ids can be
+     *                  used by other mods to point to other inventories like the
+     *                  enderchest.
      * @param slot      The slot id inside the inventory
      * @param item      The item used for rendering/reference
      */

@@ -2,26 +2,24 @@
     "type": "palette",
     "priority": 100,
     "displayName": "text.itemswapper.palette.functional.functional",
-	"icon": "minecraft:crafting_table",
-    "items": 
-		[
-		  "minecraft:chest",
-		  "minecraft:barrel",
-		  "minecraft:ender_chest",
-		  "minecraft:crafting_table",
-		  "minecraft:furnace",
-		  "minecraft:anvil",
-		  "minecraft:stonecutter",
-		  "minecraft:enchanting_table",
-		  "minecraft:beacon",
-		  "minecraft:respawn_anchor",
-		  "minecraft:beehive",
-		  "minecraft:bee_nest",
-		  "minecraft:lodestone",
-		  "minecraft:brewing_stand",
-		  "minecraft:cauldron"
-		],
-		
+    "icon": "minecraft:crafting_table",
+    "items": [
+        "minecraft:chest",
+        "minecraft:barrel",
+        "minecraft:ender_chest",
+        "minecraft:crafting_table",
+        "minecraft:furnace",
+        "minecraft:anvil",
+        "minecraft:stonecutter",
+        "minecraft:enchanting_table",
+        "minecraft:beacon",
+        "minecraft:respawn_anchor",
+        "minecraft:beehive",
+        "minecraft:bee_nest",
+        "minecraft:lodestone",
+        "minecraft:brewing_stand",
+        "minecraft:cauldron"
+    ],
     "shortcuts": [
         {
             "type": "link",
@@ -30,7 +28,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/functional/decorative"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/functional/villagers"
@@ -38,10 +36,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/functional/lights"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/functional/miscellaneous"
-        }		
+        }
     ]
 }

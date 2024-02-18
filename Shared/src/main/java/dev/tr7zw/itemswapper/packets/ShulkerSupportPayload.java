@@ -7,9 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayload {
 
-    public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID,
-            "enableshulker");
-    
+    public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "enableshulker");
+
     @Override
     public ResourceLocation id() {
         return ID;
@@ -23,5 +22,5 @@ public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayl
     public ShulkerSupportPayload(FriendlyByteBuf buffer) {
         this(buffer.readBoolean());
     }
-    
+
 }

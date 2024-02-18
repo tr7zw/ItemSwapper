@@ -8,11 +8,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.SmithingTemplateItem;
 
 @Mixin(SmithingTemplateItem.class)
-public class SmithingTemplateItemMixin implements SmithingTemplateItemAccessor{
-    
+public class SmithingTemplateItemMixin implements SmithingTemplateItemAccessor {
+
     @Shadow
     private Component upgradeDescription;
-    
+
     @Override
     public Component getUpgradeDescription() {
         return upgradeDescription;

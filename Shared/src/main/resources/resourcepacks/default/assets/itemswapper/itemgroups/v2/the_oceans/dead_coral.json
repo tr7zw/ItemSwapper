@@ -18,16 +18,16 @@
         "minecraft:dead_bubble_coral_fan",
         "minecraft:dead_fire_coral_fan",
         "minecraft:dead_horn_coral_fan"
-    ],   
-	"shortcuts": [
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/prismarine"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/coral"
-        },	
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/dead_coral"
@@ -35,6 +35,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/underwater"
-        }		
-	]
+        }
+    ]
 }

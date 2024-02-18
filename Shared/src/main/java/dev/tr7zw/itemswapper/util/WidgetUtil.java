@@ -13,8 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {
 
-    public static final ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE = new ResourceLocation(
-            "hud/hotbar_offhand_left");
+    public static final ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE = new ResourceLocation("hud/hotbar_offhand_left");
     public static final ResourceLocation CURSOR_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/cursor.png");
     public static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
@@ -68,8 +67,7 @@ public class WidgetUtil {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         if (widgetArea.getBackgroundTexture() != null) {
             graphics.blit(widgetArea.getBackgroundTexture(), originX - (widgetArea.getBackgroundSizeX() / 2),
-                    originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0,
-                    widgetArea.getBackgroundSizeX(),
+                    originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0, widgetArea.getBackgroundSizeX(),
                     widgetArea.getBackgroundSizeY(), widgetArea.getBackgroundTextureSizeX(),
                     widgetArea.getBackgroundTextureSizeY());
         }
@@ -135,12 +133,10 @@ public class WidgetUtil {
         int slotId = 0;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                boolean skip = skipCorners
-                        && ((x == 0 && y == 0) || (x == 0 && y == height - 1) || (x == width - 1 && y == height - 1)
-                                || (x == width - 1 && y == 0));
+                boolean skip = skipCorners && ((x == 0 && y == 0) || (x == 0 && y == height - 1)
+                        || (x == width - 1 && y == height - 1) || (x == width - 1 && y == 0));
                 if (!skip) {
-                    slots.add(new GuiSlot(originX + x * sz, originY + y * sz, slotId,
-                            ItemSwapperUI.tinySlotSize));
+                    slots.add(new GuiSlot(originX + x * sz, originY + y * sz, slotId, ItemSwapperUI.tinySlotSize));
                     slotId++;
                 }
             }
@@ -166,8 +162,7 @@ public class WidgetUtil {
         int slotId = 0;
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                boolean skip = (x == width - 1 && y == height - 1)
-                        || (x == width - 1 && y == 0);
+                boolean skip = (x == width - 1 && y == height - 1) || (x == width - 1 && y == 0);
                 boolean needsOffset = y == 0 || y == height - 1;
                 if (flip) {
                     skip = (x == width - 1 && y != height - 1 && y != 0);

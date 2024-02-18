@@ -2,22 +2,21 @@
     "type": "palette",
     "priority": 100,
     "displayName": "Tuff",
-	"icon": "minecraft:polished_tuff",
-    "items": [ 
-    "minecraft:tuff",
-    "minecraft:tuff_stairs",
-    "minecraft:tuff_slab",
-    "minecraft:tuff_wall",
-    "minecraft:polished_tuff",
-    "minecraft:polished_tuff_stairs",
-    "minecraft:polished_tuff_slab"
-	
-    ],   
-	"shortcuts": [
-	    {
+    "icon": "minecraft:polished_tuff",
+    "items": [
+        "minecraft:tuff",
+        "minecraft:tuff_stairs",
+        "minecraft:tuff_slab",
+        "minecraft:tuff_wall",
+        "minecraft:polished_tuff",
+        "minecraft:polished_tuff_stairs",
+        "minecraft:polished_tuff_slab"
+    ],
+    "shortcuts": [
+        {
             "type": "link",
             "target": "itemswapper:v2/earthen/bricks"
-        },	
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/earthen/tuff"
@@ -29,6 +28,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/earthen/dirt"
-        }				
-	]
+        }
+    ]
 }

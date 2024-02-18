@@ -4,7 +4,6 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.config.Config;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 
-
 public class ViveCraftSupport {
 
     private static final ViveCraftSupport INSTANCE = new ViveCraftSupport();

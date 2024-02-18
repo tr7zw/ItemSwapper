@@ -31,8 +31,8 @@ public final class RenderHelper {
         // private
     }
 
-    public static void renderUnavailableItem(GuiGraphics graphics, LivingEntity livingEntity, ItemStack itemStack, int i,
-            int j, int k, SlotEffect effect) {
+    public static void renderUnavailableItem(GuiGraphics graphics, LivingEntity livingEntity, ItemStack itemStack,
+            int i, int j, int k, SlotEffect effect) {
         if (itemStack.isEmpty())
             return;
         float blitOffset = 0;
@@ -41,13 +41,13 @@ public final class RenderHelper {
         int l = i;
         int m = j;
         int color = 0;
-        if(effect == SlotEffect.RED) {
+        if (effect == SlotEffect.RED) {
             color = 822018048;
-        } else if(effect == SlotEffect.GRAY) {
+        } else if (effect == SlotEffect.GRAY) {
             color = -1879048192;
         }
         // these values need to be fixed when the texture size gets fixed.
-        graphics.fill( l - 1, m - 1, l + 17, m + 17, color);
+        graphics.fill(l - 1, m - 1, l + 17, m + 17, color);
         graphics.renderFakeItem(itemStack, l, m);
         if (k == 0)
             graphics.renderItemDecorations(minecraft.font, itemStack, l, m);
@@ -65,36 +65,37 @@ public final class RenderHelper {
     public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         renderGuiItemText(font, text, x, y, color);
     }
- 
+
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();
-        for(int line = 0; line < text.size(); line++) {
+        for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, (400.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                     .immediate(Tesselator.getInstance().getBuilder());
-            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2), y - (font.lineHeight * (text.size() - line)), color, true,
-                    poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
+                    y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
+                    Font.DisplayMode.NORMAL, 0, 15728880);
             bufferSource.endBatch();
         }
     }
-    
+
     public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
         poseStack.translate(0.0D, 0.0D, 400.0F);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
                 .immediate(Tesselator.getInstance().getBuilder());
-        font.drawInBatch(string2, (float)i, (float)j, color, true,
-                poseStack.last().pose(), bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+        font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
+                Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
     }
-    
+
     public enum SlotEffect {
         NONE, RED, GRAY
     }
 
-    public static void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k, SlotEffect effect,
-            int count) {
+    public static void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k,
+            SlotEffect effect, int count) {
         if (!arg2.isEmpty()) {
             graphics.pose().pushPose();
             graphics.pose().translate(0, 0, 200);
@@ -124,7 +125,7 @@ public final class RenderHelper {
         }
         return ItemUtil.getDisplayname(entry.getItem().getDefaultInstance());
     }
-    
+
     public static Component getName(ItemIcon entry) {
         if (entry == null) {
             return null;
@@ -134,7 +135,7 @@ public final class RenderHelper {
         }
         return entry.item().getHoverName();
     }
-    
+
     public static Component getName(LinkIcon entry) {
         if (entry == null) {
             return null;
@@ -145,8 +146,8 @@ public final class RenderHelper {
         return entry.item().getHoverName();
     }
 
-
-    public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY, int maxWidth) {
+    public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY,
+            int maxWidth) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
@@ -159,9 +160,10 @@ public final class RenderHelper {
         } else if (rarityColor != null && rarityColor.getColor() != null) {
             color = rarityColor.getColor();
         }
-        RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX, originY - (offsetY / 2) - 12, color);
+        RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
+                originY - (offsetY / 2) - 12, color);
     }
-    
+
     public static void renderSelectedEntryName(Component comp, boolean grayOut, int offsetY, int maxWidth) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
@@ -169,7 +171,8 @@ public final class RenderHelper {
         if (grayOut) {
             color = 0xAAAAAA;
         }
-        RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX, originY - (offsetY / 2) - 12, color);
+        RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
+                originY - (offsetY / 2) - 12, color);
     }
 
 }

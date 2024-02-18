@@ -3,24 +3,19 @@
     "priority": 200,
     "displayName": "text.itemswapper.palette.wood.signs",
     "items": [
-	
-    "minecraft:oak_sign",
-    "minecraft:spruce_sign",
-    "minecraft:birch_sign",
-    "minecraft:dark_oak_sign",	
-
-    "minecraft:acacia_sign",	
-    "minecraft:jungle_sign",
-    "minecraft:mangrove_sign",
-
-    "minecraft:warped_sign",
-    "minecraft:crimson_sign",
-
-    "minecraft:cherry_sign",
-    "minecraft:bamboo_sign"
-
-    ],   
-	"shortcuts": [
+        "minecraft:oak_sign",
+        "minecraft:spruce_sign",
+        "minecraft:birch_sign",
+        "minecraft:dark_oak_sign",
+        "minecraft:acacia_sign",
+        "minecraft:jungle_sign",
+        "minecraft:mangrove_sign",
+        "minecraft:warped_sign",
+        "minecraft:crimson_sign",
+        "minecraft:cherry_sign",
+        "minecraft:bamboo_sign"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/signs"
@@ -33,5 +28,5 @@
             "type": "link",
             "target": "itemswapper:v2/wood/woodenpressureplates"
         }
-	]
+    ]
 }

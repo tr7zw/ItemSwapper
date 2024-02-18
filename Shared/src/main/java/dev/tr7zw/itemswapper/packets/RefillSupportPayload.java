@@ -7,9 +7,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public record RefillSupportPayload(boolean enabled) implements CustomPacketPayload {
 
-    public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID,
-            "enablerefill");
-    
+    public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "enablerefill");
+
     @Override
     public ResourceLocation id() {
         return ID;
@@ -23,5 +22,5 @@ public record RefillSupportPayload(boolean enabled) implements CustomPacketPaylo
     public RefillSupportPayload(FriendlyByteBuf buffer) {
         this(buffer.readBoolean());
     }
-    
+
 }

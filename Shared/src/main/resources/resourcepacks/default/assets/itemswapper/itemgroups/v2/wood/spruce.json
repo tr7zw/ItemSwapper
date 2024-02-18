@@ -3,28 +3,23 @@
     "priority": 100,
     "displayName": "text.itemswapper.palette.wood.spruce",
     "items": [
-
-    "minecraft:spruce_log",
-    "minecraft:spruce_wood",
-    "minecraft:stripped_spruce_log",
-    "minecraft:stripped_spruce_wood",
-	
-    "minecraft:spruce_planks",
-    "minecraft:spruce_stairs",
-    "minecraft:spruce_slab",
-
-    "minecraft:spruce_trapdoor",
-    "minecraft:spruce_door",
-    "minecraft:spruce_fence_gate",	
-    "minecraft:spruce_fence",
-
-    "minecraft:spruce_sign",
-    "minecraft:spruce_hanging_sign",
-    "minecraft:spruce_button",	
-    "minecraft:spruce_pressure_plate"
-
-    ],   
-	"shortcuts": [
+        "minecraft:spruce_log",
+        "minecraft:spruce_wood",
+        "minecraft:stripped_spruce_log",
+        "minecraft:stripped_spruce_wood",
+        "minecraft:spruce_planks",
+        "minecraft:spruce_stairs",
+        "minecraft:spruce_slab",
+        "minecraft:spruce_trapdoor",
+        "minecraft:spruce_door",
+        "minecraft:spruce_fence_gate",
+        "minecraft:spruce_fence",
+        "minecraft:spruce_sign",
+        "minecraft:spruce_hanging_sign",
+        "minecraft:spruce_button",
+        "minecraft:spruce_pressure_plate"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/oak"
@@ -32,7 +27,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/spruce"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/wood/birch"
@@ -40,6 +35,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/dark_oak"
-        }		
-	]
+        }
+    ]
 }

@@ -50,7 +50,7 @@ public class ContainerWidget extends ItemGridWidget {
 
     private List<AvailableSlot> getItem(int id) {
         NonNullList<AvailableSlot> items = getItems();
-        if(items.size() <= id) {
+        if (items.size() <= id) {
             return Collections.emptyList();
         }
         if (id != -1 && !items.get(id).item().isEmpty()) {
@@ -64,9 +64,8 @@ public class ContainerWidget extends ItemGridWidget {
             boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            SlotEffect.NONE, slots.get(0).amount().get()));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    slots.get(0).item(), 1, SlotEffect.NONE, slots.get(0).amount().get()));
         }
     }
 
@@ -95,7 +94,8 @@ public class ContainerWidget extends ItemGridWidget {
             NetworkUtil.swapItem(slot.inventory(), slot.slot());
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
             ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
-            ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+            ItemSwapperSharedMod.instance
+                    .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
             return false;
         }
         return true;

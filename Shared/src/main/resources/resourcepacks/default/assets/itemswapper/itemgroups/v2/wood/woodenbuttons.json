@@ -3,23 +3,19 @@
     "priority": 200,
     "displayName": "text.itemswapper.palette.wood.woodenbuttons",
     "items": [
-	
-    "minecraft:oak_button",
-    "minecraft:spruce_button",
-    "minecraft:birch_button",
-    "minecraft:dark_oak_button",
-
-    "minecraft:acacia_button",	
-    "minecraft:jungle_button",
-    "minecraft:mangrove_button",
-
-    "minecraft:warped_button",
-    "minecraft:crimson_button",
-
-    "minecraft:cherry_button",
-    "minecraft:bamboo_button"
-    ],   
-	"shortcuts": [
+        "minecraft:oak_button",
+        "minecraft:spruce_button",
+        "minecraft:birch_button",
+        "minecraft:dark_oak_button",
+        "minecraft:acacia_button",
+        "minecraft:jungle_button",
+        "minecraft:mangrove_button",
+        "minecraft:warped_button",
+        "minecraft:crimson_button",
+        "minecraft:cherry_button",
+        "minecraft:bamboo_button"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/signs"
@@ -32,5 +28,5 @@
             "type": "link",
             "target": "itemswapper:v2/wood/woodenpressureplates"
         }
-	]
+    ]
 }

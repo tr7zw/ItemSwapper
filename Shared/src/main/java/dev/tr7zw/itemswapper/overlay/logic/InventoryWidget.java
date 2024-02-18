@@ -46,9 +46,8 @@ public class InventoryWidget extends ItemGridWidget {
             boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            SlotEffect.NONE, slots.get(0).amount().get()));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    slots.get(0).item(), 1, SlotEffect.NONE, slots.get(0).amount().get()));
         }
     }
 
@@ -76,12 +75,12 @@ public class InventoryWidget extends ItemGridWidget {
                     return true;
                 }
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
-                        hudSlot, minecraft.player.getInventory().selected,
-                        ClickType.SWAP, this.minecraft.player);
+                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
+                        minecraft.player.getInventory().selected, ClickType.SWAP, this.minecraft.player);
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
                 ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
-                ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                ItemSwapperSharedMod.instance
+                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
                 return false;
             }
         }

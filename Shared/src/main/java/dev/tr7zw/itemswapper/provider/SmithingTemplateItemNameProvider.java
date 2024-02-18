@@ -14,15 +14,15 @@ import net.minecraft.world.item.SmithingTemplateItem;
 public class SmithingTemplateItemNameProvider implements NameProvider {
 
     private Set<Item> templates = new HashSet<>();
-    
+
     public SmithingTemplateItemNameProvider() {
         BuiltInRegistries.ITEM.forEach(i -> {
-            if(i instanceof SmithingTemplateItem) {
+            if (i instanceof SmithingTemplateItem) {
                 templates.add(i);
             }
         });
     }
-    
+
     @Override
     public Set<Item> getItemHandlers() {
         return templates;
@@ -30,7 +30,7 @@ public class SmithingTemplateItemNameProvider implements NameProvider {
 
     @Override
     public Component getDisplayName(ItemStack item) {
-        return ((SmithingTemplateItemAccessor)(Object)item.getItem()).getUpgradeDescription().plainCopy();
+        return ((SmithingTemplateItemAccessor) (Object) item.getItem()).getUpgradeDescription().plainCopy();
     }
 
 }

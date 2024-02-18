@@ -3,18 +3,18 @@
     "priority": 49,
     "displayName": "text.itemswapper.palette.stone.stone_blocks",
     "items": [
-    "minecraft:stone",
-    "minecraft:smooth_stone",
-    "minecraft:stone_bricks",
-    "minecraft:cracked_stone_bricks",
-    "minecraft:chiseled_stone_bricks",
-    "minecraft:cobblestone",
-    "minecraft:mossy_stone_bricks",
-    "minecraft:mossy_cobblestone",
-	"minecraft:andesite",
-    "minecraft:polished_andesite",
-	"minecraft:gravel",
-	"minecraft:tuff"	
+        "minecraft:stone",
+        "minecraft:smooth_stone",
+        "minecraft:stone_bricks",
+        "minecraft:cracked_stone_bricks",
+        "minecraft:chiseled_stone_bricks",
+        "minecraft:cobblestone",
+        "minecraft:mossy_stone_bricks",
+        "minecraft:mossy_cobblestone",
+        "minecraft:andesite",
+        "minecraft:polished_andesite",
+        "minecraft:gravel",
+        "minecraft:tuff"
     ],
     "shortcuts": [
         {

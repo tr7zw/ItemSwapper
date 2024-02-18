@@ -3,24 +3,19 @@
     "priority": 150,
     "displayName": "text.itemswapper.palette.wood.logs",
     "items": [
-
-    "minecraft:oak_log",
-    "minecraft:spruce_log",
-    "minecraft:birch_log",
-    "minecraft:dark_oak_log",
-
-    "minecraft:acacia_log",		
-    "minecraft:jungle_log",	
-    "minecraft:mangrove_log",
-	
-	"minecraft:warped_stem",
-    "minecraft:crimson_stem",
-
-    "minecraft:cherry_log",
-    "minecraft:bamboo_block"
-	
-    ],   
-	"shortcuts": [
+        "minecraft:oak_log",
+        "minecraft:spruce_log",
+        "minecraft:birch_log",
+        "minecraft:dark_oak_log",
+        "minecraft:acacia_log",
+        "minecraft:jungle_log",
+        "minecraft:mangrove_log",
+        "minecraft:warped_stem",
+        "minecraft:crimson_stem",
+        "minecraft:cherry_log",
+        "minecraft:bamboo_block"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/logs"
@@ -28,7 +23,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/strippedlogs"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/wood/wood"
@@ -36,6 +31,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/strippedwood"
-        }		
-	]
+        }
+    ]
 }

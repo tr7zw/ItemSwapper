@@ -74,13 +74,15 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         if (!hideClearSlotShortcut) {
             shortcutList.add(new ClearCurrentSlotShortcut());
         }
-        shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(), ItemSwapperSharedMod.instance.getLastPage()));
+        shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(),
+                ItemSwapperSharedMod.instance.getLastPage()));
         if (ItemSwapperSharedMod.instance.isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"), ComponentProvider.translatable("text.itemswapper.overview"), null));
+        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"),
+                ComponentProvider.translatable("text.itemswapper.overview"), null));
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {
@@ -189,9 +191,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
-                    selectionHandler.getWidgets().get(0).titleYOffset(), selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40, forceAvailable);
-            if(configManager.getConfig().showTooltips) {
-                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, graphics, selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX, selectionHandler.getCursorY() + originY);
+                    selectionHandler.getWidgets().get(0).titleYOffset(),
+                    selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40,
+                    forceAvailable);
+            if (configManager.getConfig().showTooltips) {
+                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, graphics,
+                        selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX,
+                        selectionHandler.getCursorY() + originY);
             }
         }
 
@@ -215,15 +221,17 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     public void onSecondaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            selectionHandler.getSelectedWidget().onSecondaryClick(this, selectionHandler.getSelectedSlot(), (int)selectionHandler.getOffsetX(), (int)selectionHandler.getOffsetY());
+            selectionHandler.getSelectedWidget().onSecondaryClick(this, selectionHandler.getSelectedSlot(),
+                    (int) selectionHandler.getOffsetX(), (int) selectionHandler.getOffsetY());
         }
     }
 
     public boolean onPrimaryClick() {
         if (selectionHandler.getSelectedSlot() != null) {
-            return selectionHandler.getSelectedWidget().onPrimaryClick(this, selectionHandler.getSelectedSlot(), (int)selectionHandler.getOffsetX(), (int)selectionHandler.getOffsetY());
+            return selectionHandler.getSelectedWidget().onPrimaryClick(this, selectionHandler.getSelectedSlot(),
+                    (int) selectionHandler.getOffsetX(), (int) selectionHandler.getOffsetY());
         }
         return true;
     }
-    
+
 }

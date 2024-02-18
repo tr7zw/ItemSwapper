@@ -42,18 +42,14 @@ public class ShortcutListWidget extends ItemGridWidget {
             boolean overwriteAvailable) {
         Icon icon = list.get(guiSlot.id()).getIcon();
         if (icon instanceof ItemIcon item) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                            item.item(), 1,
-                                SlotEffect.NONE, 1));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, item.item(), 1,
+                    SlotEffect.NONE, 1));
         } else if (icon instanceof LinkIcon item) {
             boolean grayedOut = parentId != null && parentId.equals(item.nextId());
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                            item.item(), 1,
-                                grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, item.item(), 1,
+                    grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
         } else if (icon instanceof TextureIcon texture) {
-            graphics.blit(texture.texture(), x-1, y, 200, 0, 0, 24, 24, 24, 24);
+            graphics.blit(texture.texture(), x - 1, y, 200, 0, 0, 24, 24, 24, 24);
         }
     }
 
@@ -61,11 +57,9 @@ public class ShortcutListWidget extends ItemGridWidget {
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
         Icon icon = list.get(selected.id()).getIcon();
         if (icon instanceof ItemIcon item) {
-            RenderHelper.renderSelectedItemName(RenderHelper.getName(item),
-                    item.item(), false, yOffset, maxWidth);
+            RenderHelper.renderSelectedItemName(RenderHelper.getName(item), item.item(), false, yOffset, maxWidth);
         } else if (icon instanceof LinkIcon link) {
-            RenderHelper.renderSelectedItemName(RenderHelper.getName(link),
-                    link.item(), false, yOffset, maxWidth);
+            RenderHelper.renderSelectedItemName(RenderHelper.getName(link), link.item(), false, yOffset, maxWidth);
         } else if (icon instanceof TextureIcon texture) {
             RenderHelper.renderSelectedEntryName(texture.name(), false, yOffset, maxWidth);
         }
@@ -95,7 +89,8 @@ public class ShortcutListWidget extends ItemGridWidget {
         if (shortcut.getHoverText() != null) {
             graphics.pose().pushPose();
             graphics.pose().translate(0, 0, 100);
-            graphics.renderTooltip(minecraft.font, minecraft.font.split(shortcut.getHoverText(), 170), (int) x, (int) y);
+            graphics.renderTooltip(minecraft.font, minecraft.font.split(shortcut.getHoverText(), 170), (int) x,
+                    (int) y);
             graphics.pose().popPose();
         }
     }

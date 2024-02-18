@@ -1,30 +1,30 @@
 {
-  "required": true,
-  "minVersion": "0.8",
-  "package": "dev.tr7zw.itemswapper.mixin",
-  "compatibilityLevel": "JAVA_17",
-  "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
-  "mixins": [
-    "PlayerListMixin",
-    "ServerGamePacketListenerImplMixin",
-    "ServerboundCustomPayloadPacketMixin"
-  ],
-  "client": [
-    "MouseHandlerMixin",
-    "MinecraftMixin",
-    "ClientPacketListenerMixin",
-    "ClientLevelMixin",
-    "AbstractContainerScreenMixin",
-    "ContainerScreenMixin",
-    "RecordItemMixin",
-    "InstrumentItemMixin",
-    "KeyboardHandlerMixin",
-    "KeyMappingMixin",
-    "SmithingTemplateItemMixin",
-    "LitematicaMixin",
-    "ClientboundCustomPayloadPacketMixin"
-  ],
-  "injectors": {
-    "defaultRequire": 1
-  }
+    "required": true,
+    "minVersion": "0.8",
+    "package": "dev.tr7zw.itemswapper.mixin",
+    "compatibilityLevel": "JAVA_17",
+    "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
+    "mixins": [
+        "PlayerListMixin",
+        "ServerGamePacketListenerImplMixin",
+        "ServerboundCustomPayloadPacketMixin"
+    ],
+    "client": [
+        "MouseHandlerMixin",
+        "MinecraftMixin",
+        "ClientPacketListenerMixin",
+        "ClientLevelMixin",
+        "AbstractContainerScreenMixin",
+        "ContainerScreenMixin",
+        "RecordItemMixin",
+        "InstrumentItemMixin",
+        "KeyboardHandlerMixin",
+        "KeyMappingMixin",
+        "SmithingTemplateItemMixin",
+        "LitematicaMixin",
+        "ClientboundCustomPayloadPacketMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    }
 }

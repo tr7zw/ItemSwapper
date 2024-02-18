@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 public record SwapItemPayload(int inventorySlot, int slot) implements CustomPacketPayload {
 
     public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "swap");
-    
+
     @Override
     public ResourceLocation id() {
         return ID;
@@ -19,7 +19,7 @@ public record SwapItemPayload(int inventorySlot, int slot) implements CustomPack
         paramFriendlyByteBuf.writeInt(inventorySlot);
         paramFriendlyByteBuf.writeInt(slot);
     }
-    
+
     public SwapItemPayload(FriendlyByteBuf buffer) {
         this(buffer.readInt(), buffer.readInt());
     }

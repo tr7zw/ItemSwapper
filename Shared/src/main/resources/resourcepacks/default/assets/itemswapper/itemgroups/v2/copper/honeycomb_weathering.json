@@ -2,14 +2,12 @@
     "type": "palette",
     "priority": 100,
     "displayName": "text.itemswapper.palette.copper.honeycomb",
-    "items": [ 
-
-  "minecraft:honeycomb",
-  "minecraft:honeycomb_block",
-  "minecraft:honey_block"
-
-],   
-	"shortcuts": [
+    "items": [
+        "minecraft:honeycomb",
+        "minecraft:honeycomb_block",
+        "minecraft:honey_block"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper"
@@ -17,7 +15,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_exposed"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_weathered"
@@ -29,8 +27,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/copper/honeycomb_weathering"
-        }			
-		
-		
-	]
+        }
+    ]
 }

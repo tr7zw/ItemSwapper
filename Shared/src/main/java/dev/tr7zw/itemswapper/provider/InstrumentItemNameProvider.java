@@ -24,11 +24,9 @@ public class InstrumentItemNameProvider implements NameProvider {
     @Override
     public Component getDisplayName(ItemStack item) {
         Optional<ResourceKey<Instrument>> optional = ((InstrumentItemAccess) (Object) item.getItem())
-                .getOptionalInstrument(item)
-                .flatMap(Holder::unwrapKey);
+                .getOptionalInstrument(item).flatMap(Holder::unwrapKey);
         if (optional.isPresent()) {
-            return Component
-                    .translatable(Util.makeDescriptionId("instrument", optional.get().location()));
+            return Component.translatable(Util.makeDescriptionId("instrument", optional.get().location()));
         }
         return item.getHoverName();
     }

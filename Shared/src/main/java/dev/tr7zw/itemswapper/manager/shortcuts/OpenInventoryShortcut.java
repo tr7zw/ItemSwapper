@@ -12,7 +12,8 @@ import net.minecraft.world.item.Items;
 
 public class OpenInventoryShortcut implements Shortcut {
 
-    private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(), ComponentProvider.translatable("text.itemswapper.openInventory"));
+    private final Icon icon = new ItemIcon(Items.CHEST.getDefaultInstance(),
+            ComponentProvider.translatable("text.itemswapper.openInventory"));
     private final SwitchItemOverlay overlay;
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.openInventory.tooltip");
 
@@ -35,7 +36,7 @@ public class OpenInventoryShortcut implements Shortcut {
     public boolean isVisible() {
         return !(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1) instanceof InventoryPage);
     }
-    
+
     @Override
     public Component getHoverText() {
         return hoverText;

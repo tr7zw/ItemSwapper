@@ -2,7 +2,7 @@
     "type": "palette",
     "priority": 100,
     "displayName": "text.itemswapper.palette.the_oceans.coral",
-	"icon": "minecraft:brain_coral_block",
+    "icon": "minecraft:brain_coral_block",
     "items": [
         "minecraft:tube_coral_block",
         "minecraft:brain_coral_block",
@@ -19,16 +19,16 @@
         "minecraft:bubble_coral_fan",
         "minecraft:fire_coral_fan",
         "minecraft:horn_coral_fan"
-    ],   
-	"shortcuts": [
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/prismarine"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/coral"
-        },	
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/dead_coral"
@@ -36,6 +36,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/the_oceans/underwater"
-        }		
-	]
+        }
+    ]
 }

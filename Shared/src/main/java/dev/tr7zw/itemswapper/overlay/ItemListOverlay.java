@@ -133,9 +133,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     @Override
     public void onSecondaryClick() {
-        if(this.itemSelection.getLink() != null) {
+        if (this.itemSelection.getLink() != null) {
             Page linkedPage = ItemSwapperSharedMod.instance.getItemGroupManager().getPage(this.itemSelection.getLink());
-            if(linkedPage != null && linkedPage instanceof ListPage listPage) {
+            if (linkedPage != null && linkedPage instanceof ListPage listPage) {
                 this.itemSelection = listPage.items();
                 selectY = 0;
                 refreshList();
@@ -160,8 +160,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        minecraft.player.getInventory().selected,
-                        ClickType.SWAP, this.minecraft.player);
+                        minecraft.player.getInventory().selected, ClickType.SWAP, this.minecraft.player);
             } else {
                 NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
@@ -170,8 +169,8 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         return false;
     }
 
-    private void renderEntry(GuiGraphics graphics, ResourceLocation background, int id, int x, int y, List<Runnable> itemRenderList,
-            List<Runnable> lateRenderList) {
+    private void renderEntry(GuiGraphics graphics, ResourceLocation background, int id, int x, int y,
+            List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
         graphics.blit(background, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
         AvailableSlot slot = entries.get(id);
@@ -193,8 +192,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
             }
-            graphics.drawString(minecraft.font, name,
-                    x + 27, y + 9, -1);
+            graphics.drawString(minecraft.font, name, x + 27, y + 9, -1);
         });
     }
 

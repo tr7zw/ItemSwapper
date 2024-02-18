@@ -47,8 +47,7 @@ public class AbstractContainerScreenMixin extends Screen {
         AbstractContainerMenu currentMenu = Objects.requireNonNull(Minecraft.getInstance().player).containerMenu;
 
         if (currentMenu instanceof ChestMenu cm) {
-            copyToClipboardBtn = new CopyToClipboard(this.leftPos + this.imageWidth - 20,
-                    this.topPos + 5);
+            copyToClipboardBtn = new CopyToClipboard(this.leftPos + this.imageWidth - 20, this.topPos + 5);
             this.addRenderableWidget(copyToClipboardBtn);
             ItemSwapperMod.LOGGER.debug("Copy to Clipboard button created");
         }

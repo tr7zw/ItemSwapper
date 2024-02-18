@@ -1,21 +1,21 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "text.itemswapper.palette.the_depths.sculk",	
-	"icon": "minecraft:sculk_sensor",
-    "items": [ 
-    "minecraft:sculk",
-    "minecraft:sculk_vein",
-    "minecraft:sculk_catalyst",
-    "minecraft:sculk_shrieker",
-    "minecraft:sculk_sensor",
-    "minecraft:calibrated_sculk_sensor"
-    ],   
-	"shortcuts": [
-	    {
+    "displayName": "text.itemswapper.palette.the_depths.sculk",
+    "icon": "minecraft:sculk_sensor",
+    "items": [
+        "minecraft:sculk",
+        "minecraft:sculk_vein",
+        "minecraft:sculk_catalyst",
+        "minecraft:sculk_shrieker",
+        "minecraft:sculk_sensor",
+        "minecraft:calibrated_sculk_sensor"
+    ],
+    "shortcuts": [
+        {
             "type": "link",
             "target": "itemswapper:v2/the_depths/basalt"
-        },	
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_depths/deepslate"
@@ -27,6 +27,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/the_depths/sculk"
-        }		
-	]
+        }
+    ]
 }

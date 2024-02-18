@@ -21,7 +21,7 @@ public interface Shortcut {
     public default boolean acceptSecondaryClick() {
         return true;
     }
-    
+
     public default Component getHoverText() {
         return null;
     }
@@ -31,7 +31,7 @@ public interface Shortcut {
     }
 
     public String getSelector();
-    
+
     public enum ActionType {
         SECONDARY_CLICK, PRIMARY_CLICK
     }

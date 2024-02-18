@@ -2,81 +2,77 @@
     "schemaVersion": 1,
     "id": "itemswapper",
     "version": "${version}",
-  
     "name": "ItemSwapper",
     "description": "Tweeks to the inventory system based on Xisumavoid's video",
     "authors": [
-      {
-        "name": "tr7zw",
-        "contact": {
-          "twitter": "https://twitter.com/tr7zw",
-          "homepage": "https://tr7zw.dev",
-          "discord": "https://discord.gg/UdfNaDtbwb",
-          "youtube": "https://www.youtube.com/tr7zw",
-          "mastodon": "https://mastodon.social/@tr7zw",
-          "github": "https://github.com/tr7zw"
+        {
+            "name": "tr7zw",
+            "contact": {
+                "twitter": "https://twitter.com/tr7zw",
+                "homepage": "https://tr7zw.dev",
+                "discord": "https://discord.gg/UdfNaDtbwb",
+                "youtube": "https://www.youtube.com/tr7zw",
+                "mastodon": "https://mastodon.social/@tr7zw",
+                "github": "https://github.com/tr7zw"
+            }
         }
-      }
     ],
     "contributors": [
-      {
-        "name": "Xisumavoid",
-        "contact": {
-          "twitter": "https://twitter.com/xisumavoid",
-          "homepage": "http://www.xisumavoid.com",
-          "youtube": "https://www.youtube.com/xisumavoid"
+        {
+            "name": "Xisumavoid",
+            "contact": {
+                "twitter": "https://twitter.com/xisumavoid",
+                "homepage": "http://www.xisumavoid.com",
+                "youtube": "https://www.youtube.com/xisumavoid"
+            }
+        },
+        {
+            "name": "LizardOfOz",
+            "contact": {
+                "twitter": "https://twitter.com/LizardOfOz_",
+                "youtube": "https://www.youtube.com/LizardOfOz",
+                "github": "https://github.com/lizard-of-oz"
+            }
+        },
+        {
+            "name": "Stridey",
+            "contact": {
+                "twitter": "https://twitter.com/Strideyyyy",
+                "github": "https://github.com/StrideyGH"
+            }
         }
-      },
-      {
-        "name": "LizardOfOz",
-        "contact": {
-          "twitter": "https://twitter.com/LizardOfOz_",
-          "youtube": "https://www.youtube.com/LizardOfOz",
-          "github": "https://github.com/lizard-of-oz"
-        }
-      },
-      {
-        "name": "Stridey",
-        "contact": {
-          "twitter": "https://twitter.com/Strideyyyy",
-          "github": "https://github.com/StrideyGH"
-        }
-      }
     ],
     "contact": {
-      "homepage": "https://modrinth.com/plugin/itemswapper",
-      "sources": "https://github.com/tr7zw/ItemSwapper",
-      "issues": "https://github.com/tr7zw/ItemSwapper/issues"
+        "homepage": "https://modrinth.com/plugin/itemswapper",
+        "sources": "https://github.com/tr7zw/ItemSwapper",
+        "issues": "https://github.com/tr7zw/ItemSwapper/issues"
     },
-  
     "license": "GNU General Public License v3",
     "icon": "assets/itemswapper/icon.png",
-  
     "environment": "*",
     "entrypoints": {
-      "client": [
-        "dev.tr7zw.itemswapper.ItemSwapperMod"
-      ],
-      "server": [
-        "dev.tr7zw.itemswapper.ItemSwapperServerMod"
-      ],
-      "modmenu": [
-        "dev.tr7zw.itemswapper.ItemSwapperModMenu"
-      ]
+        "client": [
+            "dev.tr7zw.itemswapper.ItemSwapperMod"
+        ],
+        "server": [
+            "dev.tr7zw.itemswapper.ItemSwapperServerMod"
+        ],
+        "modmenu": [
+            "dev.tr7zw.itemswapper.ItemSwapperModMenu"
+        ]
     },
     "mixins": [
-      "itemswapper.mixins.json"
+        "itemswapper.mixins.json"
     ],
-  
     "depends": {
-      "fabric-api": "*",
-      "minecraft": ">=1.20.3-alpha.23.43.a"
+        "fabric-api": "*",
+        "minecraft": ">=1.20.3-alpha.23.43.a"
     },
     "custom": {
-      "modmenu": {
-        "links": {
-          "modmenu.discord": "https://discord.gg/UdfNaDtbwb"
+        "modmenu": {
+            "links": {
+                "modmenu.discord": "https://discord.gg/UdfNaDtbwb"
+            }
         }
-      }
     }
-  }
+}

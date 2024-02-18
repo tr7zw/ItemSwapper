@@ -1,22 +1,19 @@
 {
     "type": "palette",
     "priority": 25,
-    "displayName": 	"text.itemswapper.palette.technical.rail",
-	"icon": "minecraft:hopper_minecart",
-    "items": 
-	
-		[
-		  "minecraft:rail",
-		  "minecraft:powered_rail",
-		  "minecraft:detector_rail",
-		  "minecraft:activator_rail",
-		  "minecraft:minecart",
-		  "minecraft:hopper_minecart",
-		  "minecraft:chest_minecart",
-		  "minecraft:furnace_minecart",
-		  "minecraft:tnt_minecart"
-			],
-
+    "displayName": "text.itemswapper.palette.technical.rail",
+    "icon": "minecraft:hopper_minecart",
+    "items": [
+        "minecraft:rail",
+        "minecraft:powered_rail",
+        "minecraft:detector_rail",
+        "minecraft:activator_rail",
+        "minecraft:minecart",
+        "minecraft:hopper_minecart",
+        "minecraft:chest_minecart",
+        "minecraft:furnace_minecart",
+        "minecraft:tnt_minecart"
+    ],
     "shortcuts": [
         {
             "type": "link",
@@ -25,23 +22,22 @@
         {
             "type": "link",
             "target": "itemswapper:v2/technical/redstone_functional"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/technical/triggers"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/technical/rail"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/technical/fluid"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/technical/musical"
-        }	
-		
+        }
     ]
 }

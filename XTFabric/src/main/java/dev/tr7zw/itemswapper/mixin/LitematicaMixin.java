@@ -20,13 +20,14 @@ import net.minecraft.world.level.block.state.BlockState;
 public class LitematicaMixin {
 
     @Inject(method = "doSchematicWorldPickBlock", at = @At("HEAD"), remap = true, cancellable = true)
-    private static void doSchematicWorldPickBlockHook(boolean closest, Minecraft mc, CallbackInfoReturnable<Boolean> ci) {
+    private static void doSchematicWorldPickBlockHook(boolean closest, Minecraft mc,
+            CallbackInfoReturnable<Boolean> ci) {
         BlockPos pos;
 
         pos = RayTraceUtils.getSchematicWorldTraceIfClosest(mc.level, mc.player, 6);
         if (pos != null) {
             Level world = SchematicWorldHandler.getSchematicWorld();
-            if(world != null) {
+            if (world != null) {
                 BlockState state = world.getBlockState(pos);
                 ItemStack stack = MaterialCache.getInstance().getRequiredBuildItemForState(state, world, pos);
                 ItemUtil.grabItem(stack.getItem(), false);

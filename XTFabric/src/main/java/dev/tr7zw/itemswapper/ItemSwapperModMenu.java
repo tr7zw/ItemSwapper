@@ -9,6 +9,6 @@ public class ItemSwapperModMenu implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         // the cleaner method didn't behave correctly, sometimes being null
         return screen -> ItemSwapperMod.instance.createConfigScreen(screen);
-    }  
-    
+    }
+
 }

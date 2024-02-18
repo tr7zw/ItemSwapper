@@ -3,15 +3,15 @@
     "priority": 42,
     "displayName": "text.itemswapper.palette.stone.cobblestone",
     "items": [
-    "minecraft:cobblestone",
-    "minecraft:cobblestone_stairs",
-    "minecraft:cobblestone_slab",
-    "minecraft:cobblestone_wall",
-    "minecraft:mossy_cobblestone",
-    "minecraft:mossy_cobblestone_stairs",
-    "minecraft:mossy_cobblestone_slab",
-    "minecraft:mossy_cobblestone_wall"
-	],
+        "minecraft:cobblestone",
+        "minecraft:cobblestone_stairs",
+        "minecraft:cobblestone_slab",
+        "minecraft:cobblestone_wall",
+        "minecraft:mossy_cobblestone",
+        "minecraft:mossy_cobblestone_stairs",
+        "minecraft:mossy_cobblestone_slab",
+        "minecraft:mossy_cobblestone_wall"
+    ],
     "shortcuts": [
         {
             "type": "link",

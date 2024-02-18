@@ -3,14 +3,13 @@
     "priority": 49,
     "displayName": "text.itemswapper.palette.stone.stone_stairs",
     "items": [
-    "minecraft:stone_brick_stairs",
-    "minecraft:cobblestone_stairs",
-    "minecraft:stone_stairs",
-    "minecraft:polished_andesite_stairs",
-    "minecraft:andesite_stairs",
-    "minecraft:mossy_stone_brick_stairs",
-    "minecraft:mossy_cobblestone_stairs"
-	
+        "minecraft:stone_brick_stairs",
+        "minecraft:cobblestone_stairs",
+        "minecraft:stone_stairs",
+        "minecraft:polished_andesite_stairs",
+        "minecraft:andesite_stairs",
+        "minecraft:mossy_stone_brick_stairs",
+        "minecraft:mossy_cobblestone_stairs"
     ],
     "shortcuts": [
         {

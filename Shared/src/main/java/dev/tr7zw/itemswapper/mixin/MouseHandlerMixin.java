@@ -70,14 +70,15 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
 
     @Inject(method = "releaseMouse", at = @At("HEAD"), cancellable = true)
     public void releaseMouse(CallbackInfo ci) {
-        if(keepMouseGrabbed) {
+        if (keepMouseGrabbed) {
             ci.cancel();
         }
     }
-    
+
     @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
     public void grabMouse(Minecraft mc, Screen screen) {
-        if (this.minecraft.screen instanceof ItemSwapperUI && screen == null && AmecsAPISupport.getInstance().isActive()) {
+        if (this.minecraft.screen instanceof ItemSwapperUI && screen == null
+                && AmecsAPISupport.getInstance().isActive()) {
             // catch this call
         } else {
             mc.setScreen(screen);

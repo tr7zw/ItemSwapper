@@ -44,8 +44,7 @@ public class ListContentWidget extends ItemGridWidget {
     }
 
     private List<AvailableSlot> getItem(int id) {
-        return id > entries.size() - 1 ? Collections.emptyList()
-                : Collections.singletonList(entries.get(id));
+        return id > entries.size() - 1 ? Collections.emptyList() : Collections.singletonList(entries.get(id));
     }
 
     @Override
@@ -53,15 +52,12 @@ public class ListContentWidget extends ItemGridWidget {
             boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty() && !overwrideAvailable) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            SlotEffect.NONE, slots.get(0).amount().get()));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    slots.get(0).item(), 1, SlotEffect.NONE, slots.get(0).amount().get()));
 
         } else if (guiSlot.id() <= entries.size() - 1) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                            entries.get(guiSlot.id()).item(), 1,
-                            !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    entries.get(guiSlot.id()).item(), 1, !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
         }
     }
 
@@ -84,9 +80,8 @@ public class ListContentWidget extends ItemGridWidget {
             }
             if (entry.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(entry.slot());
-                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId,
-                        hudSlot, minecraft.player.getInventory().selected,
-                        ClickType.SWAP, this.minecraft.player);
+                this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
+                        minecraft.player.getInventory().selected, ClickType.SWAP, this.minecraft.player);
             } else {
                 NetworkUtil.swapItem(entry.inventory(), entry.slot());
             }
@@ -105,8 +100,8 @@ public class ListContentWidget extends ItemGridWidget {
         if (slot == null) {
             return;
         }
-        RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()),
-                slot.item(), false, yOffset, maxWidth);
+        RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()), slot.item(), false, yOffset,
+                maxWidth);
 
     }
 

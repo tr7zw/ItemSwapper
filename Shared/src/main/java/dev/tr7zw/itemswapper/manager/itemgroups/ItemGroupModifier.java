@@ -13,7 +13,7 @@ public class ItemGroupModifier {
         this.addItems = builder.addItems;
         this.removeItems = builder.removeItems;
     }
-    
+
     public ResourceLocation getTarget() {
         return target;
     }
@@ -29,6 +29,7 @@ public class ItemGroupModifier {
     public static Builder builder() {
         return new Builder();
     }
+
     public static final class Builder {
         private ResourceLocation target;
         private ItemEntry[] addItems;
@@ -56,5 +57,5 @@ public class ItemGroupModifier {
             return new ItemGroupModifier(this);
         }
     }
-    
+
 }

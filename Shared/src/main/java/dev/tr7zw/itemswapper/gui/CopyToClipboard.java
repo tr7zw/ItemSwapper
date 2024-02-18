@@ -45,8 +45,8 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
         }
 
         int limit = 25;
-        Item[] items = instance.player.containerMenu.getItems().stream().map(ItemStack::getItem)
-                .limit(limit).toList().toArray(new Item[0]);
+        Item[] items = instance.player.containerMenu.getItems().stream().map(ItemStack::getItem).limit(limit).toList()
+                .toArray(new Item[0]);
 
         items = itemstackToSingleItem(items);
         if (lastItems == null || !Arrays.equals(lastItems, items)) {
@@ -57,7 +57,8 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 
         Minecraft.getInstance().keyboardHandler.setClipboard(json);
         ItemSwapperMod.LOGGER.info(json);
-        instance.player.sendSystemMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"));
+        instance.player
+                .sendSystemMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"));
 
     }
 
@@ -67,14 +68,13 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
         RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore
         graphics.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
-                TEXTURE_WIDTH,
-                TEXTURE_HEIGHT);
+                TEXTURE_WIDTH, TEXTURE_HEIGHT);
         this.renderToolTip(graphics, i, j);
     }
 
     public void renderToolTip(@NotNull GuiGraphics graphics, int i, int j) {
         if (this.isHovered && instance.screen != null) {
-            graphics.renderTooltip(Minecraft.getInstance().font, 
+            graphics.renderTooltip(Minecraft.getInstance().font,
                     ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
         }
     }

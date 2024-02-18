@@ -49,7 +49,7 @@ public class ItemGroup {
     public Component getDisplayName() {
         return displayName;
     }
-    
+
     public Item getIcon() {
         return icon;
     }

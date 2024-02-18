@@ -31,10 +31,10 @@ public class EditListScreen extends OptionsSubScreen {
         this.addWidget((this.selectionList = new EntrySelectionList(this.minecraft)));
         this.addRenderableWidget(Button.builder(ComponentProvider.translatable("text.itemswapper.remove"), button -> {
             EntrySelectionList.ListEntry entry = this.selectionList.getSelected();
-            if(entry == null) {
+            if (entry == null) {
                 return;
             }
-            if(whitelist) {
+            if (whitelist) {
                 CacheManager.getInstance().getCache().enableOnIp.remove(entry.string);
             } else {
                 CacheManager.getInstance().getCache().disableOnIp.remove(entry.string);
@@ -58,7 +58,7 @@ public class EditListScreen extends OptionsSubScreen {
     private class EntrySelectionList
             extends ObjectSelectionList<dev.tr7zw.itemswapper.overlay.EditListScreen.EntrySelectionList.ListEntry> {
         public EntrySelectionList(final Minecraft minecraft) {
-        	super(minecraft, EditListScreen.this.width, EditListScreen.this.height - 93, 32, 18);
+            super(minecraft, EditListScreen.this.width, EditListScreen.this.height - 93, 32, 18);
             List<String> ips = whitelist ? CacheManager.getInstance().getCache().enableOnIp
                     : CacheManager.getInstance().getCache().disableOnIp;
             ips.forEach((string) -> {
@@ -69,7 +69,7 @@ public class EditListScreen extends OptionsSubScreen {
         public void remove(ListEntry entry) {
             super.removeEntry(entry);
         }
-        
+
         protected int getScrollbarPosition() {
             return super.getScrollbarPosition() + 20;
         }

@@ -78,8 +78,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 processV2(entry.getKey(), entry.getValue());
                 return;
             }
-            Item[] items = getItemArray(entry.getKey(), entry.getValue(),
-                    entry.getKey().getPath().startsWith("wheel"));
+            Item[] items = getItemArray(entry.getKey(), entry.getValue(), entry.getKey().getPath().startsWith("wheel"));
             if (items != null) {
                 Builder group = ItemGroup.builder().withId(entry.getKey()).withItems(ItemUtil.toDefault(items));
                 if (entry.getKey().getPath().startsWith("wheel_primary/")) {
@@ -89,8 +88,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     itemGroups.add(group.withPriority(200));
                 }
                 if (entry.getKey().getPath().startsWith("list/")) {
-                    itemLists.add(
-                            ItemList.builder().withId(entry.getKey()).withItems(items));
+                    itemLists.add(ItemList.builder().withId(entry.getKey()).withItems(items));
                 }
             }
         } catch (Exception ex) {
@@ -105,7 +103,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         for (int i = 0; i < itemGroups.size(); i++) {
             ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(itemGroups.get(i).build());
         }
-        for(int i = 0; i < itemLists.size(); i++) {
+        for (int i = 0; i < itemLists.size(); i++) {
             ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(itemLists.get(i).build());
         }
     }
@@ -331,7 +329,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ResourceLocation resourceLocation = new ResourceLocation(obj.get("id").getAsString());
                 Item item = BuiltInRegistries.ITEM.get(resourceLocation);
                 ResourceLocation link = null;
-                if(obj.has("link") && obj.get("link").isJsonPrimitive()) {
+                if (obj.has("link") && obj.get("link").isJsonPrimitive()) {
                     try {
                         link = new ResourceLocation(obj.get("link").getAsString());
                     } catch (Exception ex) {
@@ -378,9 +376,9 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             ResourceLocation ownId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + i);
             int next = i + 1 == lists.size() ? 0 : i + 1;
             ResourceLocation nextId = new ResourceLocation(jsonLocation.getNamespace(), jsonLocation.getPath() + next);
-            itemGroups.add(ItemGroup.builder().withId(ownId).withForcedLink(nextId)
-                    .withItems(ItemUtil.toDefault(lists.get(i))).withShortcuts(Arrays
-                            .asList(new LinkShortcut(nextId))));
+            itemGroups.add(
+                    ItemGroup.builder().withId(ownId).withForcedLink(nextId).withItems(ItemUtil.toDefault(lists.get(i)))
+                            .withShortcuts(Arrays.asList(new LinkShortcut(nextId))));
         }
     }
 

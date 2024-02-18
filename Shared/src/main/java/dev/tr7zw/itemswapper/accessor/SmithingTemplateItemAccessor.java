@@ -5,5 +5,5 @@ import net.minecraft.network.chat.Component;
 public interface SmithingTemplateItemAccessor {
 
     public Component getUpgradeDescription();
-    
+
 }

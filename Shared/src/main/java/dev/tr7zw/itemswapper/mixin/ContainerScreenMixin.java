@@ -41,7 +41,8 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
         overlay.forceAvailable = true;
         overlay.hideShortcuts = true;
         overlay.hideCursor = true;
-        overlay.openItemGroup(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build()); // init after setting values
+        overlay.openItemGroup(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build()); // init after setting
+                                                                                                 // values
         overlay.render(graphics, 0, 0, f);
     }
 }

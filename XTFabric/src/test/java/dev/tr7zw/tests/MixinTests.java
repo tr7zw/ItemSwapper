@@ -47,7 +47,7 @@ public class MixinTests {
         objenesis.newInstance(RecordItem.class);
         objenesis.newInstance(ServerGamePacketListenerImpl.class);
     }
-    
+
     @Test
     public void langTests() throws Throwable {
         Language lang = TestUtil.loadDefault("/assets/itemswapper/lang/en_us.json");
@@ -55,9 +55,9 @@ public class MixinTests {
         CustomConfigScreen screen = (CustomConfigScreen) ItemSwapperMod.instance.createConfigScreen(null);
         List<OptionInstance<?>> options = TestUtil.bootStrapCustomConfigScreen(screen);
         assertNotEquals(screen.getTitle().getString(), lang.getOrDefault(screen.getTitle().getString()));
-        for(OptionInstance<?> option : options) {
+        for (OptionInstance<?> option : options) {
             Set<String> keys = TestUtil.getKeys(option, true);
-            for(String key : keys) {
+            for (String key : keys) {
                 System.out.println(key + " " + lang.getOrDefault(key));
                 assertNotEquals(key, lang.getOrDefault(key));
             }

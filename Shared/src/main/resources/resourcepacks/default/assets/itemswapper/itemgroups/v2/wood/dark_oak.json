@@ -3,28 +3,23 @@
     "priority": 100,
     "displayName": "text.itemswapper.palette.wood.dark_oak",
     "items": [
-
-    "minecraft:dark_oak_log",
-    "minecraft:dark_oak_wood",
-    "minecraft:stripped_dark_oak_log",
-    "minecraft:stripped_dark_oak_wood",
-	
-    "minecraft:dark_oak_planks",
-    "minecraft:dark_oak_stairs",
-    "minecraft:dark_oak_slab",
-
-    "minecraft:dark_oak_trapdoor",	
-    "minecraft:dark_oak_door",
-    "minecraft:dark_oak_fence_gate",	
-    "minecraft:dark_oak_fence",
-
-    "minecraft:dark_oak_sign",
-    "minecraft:dark_oak_hanging_sign",
-    "minecraft:dark_oak_button",
-    "minecraft:dark_oak_pressure_plate"
-
-    ],   
-	"shortcuts": [
+        "minecraft:dark_oak_log",
+        "minecraft:dark_oak_wood",
+        "minecraft:stripped_dark_oak_log",
+        "minecraft:stripped_dark_oak_wood",
+        "minecraft:dark_oak_planks",
+        "minecraft:dark_oak_stairs",
+        "minecraft:dark_oak_slab",
+        "minecraft:dark_oak_trapdoor",
+        "minecraft:dark_oak_door",
+        "minecraft:dark_oak_fence_gate",
+        "minecraft:dark_oak_fence",
+        "minecraft:dark_oak_sign",
+        "minecraft:dark_oak_hanging_sign",
+        "minecraft:dark_oak_button",
+        "minecraft:dark_oak_pressure_plate"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/oak"
@@ -32,7 +27,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/spruce"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/wood/birch"
@@ -40,6 +35,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/dark_oak"
-        }		
-	]
+        }
+    ]
 }

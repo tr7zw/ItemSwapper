@@ -15,9 +15,10 @@ public interface GuiWidget {
     public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable);
 
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable);
-    
-    public default void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected, double x, double y) {
-        
+
+    public default void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected,
+            double x, double y) {
+
     }
 
     /**
@@ -39,7 +40,7 @@ public interface GuiWidget {
     public default int titleYOffset() {
         return getWidgetArea().getBackgroundSizeY();
     }
-    
+
     public default String getSelector(GuiSlot slot) {
         return null;
     }

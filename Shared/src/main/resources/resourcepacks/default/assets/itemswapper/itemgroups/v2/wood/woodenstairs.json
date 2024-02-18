@@ -3,24 +3,19 @@
     "priority": 200,
     "displayName": "text.itemswapper.palette.wood.woodenstairs",
     "items": [
-	
-    "minecraft:oak_stairs",
-    "minecraft:spruce_stairs",
-    "minecraft:birch_stairs",
-    "minecraft:dark_oak_stairs",
-
-    "minecraft:acacia_stairs",	
-    "minecraft:jungle_stairs",
-    "minecraft:mangrove_stairs",
-
-	
-    "minecraft:warped_stairs",
-    "minecraft:crimson_stairs",
-
-    "minecraft:cherry_stairs",
-    "minecraft:bamboo_stairs"
-    ],   
-	"shortcuts": [
+        "minecraft:oak_stairs",
+        "minecraft:spruce_stairs",
+        "minecraft:birch_stairs",
+        "minecraft:dark_oak_stairs",
+        "minecraft:acacia_stairs",
+        "minecraft:jungle_stairs",
+        "minecraft:mangrove_stairs",
+        "minecraft:warped_stairs",
+        "minecraft:crimson_stairs",
+        "minecraft:cherry_stairs",
+        "minecraft:bamboo_stairs"
+    ],
+    "shortcuts": [
         {
             "type": "link",
             "target": "itemswapper:v2/wood/planktypes"
@@ -28,10 +23,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/woodenstairs"
-        },		
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/wood/woodenslabs"
         }
-	]
+    ]
 }

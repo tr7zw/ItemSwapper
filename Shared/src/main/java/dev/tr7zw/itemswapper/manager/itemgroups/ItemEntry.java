@@ -37,5 +37,5 @@ public class ItemEntry {
     public boolean isActAsLink() {
         return actAsLink;
     }
-    
+
 }

@@ -32,9 +32,8 @@ public class ServerboundCustomPayloadPacketMixin {
             CallbackInfoReturnable<CustomPacketPayload> ci) {
         FriendlyByteBuf.Reader<? extends CustomPacketPayload> reader = ITEMSWAPPER_PACKETS.get(id);
         if (reader != null) {
-                ci.setReturnValue(reader.apply(buffer));
+            ci.setReturnValue(reader.apply(buffer));
         }
     }
 
-    
 }

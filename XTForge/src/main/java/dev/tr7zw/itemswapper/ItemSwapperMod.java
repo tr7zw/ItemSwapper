@@ -10,7 +10,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod {
     public ItemSwapperMod() {
         try {
             Class clientClass = net.minecraft.client.Minecraft.class;
-        }catch(Throwable ex) {
+        } catch (Throwable ex) {
             LOGGER.warn("ItemSwapper Mod installed on a Server. Going to sleep.");
             return;
         }
@@ -24,7 +24,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod {
     @Override
     public void initModloader() {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

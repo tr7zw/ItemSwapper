@@ -36,23 +36,20 @@ public class PaletteWidget extends ItemGridWidget {
     protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
-        if(entry != null && entry.isActAsLink()) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, entry.getItem().getDefaultInstance(), 1,
-                            SlotEffect.NONE, 1));
+        if (entry != null && entry.isActAsLink()) {
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    entry.getItem().getDefaultInstance(), 1, SlotEffect.NONE, 1));
             return;
         }
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty() && !overwrideAvailable) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slots.get(0).item(), 1,
-                            SlotEffect.NONE, slots.get(0).amount().get()));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    slots.get(0).item(), 1, SlotEffect.NONE, slots.get(0).amount().get()));
 
         } else if (guiSlot.id() <= itemGroup.getItems().length - 1) {
-            itemRenderList.add(
-                    () -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                            itemGroup.getItems()[guiSlot.id()].getItem().getDefaultInstance(), 1,
-                            !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
+                    itemGroup.getItems()[guiSlot.id()].getItem().getDefaultInstance(), 1,
+                    !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 1));
         }
     }
 
@@ -70,7 +67,7 @@ public class PaletteWidget extends ItemGridWidget {
     @Override
     public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot, int xOffset, int yOffset) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
-        if(entry != null && entry.isActAsLink()) {
+        if (entry != null && entry.isActAsLink()) {
             onSecondaryClick(overlay, guiSlot, xOffset, yOffset);
             return true;
         }
@@ -79,13 +76,15 @@ public class PaletteWidget extends ItemGridWidget {
                 minecraft.gameMode.handleCreativeModeItemAdd(entry.getItem().getDefaultInstance().copy(),
                         36 + minecraft.player.getInventory().selected);
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
-                ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                ItemSwapperSharedMod.instance
+                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
                 return false;
             }
             boolean changed = ItemUtil.grabItem(entry.getItem(), false);
-            if(changed) {
+            if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
-                ItemSwapperSharedMod.instance.setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                ItemSwapperSharedMod.instance
+                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
                 return false;
             }
         }
@@ -98,7 +97,7 @@ public class PaletteWidget extends ItemGridWidget {
         if (slot == null) {
             return;
         }
-        if(slot.isActAsLink()) {
+        if (slot.isActAsLink()) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
                     slot.getItem().getDefaultInstance(), false, yOffset, maxWidth);
             return;
@@ -117,7 +116,7 @@ public class PaletteWidget extends ItemGridWidget {
     @Override
     public String getSelector(GuiSlot slot) {
         ItemEntry entry = itemGroup.getItem(slot.id());
-        if(entry != null) {
+        if (entry != null) {
             return "item|" + Item.getId(entry.getItem());
         }
         return null;

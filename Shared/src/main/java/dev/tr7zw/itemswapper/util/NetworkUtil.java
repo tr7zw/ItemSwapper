@@ -21,7 +21,7 @@ public class NetworkUtil {
     public static void sendShulkerSupportPacket(ServerPlayer player, boolean enabled) {
         player.connection.send(new ClientboundCustomPayloadPacket(new ShulkerSupportPayload(enabled)));
     }
-    
+
     public static void sendRefillSupportPacket(ServerPlayer player, boolean enabled) {
         player.connection.send(new ClientboundCustomPayloadPacket(new RefillSupportPayload(enabled)));
     }
@@ -34,10 +34,10 @@ public class NetworkUtil {
         Minecraft.getInstance().getConnection()
                 .send(new ServerboundCustomPayloadPacket(new SwapItemPayload(inventorySlot, slot)));
     }
-    
+
     public static void refillItem(int targetSlot) {
         Minecraft.getInstance().getConnection()
                 .send(new ServerboundCustomPayloadPacket(new RefillItemPayload(targetSlot)));
     }
-    
+
 }
