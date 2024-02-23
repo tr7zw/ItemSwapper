@@ -13,7 +13,8 @@
         "minecraft:warped_slab",
         "minecraft:crimson_slab",
         "minecraft:cherry_slab",
-        "minecraft:bamboo_slab"
+        "minecraft:bamboo_slab",
+        "minecraft:bamboo_mosaic_slab"
     ],
     "shortcuts": [
         {
