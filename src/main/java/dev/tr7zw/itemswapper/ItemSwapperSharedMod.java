@@ -13,6 +13,7 @@ import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.config.CacheManager;
 import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.manager.BlockTextureManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
@@ -30,6 +31,7 @@ import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
 import dev.tr7zw.itemswapper.support.AmecsAPISupport;
 import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import dev.tr7zw.util.ComponentProvider;
+import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
@@ -53,6 +55,8 @@ public abstract class ItemSwapperSharedMod {
     private final CacheManager cacheManager = CacheManager.getInstance();
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     private final ClientProviderManager clientProviderManager = new ClientProviderManager();
+    @Getter
+    private final BlockTextureManager blockTextureManager = new BlockTextureManager();
     private final List<String> enableOnIp = cacheManager.getCache().enableOnIp;
     private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
 

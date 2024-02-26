@@ -14,6 +14,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
 
 public class ItemGroupManager {
 
@@ -182,6 +183,9 @@ public class ItemGroupManager {
     public record NoPage() implements Page {
     }
 
+    public record TexturePage(int color) implements Page {
+    }
+    
     public record InventoryPage() implements Page {
     }
 

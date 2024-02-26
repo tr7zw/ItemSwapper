@@ -17,12 +17,14 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.NoPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcutTest;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.RestockShortcut;
@@ -33,6 +35,7 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
+import dev.tr7zw.itemswapper.overlay.logic.TestWidget;
 import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
@@ -76,6 +79,10 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(),
                 ItemSwapperSharedMod.instance.getLastPage()));
+        shortcutList.add(new LastItemShortcutTest(0));
+        shortcutList.add(new LastItemShortcutTest(1));
+        shortcutList.add(new LastItemShortcutTest(2));
+        shortcutList.add(new LastItemShortcutTest(3));
         if (ItemSwapperSharedMod.instance.isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
@@ -137,6 +144,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             openInventory();
         } else if (page instanceof ContainerPage container) {
             openContainer(container.containerSlotId());
+        } else if (page instanceof TexturePage texture) {
+            openTexturePallete(texture.color());
         }
         return true;
     }
@@ -173,6 +182,16 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         lastPages.add(new ContainerPage(slotId));
         initShortcuts();
         ContainerWidget mainWidget = new ContainerWidget(0, 0, slotId);
+        selectionHandler.addWidget(mainWidget);
+        selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+    }
+    
+    public void openTexturePallete(int color) {
+        selectionHandler.reset();
+        lastPages.add(new TexturePage(color));
+        initShortcuts();
+        TestWidget mainWidget = new TestWidget(0,0, ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
