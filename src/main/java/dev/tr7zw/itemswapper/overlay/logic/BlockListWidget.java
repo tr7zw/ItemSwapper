@@ -1,6 +1,5 @@
 package dev.tr7zw.itemswapper.overlay.logic;
 
-import java.util.Collections;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
@@ -12,7 +11,6 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -34,29 +32,14 @@ public class BlockListWidget extends ItemGridWidget {
         widgetArea.setBackgroundTextureSizeY(60);
     }
 
-    private NonNullList<AvailableSlot> getItems() {
-        NonNullList<AvailableSlot> list = NonNullList.create();
-        for(Block b : blocks) {
-            list.addAll(providerManager.findSlotsMatchingItem(b.asItem(), true, false));
-        }
-        return list;
-    }
-
-    private List<AvailableSlot> getItem(int id) {
-        NonNullList<AvailableSlot> items = getItems();
-        if (items.size() <= id) {
-            return Collections.emptyList();
-        }
-        if (id != -1 && !items.get(id).item().isEmpty()) {
-            return Collections.singletonList(items.get(id));
-        }
-        return Collections.emptyList();
-    }
-
     @Override
     protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
-        List<AvailableSlot> slots = getItem(guiSlot.id());
+        if(guiSlot.id() >= blocks.size()) {
+            return;
+        }
+        Item item = blocks.get(guiSlot.id()).asItem();
+        List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, true, false);
         if (!slots.isEmpty() && !overwrideAvailable) {
             itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
                     slots.get(0).item(), 1, SlotEffect.NONE, slots.get(0).amount().get()));
@@ -98,7 +81,11 @@ public class BlockListWidget extends ItemGridWidget {
 
     @Override
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
-        List<AvailableSlot> availableSlots = getItem(selected.id());
+        if(selected.id() >= blocks.size()) {
+            return;
+        }
+        Item item = blocks.get(selected.id()).asItem();
+        List<AvailableSlot> availableSlots = providerManager.findSlotsMatchingItem(item, true, false);
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(availableSlots.get(0).item().getDisplayName(),
                     availableSlots.get(0).item(), false, yOffset, maxWidth);
