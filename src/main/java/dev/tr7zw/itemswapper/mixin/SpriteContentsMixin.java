@@ -13,7 +13,7 @@ public class SpriteContentsMixin implements SpriteContentsAccess {
 
     @Shadow
     private NativeImage originalImage;
-    
+
     @Override
     public NativeImage getOriginalImage() {
         return originalImage;

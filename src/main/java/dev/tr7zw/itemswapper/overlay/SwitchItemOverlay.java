@@ -187,12 +187,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
-    
+
     public void openTexturePallete(UnpackedColor[] color) {
         selectionHandler.reset();
         lastPages.add(new TexturePage(color));
         initShortcuts();
-        BlockListWidget mainWidget = new BlockListWidget(0,0, ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
+        BlockListWidget mainWidget = new BlockListWidget(0, 0,
+                ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));

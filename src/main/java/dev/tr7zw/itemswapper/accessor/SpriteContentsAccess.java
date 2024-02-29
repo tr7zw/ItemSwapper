@@ -5,5 +5,5 @@ import com.mojang.blaze3d.platform.NativeImage;
 public interface SpriteContentsAccess {
 
     public NativeImage getOriginalImage();
-    
+
 }

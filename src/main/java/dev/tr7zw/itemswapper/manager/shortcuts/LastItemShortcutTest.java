@@ -33,9 +33,10 @@ public class LastItemShortcutTest implements Shortcut {
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof BlockItem blockItem) {
-            UnpackedColor[] color = ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blockItem.getBlock());
-            ItemSwapperSharedMod.instance
-                    .openPage(new TexturePage(new UnpackedColor[] {ColorUtil.createTetradPalette(color[0]).get(offset)}));
+            UnpackedColor[] color = ItemSwapperSharedMod.instance.getBlockTextureManager()
+                    .getColor(blockItem.getBlock());
+            ItemSwapperSharedMod.instance.openPage(
+                    new TexturePage(new UnpackedColor[] { ColorUtil.createTetradPalette(color[0]).get(offset) }));
             return true;
         }
         return false;

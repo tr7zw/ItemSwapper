@@ -185,7 +185,7 @@ public class ItemGroupManager {
 
     public record TexturePage(UnpackedColor[] color) implements Page {
     }
-    
+
     public record InventoryPage() implements Page {
     }
 

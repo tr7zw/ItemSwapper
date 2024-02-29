@@ -5,6 +5,7 @@ import java.util.List;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -35,7 +36,7 @@ public class BlockListWidget extends ItemGridWidget {
     @Override
     protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
-        if(guiSlot.id() >= blocks.size()) {
+        if (guiSlot.id() >= blocks.size()) {
             return;
         }
         Item item = blocks.get(guiSlot.id()).asItem();
@@ -73,15 +74,16 @@ public class BlockListWidget extends ItemGridWidget {
         }
         return true;
     }
-    
+
     @Override
     public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
-        // nothing
+        ItemSwapperSharedMod.instance.openPage(new TexturePage(
+                ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blocks.get(slot.id()))));
     }
 
     @Override
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
-        if(selected.id() >= blocks.size()) {
+        if (selected.id() >= blocks.size()) {
             return;
         }
         Item item = blocks.get(selected.id()).asItem();
@@ -90,7 +92,8 @@ public class BlockListWidget extends ItemGridWidget {
             RenderHelper.renderSelectedItemName(availableSlots.get(0).item().getDisplayName(),
                     availableSlots.get(0).item(), false, yOffset, maxWidth);
         } else {
-            RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(blocks.get(selected.id()).asItem().getDefaultInstance()),
+            RenderHelper.renderSelectedItemName(
+                    ItemUtil.getDisplayname(blocks.get(selected.id()).asItem().getDefaultInstance()),
                     blocks.get(selected.id()).asItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth);
         }
 

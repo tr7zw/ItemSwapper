@@ -57,21 +57,24 @@ public class BlockTextureManager {
         return colorMap.get(block);
     }
 
-    // Method to sort blocks by the closeness of their average colors to a target block's average color
+    // Method to sort blocks by the closeness of their average colors to a target
+    // block's average color
     public List<Block> getBlocksByAverageColor(UnpackedColor[] targetAverageColor) {
         if (colorMap.isEmpty()) {
             init();
         }
 
-        // Create a list to store blocks along with their color distances from the target block
+        // Create a list to store blocks along with their color distances from the
+        // target block
         List<Map.Entry<Block, Double>> blockDistances = new ArrayList<>();
 
-        // Calculate the distance between the average color of each block and the target block's average color
+        // Calculate the distance between the average color of each block and the target
+        // block's average color
         for (Block block : colorMap.keySet()) {
             UnpackedColor[] blockColor = colorMap.get(block);
             double dist = Double.MAX_VALUE;
-            for(UnpackedColor target : targetAverageColor) {
-                for(UnpackedColor check : blockColor) {
+            for (UnpackedColor target : targetAverageColor) {
+                for (UnpackedColor check : blockColor) {
                     dist = Math.min(dist, ColorUtil.colorDistance(target, check));
                 }
             }

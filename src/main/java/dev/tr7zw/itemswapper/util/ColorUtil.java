@@ -16,7 +16,7 @@ public class ColorUtil {
         public UnpackedColor(int color) {
             this((color >>> 24), (color & 0xFF), (color >> 8 & 0xFF), (color >> 16 & 0xFF));
         }
-        
+
         public UnpackedColor(Color color) {
             this(color.getAlpha(), color.getRed(), color.getGreen(), color.getBlue());
         }
@@ -26,7 +26,8 @@ public class ColorUtil {
         }
     }
 
-    // Method to calculate the Euclidean distance between two colors, ignoring fully transparent pixels
+    // Method to calculate the Euclidean distance between two colors, ignoring fully
+    // transparent pixels
     public static double colorDistance(UnpackedColor c1, UnpackedColor c2) {
         // If both colors are fully transparent, return 0 (no distance)
         if (c1.a == 0 && c2.a == 0) {
@@ -57,7 +58,7 @@ public class ColorUtil {
         return new UnpackedColor(totalAlpha / colors.length, totalRed / colors.length, totalGreen / colors.length,
                 totalBlue / colors.length);
     }
-    
+
     public static UnpackedColor calculateAverageColor(List<UnpackedColor> colors) {
         int totalRed = 0;
         int totalGreen = 0;
@@ -75,8 +76,9 @@ public class ColorUtil {
         return new UnpackedColor(totalAlpha / colors.size(), totalRed / colors.size(), totalGreen / colors.size(),
                 totalBlue / colors.size());
     }
-    
-    // Method to create a Tetrad 4 color palette with a 30° offset from a given color
+
+    // Method to create a Tetrad 4 color palette with a 30° offset from a given
+    // color
     public static List<UnpackedColor> createTetradPalette(UnpackedColor color) {
         List<UnpackedColor> palette = new ArrayList<>();
 
@@ -120,7 +122,7 @@ public class ColorUtil {
 
         return palette;
     }
-    
+
     public static UnpackedColor[] primaryColorDetection(int[] colors, float closenessThreshold) {
         if (colors == null || colors.length == 0) {
             return new UnpackedColor[0];
@@ -146,13 +148,12 @@ public class ColorUtil {
                 colorGroups.put(color, newGroup);
             }
         }
-        
+
         List<List<UnpackedColor>> blobs = new ArrayList<>(colorGroups.values());
-        blobs.sort((a,b) -> Integer.compare(b.size(), a.size()));
-        return new UnpackedColor[] {calculateAverageColor(blobs.get(0))};
+        blobs.sort((a, b) -> Integer.compare(b.size(), a.size()));
+        return new UnpackedColor[] { calculateAverageColor(blobs.get(0)) };
     }
-    
-    
+
     public static UnpackedColor[] blobDetection(int[] colors, float closenessThreshold) {
         if (colors == null || colors.length == 0) {
             return new UnpackedColor[0];
@@ -178,7 +179,7 @@ public class ColorUtil {
                 colorGroups.put(color, newGroup);
             }
         }
-        
+
         // Convert color groups to array
         UnpackedColor[] result = new UnpackedColor[colorGroups.size()];
         int index = 0;
@@ -189,29 +190,26 @@ public class ColorUtil {
 
         return result;
     }
-    
+
     public static UnpackedColor[] calculateColorClumps(int[] colors, float closenessTreshold) {
-        //colorset, (color, colortotal)
+        // colorset, (color, colortotal)
         List<UnpackedColor> colorArrays = new ArrayList<UnpackedColor>();
         for (int color : colors) {
             UnpackedColor pixel = new UnpackedColor(color);
             boolean colorExists = false;
-            
+
             for (int i = 0; i < colorArrays.size(); i++) {
                 UnpackedColor current = colorArrays.get(i);
-                if(colorDistance(pixel, current) < closenessTreshold){
+                if (colorDistance(pixel, current) < closenessTreshold) {
                     colorExists = true;
-                    current = new UnpackedColor(
-                        (current.a + pixel.a)>>1,
-                        (current.r + pixel.r)>>1,
-                        (current.g + pixel.g)>>1,
-                        (current.b + pixel.b)>>1);
+                    current = new UnpackedColor((current.a + pixel.a) >> 1, (current.r + pixel.r) >> 1,
+                            (current.g + pixel.g) >> 1, (current.b + pixel.b) >> 1);
                     colorArrays.set(i, current);
                     break;
                 }
             }
             // new clump
-            if(!colorExists){
+            if (!colorExists) {
                 colorArrays.add(new UnpackedColor(color));
             }
         }
