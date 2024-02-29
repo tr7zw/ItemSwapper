@@ -35,8 +35,9 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
-import dev.tr7zw.itemswapper.overlay.logic.TestWidget;
+import dev.tr7zw.itemswapper.overlay.logic.BlockListWidget;
 import dev.tr7zw.itemswapper.support.ViveCraftSupport;
+import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
@@ -187,11 +188,11 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
     
-    public void openTexturePallete(int color) {
+    public void openTexturePallete(UnpackedColor[] color) {
         selectionHandler.reset();
         lastPages.add(new TexturePage(color));
         initShortcuts();
-        TestWidget mainWidget = new TestWidget(0,0, ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
+        BlockListWidget mainWidget = new BlockListWidget(0,0, ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));

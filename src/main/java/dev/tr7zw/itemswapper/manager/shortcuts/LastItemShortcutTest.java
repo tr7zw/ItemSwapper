@@ -1,12 +1,13 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.manager.BlockTextureManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.ColorUtil;
+import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -32,9 +33,9 @@ public class LastItemShortcutTest implements Shortcut {
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         if (Minecraft.getInstance().player.getMainHandItem().getItem() instanceof BlockItem blockItem) {
-            Integer color = ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blockItem.getBlock());
+            UnpackedColor[] color = ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blockItem.getBlock());
             ItemSwapperSharedMod.instance
-                    .openPage(new TexturePage(BlockTextureManager.createTetradPalette(color).get(offset)));
+                    .openPage(new TexturePage(new UnpackedColor[] {ColorUtil.createTetradPalette(color[0]).get(offset)}));
             return true;
         }
         return false;

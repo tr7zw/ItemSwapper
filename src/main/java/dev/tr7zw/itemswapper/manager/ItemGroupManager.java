@@ -11,10 +11,10 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 
 public class ItemGroupManager {
 
@@ -183,7 +183,7 @@ public class ItemGroupManager {
     public record NoPage() implements Page {
     }
 
-    public record TexturePage(int color) implements Page {
+    public record TexturePage(UnpackedColor[] color) implements Page {
     }
     
     public record InventoryPage() implements Page {
