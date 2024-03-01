@@ -24,7 +24,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcut;
-import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcutTest;
+import dev.tr7zw.itemswapper.manager.shortcuts.BlockColorShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.RestockShortcut;
@@ -80,10 +80,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(),
                 ItemSwapperSharedMod.instance.getLastPage()));
-        shortcutList.add(new LastItemShortcutTest(0));
-        shortcutList.add(new LastItemShortcutTest(1));
-        shortcutList.add(new LastItemShortcutTest(2));
-        shortcutList.add(new LastItemShortcutTest(3));
+        shortcutList.add(new BlockColorShortcut(null, 0));
         if (ItemSwapperSharedMod.instance.isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
@@ -146,7 +143,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         } else if (page instanceof ContainerPage container) {
             openContainer(container.containerSlotId());
         } else if (page instanceof TexturePage texture) {
-            openTexturePallete(texture.color());
+            openTexturePallete(texture.color(), texture.sideBase());
         }
         return true;
     }
@@ -188,15 +185,22 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
-    public void openTexturePallete(UnpackedColor[] color) {
+    public void openTexturePallete(UnpackedColor[] color, UnpackedColor sideBase) {
         selectionHandler.reset();
-        lastPages.add(new TexturePage(color));
+        lastPages.add(new TexturePage(color, sideBase));
         initShortcuts();
+        List<Shortcut> leftList = new ArrayList<>();
+        leftList.add(new BlockColorShortcut(sideBase, 0));
+        leftList.add(new BlockColorShortcut(sideBase, 1));
+        leftList.add(new BlockColorShortcut(sideBase, 2));
+        leftList.add(new BlockColorShortcut(sideBase, 3));
         BlockListWidget mainWidget = new BlockListWidget(0, 0,
                 ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+        selectionHandler.addWidget(new ShortcutListWidget(null, leftList,
+                -mainWidget.getWidgetArea().getMouseBoundsX() - ItemSwapperUI.slotSize, 1));
     }
 
     @Override

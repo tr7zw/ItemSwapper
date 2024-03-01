@@ -11,6 +11,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
@@ -77,8 +78,8 @@ public class BlockListWidget extends ItemGridWidget {
 
     @Override
     public void onSecondaryClick(SwitchItemOverlay overlay, GuiSlot slot, int xOffset, int yOffset) {
-        ItemSwapperSharedMod.instance.openPage(new TexturePage(
-                ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blocks.get(slot.id()))));
+        UnpackedColor[] color = ItemSwapperSharedMod.instance.getBlockTextureManager().getColor(blocks.get(slot.id()));
+        ItemSwapperSharedMod.instance.openPage(new TexturePage(color, color[0]));
     }
 
     @Override

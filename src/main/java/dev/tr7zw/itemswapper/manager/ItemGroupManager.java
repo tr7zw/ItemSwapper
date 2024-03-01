@@ -183,7 +183,7 @@ public class ItemGroupManager {
     public record NoPage() implements Page {
     }
 
-    public record TexturePage(UnpackedColor[] color) implements Page {
+    public record TexturePage(UnpackedColor[] color, UnpackedColor sideBase) implements Page {
     }
 
     public record InventoryPage() implements Page {
