@@ -48,7 +48,7 @@
         "issues": "https://github.com/tr7zw/ItemSwapper/issues"
     },
     "license": "GNU General Public License v3",
-    "icon": "assets/itemswapper/icon.png",
+    "icon": "icon.png",
     "environment": "*",
     "entrypoints": {
         "client": [
