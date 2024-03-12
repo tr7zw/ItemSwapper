@@ -59,6 +59,9 @@
         ],
         "modmenu": [
             "dev.tr7zw.itemswapper.ItemSwapperModMenu"
+        ],
+        "controlify": [
+            "dev.tr7zw.itemswapper.compat.ControlifyItemswapperEntrypoint"
         ]
     },
     "mixins": [

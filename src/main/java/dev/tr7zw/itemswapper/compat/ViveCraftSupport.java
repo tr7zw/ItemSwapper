@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.support;
+package dev.tr7zw.itemswapper.compat;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.config.Config;
@@ -7,10 +7,11 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 public class ViveCraftSupport {
 
     private static final ViveCraftSupport INSTANCE = new ViveCraftSupport();
-
     private final ConfigManager configManager = ConfigManager.getInstance();
-
     private boolean isAvailable = false;
+
+    private ViveCraftSupport() {
+    }
 
     public void init() {
         Config config = configManager.getConfig();

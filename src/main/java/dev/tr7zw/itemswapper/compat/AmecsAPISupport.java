@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.support;
+package dev.tr7zw.itemswapper.compat;
 
 /**
  * This is a stupid hack and might need to be fixed with help of the Amecs-API
