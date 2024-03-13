@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {
 
+    @Deprecated // for <= 1.20.1
+    public static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
     public static final ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE = new ResourceLocation("hud/hotbar_offhand_left");
     public static final ResourceLocation CURSOR_LOCATION = new ResourceLocation("itemswapper",
             "textures/gui/cursor.png");
