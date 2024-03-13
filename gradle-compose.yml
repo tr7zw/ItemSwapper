@@ -19,7 +19,6 @@ replacements:
       modCompileOnly 'maven.modrinth:midnightlib:1.0.0-fabric'\n
       modCompileOnly 'org.aperlambda:lambdajcommon:1.8.1'\n
       modCompileOnly 'curse.maven:litematica-308892:4626718'\n
-      modCompileOnlyApi 'maven.modrinth:controlify:6GKVGWLK'\n
     "
 enabledFlags:
   - autopublish
