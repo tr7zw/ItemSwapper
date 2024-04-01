@@ -313,6 +313,8 @@ public abstract class ItemSwapperSharedMod {
                         b -> configManager.getConfig().allowWalkingWithUI = b));
                 options.add(getOnOffOption("text.itemswapper.startOnItem", () -> configManager.getConfig().startOnItem,
                         b -> configManager.getConfig().startOnItem = b));
+                options.add(getOnOffOption("text.itemswapper.autoPalette", () -> configManager.getConfig().experimentalAutoPalette,
+                        b -> configManager.getConfig().experimentalAutoPalette = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));
                 this.addRenderableWidget(

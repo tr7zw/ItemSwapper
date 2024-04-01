@@ -19,5 +19,6 @@ public class Config {
     public boolean allowWalkingWithUI = true;
     public boolean startOnItem = false;
     public boolean disablePickblockOnToolsWeapons = false;
+    public boolean experimentalAutoPalette = false;
 
 }
