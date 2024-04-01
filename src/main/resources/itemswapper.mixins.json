@@ -22,7 +22,8 @@
         "KeyMappingMixin",
         "SmithingTemplateItemMixin",
         "LitematicaMixin",
-        "ClientboundCustomPayloadPacketMixin"
+        "ClientboundCustomPayloadPacketMixin",
+        "SpriteContentsMixin"
     ],
     "injectors": {
         "defaultRequire": 1

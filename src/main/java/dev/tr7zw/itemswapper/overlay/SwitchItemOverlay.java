@@ -19,15 +19,18 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.NoPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
+import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.BackShortcut;
+import dev.tr7zw.itemswapper.manager.shortcuts.BlockColorShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.ClearCurrentSlotShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LastItemShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.OpenInventoryShortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.RestockShortcut;
+import dev.tr7zw.itemswapper.overlay.logic.BlockListWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ContainerWidget;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
@@ -35,6 +38,7 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
+import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
@@ -77,6 +81,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(),
                 ItemSwapperSharedMod.instance.getLastPage()));
+        if(configManager.getConfig().experimentalAutoPalette) {
+            shortcutList.add(new BlockColorShortcut(null, 0));
+        }
         if (ItemSwapperSharedMod.instance.isEnableRefill()) {
             shortcutList.add(new RestockShortcut());
         }
@@ -138,6 +145,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             openInventory();
         } else if (page instanceof ContainerPage container) {
             openContainer(container.containerSlotId());
+        } else if (page instanceof TexturePage texture) {
+            openTexturePallete(texture.color(), texture.sideBase());
         }
         return true;
     }
@@ -177,6 +186,24 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+    }
+
+    public void openTexturePallete(UnpackedColor[] color, UnpackedColor sideBase) {
+        selectionHandler.reset();
+        lastPages.add(new TexturePage(color, sideBase));
+        initShortcuts();
+        List<Shortcut> leftList = new ArrayList<>();
+        leftList.add(new BlockColorShortcut(sideBase, 0));
+        leftList.add(new BlockColorShortcut(sideBase, 1));
+        leftList.add(new BlockColorShortcut(sideBase, 2));
+        leftList.add(new BlockColorShortcut(sideBase, 3));
+        BlockListWidget mainWidget = new BlockListWidget(0, 0,
+                ItemSwapperSharedMod.instance.getBlockTextureManager().getBlocksByAverageColor(color));
+        selectionHandler.addWidget(mainWidget);
+        selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
+                mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
+        selectionHandler.addWidget(new ShortcutListWidget(null, leftList,
+                -mainWidget.getWidgetArea().getMouseBoundsX() - ItemSwapperUI.slotSize, 1));
     }
 
     @Override
