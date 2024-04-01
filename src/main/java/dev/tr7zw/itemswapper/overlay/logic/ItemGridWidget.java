@@ -50,7 +50,13 @@ public abstract class ItemGridWidget implements GuiWidget {
             List<Runnable> itemRenderList, List<Runnable> lateRenderList, boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
+            // spotless:off 
+          //#if MC >= 12002
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
+          //#else
+          //$$ graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);   
+          //#endif
+          //spotless:on
         }
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {

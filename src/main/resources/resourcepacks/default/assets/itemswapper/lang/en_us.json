@@ -166,5 +166,6 @@
     "text.itemswapper.item.musical.note_block.pling": "\"Pling\" (Electric piano)",
     "text.itemswapper.item.musical.note_block.harp": "Harp / piano",
     "text.itemswapper.palette.functional.smithing": "Smithing",
-    "text.itemswapper.palette.functional.sherds": "Sherds"
+    "text.itemswapper.palette.functional.sherds": "Sherds",
+    "text.itemswapper.palette.functional.storage": "Storage"
 }

@@ -1,10 +1,14 @@
 package dev.tr7zw.itemswapper.overlay;
 
+import java.util.function.BiConsumer;
+
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
 public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemSwapperUI {
+
+    private BiConsumer<Integer, Integer> vCursorHandler = null;
 
     protected ItemSwapperUIAbstractInput(Component component) {
         super(component);
@@ -20,10 +24,30 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
         return true;
     }
 
+    public void registerVCursorHandler(BiConsumer<Integer, Integer> cons) {
+        this.vCursorHandler = cons;
+    }
+
+    public void handleMouseTeleport(int x, int y) {
+        if (vCursorHandler != null) {
+            vCursorHandler.accept(x, y);
+        }
+    }
+
+    // spotless:off 
+    //#if MC >= 12002
     @Override
     public boolean mouseScrolled(double d, double e, double f, double g) {
         onScroll(g);
         return true;
     }
+  //#else
+  //$$     @Override
+  //$$  public boolean mouseScrolled(double d, double e, double f) {
+  //$$      onScroll(f);
+  //$$      return true;
+  //$$  }
+  //#endif
+  //spotless:on
 
 }

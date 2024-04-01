@@ -38,7 +38,7 @@ body:
         Please provide the exact version of the mod you are using. Every part of
           the version is important! If you do not know what version you are using,
           look at the file name in your `mods` folder.
-      placeholder: 'Example: itemswapper-fabric-0.5.5-mc1.20'
+      placeholder: 'Example: itemswapper-fabric-0.5.6-mc1.20'
     validations:
       required: true
   - type: input

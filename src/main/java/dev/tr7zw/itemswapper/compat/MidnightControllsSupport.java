@@ -7,13 +7,13 @@ import org.lwjgl.glfw.GLFW;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
-import eu.midnightdust.midnightcontrols.client.ButtonState;
 import eu.midnightdust.midnightcontrols.client.MidnightControlsClient;
 import eu.midnightdust.midnightcontrols.client.compat.CompatHandler;
 import eu.midnightdust.midnightcontrols.client.controller.ButtonBinding;
 import eu.midnightdust.midnightcontrols.client.controller.ButtonCategory;
 import eu.midnightdust.midnightcontrols.client.controller.InputManager;
 import eu.midnightdust.midnightcontrols.client.controller.PressAction;
+import eu.midnightdust.midnightcontrols.client.enums.ButtonState;
 import net.minecraft.client.Minecraft;
 
 public class MidnightControllsSupport implements CompatHandler {

@@ -3,7 +3,7 @@ source: "https://github.com/tr7zw/ProcessedModTemplate/tree/master"
 replacements:
   name: "ItemSwapper"
   id: "itemswapper"
-  version: "0.5.5"
+  version: "0.5.6"
   description: "Proof of concept mod to for a different system to swap items in the inventory."
   homepageUrl: "https://modrinth.com/plugin/itemswapper"
   sourcesUrl: "https://github.com/tr7zw/ItemSwapper"
@@ -15,7 +15,7 @@ replacements:
   curseforgeid: 694358
   versionlessname: "XTVersionless"
   fabric_dependencies: "
-    modCompileOnlyApi 'maven.modrinth:midnightcontrols:1.7.4+1.19'\n
+      modCompileOnlyApi 'maven.modrinth:midnightcontrols:1.9.3+1.20.4'\n
       modCompileOnly 'maven.modrinth:midnightlib:1.0.0-fabric'\n
       modCompileOnly 'org.aperlambda:lambdajcommon:1.8.1'\n
       modCompileOnly 'curse.maven:litematica-308892:4626718'\n

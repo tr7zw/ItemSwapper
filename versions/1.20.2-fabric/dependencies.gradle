@@ -1,0 +1,3 @@
+dependencies {
+    modCompileOnlyApi 'maven.modrinth:controlify:E0IjfW25'
+}

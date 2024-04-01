@@ -11,6 +11,8 @@ import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
+import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
+import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.config.CacheManager;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.BlockTextureManager;
@@ -28,8 +30,6 @@ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
-import dev.tr7zw.itemswapper.support.AmecsAPISupport;
-import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;

@@ -9,6 +9,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
+import dev.tr7zw.itemswapper.compat.ControlifySupport;
+import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ContainerPage;
@@ -35,9 +37,6 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
-import dev.tr7zw.itemswapper.overlay.logic.BlockListWidget;
-import dev.tr7zw.itemswapper.support.ViveCraftSupport;
-import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
@@ -149,7 +148,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     public boolean selectIcon(String selector, int xOffset, int yOffset) {
-        return selectionHandler.select(selector, xOffset, yOffset);
+        return selectionHandler.select(selector, xOffset, yOffset, this);
     }
 
     public List<Page> getPageHistory() {
@@ -226,7 +225,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             }
         }
 
-        if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()) {
+        if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
+                && !ControlifySupport.getInstance().isActive()) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             graphics.pose().pushPose();
             graphics.pose().translate(0, 0, 1000);

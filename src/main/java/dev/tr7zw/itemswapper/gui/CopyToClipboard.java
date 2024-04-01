@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
@@ -23,7 +22,17 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
+// spotless:off 
+//#if MC >= 12002
+import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
+
 public class CopyToClipboard extends LegacyTexturedButtonWidget {
+//#else
+//$$ import net.minecraft.client.gui.components.ImageButton;
+//$$
+//$$ public class CopyToClipboard extends ImageButton {    
+//#endif
+//spotless:on
     private static final ResourceLocation texture = new ResourceLocation(ItemSwapperSharedMod.MODID,
             "textures/gui/button.png");
     private static final int TEXTURE_WIDTH = 10;

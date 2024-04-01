@@ -1,0 +1,39 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.functional.storage",
+    "icon": "minecraft:chest",
+    "items": [
+        "minecraft:chest",
+        "minecraft:trapped_chest",
+        "minecraft:barrel",
+        "minecraft:furnace",
+        "minecraft:smoker",
+        "minecraft:brewing_stand",
+        "minecraft:blast_furnace",
+        "minecraft:decorated_pot",
+        "minecraft:shulker_box"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/decorative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/villagers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/lights"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/miscellaneous"
+        }
+    ]
+}

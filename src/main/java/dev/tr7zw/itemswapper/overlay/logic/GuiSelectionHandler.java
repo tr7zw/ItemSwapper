@@ -3,11 +3,15 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.tr7zw.itemswapper.support.ViveCraftSupport;
+import dev.tr7zw.itemswapper.compat.ControlifySupport;
+import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
+import dev.tr7zw.itemswapper.overlay.ItemSwapperUIAbstractInput;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 
 public class GuiSelectionHandler {
 
+    private final Minecraft minecraft = Minecraft.getInstance();
     private List<GuiWidget> widgets = new ArrayList<>();
     private GuiWidget selectedWidget = null;
     private GuiSlot selectedSlot = null;
@@ -22,7 +26,7 @@ public class GuiSelectionHandler {
     private double offsetY = 0;
 
     public void updateSelection(double x, double y) {
-        if (ViveCraftSupport.getInstance().isActive()) {
+        if (ViveCraftSupport.getInstance().isActive() || ControlifySupport.getInstance().isActive()) {
             // Direct mouse input
             cursorX = mouseX;
             cursorY = mouseY;
@@ -75,13 +79,18 @@ public class GuiSelectionHandler {
         }
     }
 
-    public boolean select(String selector, int xOffset, int yOffset) {
+    public boolean select(String selector, int xOffset, int yOffset, ItemSwapperUIAbstractInput input) {
         for (GuiWidget widget : widgets) {
             for (GuiSlot slot : widget.getSlots()) {
                 if (selector.equals(widget.getSelector(slot))) {
                     int halfSlot = slot.size() / 2;
                     this.cursorX = slot.x() + 3 + widget.getWidgetArea().getX() + halfSlot + xOffset;
                     this.cursorY = slot.y() + 3 + widget.getWidgetArea().getY() + halfSlot + yOffset;
+                    input.handleMouseTeleport(
+                            minecraft.getWindow().getWidth() / 2
+                                    + (int) (cursorX * minecraft.getWindow().getGuiScale()),
+                            minecraft.getWindow().getHeight() / 2
+                                    + (int) (cursorY * minecraft.getWindow().getGuiScale()));
                     return true;
                 }
             }

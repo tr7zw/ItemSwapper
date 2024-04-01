@@ -45,8 +45,14 @@ public class PotionNameProvider implements NameProvider {
             comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));
         }
         if (effect.getDuration() > 1) {
+            // spotless:off 
+          //#if MC >= 12004
             comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration(), 20)))
                     .append(")");
+            //#else
+            //$$ comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration()))).append(")");
+            //#endif
+            //spotless:on
         }
         return comp;
     }

@@ -2,12 +2,13 @@ package dev.tr7zw.itemswapper;
 
 import java.util.Optional;
 
+import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
+import dev.tr7zw.itemswapper.compat.ControlifySupport;
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
+import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
-import dev.tr7zw.itemswapper.support.AmecsAPISupport;
-import dev.tr7zw.itemswapper.support.ViveCraftSupport;
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
