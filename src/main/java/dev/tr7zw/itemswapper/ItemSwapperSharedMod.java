@@ -136,7 +136,8 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private void onPress(ItemSwapperUI overlay) {
-        if (minecraft.player != null && !itemGroupManager.isResourcepackSelected()) {
+        // skip this check for alwaysInventory mode
+        if (minecraft.player != null && !itemGroupManager.isResourcepackSelected() && !configManager.getConfig().alwaysInventory) {
             minecraft.player.displayClientMessage(ComponentProvider
                     .translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED), true);
         }
@@ -179,7 +180,7 @@ public abstract class ItemSwapperSharedMod {
     }
 
     private boolean couldOpenScreen() {
-        if (minecraft.player.getMainHandItem().isEmpty()) {
+        if (minecraft.player.getMainHandItem().isEmpty() || configManager.getConfig().alwaysInventory) {
             openInventoryScreen();
             return true;
         }
@@ -313,6 +314,8 @@ public abstract class ItemSwapperSharedMod {
                         b -> configManager.getConfig().allowWalkingWithUI = b));
                 options.add(getOnOffOption("text.itemswapper.startOnItem", () -> configManager.getConfig().startOnItem,
                         b -> configManager.getConfig().startOnItem = b));
+                options.add(getOnOffOption("text.itemswapper.alwaysInventory", () -> configManager.getConfig().alwaysInventory,
+                        b -> configManager.getConfig().alwaysInventory = b));
                 options.add(getOnOffOption("text.itemswapper.autoPalette", () -> configManager.getConfig().experimentalAutoPalette,
                         b -> configManager.getConfig().experimentalAutoPalette = b));
 

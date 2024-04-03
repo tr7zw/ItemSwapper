@@ -20,5 +20,6 @@ public class Config {
     public boolean startOnItem = false;
     public boolean disablePickblockOnToolsWeapons = false;
     public boolean experimentalAutoPalette = false;
+    public boolean alwaysInventory = false;
 
 }

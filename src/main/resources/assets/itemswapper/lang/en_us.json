@@ -70,5 +70,7 @@
     "text.itemswapper.openPalette.2": "Complementary Palette",
     "text.itemswapper.openPalette.3": "Shifted Complementary Palette",
     "text.itemswapper.autoPalette": "[Experimental] Auto Palette",
-    "text.itemswapper.autoPalette.tooltip": "Automatically creates palettes for blocks with the same color."
+    "text.itemswapper.autoPalette.tooltip": "Automatically creates palettes for blocks with the same color.",
+    "text.itemswapper.alwaysInventory": "Always Open Inventory",
+    "text.itemswapper.alwaysInventory.tooltip": "Always open the inventory when the UI is opened, not a palette."
 }
