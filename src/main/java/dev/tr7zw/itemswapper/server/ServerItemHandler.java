@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.server;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
@@ -13,8 +14,13 @@ import net.minecraft.world.item.ItemStack;
 public class ServerItemHandler {
 
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
+    private static final ConfigManager configManager = ConfigManager.getInstance();
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
+        if(configManager.getConfig().disableShulkers) {
+            // no refill allowed
+            return;
+        }
         try {
             if (ShulkerHelper.isShulker(player.getInventory().getSelected().getItem())) {
                 // Don't try to put a shulker into another shulker
@@ -34,6 +40,10 @@ public class ServerItemHandler {
     }
 
     public void refillSlot(ServerPlayer player, RefillItemPayload payload) {
+        if(configManager.getConfig().disableShulkers) {
+            // no refill allowed
+            return;
+        }
         try {
             ItemStack target = player.getInventory().getItem(payload.slot());
             if (target == null || target.isEmpty()) {

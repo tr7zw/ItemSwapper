@@ -362,11 +362,11 @@ public abstract class ItemSwapperSharedMod {
     }
 
     public boolean areShulkersEnabled() {
-        return this.enableShulkers;
+        return this.enableShulkers && !configManager.getConfig().disableShulkers;
     }
 
     public boolean isEnableRefill() {
-        return enableRefill;
+        return enableRefill && !configManager.getConfig().disableShulkers;
     }
 
     public void setEnableRefill(boolean enableRefill) {
