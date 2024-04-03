@@ -14,7 +14,8 @@
         "minecraft:warped_roots",
         "minecraft:warped_fungus",
         "minecraft:warped_stem",
-        "minecraft:shroomlight"
+        "minecraft:shroomlight",
+        "minecraft:nether_sprouts"
     ],
     "shortcuts": [
         {

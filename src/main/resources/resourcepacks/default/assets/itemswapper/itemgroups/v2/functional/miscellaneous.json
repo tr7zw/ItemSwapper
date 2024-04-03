@@ -13,7 +13,8 @@
         "minecraft:lightning_rod",
         "minecraft:bell",
         "minecraft:bookshelf",
-        "minecraft:chiseled_bookshelf"
+        "minecraft:chiseled_bookshelf",
+        "minecraft:scaffolding"
     ],
     "shortcuts": [
         {

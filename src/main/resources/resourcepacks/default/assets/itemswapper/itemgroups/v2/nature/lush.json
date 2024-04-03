@@ -15,6 +15,7 @@
         "minecraft:spore_blossom",
         "minecraft:cactus",
         "minecraft:fern",
+        "minecraft:large_fern",
         "minecraft:grass",
         "minecraft:tall_grass",
         "minecraft:vine",
@@ -23,6 +24,7 @@
         "minecraft:dead_bush",
         "minecraft:bamboo",
         "minecraft:sugar_cane",
+        "minecraft:hanging_roots",
         "minecraft:bone_meal"
     ],
     "shortcuts": [

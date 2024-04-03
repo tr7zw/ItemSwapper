@@ -19,7 +19,8 @@
         "minecraft:bucket",
         "minecraft:water_bucket",
         "minecraft:sponge",
-        "minecraft:wet_sponge"
+        "minecraft:wet_sponge",
+        "minecraft:conduit"
     ],
     "shortcuts": [
         {

@@ -17,7 +17,8 @@
         "minecraft:cauldron",
         "minecraft:composter",
         "minecraft:lectern",
-        "minecraft:tnt"
+        "minecraft:tnt",
+        "minecraft:jukebox"
     ],
     "shortcuts": [
         {

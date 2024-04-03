@@ -15,7 +15,9 @@
         "minecraft:honey_block",
         "minecraft:hay_block",
         "minecraft:bone_block",
-        "minecraft:dried_kelp_block"
+        "minecraft:dried_kelp_block",
+        "minecraft:turtle_egg",
+        "minecraft:sniffer_egg"
     ],
     "shortcuts": [
         {

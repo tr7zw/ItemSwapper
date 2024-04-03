@@ -21,7 +21,8 @@
         "minecraft:emerald",
         "minecraft:emerald_block",
         "minecraft:lapis_lazuli",
-        "minecraft:lapis_block"
+        "minecraft:lapis_block",
+        "minecraft:netherite_block"
     ],
     "shortcuts": [
         {
