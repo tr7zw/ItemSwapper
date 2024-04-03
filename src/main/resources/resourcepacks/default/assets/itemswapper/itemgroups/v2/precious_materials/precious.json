@@ -5,6 +5,7 @@
     "icon": "minecraft:diamond",
     "items": [
         "minecraft:coal",
+        "minecraft:charcoal",
         "minecraft:coal_block",
         "minecraft:redstone",
         "minecraft:redstone_block",
@@ -22,7 +23,9 @@
         "minecraft:emerald_block",
         "minecraft:lapis_lazuli",
         "minecraft:lapis_block",
-        "minecraft:netherite_block"
+        "minecraft:netherite_block",
+        "minecraft:netherite_ingot",
+        "minecraft:nether_star"
     ],
     "shortcuts": [
         {

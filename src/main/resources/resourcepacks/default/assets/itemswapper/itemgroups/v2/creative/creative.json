@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 30,
-    "displayName": "text.itemswapper.palette.technical.creative",
+    "displayName": "text.itemswapper.palette.creative.creative",
     "icon": "minecraft:command_block",
     "items": [
         "minecraft:command_block",

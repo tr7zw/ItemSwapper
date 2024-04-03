@@ -27,9 +27,6 @@
         "minecraft:iron_hoe",
         "minecraft:golden_hoe",
         "minecraft:stone_hoe",
-        "minecraft:wooden_hoe",
-        "minecraft:shears",
-        "minecraft:flint_and_steel",
-        "minecraft:brush"
+        "minecraft:wooden_hoe"
     ]
 }

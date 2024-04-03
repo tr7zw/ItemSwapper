@@ -3,6 +3,8 @@
     "priority": 100,
     "displayName": "text.itemswapper.palette.the_end.purpur",
     "items": [
+        "minecraft:chorus_fruit",
+        "minecraft:chorus_fruit_popped",
         "minecraft:purpur_block",
         "minecraft:purpur_pillar",
         "minecraft:purpur_stairs",

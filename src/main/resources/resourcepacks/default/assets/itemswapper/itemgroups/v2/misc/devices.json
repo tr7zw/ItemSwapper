@@ -3,6 +3,7 @@
     "priority": 100,
     "displayName": "text.itemswapper.palette.misc.devices",
     "items": [
+        "minecraft:totem_of_undying",
         "minecraft:fishing_rod",
         "minecraft:spyglass",
         "minecraft:compass",
@@ -10,6 +11,15 @@
         "minecraft:filled_map",
         "minecraft:map",
         "minecraft:recovery_compass",
-        "minecraft:goat_horn"
+        "minecraft:goat_horn",
+        "minecraft:shears",
+        "minecraft:flint_and_steel",
+        "minecraft:brush",
+        "minecraft:lead",
+        "minecraft:name_tag",
+        "minecraft:saddle",
+        "minecraft:carrot_on_a_stick",
+        "minecraft:warped_fungus_on_a_stick",
+        "minecraft:elytra"
     ]
 }
