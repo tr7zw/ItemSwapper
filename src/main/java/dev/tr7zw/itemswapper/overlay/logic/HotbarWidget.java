@@ -9,23 +9,23 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
-public class InventoryWidget extends InventoryAbstractWidget {
+public class HotbarWidget extends InventoryAbstractWidget {
 
     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
-            "textures/gui/inventory.png");
+            "textures/gui/hotbar.png");
 
-    public InventoryWidget(int x, int y) {
+    public HotbarWidget(int x, int y) {
         super(x, y);
-        WidgetUtil.setupSlots(widgetArea, slots, 9, 3, false, BACKGROUND_LOCATION);
+        WidgetUtil.setupSlots(widgetArea, slots, 9, 1, false, BACKGROUND_LOCATION);
         widgetArea.setBackgroundTextureSizeX(168);
-        widgetArea.setBackgroundTextureSizeY(60);
+        widgetArea.setBackgroundTextureSizeY(24);
     }
 
     @Override
     protected List<AvailableSlot> getItem(int id) {
         NonNullList<ItemStack> items = minecraft.player.getInventory().items;
-        if (id != -1 && !items.get(id + 9).isEmpty()) {
-            return Collections.singletonList(new AvailableSlot(-1, id + 9, items.get(id + 9)));
+        if (id != -1 && !items.get(id).isEmpty()) {
+            return Collections.singletonList(new AvailableSlot(-1, id, items.get(id)));
         }
         return Collections.emptyList();
     }

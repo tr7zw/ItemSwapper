@@ -21,5 +21,6 @@ public class Config {
     public boolean disablePickblockOnToolsWeapons = false;
     public boolean experimentalAutoPalette = false;
     public boolean alwaysInventory = false;
+    public boolean showHotbar = false;
 
 }

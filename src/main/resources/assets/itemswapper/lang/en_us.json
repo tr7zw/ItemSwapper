@@ -72,5 +72,7 @@
     "text.itemswapper.autoPalette": "[Experimental] Auto Palette",
     "text.itemswapper.autoPalette.tooltip": "Automatically creates palettes for blocks with the same color.",
     "text.itemswapper.alwaysInventory": "Always Open Inventory",
-    "text.itemswapper.alwaysInventory.tooltip": "Always open the inventory when the UI is opened, not a palette."
+    "text.itemswapper.alwaysInventory.tooltip": "Always open the inventory when the UI is opened, not a palette.",
+    "text.itemswapper.showHotbar": "Show Hotbar",
+    "text.itemswapper.showHotbar.tooltip": "Show the hotbar in the Inventory UI."
 }

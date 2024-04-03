@@ -316,6 +316,8 @@ public abstract class ItemSwapperSharedMod {
                         b -> configManager.getConfig().startOnItem = b));
                 options.add(getOnOffOption("text.itemswapper.alwaysInventory", () -> configManager.getConfig().alwaysInventory,
                         b -> configManager.getConfig().alwaysInventory = b));
+                options.add(getOnOffOption("text.itemswapper.showHotbar", () -> configManager.getConfig().showHotbar,
+                        b -> configManager.getConfig().showHotbar = b));
                 options.add(getOnOffOption("text.itemswapper.autoPalette", () -> configManager.getConfig().experimentalAutoPalette,
                         b -> configManager.getConfig().experimentalAutoPalette = b));
 

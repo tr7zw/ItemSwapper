@@ -34,6 +34,7 @@ import dev.tr7zw.itemswapper.overlay.logic.BlockListWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ContainerWidget;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSelectionHandler;
 import dev.tr7zw.itemswapper.overlay.logic.GuiWidget;
+import dev.tr7zw.itemswapper.overlay.logic.HotbarWidget;
 import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
@@ -165,6 +166,10 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         initShortcuts();
         InventoryWidget mainWidget = new InventoryWidget(0, 0);
         selectionHandler.addWidget(mainWidget);
+        if(configManager.getConfig().showHotbar) {
+            HotbarWidget hotbarWidget = new HotbarWidget(0, mainWidget.getWidgetArea().getMouseBoundsY() + ItemSwapperUI.slotSize);
+            selectionHandler.addWidget(hotbarWidget);
+        }
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
