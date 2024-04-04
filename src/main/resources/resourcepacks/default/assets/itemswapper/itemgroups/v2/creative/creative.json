@@ -20,6 +20,8 @@
         "minecraft:frogspawn",
         "minecraft:dirt_path",
         "minecraft:farmland",
-        "minecraft:chorus_plant"
+        "minecraft:chorus_plant",
+        "minecraft:reinforced_deepslate",
+        "minecraft:budding_amethyst"
     ]
 }

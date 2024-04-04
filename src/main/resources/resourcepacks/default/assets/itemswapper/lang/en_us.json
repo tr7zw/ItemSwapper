@@ -173,5 +173,17 @@
     "text.itemswapper.palette.crafting.misc": "Miscellaneous Crafting",
     "text.itemswapper.palette.mob_drops": "Mob Drops",
     "text.itemswapper.palette.consumables.unprocessed_food": "Unprocessed Food",
-    "text.itemswapper.palette.misc.bundles": "Bundles"
+    "text.itemswapper.palette.misc.bundles": "Bundles",
+    "text.itemswapper.palette.wood.boats": "Boats",
+    "text.itemswapper.palette.creative.spawnegg_hostile": "Hostile Mob Spawn Eggs",
+    "text.itemswapper.palette.creative.spawnegg_passive": "Passive Mob Spawn Eggs",
+    "text.itemswapper.palette.creative.spawnegg_hostile_nether": "Nether Hostile Mob Spawn Eggs",
+    "text.itemswapper.palette.creative.spawnegg_hostile_raid": "Raid Hostile Mob Spawn Eggs",
+    "text.itemswapper.palette.creative.spawnegg_passive_water": "Water Passive Mob Spawn Eggs",
+    "text.itemswapper.palette.creative.spawnegg_passive_air": "Air Passive Mob Spawn Eggs",
+    "text.itemswapper.palette.creative.spawnegg_passive_villager": "Villager Passive Mob Spawn Eggs",
+    "text.itemswapper.palette.misc.enchanted_books": "Enchanted Books",
+    "text.itemswapper.palette.misc.books": "Books",
+    "text.itemswapper.list.armor": "Armor",
+    "text.itemswapper.palette.stone.infested_stone": "Infested Stone"
 }

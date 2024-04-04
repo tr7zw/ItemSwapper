@@ -1,0 +1,14 @@
+{
+    "type": "palette",
+    "priority": 49,
+    "displayName": "text.itemswapper.palette.stone.infested_stone",
+    "items": [
+        "minecraft:infested_stone",
+        "minecraft:infested_deepslate",
+        "minecraft:infested_cracked_stone_bricks",
+        "minecraft:infested_stone_bricks",
+        "minecraft:infested_cobblestone",
+        "minecraft:infested_chiseled_stone_bricks",
+        "minecraft:infested_mossy_stone_bricks"
+    ]
+}

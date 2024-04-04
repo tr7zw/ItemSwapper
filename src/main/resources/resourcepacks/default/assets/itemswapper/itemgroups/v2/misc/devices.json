@@ -12,6 +12,7 @@
         "minecraft:map",
         "minecraft:recovery_compass",
         "minecraft:goat_horn",
+        "minecraft:fire_charge",
         "minecraft:shears",
         "minecraft:flint_and_steel",
         "minecraft:brush",
@@ -20,6 +21,13 @@
         "minecraft:saddle",
         "minecraft:carrot_on_a_stick",
         "minecraft:warped_fungus_on_a_stick",
-        "minecraft:elytra"
+        "minecraft:elytra",
+        "minecraft:diamond_horse_armor",
+        "minecraft:golden_horse_armor",
+        "minecraft:iron_horse_armor",
+        "minecraft:leather_horse_armor",
+        "minecraft:end_crystal",
+        "minecraft:ender_eye",
+        "minecraft:experience_bottle"
     ]
 }

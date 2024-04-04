@@ -4,7 +4,7 @@
     "displayName": "text.itemswapper.palette.the_end.purpur",
     "items": [
         "minecraft:chorus_fruit",
-        "minecraft:chorus_fruit_popped",
+        "minecraft:popped_chorus_fruit",
         "minecraft:purpur_block",
         "minecraft:purpur_pillar",
         "minecraft:purpur_stairs",

@@ -10,6 +10,8 @@
         "minecraft:crafting_table",
         "minecraft:furnace",
         "minecraft:anvil",
+        "minecraft:chipped_anvil",
+        "minecraft:damaged_anvil",
         "minecraft:stonecutter",
         "minecraft:enchanting_table",
         "minecraft:beacon",

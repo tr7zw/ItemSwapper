@@ -18,7 +18,11 @@
         "minecraft:slime_ball",
         "minecraft:egg",
         "minecraft:ink_sac",
-        "minecraft:glow_ink_sac"
+        "minecraft:glow_ink_sac",
+        "minecraft:scute",
+        "minecraft:spider_eye",
+        "minecraft:gunpowder",
+        "minecraft:rabbit_hide"
     ],
     "shortcuts": [
         {

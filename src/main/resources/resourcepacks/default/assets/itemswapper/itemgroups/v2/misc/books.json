@@ -1,0 +1,10 @@
+{
+    "type": "list",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.misc.books",
+    "items": [
+        "minecraft:written_book",
+        "minecraft:writable_book",
+        "minecraft:knowledge_book"
+    ]
+}

@@ -25,7 +25,9 @@
         "minecraft:lapis_block",
         "minecraft:netherite_block",
         "minecraft:netherite_ingot",
-        "minecraft:nether_star"
+        "minecraft:netherite_scrap",
+        "minecraft:nether_star",
+        "minecraft:dragon_egg"
     ],
     "shortcuts": [
         {
