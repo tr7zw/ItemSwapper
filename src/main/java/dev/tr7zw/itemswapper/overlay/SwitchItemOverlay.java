@@ -82,7 +82,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new LastItemShortcut(ItemSwapperSharedMod.instance.getLastItem(),
                 ItemSwapperSharedMod.instance.getLastPage()));
-        if(configManager.getConfig().experimentalAutoPalette) {
+        if (configManager.getConfig().experimentalAutoPalette) {
             shortcutList.add(new BlockColorShortcut(null, 0));
         }
         if (ItemSwapperSharedMod.instance.isEnableRefill()) {
@@ -166,8 +166,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         initShortcuts();
         InventoryWidget mainWidget = new InventoryWidget(0, 0);
         selectionHandler.addWidget(mainWidget);
-        if(configManager.getConfig().showHotbar) {
-            HotbarWidget hotbarWidget = new HotbarWidget(0, mainWidget.getWidgetArea().getMouseBoundsY() + ItemSwapperUI.slotSize);
+        if (configManager.getConfig().showHotbar) {
+            HotbarWidget hotbarWidget = new HotbarWidget(0,
+                    mainWidget.getWidgetArea().getMouseBoundsY() + ItemSwapperUI.slotSize);
             selectionHandler.addWidget(hotbarWidget);
         }
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,

@@ -137,7 +137,8 @@ public abstract class ItemSwapperSharedMod {
 
     private void onPress(ItemSwapperUI overlay) {
         // skip this check for alwaysInventory mode
-        if (minecraft.player != null && !itemGroupManager.isResourcepackSelected() && !configManager.getConfig().alwaysInventory) {
+        if (minecraft.player != null && !itemGroupManager.isResourcepackSelected()
+                && !configManager.getConfig().alwaysInventory) {
             minecraft.player.displayClientMessage(ComponentProvider
                     .translatable("text.itemswapper.resourcepack.notSelected").withStyle(ChatFormatting.RED), true);
         }
@@ -314,11 +315,13 @@ public abstract class ItemSwapperSharedMod {
                         b -> configManager.getConfig().allowWalkingWithUI = b));
                 options.add(getOnOffOption("text.itemswapper.startOnItem", () -> configManager.getConfig().startOnItem,
                         b -> configManager.getConfig().startOnItem = b));
-                options.add(getOnOffOption("text.itemswapper.alwaysInventory", () -> configManager.getConfig().alwaysInventory,
+                options.add(getOnOffOption("text.itemswapper.alwaysInventory",
+                        () -> configManager.getConfig().alwaysInventory,
                         b -> configManager.getConfig().alwaysInventory = b));
                 options.add(getOnOffOption("text.itemswapper.showHotbar", () -> configManager.getConfig().showHotbar,
                         b -> configManager.getConfig().showHotbar = b));
-                options.add(getOnOffOption("text.itemswapper.autoPalette", () -> configManager.getConfig().experimentalAutoPalette,
+                options.add(getOnOffOption("text.itemswapper.autoPalette",
+                        () -> configManager.getConfig().experimentalAutoPalette,
                         b -> configManager.getConfig().experimentalAutoPalette = b));
 
                 getOptions().addSmall(options.toArray(new OptionInstance[0]));

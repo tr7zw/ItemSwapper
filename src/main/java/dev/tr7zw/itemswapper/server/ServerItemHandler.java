@@ -17,7 +17,7 @@ public class ServerItemHandler {
     private static final ConfigManager configManager = ConfigManager.getInstance();
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
-        if(configManager.getConfig().disableShulkers) {
+        if (configManager.getConfig().disableShulkers) {
             // no refill allowed
             return;
         }
@@ -40,7 +40,7 @@ public class ServerItemHandler {
     }
 
     public void refillSlot(ServerPlayer player, RefillItemPayload payload) {
-        if(configManager.getConfig().disableShulkers) {
+        if (configManager.getConfig().disableShulkers) {
             // no refill allowed
             return;
         }

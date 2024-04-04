@@ -23,7 +23,7 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
     }
 
     protected abstract List<AvailableSlot> getItem(int id);
-    
+
     @Override
     protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {

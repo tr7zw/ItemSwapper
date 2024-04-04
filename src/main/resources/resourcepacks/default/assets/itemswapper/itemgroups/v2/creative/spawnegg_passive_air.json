@@ -21,8 +21,7 @@
         {
             "type": "link",
             "target": "itemswapper:v2/creative/spawnegg_passive_air"
-        }
-        ,
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/creative/spawnegg_passive_villager"
