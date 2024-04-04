@@ -138,16 +138,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         if (page instanceof NoPage || (!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1)))) {
             return false; // this exact page is already open
         }
-        if (page instanceof ItemGroupPage group) {
-            openItemGroup(group.group());
-        } else if (page instanceof ListPage list) {
-            openItemList(list.items());
-        } else if (page instanceof InventoryPage) {
-            openInventory();
-        } else if (page instanceof ContainerPage container) {
-            openContainer(container.containerSlotId());
-        } else if (page instanceof TexturePage texture) {
-            openTexturePallete(texture.color(), texture.sideBase());
+        switch (page) {
+        case ItemGroupPage(var gr) -> openItemGroup(gr);
+        case ListPage list -> openItemList(list.items());
+        case InventoryPage inv -> openInventory();
+        case ContainerPage(int id) -> openContainer(id);
+        case TexturePage(var color, var sideBase) -> openTexturePallete(color, sideBase);
+        case NoPage noPage -> throw new RuntimeException("Unexpected value: " + page);
         }
         return true;
     }
