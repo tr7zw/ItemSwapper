@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
 import net.minecraft.client.gui.GuiGraphics;

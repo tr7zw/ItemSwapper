@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.overlay;
 import java.util.function.BiConsumer;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 

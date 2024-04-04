@@ -37,10 +37,10 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
                 .toArray(new Item[0]);
         items = itemstackToSingleItem(items);
         SwitchItemOverlay overlay = SwitchItemOverlay.createInventoryOverlay();
-        overlay.globalXOffset = -(18 * 7 + 32);
-        overlay.forceAvailable = true;
-        overlay.hideShortcuts = true;
-        overlay.hideCursor = true;
+        overlay.setGlobalXOffset(-(18 * 7 + 32));
+        overlay.setForceAvailable(true);
+        overlay.setHideShortcuts(true);
+        overlay.setHideCursor(true);
         overlay.openItemGroup(ItemGroup.builder().withItems(ItemUtil.toDefault(items)).build()); // init after setting
                                                                                                  // values
         overlay.render(graphics, 0, 0, f);

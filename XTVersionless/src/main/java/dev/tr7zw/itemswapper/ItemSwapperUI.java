@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.overlay;
+package dev.tr7zw.itemswapper;
 
 public interface ItemSwapperUI {
 

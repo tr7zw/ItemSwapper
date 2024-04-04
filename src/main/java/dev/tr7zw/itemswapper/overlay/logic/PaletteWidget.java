@@ -77,14 +77,14 @@ public class PaletteWidget extends ItemGridWidget {
                         36 + minecraft.player.getInventory().selected);
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance
-                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                        .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
             boolean changed = ItemUtil.grabItem(entry.getItem(), false);
             if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance
-                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                        .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
         }

@@ -1,8 +1,8 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
-import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.network.chat.Component;
@@ -27,8 +27,8 @@ public class BackShortcut implements Shortcut {
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
         // remove the current page
-        overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1);
-        overlay.openPage(overlay.getPageHistory().remove(overlay.getPageHistory().size() - 1));
+        overlay.getLastPages().remove(overlay.getLastPages().size() - 1);
+        overlay.openPage(overlay.getLastPages().remove(overlay.getLastPages().size() - 1));
         overlay.selectIcon("back", xOffset, yOffset);
         return true;
     }
@@ -36,7 +36,7 @@ public class BackShortcut implements Shortcut {
     @Override
     public boolean isVisible() {
         // one entry is the current page!
-        return overlay.getPageHistory().size() > 1;
+        return overlay.getLastPages().size() > 1;
     }
 
     @Override

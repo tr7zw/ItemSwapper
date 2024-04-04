@@ -3,10 +3,10 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
-import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut.ActionType;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;

@@ -6,6 +6,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
@@ -46,7 +47,7 @@ public class ClientPacketListenerMixin {
                 ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
             }
         } catch (Throwable th) {
-            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
         }
     }
 

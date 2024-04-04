@@ -5,8 +5,8 @@ import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import eu.midnightdust.midnightcontrols.client.MidnightControlsClient;
 import eu.midnightdust.midnightcontrols.client.compat.CompatHandler;
 import eu.midnightdust.midnightcontrols.client.controller.ButtonBinding;

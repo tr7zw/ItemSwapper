@@ -11,8 +11,8 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import com.mojang.blaze3d.platform.InputConstants;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.KeyboardHandler;
 import net.minecraft.client.Minecraft;

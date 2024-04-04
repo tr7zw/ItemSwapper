@@ -9,8 +9,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 

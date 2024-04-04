@@ -12,7 +12,7 @@ import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -33,7 +33,7 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 //$$ public class CopyToClipboard extends ImageButton {    
 //#endif
 //spotless:on
-    private static final ResourceLocation texture = new ResourceLocation(ItemSwapperSharedMod.MODID,
+    private static final ResourceLocation texture = new ResourceLocation(ItemSwapperBase.MODID,
             "textures/gui/button.png");
     private static final int TEXTURE_WIDTH = 10;
     private static final int TEXTURE_HEIGHT = 18;

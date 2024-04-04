@@ -3,7 +3,6 @@ package dev.tr7zw.itemswapper;
 import java.util.Optional;
 
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
-import dev.tr7zw.itemswapper.compat.ControlifySupport;
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
@@ -49,24 +48,24 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourcePackActivationType.DEFAULT_ENABLED));
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
-            ItemSwapperSharedMod.LOGGER.info("Adding MidnightControls support!");
+            ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");
             MidnightControlsCompat.HANDLERS.add(new MidnightControllsSupport());
         });
 
         FabricLoader.getInstance().getModContainer("vivecraft").ifPresent(mod -> {
-            ItemSwapperSharedMod.LOGGER.info("Adding ViveCraft support...");
+            ItemSwapperBase.LOGGER.info("Adding ViveCraft support...");
 
             Optional<ModContainer> midnightControls = FabricLoader.getInstance().getModContainer("midnightcontrols");
             // To handle case when VR players uses ViveCraft without VR Controllers
             if (midnightControls.isPresent()) {
-                ItemSwapperSharedMod.LOGGER.info("ViveCraft support disabled due to MidnightControls being present!");
+                ItemSwapperBase.LOGGER.info("ViveCraft support disabled due to MidnightControls being present!");
             } else {
                 ViveCraftSupport.getInstance().init();
             }
         });
 
         FabricLoader.getInstance().getModContainer("amecsapi").ifPresent(mod -> {
-            ItemSwapperSharedMod.LOGGER.info("Adding Amecs-API support!");
+            ItemSwapperBase.LOGGER.info("Adding Amecs-API support!");
             AmecsAPISupport.getInstance().init();
         });
 
@@ -75,21 +74,21 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                 try {
                     ItemSwapperSharedMod.instance.setEnableShulkers(buf.readBoolean());
                 } catch (Throwable th) {
-                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                    ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
                 }
             });
             ClientPlayNetworking.registerReceiver(RefillSupportPayload.ID, (client1, handler, buf, responseSender) -> {
                 try {
                     ItemSwapperSharedMod.instance.setEnableRefill(buf.readBoolean());
                 } catch (Throwable th) {
-                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                    ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
                 }
             });
             ClientPlayNetworking.registerReceiver(DisableModPayload.ID, (client12, handler, buf, responseSender) -> {
                 try {
                     ItemSwapperSharedMod.instance.setModDisabled(buf.readBoolean());
                 } catch (Throwable th) {
-                    ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+                    ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
                 }
             });
         });

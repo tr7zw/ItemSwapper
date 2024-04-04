@@ -14,6 +14,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
@@ -53,7 +54,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         itemGroupModifiers.clear();
         itemListModifiers.clear();
         itemLists.clear();
-        ItemSwapperSharedMod.LOGGER.info("Processing item groups: " + map.keySet());
+        ItemSwapperBase.LOGGER.info("Processing item groups: " + map.keySet());
         ItemSwapperSharedMod.instance.getItemGroupManager().reset();
         for (Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
             processEntry(entry);
@@ -153,7 +154,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
 
     private void processV2(ResourceLocation jsonLocation, JsonElement json) {
         if (!json.isJsonObject()) {
-            ItemSwapperSharedMod.LOGGER.warn("Invalid data in " + jsonLocation);
+            ItemSwapperBase.LOGGER.warn("Invalid data in " + jsonLocation);
             return;
         }
         JsonObject obj = json.getAsJsonObject();
@@ -188,7 +189,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             try {
                 group.withLink(new ResourceLocation(json.getAsJsonPrimitive("link").getAsString()));
             } catch (Exception ex) {
-                ItemSwapperSharedMod.LOGGER.warn("Invalid link in " + jsonLocation);
+                ItemSwapperBase.LOGGER.warn("Invalid link in " + jsonLocation);
             }
         }
         group.withItems(getItemArray(jsonLocation, json.get("items"), false));
@@ -217,14 +218,14 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             try {
                 group.withFallbackLink(new ResourceLocation(json.getAsJsonPrimitive("fallbackLink").getAsString()));
             } catch (Exception ex) {
-                ItemSwapperSharedMod.LOGGER.warn("Invalid fallbackLink in " + jsonLocation);
+                ItemSwapperBase.LOGGER.warn("Invalid fallbackLink in " + jsonLocation);
             }
         }
         if (json.has("forceLink") && json.get("forceLink").isJsonPrimitive()) {
             try {
                 group.withForcedLink(new ResourceLocation(json.getAsJsonPrimitive("forceLink").getAsString()));
             } catch (Exception ex) {
-                ItemSwapperSharedMod.LOGGER.warn("Invalid forceLink in " + jsonLocation);
+                ItemSwapperBase.LOGGER.warn("Invalid forceLink in " + jsonLocation);
             }
         }
         if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
@@ -255,7 +256,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             try {
                 changes.withTarget(new ResourceLocation(json.getAsJsonPrimitive("target").getAsString()));
             } catch (Exception ex) {
-                ItemSwapperSharedMod.LOGGER.warn("Invalid target in " + jsonLocation);
+                ItemSwapperBase.LOGGER.warn("Invalid target in " + jsonLocation);
                 return;
             }
         }
@@ -270,7 +271,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             try {
                 changes.withTarget(new ResourceLocation(json.getAsJsonPrimitive("target").getAsString()));
             } catch (Exception ex) {
-                ItemSwapperSharedMod.LOGGER.warn("Invalid target in " + jsonLocation);
+                ItemSwapperBase.LOGGER.warn("Invalid target in " + jsonLocation);
                 return;
             }
         }
@@ -303,7 +304,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                             new LinkShortcut(new ResourceLocation(entry.getAsJsonPrimitive("target").getAsString()),
                                     displayname != null ? ComponentProvider.translatable(displayname) : null, icon));
                 } catch (Exception ex) {
-                    ItemSwapperSharedMod.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
+                    ItemSwapperBase.LOGGER.warn("Invalid link target shortcut in " + jsonLocation);
                 }
             }
         });
@@ -333,7 +334,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                     try {
                         link = new ResourceLocation(obj.get("link").getAsString());
                     } catch (Exception ex) {
-                        ItemSwapperSharedMod.LOGGER.warn("Invalid item link in " + jsonLocation);
+                        ItemSwapperBase.LOGGER.warn("Invalid item link in " + jsonLocation);
                     }
                 }
                 String displayName = null;
@@ -392,7 +393,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
                 Item item = BuiltInRegistries.ITEM.get(resourceLocation);
                 if (item.equals(Items.AIR)) {
-                    ItemSwapperSharedMod.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
+                    ItemSwapperBase.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                     if (pallet) {
                         // For unknown items, don't move the rest of the wheel
                         itemList.add(Items.AIR);

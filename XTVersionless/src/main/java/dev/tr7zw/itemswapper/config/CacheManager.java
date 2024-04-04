@@ -8,7 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 
 public final class CacheManager {
     private CacheServerAddresses cache;
@@ -21,8 +21,8 @@ public final class CacheManager {
             try {
                 cache = gson.fromJson(Files.readString(cacheFile.toPath()), CacheServerAddresses.class);
             } catch (JsonSyntaxException | IOException exception) {
-                ItemSwapperSharedMod.LOGGER.warn("Error while loading config: " + exception.getMessage());
-                ItemSwapperSharedMod.LOGGER.warn("A new configuration will be created!");
+                ItemSwapperBase.LOGGER.warn("Error while loading config: " + exception.getMessage());
+                ItemSwapperBase.LOGGER.warn("A new configuration will be created!");
             }
         }
 
@@ -47,13 +47,13 @@ public final class CacheManager {
     public void writeConfig() {
         if (cacheFile.exists()) {
             boolean isDeleted = cacheFile.delete();
-            ItemSwapperSharedMod.LOGGER.debug("Config could be deleted before writing to it: " + isDeleted);
+            ItemSwapperBase.LOGGER.debug("Config could be deleted before writing to it: " + isDeleted);
         }
 
         try {
             Files.writeString(cacheFile.toPath(), gson.toJson(cache));
         } catch (IOException ioException) {
-            ItemSwapperSharedMod.LOGGER.warn(ioException.getMessage());
+            ItemSwapperBase.LOGGER.warn(ioException.getMessage());
         }
     }
 }

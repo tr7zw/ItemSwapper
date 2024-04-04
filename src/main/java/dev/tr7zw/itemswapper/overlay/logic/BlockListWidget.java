@@ -62,14 +62,14 @@ public class BlockListWidget extends ItemGridWidget {
                         36 + minecraft.player.getInventory().selected);
                 ItemSwapperSharedMod.instance.setLastItem(item);
                 ItemSwapperSharedMod.instance
-                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                        .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
             boolean changed = ItemUtil.grabItem(item, false);
             if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(item);
                 ItemSwapperSharedMod.instance
-                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                        .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
         }

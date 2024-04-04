@@ -1,6 +1,6 @@
 package dev.tr7zw.itemswapper.compat;
 
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 
 public class ControlifySupport {
 
@@ -13,7 +13,7 @@ public class ControlifySupport {
     public void init() {
         isAvailable = true;
 
-        ItemSwapperSharedMod.LOGGER.info("Controlify support enabled!");
+        ItemSwapperBase.LOGGER.info("Controlify support enabled!");
     }
 
     public static ControlifySupport getInstance() {

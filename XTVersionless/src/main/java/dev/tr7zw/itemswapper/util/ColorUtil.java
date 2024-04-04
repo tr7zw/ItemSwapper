@@ -6,11 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.util.Mth;
-
 public class ColorUtil {
 
-    private static final float COLOR_NORMAL = Mth.sqrt(255 * 255 * 3);
+    private static final float COLOR_NORMAL = (float) Math.sqrt(255d * 255d * 3d);
 
     public record UnpackedColor(int a, int r, int g, int b) {
         public UnpackedColor(int color) {

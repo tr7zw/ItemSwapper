@@ -7,8 +7,8 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
-import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.compat.ControlifySupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.config.ConfigManager;
@@ -42,6 +42,8 @@ import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
@@ -50,25 +52,30 @@ import net.minecraft.world.item.ItemStack;
 
 public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
-    public final Minecraft minecraft = Minecraft.getInstance();
-    public final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
-    public final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
+    private final Minecraft minecraft = Minecraft.getInstance();
+    private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final GuiSelectionHandler selectionHandler = new GuiSelectionHandler();
-    public int globalXOffset = 0;
-    public int globalYOffset = 0;
-    public boolean forceAvailable = false;
-    public boolean hideCursor = false;
-    public boolean hideShortcuts = false;
+    @Setter
+    private int globalXOffset = 0;
+    private int globalYOffset = 0;
+    @Setter
+    private boolean forceAvailable = false;
+    @Setter
+    private boolean hideCursor = false;
+    @Setter
+    private boolean hideShortcuts = false;
     private List<Shortcut> shortcutList = Collections.emptyList();
+    @Getter
     private List<Page> lastPages = new ArrayList<>();
-    public boolean hideClearSlotShortcut = false;
+    @Setter
+    private boolean hideClearSlotShortcut = false;
 
     private final ConfigManager configManager = ConfigManager.getInstance();
 
     private SwitchItemOverlay() {
         super(ComponentProvider.empty());
         if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
-            forceAvailable = true;
+            setForceAvailable(true);
         }
     }
 
@@ -151,10 +158,6 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     public boolean selectIcon(String selector, int xOffset, int yOffset) {
         return selectionHandler.select(selector, xOffset, yOffset, this);
-    }
-
-    public List<Page> getPageHistory() {
-        return lastPages;
     }
 
     public void openInventory() {
@@ -241,10 +244,6 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             graphics.pose().popPose();
         }
-    }
-
-    public boolean forceItemsAvailable() {
-        return forceAvailable;
     }
 
     public void handleInput(double x, double y) {

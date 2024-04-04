@@ -63,7 +63,7 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
                 ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
                 ItemSwapperSharedMod.instance
-                        .setLastPage(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1));
+                        .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
         }

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.config.ConfigManager;
@@ -32,7 +33,7 @@ public class ItemGroupManager {
 
     public void registerItemGroup(ItemGroup group) {
         if (group.getId() == null) {
-            ItemSwapperSharedMod.LOGGER.warn("Tried to register an ItemGroup without any id!");
+            ItemSwapperBase.LOGGER.warn("Tried to register an ItemGroup without any id!");
             return;
         }
         groupMapping.put(group.getId(), group);

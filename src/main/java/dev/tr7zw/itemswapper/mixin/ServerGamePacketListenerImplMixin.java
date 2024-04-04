@@ -5,8 +5,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import dev.tr7zw.itemswapper.server.ItemSwapperSharedServer;
@@ -68,7 +68,7 @@ public class ServerGamePacketListenerImplMixin {
             //#endif
             //spotless:on
         } catch (Throwable th) {
-            ItemSwapperSharedMod.LOGGER.error("Error while processing packet!", th);
+            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
         }
     }
 

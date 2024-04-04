@@ -3,8 +3,8 @@ package dev.tr7zw.itemswapper.manager.shortcuts;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
-import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.network.chat.Component;
@@ -34,7 +34,7 @@ public class OpenInventoryShortcut implements Shortcut {
 
     @Override
     public boolean isVisible() {
-        return !(overlay.getPageHistory().get(overlay.getPageHistory().size() - 1) instanceof InventoryPage);
+        return !(overlay.getLastPages().get(overlay.getLastPages().size() - 1) instanceof InventoryPage);
     }
 
     @Override

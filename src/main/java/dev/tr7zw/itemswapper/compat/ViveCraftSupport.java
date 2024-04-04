@@ -1,8 +1,8 @@
 package dev.tr7zw.itemswapper.compat;
 
-import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.config.Config;
 import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.ItemSwapperBase;
 
 public class ViveCraftSupport {
 
@@ -18,11 +18,11 @@ public class ViveCraftSupport {
         isAvailable = true;
 
         if (!config.vivecraftCompat) {
-            ItemSwapperSharedMod.LOGGER.info("ViveCraft support is explicitly disabled!");
+            ItemSwapperBase.LOGGER.info("ViveCraft support is explicitly disabled!");
             return;
         }
 
-        ItemSwapperSharedMod.LOGGER.info("ViveCraft support enabled!");
+        ItemSwapperBase.LOGGER.info("ViveCraft support enabled!");
     }
 
     public static ViveCraftSupport getInstance() {

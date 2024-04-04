@@ -9,10 +9,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import com.mojang.blaze3d.Blaze3D;
 
+import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.accessor.ExtendedMouseHandler;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.overlay.ItemSwapperUI;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
 import net.minecraft.client.gui.screens.Screen;
