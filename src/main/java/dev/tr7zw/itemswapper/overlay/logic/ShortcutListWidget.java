@@ -3,16 +3,16 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
-import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut.ActionType;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class ShortcutListWidget extends ItemGridWidget {
@@ -38,7 +38,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     }
 
     @Override
-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+    protected void renderSlot(RenderContext graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwriteAvailable) {
         Icon icon = list.get(guiSlot.id()).getIcon();
         if (icon instanceof ItemIcon item) {
@@ -83,7 +83,7 @@ public class ShortcutListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected, double x,
+    public void renderSelectedTooltip(SwitchItemOverlay overlay, RenderContext graphics, GuiSlot selected, double x,
             double y) {
         Shortcut shortcut = list.get(selected.id());
         if (shortcut.getHoverText() != null) {

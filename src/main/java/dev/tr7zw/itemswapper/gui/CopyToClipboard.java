@@ -12,15 +12,24 @@ import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+//spotless:off 
+//#if MC >= 12000
+import net.minecraft.client.gui.GuiGraphics;
+//#else
+//$$ import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
+//spotless:on
+import net.minecraft.client.gui.screens.Screen;
 
 // spotless:off 
 //#if MC >= 12002
@@ -42,9 +51,11 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 
     private final Minecraft instance = Minecraft.getInstance();
     private Item[] lastItems = null;
+    private final Screen screen;
 
-    public CopyToClipboard(int i, int j) {
+    public CopyToClipboard(Screen screen, int i, int j) {
         super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT, null, CommonComponents.EMPTY);
+        this.screen = screen;
     }
 
     @Override
@@ -72,18 +83,26 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     }
 
     @Override
+    // spotless:off 
+  //#if MC >= 12000
     public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
+        RenderContext renderContext = new RenderContext(graphics);
+    //#else
+    //$$ public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
+    //$$ RenderContext renderContext = new RenderContext(screen, pose);
+    //#endif
+    // spotless:on
         RenderSystem.enableDepthTest();
         RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore
-        graphics.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
+        renderContext.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
                 TEXTURE_WIDTH, TEXTURE_HEIGHT);
-        this.renderToolTip(graphics, i, j);
+        this.renderToolTip(renderContext, i, j);
     }
 
-    public void renderToolTip(@NotNull GuiGraphics graphics, int i, int j) {
+    public void renderToolTip(@NotNull RenderContext renderContext, int i, int j) {
         if (this.isHovered && instance.screen != null) {
-            graphics.renderTooltip(Minecraft.getInstance().font,
+            renderContext.renderTooltip(Minecraft.getInstance().font,
                     ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
         }
     }

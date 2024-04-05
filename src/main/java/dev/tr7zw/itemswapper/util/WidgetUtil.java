@@ -5,9 +5,9 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import dev.tr7zw.itemswapper.ItemSwapperUI;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
@@ -63,7 +63,7 @@ public class WidgetUtil {
         // hiden constructor
     }
 
-    public static void renderBackground(WidgetArea widgetArea, GuiGraphics graphics, int originX, int originY) {
+    public static void renderBackground(WidgetArea widgetArea, RenderContext graphics, int originX, int originY) {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);

@@ -35,7 +35,7 @@ public class BlockTextureManager {
             TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
                     .getParticleIcon();
 //            System.out.println(sprite);
-            if (state.canOcclude() && !state.hasBlockEntity() && state.isSolid()) {
+            if (state.canOcclude() && !state.hasBlockEntity()) {
                 for (String key : bannedKeywords) {
                     if (e.getKey().location().toString().contains(key)) {
                         return;

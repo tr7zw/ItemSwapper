@@ -11,7 +11,6 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.ContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -19,6 +18,15 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+//spotless:off 
+//#if MC >= 12000
+import net.minecraft.client.gui.GuiGraphics;
+//#else
+//$$ import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
+//spotless:on
+
 
 @Mixin(ContainerScreen.class)
 public abstract class ContainerScreenMixin extends AbstractContainerScreen<ChestMenu> {
@@ -28,7 +36,13 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     }
 
     @Inject(method = "render", at = @At("HEAD"))
+    // spotless:off 
+  //#if MC >= 12000
     public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
+        //#else
+        //$$     public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
+        //#endif
+        // spotless:on
         if (!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }

@@ -9,13 +9,13 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 
@@ -48,7 +48,7 @@ public class ListContentWidget extends ItemGridWidget {
     }
 
     @Override
-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+    protected void renderSlot(RenderContext graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty() && !overwrideAvailable) {

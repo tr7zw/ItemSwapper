@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
@@ -16,6 +15,14 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.FormattedText;
+
+//spotless:off 
+//#if MC >= 12000
+import net.minecraft.client.gui.GuiGraphics;
+//#else
+//$$ import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
+//spotless:on
 
 public class EditListScreen extends OptionsSubScreen {
     private EntrySelectionList selectionList;
@@ -48,9 +55,17 @@ public class EditListScreen extends OptionsSubScreen {
         super.init();
     }
 
+    // spotless:off 
+  //#if MC >= 12000
     public void render(final GuiGraphics graphics, final int i, final int j, final float f) {
+        RenderContext renderContext = new RenderContext(graphics);
+    //#else
+    //$$     public void render(final PoseStack graphics, final int i, final int j, final float f) {
+    //$$       RenderContext renderContext = new RenderContext(this, graphics);
+    //#endif
+    // spotless:on
         this.selectionList.render(graphics, i, j, f);
-        graphics.drawCenteredString(this.font, this.title, this.width / 2, 16, 16777215);
+        renderContext.drawCenteredString(this.font, this.title, this.width / 2, 16, 16777215);
         super.render(graphics, i, j, f);
     }
 
@@ -95,9 +110,18 @@ public class EditListScreen extends OptionsSubScreen {
                 this.text = ComponentProvider.literal(string);
             }
 
+            // spotless:off 
+            //#if MC >= 12000
             public void render(final GuiGraphics graphics, final int i, final int j, final int k, final int l,
                     final int m, final int n, final int o, final boolean bl, final float f) {
-                graphics.drawString(EditListScreen.this.font, this.text,
+                RenderContext renderContext = new RenderContext(graphics);
+            //#else
+            //$$     public void render(final PoseStack graphics, final int i, final int j, final int k, final int l,
+            //$$      final int m, final int n, final int o, final boolean bl, final float f) {
+            //$$       RenderContext renderContext = new RenderContext(EditListScreen.this, graphics);
+            //#endif
+            // spotless:on
+                renderContext.drawString(EditListScreen.this.font, this.text,
                         (int) (EntrySelectionList.this.width / 2
                                 - EditListScreen.this.font.width((FormattedText) this.text) / 2),
                         (int) (j + 1), 16777215);

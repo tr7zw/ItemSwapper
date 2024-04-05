@@ -9,9 +9,9 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.ItemRenderer;
 
@@ -30,7 +30,8 @@ public abstract class ItemGridWidget implements GuiWidget {
         this.widgetArea.setY(y);
     }
 
-    public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable) {
+    @Override
+    public void render(Screen parent, RenderContext graphics, int originX, int originY, boolean overwrideAvailable) {
         originX += getWidgetArea().getX();
         originY += getWidgetArea().getY();
         WidgetUtil.renderBackground(getWidgetArea(), graphics, originX, originY);
@@ -46,7 +47,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         lateRenderList.forEach(Runnable::run);
     }
 
-    private void renderSelection(Screen parent, GuiGraphics graphics, int listId, int x, int y,
+    private void renderSelection(Screen parent, RenderContext graphics, int listId, int x, int y,
             List<Runnable> itemRenderList, List<Runnable> lateRenderList, boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
@@ -66,7 +67,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);
     }
 
-    protected abstract void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList,
+    protected abstract void renderSlot(RenderContext graphics, int x, int y, List<Runnable> itemRenderList,
             GuiSlot guiSlot, boolean overwrideAvailable);
 
     @Override

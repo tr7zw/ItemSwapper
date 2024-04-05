@@ -2,8 +2,8 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 
 public interface GuiWidget {
@@ -12,11 +12,11 @@ public interface GuiWidget {
 
     public WidgetArea getWidgetArea();
 
-    public void render(Screen parent, GuiGraphics graphics, int originX, int originY, boolean overwrideAvailable);
+    public void render(Screen parent, RenderContext graphics, int originX, int originY, boolean overwrideAvailable);
 
     public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable);
 
-    public default void renderSelectedTooltip(SwitchItemOverlay overlay, GuiGraphics graphics, GuiSlot selected,
+    public default void renderSelectedTooltip(SwitchItemOverlay overlay, RenderContext graphics, GuiSlot selected,
             double x, double y) {
 
     }

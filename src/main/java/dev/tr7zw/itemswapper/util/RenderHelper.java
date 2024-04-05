@@ -8,11 +8,11 @@ import com.mojang.blaze3d.vertex.Tesselator;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.model.BakedModel;
@@ -31,7 +31,7 @@ public final class RenderHelper {
         // private
     }
 
-    public static void renderUnavailableItem(GuiGraphics graphics, LivingEntity livingEntity, ItemStack itemStack,
+    public static void renderUnavailableItem(RenderContext graphics, LivingEntity livingEntity, ItemStack itemStack,
             int i, int j, int k, SlotEffect effect) {
         if (itemStack.isEmpty())
             return;
@@ -94,7 +94,7 @@ public final class RenderHelper {
         NONE, RED, GRAY
     }
 
-    public static void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k,
+    public static void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k,
             SlotEffect effect, int count) {
         if (!arg2.isEmpty()) {
             graphics.pose().pushPose();

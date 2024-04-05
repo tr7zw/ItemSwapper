@@ -8,12 +8,12 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
+import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
@@ -33,7 +33,7 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    protected void renderSlot(GuiGraphics graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
+    protected void renderSlot(RenderContext graphics, int x, int y, List<Runnable> itemRenderList, GuiSlot guiSlot,
             boolean overwrideAvailable) {
         ItemEntry entry = itemGroup.getItem(guiSlot.id());
         if (entry != null && entry.isActAsLink()) {

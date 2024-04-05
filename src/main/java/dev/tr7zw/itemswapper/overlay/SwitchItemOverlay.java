@@ -45,10 +45,17 @@ import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+
+// spotless:off 
+//#if MC >= 12000
+import net.minecraft.client.gui.GuiGraphics;
+//#else
+//$$ import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
+//spotless:on
 
 public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
@@ -213,7 +220,15 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
+    // spotless:off 
+  //#if MC >= 12000
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
+        RenderContext renderContext = new RenderContext(graphics);
+  //#else
+  //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+  //$$ RenderContext renderContext = new RenderContext(this, pose);
+  //#endif
+  // spotless:on
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
 
@@ -221,7 +236,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         selectionHandler.updateMousePosition(mouseX - originX, mouseY - originY);
 
         for (GuiWidget widget : selectionHandler.getWidgets()) {
-            widget.render(this, graphics, originX, originY, forceAvailable);
+            widget.render(this, renderContext, originX, originY, forceAvailable);
         }
         if (selectionHandler.getSelectedSlot() != null) {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
@@ -229,7 +244,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                     selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40,
                     forceAvailable);
             if (configManager.getConfig().showTooltips) {
-                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, graphics,
+                selectionHandler.getSelectedWidget().renderSelectedTooltip(this, renderContext,
                         selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX,
                         selectionHandler.getCursorY() + originY);
             }
@@ -238,11 +253,11 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
                 && !ControlifySupport.getInstance().isActive()) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
-            graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 1000);
-            graphics.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
+            renderContext.pose().pushPose();
+            renderContext.pose().translate(0, 0, 1000);
+            renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
-            graphics.pose().popPose();
+            renderContext.pose().popPose();
         }
     }
 

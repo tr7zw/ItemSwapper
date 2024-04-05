@@ -21,7 +21,6 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -30,6 +29,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+
+//spotless:off 
+//#if MC >= 12000
+import net.minecraft.client.gui.GuiGraphics;
+//#else
+//$$ import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
+//spotless:on
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
@@ -65,7 +72,15 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int paramInt1, int paramInt2, float paramFloat) {
+    // spotless:off 
+  //#if MC >= 12000
+    public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
+        RenderContext renderContext = new RenderContext(graphics);
+  //#else
+  //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+  //$$ RenderContext renderContext = new RenderContext(this, pose);
+  //#endif
+  // spotless:on
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -93,7 +108,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             } else if (midBottom) {
                 background = MIDDLE_BOTTOM_LOCATION;
             }
-            renderEntry(graphics, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
+            renderEntry(renderContext, background, i, originX, originY - slotSize * i, itemRenderList, lateRenderList);
         }
         itemRenderList.forEach(Runnable::run);
         lateRenderList.forEach(Runnable::run);
@@ -169,7 +184,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         return false;
     }
 
-    private void renderEntry(GuiGraphics graphics, ResourceLocation background, int id, int x, int y,
+    private void renderEntry(RenderContext graphics, ResourceLocation background, int id, int x, int y,
             List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
         graphics.blit(background, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
@@ -196,7 +211,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         });
     }
 
-    private void renderSlot(GuiGraphics graphics, int x, int y, Player arg, ItemStack arg2, int k) {
+    private void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
             graphics.renderItem(arg, arg2, x, y, k);
             RenderSystem.setShader(GameRenderer::getPositionColorShader);
