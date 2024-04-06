@@ -6,6 +6,7 @@ import java.util.List;
 import dev.tr7zw.config.CustomConfigScreen;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.overlay.EditListScreen;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
@@ -56,9 +57,9 @@ public class ConfigScreenProvider {
                         () -> configManager.getConfig().fallbackInventory,
                         b -> configManager.getConfig().fallbackInventory = b));
 
-                options.add(getOnOffOption("text.itemswapper.disablePickblockOnToolsWeapons",
-                        () -> configManager.getConfig().disablePickblockOnToolsWeapons,
-                        b -> configManager.getConfig().disablePickblockOnToolsWeapons = b));
+                options.add(getEnumOption("text.itemswapper.disablePickblockOnToolsWeapons", PickBlockMode.class,
+                        () -> configManager.getConfig().pickblockOnToolsWeapons,
+                        b -> configManager.getConfig().pickblockOnToolsWeapons = b));
 
                 if (ViveCraftSupport.getInstance().isAvailable()) {
                     options.add(getOnOffOption("text.itemswapper.vivecraftCompat",

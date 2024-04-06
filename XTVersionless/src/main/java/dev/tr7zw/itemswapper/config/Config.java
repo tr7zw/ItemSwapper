@@ -18,7 +18,7 @@ public class Config {
     public boolean vivecraftCompat = true;
     public boolean allowWalkingWithUI = true;
     public boolean startOnItem = false;
-    public boolean disablePickblockOnToolsWeapons = false;
+    public PickBlockMode pickblockOnToolsWeapons = PickBlockMode.VANILLA_ON_TOOL;
     public boolean experimentalAutoPalette = false;
     public boolean alwaysInventory = false;
     public boolean showHotbar = false;

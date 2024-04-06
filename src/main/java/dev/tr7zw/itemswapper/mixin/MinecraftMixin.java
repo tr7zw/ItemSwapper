@@ -11,6 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
+import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -70,12 +71,16 @@ public class MinecraftMixin {
         if (creative) {
             return;
         }
-        if (ConfigManager.getInstance().getConfig().disablePickblockOnToolsWeapons) {
+        if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(player.getMainHandItem().getItem());
             if (list != null && (list.getId().equals(new ResourceLocation("itemswapper", "v2/weapons"))
                     || list.getId().equals(new ResourceLocation("itemswapper", "v2/tools")))) {
-                ci.cancel();
+                if(ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
+                    // skip vanilla logic
+                    ci.cancel();
+                }
+                // else it's VANILLA_ON_TOOL, so just do that
                 return;
             }
         }
