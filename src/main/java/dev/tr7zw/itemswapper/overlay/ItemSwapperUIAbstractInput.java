@@ -35,6 +35,10 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
         }
     }
 
+    public boolean hasVCursorHandler() {
+        return vCursorHandler != null;
+    }
+
     // spotless:off 
     //#if MC >= 12002
     @Override

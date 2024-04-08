@@ -25,8 +25,8 @@ public class GuiSelectionHandler {
     private double offsetX = 0;
     private double offsetY = 0;
 
-    public void updateSelection(double x, double y) {
-        if (ViveCraftSupport.getInstance().isActive() || ControlifySupport.getInstance().isActive()) {
+    public void updateSelection(double x, double y, ItemSwapperUIAbstractInput input) {
+        if (ViveCraftSupport.getInstance().isActive() || ControlifySupport.getInstance().isActive(input)) {
             // Direct mouse input
             cursorX = mouseX;
             cursorY = mouseY;

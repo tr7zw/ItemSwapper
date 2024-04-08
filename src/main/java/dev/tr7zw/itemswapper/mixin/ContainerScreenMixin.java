@@ -27,7 +27,6 @@ import net.minecraft.client.gui.GuiGraphics;
 //#endif
 //spotless:on
 
-
 @Mixin(ContainerScreen.class)
 public abstract class ContainerScreenMixin extends AbstractContainerScreen<ChestMenu> {
 

@@ -102,17 +102,18 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
      */
     private void registerItemGroups() {
         for (int i = 0; i < itemGroups.size(); i++) {
-            ItemSwapperSharedMod.instance.getItemGroupManager().registerItemGroup(itemGroups.get(i).withItems(filterAir(itemGroups.get(i).getItems())).build());
+            ItemSwapperSharedMod.instance.getItemGroupManager()
+                    .registerItemGroup(itemGroups.get(i).withItems(filterAir(itemGroups.get(i).getItems())).build());
         }
         for (int i = 0; i < itemLists.size(); i++) {
             ItemSwapperSharedMod.instance.getItemGroupManager().registerListCollection(itemLists.get(i).build());
         }
     }
-    
+
     private ItemEntry[] filterAir(ItemEntry[] items) {
         List<ItemEntry> filteredEntries = new ArrayList<ItemEntry>();
-        for(ItemEntry entry : items ) {
-            if(entry.getItem() != Items.AIR) {
+        for (ItemEntry entry : items) {
+            if (entry.getItem() != Items.AIR) {
                 filteredEntries.add(entry);
             }
         }
@@ -330,7 +331,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
             if (el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = new ResourceLocation(el.getAsString());
                 Item item = BuiltInRegistries.ITEM.get(resourceLocation);
-                if(item == Items.AIR) {
+                if (item == Items.AIR) {
                     ItemSwapperBase.LOGGER.info("Unable to find " + resourceLocation + ", ignoring.");
                 }
                 ItemEntry entry = new ItemEntry(item, null);
@@ -342,7 +343,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 JsonObject obj = el.getAsJsonObject();
                 ResourceLocation resourceLocation = new ResourceLocation(obj.get("id").getAsString());
                 Item item = BuiltInRegistries.ITEM.get(resourceLocation);
-                if(item == Items.AIR) {
+                if (item == Items.AIR) {
                     ItemSwapperBase.LOGGER.info("Unable to find " + resourceLocation + ", ignoring.");
                 }
                 ResourceLocation link = null;

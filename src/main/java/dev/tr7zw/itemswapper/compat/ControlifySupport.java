@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.compat;
 
 import dev.tr7zw.itemswapper.ItemSwapperBase;
+import dev.tr7zw.itemswapper.overlay.ItemSwapperUIAbstractInput;
 
 public class ControlifySupport {
 
@@ -24,8 +25,8 @@ public class ControlifySupport {
         return isAvailable;
     }
 
-    public boolean isActive() {
-        return isAvailable();
+    public boolean isActive(ItemSwapperUIAbstractInput input) {
+        return isAvailable() && input.hasVCursorHandler();
     }
 
 }

@@ -29,7 +29,7 @@ public class RenderContext {
 
     @SuppressWarnings("unused")
     private final static Minecraft minecraft = Minecraft.getInstance();
-    
+
     // spotless:off 
     //#if MC >= 12000
     private final GuiGraphics guiGraphics;
@@ -61,7 +61,7 @@ public class RenderContext {
         //#endif
         // spotless:on
     }
-    
+
     public void blit(ResourceLocation atlasLocation, int x, int y, int uOffset, int vOffset, int uWidth, int vHeight) {
         // spotless:off 
         //#if MC >= 12000
@@ -74,7 +74,6 @@ public class RenderContext {
         // spotless:on
     }
 
-    
     public void blit(ResourceLocation atlasLocation, int x, int y, int blitOffset, float uOffset, float vOffset,
             int uWidth, int vHeight, int textureWidth, int textureHeight) {
         // spotless:off 
@@ -88,7 +87,7 @@ public class RenderContext {
         //#endif
         // spotless:on
     }
-    
+
     public void blitSprite(ResourceLocation hotbarOffhandLeftSprite, int x, int y, int width, int height) {
         // spotless:off 
         //#if MC >= 12002
@@ -108,7 +107,7 @@ public class RenderContext {
         //#endif
         // spotless:on
     }
-    
+
     public void renderTooltip(Font font, MutableComponent translatable, int x, int y) {
         // spotless:off 
         //#if MC >= 12000

@@ -76,7 +76,7 @@ public class MinecraftMixin {
                     .getList(player.getMainHandItem().getItem());
             if (list != null && (list.getId().equals(new ResourceLocation("itemswapper", "v2/weapons"))
                     || list.getId().equals(new ResourceLocation("itemswapper", "v2/tools")))) {
-                if(ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
+                if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
                     // skip vanilla logic
                     ci.cancel();
                 }

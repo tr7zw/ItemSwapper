@@ -251,7 +251,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
 
         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
-                && !ControlifySupport.getInstance().isActive()) {
+                && !ControlifySupport.getInstance().isActive(this)) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             renderContext.pose().pushPose();
             renderContext.pose().translate(0, 0, 1000);
@@ -262,7 +262,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     public void handleInput(double x, double y) {
-        selectionHandler.updateSelection(x, y);
+        selectionHandler.updateSelection(x, y, this);
     }
 
     public void onSecondaryClick() {
