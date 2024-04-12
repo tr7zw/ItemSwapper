@@ -14,7 +14,7 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+//import net.minecraft.world.item.alchemy.PotionUtils;
 
 public class PotionNameProvider implements NameProvider {
 
@@ -28,33 +28,33 @@ public class PotionNameProvider implements NameProvider {
 
     @Override
     public Component getDisplayName(ItemStack item) {
-        List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
-        if (!effects.isEmpty()) {
-            MutableComponent comp = formatEffect(effects.get(0));
-            if (effects.size() >= 2) {
-                comp.append(", ").append(formatEffect(effects.get(1)));
-            }
-            return comp;
-        }
+//        List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
+//        if (!effects.isEmpty()) {
+//            MutableComponent comp = formatEffect(effects.get(0));
+//            if (effects.size() >= 2) {
+//                comp.append(", ").append(formatEffect(effects.get(1)));
+//            }
+//            return comp;
+//        }
         return item.getHoverName();
     }
 
-    private MutableComponent formatEffect(MobEffectInstance effect) {
-        MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
-        if (effect.getAmplifier() > 1) {
-            comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));
-        }
-        if (effect.getDuration() > 1) {
-            // spotless:off 
-          //#if MC >= 12004
-            comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration(), 20)))
-                    .append(")");
-            //#else
-            //$$ comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration()))).append(")");
-            //#endif
-            //spotless:on
-        }
-        return comp;
-    }
+//    private MutableComponent formatEffect(MobEffectInstance effect) {
+//        MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
+//        if (effect.getAmplifier() > 1) {
+//            comp.append(" ").append(ComponentProvider.translatable("potion.potency." + effect.getAmplifier()));
+//        }
+//        if (effect.getDuration() > 1) {
+//            // spotless:off 
+//          //#if MC >= 12004
+//            comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration(), 20)))
+//                    .append(")");
+//            //#else
+//            //$$ comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration()))).append(")");
+//            //#endif
+//            //spotless:on
+//        }
+//        return comp;
+//    }
 
 }

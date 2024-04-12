@@ -151,7 +151,13 @@ public final class RenderHelper {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
-        ChatFormatting rarityColor = arg2.getRarity().color;
+        // spotless:off 
+        //#if MC <= 12004
+        //$$ ChatFormatting rarityColor = arg2.getRarity().color;
+        //#else
+        ChatFormatting rarityColor = arg2.getRarity().color();
+        //#endif
+        //spotless:on
         int color = 0xFFFFFF;
         if (grayOut) {
             color = 0xAAAAAA;

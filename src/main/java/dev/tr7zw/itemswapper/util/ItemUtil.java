@@ -69,7 +69,7 @@ public final class ItemUtil {
     }
 
     public static Component getDisplayname(ItemStack item) {
-        if (item.hasCustomHoverName()) {
+        if (NMSWrapper.hasCustomName(item)) {
             return item.getHoverName();
         }
         NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager()
