@@ -5,7 +5,9 @@
     "compatibilityLevel": "JAVA_17",
     "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
     "mixins": [
-        "PlayerListMixin"
+        "PlayerListMixin",
+        "ServerGamePacketListenerImplMixin",
+        "ServerboundCustomPayloadPacketMixin"
     ],
     "client": [
         "MouseHandlerMixin",
@@ -20,6 +22,7 @@
         "KeyMappingMixin",
         "SmithingTemplateItemMixin",
         "LitematicaMixin",
+        "ClientboundCustomPayloadPacketMixin",
         "SpriteContentsMixin"
     ],
     "injectors": {
