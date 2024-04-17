@@ -1,6 +1,5 @@
 package dev.tr7zw.itemswapper.mixin;
 
-
 //spotless:off 
 //#if MC >= 12005
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,6 +26,7 @@ public class ClientboundCustomPayloadPacketMixin {
 //$$ import net.minecraft.network.FriendlyByteBuf;
 //$$ import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 //$$ import net.minecraft.resources.ResourceLocation;
+//$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 //$$
 //$$ //spotless:off 
 //#if MC >= 12002
@@ -37,7 +37,7 @@ public class ClientboundCustomPayloadPacketMixin {
 //$$ //spotless:on
 //$$
 //$$ @Mixin(ClientboundCustomPayloadPacket.class)
-//$$ public class ClientboundCustomPayloadPacketMixin {
+//$$ public class ClientboundCustomPayloadPacketMixin implements CustomPayloadLoader {
 //$$
 //$$     private static final Map<ResourceLocation, FriendlyByteBuf.Reader<? extends CustomPacketPayload>> ITEMSWAPPER_PACKETS = new HashMap<>() {
 //$$         private static final long serialVersionUID = 1L;

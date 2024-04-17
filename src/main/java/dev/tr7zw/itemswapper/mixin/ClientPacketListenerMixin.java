@@ -17,8 +17,8 @@ import net.minecraft.client.multiplayer.ClientPacketListener;
  import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //#else
 //$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
-//$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 //$$ import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
+//$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 //#endif
 //spotless:on
 

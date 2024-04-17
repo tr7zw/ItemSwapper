@@ -1,8 +1,6 @@
 package dev.tr7zw.itemswapper.provider;
 
-import java.util.List;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.google.common.collect.Sets;
 
@@ -21,6 +19,7 @@ import net.minecraft.world.item.Items;
 //$$ import net.minecraft.util.StringUtil;
 //$$ import net.minecraft.world.effect.MobEffectInstance;
 //$$ import net.minecraft.network.chat.ComponentContents;
+//$$ import java.util.List;
 //#endif
 //spotless:on
 
@@ -36,7 +35,7 @@ public class PotionNameProvider implements NameProvider {
 
     @Override
     public Component getDisplayName(ItemStack item) {
-      //spotless:off 
+        // spotless:off 
       //#if MC < 12005
       //$$   List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
       //$$    if (!effects.isEmpty()) {
@@ -75,7 +74,7 @@ public class PotionNameProvider implements NameProvider {
         return item.getHoverName();
     }
 
-    //spotless:off 
+    // spotless:off 
     //#if MC < 12005
     //$$ private MutableComponent formatEffect(MobEffectInstance effect) {
   //$$     MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
@@ -90,10 +89,9 @@ public class PotionNameProvider implements NameProvider {
   //$$         //#else
   //$$         //$$ comp.append(" (").append(ComponentProvider.literal(StringUtil.formatTickDuration(effect.getDuration()))).append(")");
   //$$         //#endif
-  //$$         //spotless:on
-  //$$     }
-  //$$      return comp;
-  //$$   }
+    //$$ }
+    //$$ return comp;
+    //$$ }
     //#endif
     //spotless:on
 

@@ -153,7 +153,7 @@ public class NetworkUtil {
         //#endif
         //spotless:on
     }
-    
+
     public static <T extends CustomPacketPayload> void registerClientCustomPacket(Class<T> type, ResourceLocation id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
             Consumer<T> action) {

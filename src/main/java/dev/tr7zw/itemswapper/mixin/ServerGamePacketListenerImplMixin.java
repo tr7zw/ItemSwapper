@@ -22,6 +22,7 @@ public class ServerGamePacketListenerImplMixin {
 //$$ import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 //$$ import dev.tr7zw.itemswapper.server.ItemSwapperSharedServer;
 //$$ import net.minecraft.server.network.ServerGamePacketListenerImpl;
+//$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 //$$
 //$$ //spotless:off 
 //#if MC >= 12002
@@ -34,7 +35,6 @@ public class ServerGamePacketListenerImplMixin {
 //$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 //$$ import net.minecraft.server.network.ServerGamePacketListenerImpl;
 //$$ import net.minecraft.server.level.ServerPlayer;
-//$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 //$$ import net.minecraft.network.protocol.game.ServerboundCustomPayloadPacket;
 //$$
 //$$ @Mixin(ServerGamePacketListenerImpl.class)
