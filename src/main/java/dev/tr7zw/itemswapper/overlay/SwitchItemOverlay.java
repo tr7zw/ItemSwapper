@@ -254,7 +254,12 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                 && !ControlifySupport.getInstance().isActive(this)) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             renderContext.pose().pushPose();
+            // spotless:off
+            //#if MC >= 12000
+            // for some reason this used to work on 1.19.4, now it doesn't. Who knows
             renderContext.pose().translate(0, 0, 1000);
+            //#endif
+            // spotless:on
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             renderContext.pose().popPose();
