@@ -78,6 +78,7 @@ public class PaletteWidget extends ItemGridWidget {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance
                         .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
+                ItemSwapperMod.instance.getItemGroupManager().setLastPickedItem(entry.getItem(), itemGroup);
                 return false;
             }
             boolean changed = ItemUtil.grabItem(entry.getItem(), false);
@@ -85,6 +86,7 @@ public class PaletteWidget extends ItemGridWidget {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance
                         .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
+                ItemSwapperMod.instance.getItemGroupManager().setLastPickedItem(entry.getItem(), itemGroup);
                 return false;
             }
         }

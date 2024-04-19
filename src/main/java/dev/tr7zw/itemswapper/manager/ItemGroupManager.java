@@ -19,10 +19,12 @@ import net.minecraft.world.item.Items;
 
 public class ItemGroupManager {
 
+    private final ConfigManager configManager = ConfigManager.getInstance();
     private Map<ResourceLocation, ItemGroup> groupMapping = new HashMap<>();
     private Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
     private Map<ResourceLocation, ItemList> listKeyMapping = new HashMap<>();
     private Map<Item, ItemList> listMapping = new HashMap<>();
+    private Map<Item, ItemGroup> lastPicked = new HashMap<>();
 
     public void reset() {
         listKeyMapping.clear();
@@ -124,6 +126,14 @@ public class ItemGroupManager {
         return NO_PAGE;
     }
 
+    public void setLastPickedItem(Item item, ItemGroup group) {
+        this.lastPicked.put(item, group);
+    }
+    
+    public ItemGroup getLastPickedItemGroup(Item item) {
+        return this.lastPicked.get(item);
+    }
+    
     public ItemGroup getItemPage(Item item) {
         List<ItemGroup> list = paletteMapping.get(item);
         if (list == null) {
