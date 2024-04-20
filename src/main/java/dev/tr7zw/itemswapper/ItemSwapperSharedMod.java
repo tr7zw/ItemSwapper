@@ -179,7 +179,12 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
             openScreen(new ItemListOverlay(entries));
             return true;
         } else {
-            ItemGroup group = itemGroupManager.getItemPage(itemInHand);
+            ItemGroup group = itemGroupManager.getLastPickedItemGroup(itemInHand);
+            if(group != null) {
+                openSquareSwitchScreen(group);
+                return true; 
+            }
+            group = itemGroupManager.getItemPage(itemInHand);
             if (group != null) {
                 openSquareSwitchScreen(group);
                 return true;
