@@ -12,7 +12,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //#endif
 //spotless:on
 
-public record RefillSupportPayload(boolean enabled) implements CustomPacketPayload {
+public record RefillSupportPayload(boolean enabled) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
     public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "enablerefill");
 

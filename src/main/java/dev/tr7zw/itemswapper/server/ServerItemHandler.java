@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
+import dev.tr7zw.itemswapper.util.NMSWrapper;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
@@ -61,7 +62,7 @@ public class ServerItemHandler {
                     boolean boxChanged = false;
                     for (int entry = 0; entry < content.size(); entry++) {
                         ItemStack boxItem = content.get(entry);
-                        if (ItemStack.isSameItemSameTags(boxItem, target)) {
+                        if (NMSWrapper.isSame(boxItem, target)) {
                             // same, use to restock
                             int amount = Math.min(space, boxItem.getCount());
                             target.setCount(target.getCount() + amount);

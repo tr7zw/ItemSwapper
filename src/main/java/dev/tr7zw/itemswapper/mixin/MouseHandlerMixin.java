@@ -22,8 +22,8 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
 
     @Shadow
     private Minecraft minecraft;
-    @Shadow
-    private double lastMouseEventTime = Double.MIN_VALUE;
+//    @Shadow
+//    private double lastMouseEventTime = Double.MIN_VALUE;
     @Shadow
     private double accumulatedDX;
     @Shadow
@@ -48,7 +48,7 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
 
     private void mouseHandler(ItemSwapperUI over) {
         double d0 = Blaze3D.getTime();
-        this.lastMouseEventTime = d0;
+//        this.lastMouseEventTime = d0;
         if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {
             double d4 = 0.3D * configManager.getConfig().mouseSpeed;
             double d5 = d4 * d4 * d4;

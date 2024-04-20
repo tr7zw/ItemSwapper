@@ -42,7 +42,7 @@ public class LitematicaMixin {
             }
         }
         // pickblock from shulker
-        
+
         BlockPos pos;
         pos = RayTraceUtils.getSchematicWorldTraceIfClosest(mc.level, mc.player, 6);
         if (pos != null) {

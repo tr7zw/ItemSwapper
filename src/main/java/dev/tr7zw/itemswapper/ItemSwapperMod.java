@@ -8,12 +8,12 @@ import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
+import dev.tr7zw.itemswapper.util.NetworkUtil;
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -70,27 +70,30 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         });
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
-            ClientPlayNetworking.registerReceiver(ShulkerSupportPayload.ID, (client1, handler, buf, responseSender) -> {
-                try {
-                    ItemSwapperSharedMod.instance.setEnableShulkers(buf.readBoolean());
-                } catch (Throwable th) {
-                    ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
-                }
-            });
-            ClientPlayNetworking.registerReceiver(RefillSupportPayload.ID, (client1, handler, buf, responseSender) -> {
-                try {
-                    ItemSwapperSharedMod.instance.setEnableRefill(buf.readBoolean());
-                } catch (Throwable th) {
-                    ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
-                }
-            });
-            ClientPlayNetworking.registerReceiver(DisableModPayload.ID, (client12, handler, buf, responseSender) -> {
-                try {
-                    ItemSwapperSharedMod.instance.setModDisabled(buf.readBoolean());
-                } catch (Throwable th) {
-                    ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
-                }
-            });
+            NetworkUtil.registerClientCustomPacket(ShulkerSupportPayload.class, ShulkerSupportPayload.ID,
+                    b -> new ShulkerSupportPayload(b), (p, b) -> p.write(b), payload -> {
+                        try {
+                            ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());
+                        } catch (Throwable th) {
+                            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
+                        }
+                    });
+            NetworkUtil.registerClientCustomPacket(RefillSupportPayload.class, RefillSupportPayload.ID,
+                    b -> new RefillSupportPayload(b), (p, b) -> p.write(b), payload -> {
+                        try {
+                            ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
+                        } catch (Throwable th) {
+                            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
+                        }
+                    });
+            NetworkUtil.registerClientCustomPacket(DisableModPayload.class, DisableModPayload.ID,
+                    b -> new DisableModPayload(b), (p, b) -> p.write(b), payload -> {
+                        try {
+                            ItemSwapperSharedMod.instance.setModDisabled(payload.enabled());
+                        } catch (Throwable th) {
+                            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
+                        }
+                    });
         });
     }
 
