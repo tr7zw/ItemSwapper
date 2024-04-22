@@ -69,12 +69,12 @@ public class ClientProviderManager {
         if (limit && !ids.isEmpty()) {
             return ids;
         }
-        for (int i = ignoreHotbar ? 9 : 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             ItemStack itemStack = items.get(i);
             if (itemStack.isEmpty() && item != Items.AIR) {
                 continue;
             }
-            if (itemStack.getItem() == item) {
+            if ((!ignoreHotbar || i > 9) && itemStack.getItem() == item) {
                 addUnstackableItems(ids, new AvailableSlot(-1, i, items.get(i)));
                 if (limit) {
                     return ids;
