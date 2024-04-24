@@ -5,7 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
-import dev.tr7zw.itemswapper.util.NetworkUtil;
+import dev.tr7zw.itemswapper.util.ServerNetworkUtil;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 
 public abstract class ItemSwapperSharedServer {
@@ -18,10 +18,10 @@ public abstract class ItemSwapperSharedServer {
         INSTANCE = this;
         LOGGER.info("Loading ItemSwapper server support.");
         ServerPlayConnectionEvents.INIT.register((phase, init) -> {
-            NetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID,
+            ServerNetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID,
                     b -> new SwapItemPayload(b), (p, b) -> p.write(b),
                     (payload, player) -> getItemHandler().swapItem(player, payload));
-            NetworkUtil.registerServerCustomPacket(RefillItemPayload.class, RefillItemPayload.ID,
+            ServerNetworkUtil.registerServerCustomPacket(RefillItemPayload.class, RefillItemPayload.ID,
                     b -> new RefillItemPayload(b), (p, b) -> p.write(b),
                     (payload, player) -> getItemHandler().refillSlot(player, payload));
         });

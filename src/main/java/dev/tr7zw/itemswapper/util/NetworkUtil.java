@@ -11,7 +11,6 @@ import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 
@@ -35,8 +34,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //#if MC >= 12005
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload.Type;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.Context;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.PlayPayloadHandler;
 import net.fabricmc.fabric.impl.networking.PayloadTypeRegistryImpl;
 //#else
 //$$ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking.PlayChannelHandler;
@@ -52,39 +49,6 @@ public class NetworkUtil {
 
     private NetworkUtil() {
         throw new IllegalStateException("Utility class");
-    }
-
-    public static void sendShulkerSupportPacket(ServerPlayer player, boolean enabled) {
-        // spotless:off 
-        //#if MC >= 12002
-        player.connection.send(new ClientboundCustomPayloadPacket(new ShulkerSupportPayload(enabled)));
-        //#else
-        //$$ player.connection.send(new ClientboundCustomPayloadPacket(ShulkerSupportPayload.ID,
-        //$$        new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
-        //#endif
-        //spotless:on
-    }
-
-    public static void sendRefillSupportPacket(ServerPlayer player, boolean enabled) {
-        // spotless:off 
-        //#if MC >= 12002
-        player.connection.send(new ClientboundCustomPayloadPacket(new RefillSupportPayload(enabled)));
-        //#else
-        //$$ player.connection.send(new ClientboundCustomPayloadPacket(RefillSupportPayload.ID,
-        //$$ new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
-        //#endif
-        //spotless:on
-    }
-
-    public static void sendDisableModPacket(ServerPlayer player, boolean enabled) {
-        // spotless:off 
-        //#if MC >= 12002
-        player.connection.send(new ClientboundCustomPayloadPacket(new DisableModPayload(enabled)));
-        //#else
-        //$$         player.connection.send(new ClientboundCustomPayloadPacket(DisableModPayload.ID,
-        //$$ new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
-        //#endif
-        //spotless:on
     }
 
     public static void swapItem(int inventorySlot, int slot) {
@@ -112,44 +76,6 @@ public class NetworkUtil {
         //$$ buf.writeInt(targetSlot);
         //$$ Minecraft.getInstance().getConnection()
         //$$         .send(new ServerboundCustomPayloadPacket(RefillItemPayload.ID, new FriendlyByteBuf(buf)));
-        //#endif
-        //spotless:on
-    }
-
-    public static <T extends CustomPacketPayload> void registerServerCustomPacket(Class<T> type, ResourceLocation id,
-            Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
-            BiConsumer<T, ServerPlayer> action) {
-        // spotless:off 
-        //#if MC > 12005
-        PayloadTypeRegistryImpl.PLAY_C2S.register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
-
-            @Override
-            public T decode(FriendlyByteBuf buffer) {
-                return streamMemberEncoder.apply(buffer);
-            }
-
-            @Override
-            public void encode(FriendlyByteBuf buffer, T object) {
-                streamDecoder.accept(object, buffer);
-            }
-
-        });
-        ServerPlayNetworking.registerGlobalReceiver(new Type<T>(id), new PlayPayloadHandler<T>() {
-
-            @Override
-            public void receive(T payload, Context context) {
-                action.accept(payload, context.player());
-            }
-        });
-        //#else
-        //$$ ServerPlayNetworking.registerGlobalReceiver(id, new PlayChannelHandler() {
-      //$$ 
-      //$$     @Override
-      //$$     public void receive(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler,
-      //$$             FriendlyByteBuf buf, PacketSender responseSender) {
-      //$$         action.accept(streamMemberEncoder.apply(buf), player);
-      //$$     }
-      //$$  });
         //#endif
         //spotless:on
     }

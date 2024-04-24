@@ -7,6 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
+import dev.tr7zw.itemswapper.util.ServerNetworkUtil;
 import net.minecraft.network.Connection;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.PlayerList;
@@ -30,10 +31,10 @@ public class PlayerListMixin {
         //#endif
         //spotless:on
         if (ConfigManager.getInstance().getConfig().serverPreventModUsage) {
-            NetworkUtil.sendDisableModPacket(serverPlayer, true);
+            ServerNetworkUtil.sendDisableModPacket(serverPlayer, true);
         } else {
-            NetworkUtil.sendShulkerSupportPacket(serverPlayer, true);
-            NetworkUtil.sendRefillSupportPacket(serverPlayer, true);
+            ServerNetworkUtil.sendShulkerSupportPacket(serverPlayer, true);
+            ServerNetworkUtil.sendRefillSupportPacket(serverPlayer, true);
         }
     }
 
