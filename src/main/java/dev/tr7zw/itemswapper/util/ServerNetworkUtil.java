@@ -42,7 +42,7 @@ public class ServerNetworkUtil {
     private ServerNetworkUtil() {
         throw new IllegalStateException("Utility class");
     }
-    
+
     public static void sendShulkerSupportPacket(ServerPlayer player, boolean enabled) {
         // spotless:off 
         //#if MC >= 12002

@@ -77,7 +77,8 @@ public class ConfigScreenProvider {
                         b -> configManager.getConfig().alwaysInventory = b));
                 options.add(getOnOffOption("text.itemswapper.showHotbar", () -> configManager.getConfig().showHotbar,
                         b -> configManager.getConfig().showHotbar = b));
-                options.add(getOnOffOption("text.itemswapper.rememberPalette", () -> configManager.getConfig().rememberPalette,
+                options.add(getOnOffOption("text.itemswapper.rememberPalette",
+                        () -> configManager.getConfig().rememberPalette,
                         b -> configManager.getConfig().rememberPalette = b));
                 options.add(getOnOffOption("text.itemswapper.autoPalette",
                         () -> configManager.getConfig().experimentalAutoPalette,

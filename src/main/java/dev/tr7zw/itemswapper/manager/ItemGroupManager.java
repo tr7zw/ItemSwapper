@@ -129,11 +129,11 @@ public class ItemGroupManager {
     public void setLastPickedItem(Item item, ItemGroup group) {
         this.lastPicked.put(item, group);
     }
-    
+
     public ItemGroup getLastPickedItemGroup(Item item) {
         return this.lastPicked.get(item);
     }
-    
+
     public ItemGroup getItemPage(Item item) {
         List<ItemGroup> list = paletteMapping.get(item);
         if (list == null) {
