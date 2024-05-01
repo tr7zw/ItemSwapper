@@ -5,7 +5,6 @@ import org.joml.Vector2d;
 import dev.isxander.controlify.api.ControlifyApi;
 import dev.isxander.controlify.api.entrypoint.ControlifyEntrypoint;
 import dev.isxander.controlify.api.vmousesnapping.SnapPoint;
-import dev.isxander.controlify.controller.Controller;
 import dev.isxander.controlify.screenop.ScreenProcessor;
 import dev.isxander.controlify.screenop.ScreenProcessorProvider;
 import dev.isxander.controlify.virtualmouse.VirtualMouseBehaviour;
@@ -13,6 +12,13 @@ import dev.isxander.controlify.virtualmouse.VirtualMouseHandler;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUIAbstractInput;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+// spotless:off 
+//#if MC == 12002 || MC < 12000
+//$$ import dev.isxander.controlify.controller.Controller;
+//#else
+import dev.isxander.controlify.controller.ControllerEntity;
+//#endif
+//spotless:on
 
 public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
 
@@ -20,7 +26,7 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
     public void onControlifyPreInit(ControlifyApi arg0) {
         ControlifySupport.getInstance().init();
         // spotless:off 
-        //#if MC >= 12002
+        //#if MC >= 12000
         ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
         ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
         //#else
@@ -54,13 +60,20 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
         }
 
         @Override
-        protected void handleScreenVMouse(Controller<?, ?> controller, VirtualMouseHandler vmouse) {
+        // why does 1.20.2 not have the 2.0 update?
+        // spotless:off 
+        //#if MC == 12002 || MC < 12000
+        //$$ protected void handleScreenVMouse(Controller<?, ?> controller, VirtualMouseHandler vmouse) {
+        //#else
+        protected void handleScreenVMouse(ControllerEntity controller, VirtualMouseHandler vmouse) {
+        //#endif
+        //spotless:on
             super.handleScreenVMouse(controller, vmouse);
             screen.registerVCursorHandler(this::handleMouseTeleport);
             if (snapPoint != null) {
-                // 1.20.1 Controlify is missing this method. isxander pls fix
+                // 1.19 Controlify is not getting update and missing this method
                 // spotless:off 
-                //#if MC >= 12002
+                //#if MC >= 12000
                 vmouse.snapToPoint(snapPoint, new Vector2d(1));
                 //#endif
                 //spotless:on
