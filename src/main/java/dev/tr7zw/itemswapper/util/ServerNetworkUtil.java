@@ -81,19 +81,21 @@ public class ServerNetworkUtil {
             BiConsumer<T, ServerPlayer> action) {
         // spotless:off 
         //#if MC > 12005
-        PayloadTypeRegistryImpl.PLAY_C2S.register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
-
-            @Override
-            public T decode(FriendlyByteBuf buffer) {
-                return streamMemberEncoder.apply(buffer);
-            }
-
-            @Override
-            public void encode(FriendlyByteBuf buffer, T object) {
-                streamDecoder.accept(object, buffer);
-            }
-
-        });
+        if(PayloadTypeRegistryImpl.PLAY_C2S.get(id) == null) {
+            PayloadTypeRegistryImpl.PLAY_C2S.register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
+    
+                @Override
+                public T decode(FriendlyByteBuf buffer) {
+                    return streamMemberEncoder.apply(buffer);
+                }
+    
+                @Override
+                public void encode(FriendlyByteBuf buffer, T object) {
+                    streamDecoder.accept(object, buffer);
+                }
+    
+            });
+        }
         ServerPlayNetworking.registerGlobalReceiver(new Type<T>(id), new PlayPayloadHandler<T>() {
 
             @Override

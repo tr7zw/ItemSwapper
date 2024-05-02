@@ -85,19 +85,21 @@ public class NetworkUtil {
             Consumer<T> action) {
         // spotless:off 
         //#if MC > 12005
-        PayloadTypeRegistryImpl.PLAY_S2C.register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
-
-            @Override
-            public T decode(FriendlyByteBuf buffer) {
-                return streamMemberEncoder.apply(buffer);
-            }
-
-            @Override
-            public void encode(FriendlyByteBuf buffer, T object) {
-                streamDecoder.accept(object, buffer);
-            }
-
-        });
+        if(PayloadTypeRegistryImpl.PLAY_S2C.get(id) == null) {
+            PayloadTypeRegistryImpl.PLAY_S2C.register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
+    
+                @Override
+                public T decode(FriendlyByteBuf buffer) {
+                    return streamMemberEncoder.apply(buffer);
+                }
+    
+                @Override
+                public void encode(FriendlyByteBuf buffer, T object) {
+                    streamDecoder.accept(object, buffer);
+                }
+    
+            });
+        }
         ClientPlayNetworking.registerReceiver(new Type<T>(id), new ClientPlayNetworking.PlayPayloadHandler<T>() {
 
             @Override
