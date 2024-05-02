@@ -200,7 +200,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         }
         itemRenderList.add(() -> {
             graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 400);
+            graphics.pose().translate(0, 0, 2000);
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             graphics.pose().popPose();
             var name = ItemUtil.getDisplayname(slot.item());
