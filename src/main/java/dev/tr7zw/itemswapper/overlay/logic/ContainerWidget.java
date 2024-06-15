@@ -24,7 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inventory.png");

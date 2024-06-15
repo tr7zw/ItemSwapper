@@ -39,7 +39,7 @@ import net.minecraft.client.gui.GuiGraphics;
 //spotless:on
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private static final ResourceLocation SELECTION_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/selection.png");

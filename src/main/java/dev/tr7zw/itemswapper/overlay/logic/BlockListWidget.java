@@ -20,7 +20,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 public class BlockListWidget extends ItemGridWidget {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inventory.png");

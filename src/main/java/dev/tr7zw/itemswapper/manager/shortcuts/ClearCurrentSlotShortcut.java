@@ -13,7 +13,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private final Icon icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/clear_slot.png"),
             ComponentProvider.translatable("text.itemswapper.clearSlot"));

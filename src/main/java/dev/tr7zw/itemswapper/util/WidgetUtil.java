@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     @Deprecated // for <= 1.20.1
     public static final ResourceLocation WIDGETS_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/widgets.png");
@@ -107,7 +107,6 @@ public class WidgetUtil {
     //$$            "textures/gui/inv_wheel_25_nocenter.png");
     //#endif
     //spotless:on
-
 
     private WidgetUtil() {
         // hiden constructor

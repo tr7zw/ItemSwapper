@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class BackShortcut implements Shortcut {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private final Icon icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/back.png"),
             ComponentProvider.translatable("text.itemswapper.back"));

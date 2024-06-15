@@ -42,7 +42,7 @@ public class MixinTests {
         objenesis.newInstance(Minecraft.class);
         objenesis.newInstance(MouseHandler.class);
         objenesis.newInstance(IntegratedPlayerList.class);
-        //spotless:off
+        // spotless:off
         //#if MC >= 12100
         objenesis.newInstance(Items.class);
         //#else

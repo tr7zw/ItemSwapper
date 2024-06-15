@@ -13,14 +13,13 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //spotless:on
 
 public record SwapItemPayload(int inventorySlot, int slot) implements CustomPacketPayload, CustomPacketPayloadSupport {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ItemSwapperMod.MODID, "swap");
     //#else
     //$$     public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "swap");
     //#endif
     //spotless:on
-
 
     @Override
     public ResourceLocation id() {

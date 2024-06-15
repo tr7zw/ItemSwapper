@@ -72,7 +72,7 @@ public final class RenderHelper {
         renderGuiItemText(font, text, x, y, color);
     }
 
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();

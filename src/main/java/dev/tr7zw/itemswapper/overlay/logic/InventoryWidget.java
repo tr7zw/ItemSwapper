@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class InventoryWidget extends InventoryAbstractWidget {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inventory.png");
@@ -19,7 +19,6 @@ public class InventoryWidget extends InventoryAbstractWidget {
     //$$            "textures/gui/inventory.png");
     //#endif
     //spotless:on
-
 
     public InventoryWidget(int x, int y) {
         super(x, y);

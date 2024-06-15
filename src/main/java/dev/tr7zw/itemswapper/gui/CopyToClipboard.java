@@ -43,7 +43,7 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 //#endif
 //spotless:on
 
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(ItemSwapperBase.MODID,
             "textures/gui/button.png");

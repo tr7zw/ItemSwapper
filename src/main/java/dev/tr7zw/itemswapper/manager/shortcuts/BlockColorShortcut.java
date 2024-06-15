@@ -31,7 +31,7 @@ public class BlockColorShortcut implements Shortcut {
                     .getBlocksByAverageColor(new UnpackedColor[] { ColorUtil.createTetradPalette(color).get(offset) })
                     .get(0).asItem().getDefaultInstance(), displayName);
         } else {
-            //spotless:off
+            // spotless:off
             //#if MC >= 12100
             icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/paint_brush.png"),
                     ComponentProvider.translatable("text.itemswapper.openPalette"));

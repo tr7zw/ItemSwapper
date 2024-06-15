@@ -61,7 +61,7 @@ public class EditListScreen extends OptionsSubScreen {
         super.init();
     }
 
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     @Override
     protected void addOptions() {
@@ -69,7 +69,6 @@ public class EditListScreen extends OptionsSubScreen {
     }
     //#endif
     //spotless:on
-
 
     // spotless:off 
   //#if MC >= 12000

@@ -32,7 +32,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
         // Register default resource pack
 
-        //spotless:off
+        // spotless:off
         //#if MC >= 12100
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
@@ -67,7 +67,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         //$$                        ResourcePackActivationType.DEFAULT_ENABLED));
         //#endif
         //spotless:on
-
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");

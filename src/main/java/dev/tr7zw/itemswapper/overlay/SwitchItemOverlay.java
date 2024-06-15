@@ -104,7 +104,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        //spotless:off
+        // spotless:off
         //#if MC >= 12100
         shortcutList.add(new LinkShortcut(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/main"),
                 ComponentProvider.translatable("text.itemswapper.overview"), null));

@@ -13,14 +13,13 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //spotless:on
 
 public record RefillSupportPayload(boolean enabled) implements CustomPacketPayload, CustomPacketPayloadSupport {
-    //spotless:off
+    // spotless:off
     //#if MC >= 12100
     public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ItemSwapperMod.MODID, "enablerefill");
     //#else
     //$$    public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "enablerefill");
     //#endif
     //spotless:on
-
 
     @Override
     public ResourceLocation id() {
