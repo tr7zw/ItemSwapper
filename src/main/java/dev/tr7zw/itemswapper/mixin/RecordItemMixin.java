@@ -15,11 +15,15 @@ import net.minecraft.world.item.Item;
 
 @Mixin(Items.class)
 public class RecordItemMixin implements ItemVariantAccess {
+    // hack, as records have been completely reworked, for modded support
+    // especially new mixin to intercept when jukeboxPlayable() is called and
+    // registering this then would be needed
+    //spotless:off
     //#if MC >= 12100
     private Set<Item> BY_NAME;
 
     @Override
-    public Set<Item> getAllItemVariants() {  //hack, as records have been completely reworked, for modded support especially new mixin to intercept when jukeboxPlayable() is called and registering this then would be needed
+    public Set<Item> getAllItemVariants() {
         BY_NAME.add(Items.MUSIC_DISC_13);
         BY_NAME.add(Items.MUSIC_DISC_CAT);
         BY_NAME.add(Items.MUSIC_DISC_BLOCKS);
