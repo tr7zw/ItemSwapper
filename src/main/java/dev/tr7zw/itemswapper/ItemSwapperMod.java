@@ -31,21 +31,43 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         KeyBindingHelper.registerKeyBinding(openInventoryKeybind);
 
         // Register default resource pack
+
+        //spotless:off
+        //#if MC >= 12100
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "default"), container,
+                        ResourceLocation.fromNamespaceAndPath("itemswapper", "default"), container,
                         Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "classic"), container,
+                        ResourceLocation.fromNamespaceAndPath("itemswapper", "classic"), container,
                         Component.translatable("text.itemswapper.resourcepack.classic"),
                         ResourcePackActivationType.NORMAL));
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        new ResourceLocation("itemswapper", "experimental_addon"), container,
+                        ResourceLocation.fromNamespaceAndPath("itemswapper", "experimental_addon"), container,
                         Component.translatable("text.itemswapper.resourcepack.experimental_addon"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
+        //#else
+        //$$         FabricLoader.getInstance().getModContainer("itemswapper")
+        //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+        //$$                        new ResourceLocation("itemswapper", "default"), container,
+        //$$                        Component.translatable("text.itemswapper.resourcepack.default"),
+        //$$                        ResourcePackActivationType.DEFAULT_ENABLED));
+        //$$        FabricLoader.getInstance().getModContainer("itemswapper")
+        //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+        //$$                        new ResourceLocation("itemswapper", "classic"), container,
+        //$$                        Component.translatable("text.itemswapper.resourcepack.classic"),
+        //$$                        ResourcePackActivationType.NORMAL));
+        //$$        FabricLoader.getInstance().getModContainer("itemswapper")
+        //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
+        //$$                        new ResourceLocation("itemswapper", "experimental_addon"), container,
+        //$$                        Component.translatable("text.itemswapper.resourcepack.experimental_addon"),
+        //$$                        ResourcePackActivationType.DEFAULT_ENABLED));
+        //#endif
+        //spotless:on
+
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");

@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.util;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 
@@ -65,13 +66,14 @@ public final class RenderHelper {
     public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         renderGuiItemText(font, text, x, y, color);
     }
-
+    //spotless:off
+    //#if MC >= 12100
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, (400.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                    .immediate(Tesselator.getInstance().getBuilder());
+                    .immediate(new ByteBufferBuilder(786432));
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
                     y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
                     Font.DisplayMode.NORMAL, 0, 15728880);
@@ -84,11 +86,38 @@ public final class RenderHelper {
         String string2 = text;
         poseStack.translate(0.0D, 0.0D, 400.0F);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                .immediate(Tesselator.getInstance().getBuilder());
+                .immediate(new ByteBufferBuilder(786432));
         font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
     }
+    //#else
+    //$$     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
+    //$$        PoseStack poseStack = new PoseStack();
+    //$$        for (int line = 0; line < text.size(); line++) {
+    //$$            poseStack.translate(0.0D, 0.0D, (400.0F));
+    //$$            MultiBufferSource.BufferSource bufferSource = MultiBufferSource
+    //$$                    .immediate(Tesselator.getInstance().getBuilder());
+    //$$            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
+    //$$                    y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
+    //$$                    Font.DisplayMode.NORMAL, 0, 15728880);
+    //$$            bufferSource.endBatch();
+    //$$        }
+    //$$    }
+    //$$
+    //$$    public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
+    //$$        PoseStack poseStack = new PoseStack();
+    //$$        String string2 = text;
+    //$$        poseStack.translate(0.0D, 0.0D, 400.0F);
+    //$$        MultiBufferSource.BufferSource bufferSource = MultiBufferSource
+    //$$                .immediate(Tesselator.getInstance().getBuilder());
+    //$$        font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
+    //$$                Font.DisplayMode.NORMAL, 0, 15728880);
+    //$$        bufferSource.endBatch();
+    //$$    }
+    //#endif
+    //spotless:on
+
 
     public enum SlotEffect {
         NONE, RED, GRAY

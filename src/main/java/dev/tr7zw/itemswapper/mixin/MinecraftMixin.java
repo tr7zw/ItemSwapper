@@ -74,7 +74,7 @@ public class MinecraftMixin {
         if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(player.getMainHandItem().getItem());
-            //spotless:off
+            // spotless:off
             //#if MC >= 12100
             if (list != null && (list.getId().equals(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/weapons"))
                     || list.getId().equals(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/tools")))) {

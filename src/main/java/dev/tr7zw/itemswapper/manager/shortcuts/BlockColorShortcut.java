@@ -31,8 +31,16 @@ public class BlockColorShortcut implements Shortcut {
                     .getBlocksByAverageColor(new UnpackedColor[] { ColorUtil.createTetradPalette(color).get(offset) })
                     .get(0).asItem().getDefaultInstance(), displayName);
         } else {
-            icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/paint_brush.png"),
+            //spotless:off
+            //#if MC >= 12100
+            icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/paint_brush.png"),
                     ComponentProvider.translatable("text.itemswapper.openPalette"));
+            //#else
+            //$$ icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/paint_brush.png"),
+            //$$                    ComponentProvider.translatable("text.itemswapper.openPalette"));
+            //#endif
+            //spotless:on
+
         }
     }
 

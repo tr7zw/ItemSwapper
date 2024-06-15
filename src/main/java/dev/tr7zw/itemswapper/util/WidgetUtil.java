@@ -12,52 +12,102 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {
-
+    //spotless:off
+    //#if MC >= 12100
     @Deprecated // for <= 1.20.1
-    public static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
-    public static final ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE = new ResourceLocation("hud/hotbar_offhand_left");
-    public static final ResourceLocation CURSOR_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation WIDGETS_LOCATION = ResourceLocation.withDefaultNamespace("textures/gui/widgets.png");
+    public static final ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE = ResourceLocation.withDefaultNamespace("hud/hotbar_offhand_left");
+    public static final ResourceLocation CURSOR_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/cursor.png");
-    public static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation SELECTION_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/selection.png");
-    public static final ResourceLocation BACKGROUND_3_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_3_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_3_row.png");
-    public static final ResourceLocation BACKGROUND_4_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_4_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_4_nocenter.png");
-    public static final ResourceLocation BACKGROUND_5_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_5_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_5_plus.png");
-    public static final ResourceLocation BACKGROUND_6_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_6_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_6_nocenter.png");
-    public static final ResourceLocation BACKGROUND_7_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_7_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_7.png");
-    public static final ResourceLocation BACKGROUND_8_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_8_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_8_nocenter.png");
-    public static final ResourceLocation BACKGROUND_9_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_9_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_9.png");
-    public static final ResourceLocation BACKGROUND_10_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_10_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_10.png");
-    public static final ResourceLocation BACKGROUND_11_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_11_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_11.png");
-    public static final ResourceLocation BACKGROUND_12_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_12_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_12_nocenter.png");
-    public static final ResourceLocation BACKGROUND_13_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_13_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_13.png");
-    public static final ResourceLocation BACKGROUND_14_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_14_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_14.png");
-    public static final ResourceLocation BACKGROUND_15_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_15_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_15_nocenter.png");
-    public static final ResourceLocation BACKGROUND_16_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_16_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_16_nocenter.png");
-    public static final ResourceLocation BACKGROUND_18_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_18_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_18_half_aligned.png");
-    public static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_20_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_20_nocenter.png");
-    public static final ResourceLocation BACKGROUND_22_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_22_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_22_half_aligned.png");
-    public static final ResourceLocation BACKGROUND_24_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_24_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_24_nocenter.png");
-    public static final ResourceLocation BACKGROUND_25_LOCATION = new ResourceLocation("itemswapper",
+    public static final ResourceLocation BACKGROUND_25_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inv_wheel_25_nocenter.png");
+    //#else
+    //$$ @Deprecated // for <= 1.20.1
+    //$$    public static final ResourceLocation WIDGETS_LOCATION = new ResourceLocation("textures/gui/widgets.png");
+    //$$    public static final ResourceLocation HOTBAR_OFFHAND_LEFT_SPRITE = new ResourceLocation("hud/hotbar_offhand_left");
+    //$$    public static final ResourceLocation CURSOR_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/cursor.png");
+    //$$    public static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/selection.png");
+    //$$    public static final ResourceLocation BACKGROUND_3_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_3_row.png");
+    //$$    public static final ResourceLocation BACKGROUND_4_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_4_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_5_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_5_plus.png");
+    //$$    public static final ResourceLocation BACKGROUND_6_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_6_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_7_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_7.png");
+    //$$    public static final ResourceLocation BACKGROUND_8_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_8_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_9_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_9.png");
+    //$$    public static final ResourceLocation BACKGROUND_10_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_10.png");
+    //$$    public static final ResourceLocation BACKGROUND_11_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_11.png");
+    //$$    public static final ResourceLocation BACKGROUND_12_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_12_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_13_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_13.png");
+    //$$    public static final ResourceLocation BACKGROUND_14_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_14.png");
+    //$$    public static final ResourceLocation BACKGROUND_15_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_15_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_16_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_16_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_18_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_18_half_aligned.png");
+    //$$    public static final ResourceLocation BACKGROUND_20_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_20_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_22_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_22_half_aligned.png");
+    //$$    public static final ResourceLocation BACKGROUND_24_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_24_nocenter.png");
+    //$$    public static final ResourceLocation BACKGROUND_25_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inv_wheel_25_nocenter.png");
+    //#endif
+    //spotless:on
+
 
     private WidgetUtil() {
         // hiden constructor
