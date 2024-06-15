@@ -44,12 +44,12 @@ public class MinecraftMixin {
         return server.isPublished();
     }
 
-//    // FIXME
-//    @Inject(method = "createSearchTrees", at = @At("HEAD"))
-//    private void createSearchTrees(CallbackInfo ci) {
-//        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
-//                .registerReloadListener(new SwapperResourceLoader());
-//    } //unsure what this is for #TODO
+    // FIXME
+    @Inject(method = "createSearchTrees", at = @At("HEAD"))
+    private void createSearchTrees(CallbackInfo ci) {
+        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
+                .registerReloadListener(new SwapperResourceLoader());
+    }
 
     @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     private void pickBlock(CallbackInfo ci) {
@@ -74,8 +74,8 @@ public class MinecraftMixin {
         if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(player.getMainHandItem().getItem());
-            if (list != null && (list.getId().equals(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/weapons"))
-                    || list.getId().equals(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/tools")))) {
+            if (list != null && (list.getId().equals(new ResourceLocation("itemswapper", "v2/weapons"))
+                    || list.getId().equals(new ResourceLocation("itemswapper", "v2/tools")))) {
                 if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
                     // skip vanilla logic
                     ci.cancel();
