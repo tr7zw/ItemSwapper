@@ -15,7 +15,12 @@ import net.minecraft.client.server.IntegratedPlayerList;
 import net.minecraft.server.Bootstrap;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.item.InstrumentItem;
+
+//spotless:off
+//#if MC < 12100
 import net.minecraft.world.item.RecordItem;
+//#endif
+//spotless:on
 
 public class MixinTests {
 
