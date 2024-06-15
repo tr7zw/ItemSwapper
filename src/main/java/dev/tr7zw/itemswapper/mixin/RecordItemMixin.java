@@ -13,13 +13,14 @@ import org.spongepowered.asm.mixin.Shadow;
 import dev.tr7zw.itemswapper.accessor.ItemVariantAccess;
 import net.minecraft.world.item.Item;
 
+// hack, as records have been completely reworked, for modded support
+// especially new mixin to intercept when jukeboxPlayable() is called and
+// registering this then would be needed
+
+//spotless:off
+//#if MC >= 12100
 @Mixin(Items.class)
 public class RecordItemMixin implements ItemVariantAccess {
-    // hack, as records have been completely reworked, for modded support
-    // especially new mixin to intercept when jukeboxPlayable() is called and
-    // registering this then would be needed
-    //spotless:off
-    //#if MC >= 12100
     private Set<Item> BY_NAME;
 
     @Override
@@ -47,14 +48,17 @@ public class RecordItemMixin implements ItemVariantAccess {
     }
 }
 
-    //#else
-//$$ @Shadow
-//$$ private static Map<SoundEvent, RecordItem> BY_NAME;
+//#else
+//$$ @Mixin(RecordItem.class)
+//$$ public class RecordItemMixin implements ItemVariantAccess {
 //$$
-//$$ @Override
-//$$ public Set<Item> getAllItemVariants() {
-//$$     return new HashSet<>(BY_NAME.values());
-//$$ }
+//$$     @Shadow
+//$$     private static Map<SoundEvent, RecordItem> BY_NAME;
+//$$
+//$$     @Override
+//$$     public Set<Item> getAllItemVariants() {
+//$$         return new HashSet<>(BY_NAME.values());
+//$$     }
 //$$
 //$$ }
 //#endif
