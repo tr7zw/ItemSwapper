@@ -3,7 +3,6 @@ package dev.tr7zw.itemswapper.util;
 import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.ByteBufferBuilder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 
@@ -23,6 +22,12 @@ import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+
+//spotless:off
+//#if MC >= 12100
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
+//#endif
+//spotless:on
 
 public final class RenderHelper {
 
@@ -66,6 +71,7 @@ public final class RenderHelper {
     public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         renderGuiItemText(font, text, x, y, color);
     }
+
     //spotless:off
     //#if MC >= 12100
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
@@ -117,7 +123,6 @@ public final class RenderHelper {
     //$$    }
     //#endif
     //spotless:on
-
 
     public enum SlotEffect {
         NONE, RED, GRAY
