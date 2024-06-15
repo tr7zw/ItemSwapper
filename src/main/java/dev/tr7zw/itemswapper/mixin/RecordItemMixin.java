@@ -9,6 +9,8 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import dev.tr7zw.itemswapper.accessor.ItemVariantAccess;
 
+import net.minecraft.world.item.Item;
+
 // hack, as records have been completely reworked, for modded support
 // especially new mixin to intercept when jukeboxPlayable() is called and
 // registering this then would be needed
@@ -48,7 +50,6 @@ public class RecordItemMixin implements ItemVariantAccess {
 
 //#else
 //$$ import net.minecraft.sounds.SoundEvent;
-//$$ import net.minecraft.world.item.Item;
 //$$ import net.minecraft.world.item.RecordItem;
 //$$
 //$$ @Mixin(RecordItem.class)
