@@ -4,14 +4,10 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.world.item.Items;
-import net.minecraft.world.item.JukeboxSongs;
-import net.minecraft.world.item.Rarity;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 import dev.tr7zw.itemswapper.accessor.ItemVariantAccess;
-import net.minecraft.world.item.Item;
 
 // hack, as records have been completely reworked, for modded support
 // especially new mixin to intercept when jukeboxPlayable() is called and
@@ -19,6 +15,8 @@ import net.minecraft.world.item.Item;
 
 //spotless:off
 //#if MC >= 12100
+import net.minecraft.world.item.Items;
+
 @Mixin(Items.class)
 public class RecordItemMixin implements ItemVariantAccess {
     private Set<Item> BY_NAME;
@@ -49,6 +47,10 @@ public class RecordItemMixin implements ItemVariantAccess {
 }
 
 //#else
+//$$ import net.minecraft.sounds.SoundEvent;
+//$$ import net.minecraft.world.item.Item;
+//$$ import net.minecraft.world.item.RecordItem;
+//$$
 //$$ @Mixin(RecordItem.class)
 //$$ public class RecordItemMixin implements ItemVariantAccess {
 //$$
