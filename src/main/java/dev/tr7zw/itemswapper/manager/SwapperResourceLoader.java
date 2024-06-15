@@ -99,9 +99,6 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
     }
 
-    /**
-     * Done this way to preserve the load order
-     */
     private void registerItemGroups() {
         for (int i = 0; i < itemGroups.size(); i++) {
             ItemSwapperSharedMod.instance.getItemGroupManager()
@@ -122,10 +119,6 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         return filteredEntries.toArray(new ItemEntry[0]);
     }
 
-    /**
-     * This entire thing can probably be done a lot smarter and cleaner. But this
-     * should work for now
-     */
     private void applyModifications() {
         for (int i = 0; i < itemGroupModifiers.size(); i++) {
             ItemGroupModifier modifier = itemGroupModifiers.get(i);
@@ -414,7 +407,6 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
                 if (item.equals(Items.AIR)) {
                     ItemSwapperBase.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                     if (pallet) {
-                        // For unknown items, don't move the rest of the wheel
                         itemList.add(Items.AIR);
                     }
                     return;
@@ -863,4 +855,3 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
 //$$ }
 //$$ #endif
 //$$ spotless:on
-
