@@ -15,7 +15,7 @@ import net.minecraft.world.item.Item;
 
 @Mixin(Items.class)
 public class RecordItemMixin implements ItemVariantAccess {
-
+    //#if MC >= 12100
     private Set<Item> BY_NAME;
 
     @Override
@@ -42,3 +42,16 @@ public class RecordItemMixin implements ItemVariantAccess {
         return BY_NAME;
     }
 }
+
+    //#else
+//$$ @Shadow
+//$$ private static Map<SoundEvent, RecordItem> BY_NAME;
+//$$
+//$$ @Override
+//$$ public Set<Item> getAllItemVariants() {
+//$$     return new HashSet<>(BY_NAME.values());
+//$$ }
+//$$
+//$$ }
+//#endif
+//spotless:on
