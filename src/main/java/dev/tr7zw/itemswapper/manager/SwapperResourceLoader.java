@@ -853,5 +853,5 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
 //$$     }
 //$$
 //$$ }
-//$$ #endif
-//$$ spotless:on
+//#endif
+//spotless:on
