@@ -71,7 +71,7 @@ public final class RenderHelper {
     public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         renderGuiItemText(font, text, x, y, color);
     }
-
+    // TODO: create mixin for Tesselator to add interface for persistent builder/byteBuffer to render to, below is cause for memory issues
     // spotless:off
     //#if MC >= 12100
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
@@ -79,7 +79,7 @@ public final class RenderHelper {
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, (400.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                    .immediate(new ByteBufferBuilder(786432));
+                    .immediate(new ByteBufferBuilder(16384));
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
                     y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
                     Font.DisplayMode.NORMAL, 0, 15728880);
@@ -92,7 +92,7 @@ public final class RenderHelper {
         String string2 = text;
         poseStack.translate(0.0D, 0.0D, 400.0F);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                .immediate(new ByteBufferBuilder(786432));
+                .immediate(new ByteBufferBuilder(16384));
         font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
