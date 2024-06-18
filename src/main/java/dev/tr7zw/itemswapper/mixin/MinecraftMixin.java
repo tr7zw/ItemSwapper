@@ -44,15 +44,6 @@ public class MinecraftMixin {
         return server.isPublished();
     }
 
-//    // #if MC < 12100 re:disable as no time to move this to another mixin right now just for 1.21
-//    @Inject(method = "createSearchTrees", at = @At("HEAD"))
-//    private void createSearchTrees(CallbackInfo ci) {
-//        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
-//                .registerReloadListener(new SwapperResourceLoader());
-//    }
-//    // #endif
-//    // spotless:on
-
     @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     private void pickBlock(CallbackInfo ci) {
         if (screen instanceof ItemSwapperUI) {
