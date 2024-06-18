@@ -21,6 +21,8 @@ public class ItemSwapperMixinPlugin implements IMixinConfigPlugin {
             // spotless:off
                                                                     //#if MC < 12100
                             "dev.tr7zw.itemswapper.mixin.SearchTreeMixin", FALSE,
+                                                                    //#else
+                                                                    //$$ "dev.tr7zw.itemswapper.mixin.MinecraftMixin.createSearchTrees", FALSE,
                                                                     //#endif
                                                                     //spotless:on
             "dev.tr7zw.itemswapper.mixin.LitematicaMixin", () -> FabricLoader.getInstance().isModLoaded("litematica"));
