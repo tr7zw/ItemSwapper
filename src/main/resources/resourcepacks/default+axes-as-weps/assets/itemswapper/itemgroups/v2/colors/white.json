@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.white",
+    "items": [
+        "minecraft:white_dye",
+        "minecraft:white_concrete_powder",
+        "minecraft:white_concrete",
+        "minecraft:white_terracotta",
+        "minecraft:white_glazed_terracotta",
+        "minecraft:white_wool",
+        "minecraft:white_carpet",
+        "minecraft:white_stained_glass",
+        "minecraft:white_stained_glass_pane",
+        "minecraft:white_candle",
+        "minecraft:white_banner",
+        "minecraft:white_bed"
+    ]
+}

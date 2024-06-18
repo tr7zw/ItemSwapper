@@ -15,7 +15,7 @@ public class RecordNameProvider implements NameProvider {
     @Override
     public Set<Item> getItemHandlers() {
         // TODO late init this, so other mods music discs are loaded?
-        //spotless:off
+        // spotless:off
         //#if MC >= 12100
             return Set.of(
                     Items.MUSIC_DISC_13

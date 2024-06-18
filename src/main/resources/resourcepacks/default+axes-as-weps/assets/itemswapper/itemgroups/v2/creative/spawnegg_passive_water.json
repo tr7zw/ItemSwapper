@@ -1,0 +1,37 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.spawnegg_passive_water",
+    "icon": "minecraft:squid_spawn_egg",
+    "items": [
+        "minecraft:axolotl_spawn_egg",
+        "minecraft:cod_spawn_egg",
+        "minecraft:dolphin_spawn_egg",
+        "minecraft:frog_spawn_egg",
+        "minecraft:glow_squid_spawn_egg",
+        "minecraft:pufferfish_spawn_egg",
+        "minecraft:salmon_spawn_egg",
+        "minecraft:squid_spawn_egg",
+        "minecraft:tadpole_spawn_egg",
+        "minecraft:tropical_fish_spawn_egg",
+        "minecraft:turtle_spawn_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_water"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_air"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_villager"
+        }
+    ]
+}

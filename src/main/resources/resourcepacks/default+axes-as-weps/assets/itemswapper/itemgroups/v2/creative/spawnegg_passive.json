@@ -1,0 +1,46 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.spawnegg_passive",
+    "icon": "minecraft:pig_spawn_egg",
+    "items": [
+        "minecraft:chicken_spawn_egg",
+        "minecraft:cow_spawn_egg",
+        "minecraft:donkey_spawn_egg",
+        "minecraft:fox_spawn_egg",
+        "minecraft:goat_spawn_egg",
+        "minecraft:horse_spawn_egg",
+        "minecraft:llama_spawn_egg",
+        "minecraft:mooshroom_spawn_egg",
+        "minecraft:mule_spawn_egg",
+        "minecraft:ocelot_spawn_egg",
+        "minecraft:panda_spawn_egg",
+        "minecraft:pig_spawn_egg",
+        "minecraft:polar_bear_spawn_egg",
+        "minecraft:rabbit_spawn_egg",
+        "minecraft:sheep_spawn_egg",
+        "minecraft:skeleton_horse_spawn_egg",
+        "minecraft:sniffer_spawn_egg",
+        "minecraft:snow_golem_spawn_egg",
+        "minecraft:strider_spawn_egg",
+        "minecraft:wolf_spawn_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_water"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_air"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_villager"
+        }
+    ]
+}

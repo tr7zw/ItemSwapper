@@ -1,0 +1,25 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.the_end.purpur",
+    "items": [
+        "minecraft:chorus_fruit",
+        "minecraft:popped_chorus_fruit",
+        "minecraft:purpur_block",
+        "minecraft:purpur_pillar",
+        "minecraft:purpur_stairs",
+        "minecraft:purpur_slab",
+        "minecraft:chorus_flower",
+        "minecraft:end_rod"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_end/purpur"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_end/end_stone"
+        }
+    ]
+}

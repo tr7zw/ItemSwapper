@@ -1,0 +1,43 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.mob_drops",
+    "items": [
+        "minecraft:feather",
+        "minecraft:leather",
+        "minecraft:bone",
+        "minecraft:rotten_flesh",
+        "minecraft:ender_pearl",
+        "minecraft:blaze_rod",
+        "minecraft:ghast_tear",
+        "minecraft:spider_eye",
+        "minecraft:shulker_shell",
+        "minecraft:prismarine_shard",
+        "minecraft:prismarine_crystals",
+        "minecraft:phantom_membrane",
+        "minecraft:slime_ball",
+        "minecraft:egg",
+        "minecraft:ink_sac",
+        "minecraft:glow_ink_sac",
+        "minecraft:scute",
+        "minecraft:turtle_scute",
+        "minecraft:armadillo_scute",
+        "minecraft:spider_eye",
+        "minecraft:gunpowder",
+        "minecraft:rabbit_hide"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/misc"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/mob_drops"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/banner_patterns"
+        }
+    ]
+}

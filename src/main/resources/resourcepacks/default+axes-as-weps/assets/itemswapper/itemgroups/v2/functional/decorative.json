@@ -1,0 +1,36 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.functional.decorative",
+    "icon": "minecraft:glow_item_frame",
+    "items": [
+        "minecraft:painting",
+        "minecraft:armor_stand",
+        "minecraft:glow_item_frame",
+        "minecraft:item_frame",
+        "minecraft:flower_pot",
+        "minecraft:decorated_pot"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/decorative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/villagers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/lights"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/miscellaneous"
+        }
+    ]
+}

@@ -71,7 +71,9 @@ public final class RenderHelper {
     public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         renderGuiItemText(font, text, x, y, color);
     }
-    // TODO: create mixin for Tesselator to add interface for persistent builder/byteBuffer to render to, below is cause for memory issues
+
+    // TODO: create mixin for Tesselator to add interface for persistent
+    // builder/byteBuffer to render to, below is cause for memory issues
     // spotless:off
     //#if MC >= 12100
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {

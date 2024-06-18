@@ -1,0 +1,30 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.spawnegg_passive_air",
+    "icon": "minecraft:bee_spawn_egg",
+    "items": [
+        "minecraft:allay_spawn_egg",
+        "minecraft:bat_spawn_egg",
+        "minecraft:bee_spawn_egg",
+        "minecraft:parrot_spawn_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_water"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_air"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_villager"
+        }
+    ]
+}

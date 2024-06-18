@@ -1,0 +1,36 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.earthen.mud",
+    "icon": "minecraft:mud",
+    "items": [
+        "minecraft:packed_mud",
+        "minecraft:mud_bricks",
+        "minecraft:mud_brick_stairs",
+        "minecraft:mud_brick_slab",
+        "minecraft:mud_brick_wall",
+        "minecraft:mud",
+        "minecraft:muddy_mangrove_roots",
+        "minecraft:mangrove_roots",
+        "minecraft:dripstone_block",
+        "minecraft:pointed_dripstone"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/bricks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/granite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/mud"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/dirt"
+        }
+    ]
+}

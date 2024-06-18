@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.purple",
+    "items": [
+        "minecraft:purple_dye",
+        "minecraft:purple_concrete_powder",
+        "minecraft:purple_concrete",
+        "minecraft:purple_terracotta",
+        "minecraft:purple_glazed_terracotta",
+        "minecraft:purple_wool",
+        "minecraft:purple_carpet",
+        "minecraft:purple_stained_glass",
+        "minecraft:purple_stained_glass_pane",
+        "minecraft:purple_candle",
+        "minecraft:purple_banner",
+        "minecraft:purple_bed"
+    ]
+}

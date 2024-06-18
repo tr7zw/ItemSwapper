@@ -1,0 +1,31 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.marbled.quartz",
+    "icon": "minecraft:chiseled_quartz_block",
+    "items": [
+        "minecraft:quartz_block",
+        "minecraft:quartz_stairs",
+        "minecraft:quartz_slab",
+        "minecraft:chiseled_quartz_block",
+        "minecraft:quartz_bricks",
+        "minecraft:quartz_pillar",
+        "minecraft:smooth_quartz",
+        "minecraft:smooth_quartz_stairs",
+        "minecraft:smooth_quartz_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/quartz"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/diorite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/amethyst"
+        }
+    ]
+}

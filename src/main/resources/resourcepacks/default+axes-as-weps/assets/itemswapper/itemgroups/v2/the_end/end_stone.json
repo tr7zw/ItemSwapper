@@ -1,0 +1,22 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.the_end.end_stone",
+    "items": [
+        "minecraft:end_stone",
+        "minecraft:end_stone_bricks",
+        "minecraft:end_stone_brick_stairs",
+        "minecraft:end_stone_brick_slab",
+        "minecraft:end_stone_brick_wall"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_end/purpur"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_end/end_stone"
+        }
+    ]
+}

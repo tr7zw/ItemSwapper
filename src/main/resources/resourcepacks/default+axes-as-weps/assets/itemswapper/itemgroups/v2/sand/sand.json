@@ -1,0 +1,29 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.sand.sand",
+    "items": [
+        "minecraft:sand",
+        "minecraft:suspicious_sand",
+        "minecraft:sandstone",
+        "minecraft:sandstone_stairs",
+        "minecraft:sandstone_slab",
+        "minecraft:sandstone_wall",
+        "minecraft:chiseled_sandstone",
+        "minecraft:smooth_sandstone",
+        "minecraft:smooth_sandstone_stairs",
+        "minecraft:smooth_sandstone_slab",
+        "minecraft:cut_sandstone",
+        "minecraft:cut_sandstone_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/sand/sand"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/sand/redsand"
+        }
+    ]
+}

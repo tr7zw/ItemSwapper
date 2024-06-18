@@ -1,0 +1,40 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.wood.oak",
+    "items": [
+        "minecraft:oak_log",
+        "minecraft:oak_wood",
+        "minecraft:stripped_oak_log",
+        "minecraft:stripped_oak_wood",
+        "minecraft:oak_planks",
+        "minecraft:oak_stairs",
+        "minecraft:oak_slab",
+        "minecraft:oak_trapdoor",
+        "minecraft:oak_door",
+        "minecraft:oak_fence_gate",
+        "minecraft:oak_fence",
+        "minecraft:oak_sign",
+        "minecraft:oak_hanging_sign",
+        "minecraft:oak_button",
+        "minecraft:oak_pressure_plate"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/oak"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/spruce"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/birch"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/dark_oak"
+        }
+    ]
+}

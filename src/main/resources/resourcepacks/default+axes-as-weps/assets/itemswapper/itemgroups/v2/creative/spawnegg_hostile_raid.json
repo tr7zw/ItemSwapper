@@ -1,0 +1,28 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.spawnegg_hostile_raid",
+    "icon": "minecraft:pillager_spawn_egg",
+    "items": [
+        "minecraft:evoker_spawn_egg",
+        "minecraft:pillager_spawn_egg",
+        "minecraft:ravager_spawn_egg",
+        "minecraft:vex_spawn_egg",
+        "minecraft:vindicator_spawn_egg",
+        "minecraft:witch_spawn_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile_raid"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile_nether"
+        }
+    ]
+}

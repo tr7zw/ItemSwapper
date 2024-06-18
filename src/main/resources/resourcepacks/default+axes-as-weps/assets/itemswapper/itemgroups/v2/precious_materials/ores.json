@@ -1,0 +1,45 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.precious_materials.ore",
+    "icon": "minecraft:deepslate_gold_ore",
+    "items": [
+        "minecraft:coal_ore",
+        "minecraft:deepslate_coal_ore",
+        "minecraft:copper_ore",
+        "minecraft:deepslate_copper_ore",
+        "minecraft:iron_ore",
+        "minecraft:deepslate_iron_ore",
+        "minecraft:gold_ore",
+        "minecraft:deepslate_gold_ore",
+        "minecraft:redstone_ore",
+        "minecraft:deepslate_redstone_ore",
+        "minecraft:lapis_ore",
+        "minecraft:deepslate_lapis_ore",
+        "minecraft:diamond_ore",
+        "minecraft:deepslate_diamond_ore",
+        "minecraft:emerald_ore",
+        "minecraft:deepslate_emerald_ore",
+        "minecraft:raw_iron",
+        "minecraft:raw_gold",
+        "minecraft:raw_copper",
+        "minecraft:raw_iron_block",
+        "minecraft:raw_copper_block",
+        "minecraft:raw_gold_block",
+        "minecraft:ancient_debris"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/ores"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/precious"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/potion_brewing"
+        }
+    ]
+}

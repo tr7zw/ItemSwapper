@@ -1,0 +1,19 @@
+{
+    "type": "list",
+    "priority": 60,
+    "displayName": "text.itemswapper.palette.consumables.unprocessed_food",
+    "icon": "minecraft:salmon",
+    "items": [
+        "minecraft:salmon",
+        "minecraft:cod",
+        "minecraft:tropical_fish",
+        "minecraft:pufferfish",
+        "minecraft:beef",
+        "minecraft:mutton",
+        "minecraft:rabbit",
+        "minecraft:chicken",
+        "minecraft:porkchop",
+        "minecraft:suspicious_stew",
+        "minecraft:poisonous_potato"
+    ]
+}

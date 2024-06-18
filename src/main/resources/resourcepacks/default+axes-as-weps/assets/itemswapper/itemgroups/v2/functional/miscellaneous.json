@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.functional.miscellaneous",
+    "icon": "minecraft:bell",
+    "items": [
+        "minecraft:iron_trapdoor",
+        "minecraft:iron_door",
+        "minecraft:chain",
+        "minecraft:iron_bars",
+        "minecraft:ladder",
+        "minecraft:cobweb",
+        "minecraft:lightning_rod",
+        "minecraft:bell",
+        "minecraft:bookshelf",
+        "minecraft:chiseled_bookshelf",
+        "minecraft:scaffolding"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/decorative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/villagers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/lights"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/miscellaneous"
+        }
+    ]
+}

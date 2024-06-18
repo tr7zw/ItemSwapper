@@ -1,0 +1,22 @@
+{
+    "type": "list",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.misc.buckets",
+    "ignoreItems": [
+        "minecraft:bucket",
+        "minecraft:water_bucket"
+    ],
+    "items": [
+        "minecraft:bucket",
+        "minecraft:water_bucket",
+        "minecraft:lava_bucket",
+        "minecraft:powder_snow_bucket",
+        "minecraft:milk_bucket",
+        "minecraft:pufferfish_bucket",
+        "minecraft:salmon_bucket",
+        "minecraft:cod_bucket",
+        "minecraft:tropical_fish_bucket",
+        "minecraft:axolotl_bucket",
+        "minecraft:tadpole_bucket"
+    ]
+}

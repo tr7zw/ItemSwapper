@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.black",
+    "items": [
+        "minecraft:black_dye",
+        "minecraft:black_concrete_powder",
+        "minecraft:black_concrete",
+        "minecraft:black_terracotta",
+        "minecraft:black_glazed_terracotta",
+        "minecraft:black_wool",
+        "minecraft:black_carpet",
+        "minecraft:black_stained_glass",
+        "minecraft:black_stained_glass_pane",
+        "minecraft:black_candle",
+        "minecraft:black_banner",
+        "minecraft:black_bed"
+    ]
+}

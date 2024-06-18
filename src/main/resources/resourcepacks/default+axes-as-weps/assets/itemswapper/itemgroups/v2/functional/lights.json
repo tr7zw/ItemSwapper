@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 52,
+    "displayName": "text.itemswapper.palette.functional.lights",
+    "icon": "minecraft:lantern",
+    "items": [
+        "minecraft:ochre_froglight",
+        "minecraft:verdant_froglight",
+        "minecraft:pearlescent_froglight",
+        "minecraft:sea_lantern",
+        "minecraft:torch",
+        "minecraft:lantern",
+        "minecraft:campfire",
+        "minecraft:shroomlight",
+        "minecraft:glowstone",
+        "minecraft:jack_o_lantern",
+        "minecraft:soul_torch",
+        "minecraft:soul_lantern",
+        "minecraft:soul_campfire",
+        "minecraft:chain",
+        "minecraft:end_rod",
+        "minecraft:candle",
+        "minecraft:beacon",
+        "minecraft:glow_berries",
+        "minecraft:glow_lichen",
+        "minecraft:redstone_lamp"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/decorative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/villagers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/lights"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/miscellaneous"
+        }
+    ]
+}

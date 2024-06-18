@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.gray",
+    "items": [
+        "minecraft:gray_dye",
+        "minecraft:gray_concrete_powder",
+        "minecraft:gray_concrete",
+        "minecraft:gray_terracotta",
+        "minecraft:gray_glazed_terracotta",
+        "minecraft:gray_wool",
+        "minecraft:gray_carpet",
+        "minecraft:gray_stained_glass",
+        "minecraft:gray_stained_glass_pane",
+        "minecraft:gray_candle",
+        "minecraft:gray_banner",
+        "minecraft:gray_bed"
+    ]
+}

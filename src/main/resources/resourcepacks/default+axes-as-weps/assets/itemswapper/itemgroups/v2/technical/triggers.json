@@ -1,0 +1,46 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.technical.triggers",
+    "icon": "minecraft:iron_trapdoor",
+    "items": [
+        "minecraft:iron_trapdoor",
+        "minecraft:iron_door",
+        "minecraft:daylight_detector",
+        "minecraft:oak_button",
+        "minecraft:stone_button",
+        "minecraft:oak_pressure_plate",
+        "minecraft:stone_pressure_plate",
+        "minecraft:heavy_weighted_pressure_plate",
+        "minecraft:light_weighted_pressure_plate",
+        "minecraft:lever",
+        "minecraft:tripwire_hook",
+        "minecraft:string"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone_functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/triggers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/rail"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/fluid"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/musical"
+        }
+    ]
+}

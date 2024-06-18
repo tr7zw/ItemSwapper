@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.the_oceans.prismarine",
+    "items": [
+        "minecraft:prismarine_bricks",
+        "minecraft:prismarine_brick_stairs",
+        "minecraft:prismarine_brick_slab",
+        "minecraft:sea_lantern",
+        "minecraft:dark_prismarine",
+        "minecraft:dark_prismarine_stairs",
+        "minecraft:dark_prismarine_slab",
+        "minecraft:prismarine",
+        "minecraft:prismarine_stairs",
+        "minecraft:prismarine_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/prismarine"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/coral"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/dead_coral"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/underwater"
+        }
+    ]
+}

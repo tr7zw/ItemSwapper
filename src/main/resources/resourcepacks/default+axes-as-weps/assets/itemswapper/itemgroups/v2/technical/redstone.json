@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 10,
+    "displayName": "text.itemswapper.palette.technical.redstone",
+    "items": [
+        "minecraft:redstone_block",
+        "minecraft:redstone",
+        "minecraft:redstone_torch",
+        "minecraft:comparator",
+        "minecraft:repeater",
+        "minecraft:observer",
+        "minecraft:note_block",
+        "minecraft:target"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone_functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/triggers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/rail"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/fluid"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/musical"
+        }
+    ]
+}

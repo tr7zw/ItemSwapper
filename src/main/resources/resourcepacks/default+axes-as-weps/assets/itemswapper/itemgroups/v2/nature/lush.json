@@ -1,0 +1,49 @@
+{
+    "type": "palette",
+    "priority": 51,
+    "displayName": "text.itemswapper.palette.nature.lush",
+    "items": [
+        "minecraft:moss_block",
+        "minecraft:flowering_azalea",
+        "minecraft:azalea",
+        "minecraft:moss_carpet",
+        "minecraft:flowering_azalea_leaves",
+        "minecraft:azalea_leaves",
+        "minecraft:big_dripleaf",
+        "minecraft:small_dripleaf",
+        "minecraft:glow_berries",
+        "minecraft:spore_blossom",
+        "minecraft:cactus",
+        "minecraft:fern",
+        "minecraft:large_fern",
+        "minecraft:grass",
+        "minecraft:short_grass",
+        "minecraft:tall_grass",
+        "minecraft:vine",
+        "minecraft:glow_lichen",
+        "minecraft:sweet_berries",
+        "minecraft:dead_bush",
+        "minecraft:bamboo",
+        "minecraft:sugar_cane",
+        "minecraft:hanging_roots",
+        "minecraft:bone_meal"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/natural"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/lush"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/flowers"
+        }
+    ]
+}

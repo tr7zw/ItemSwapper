@@ -1,0 +1,14 @@
+{
+    "type": "list",
+    "priority": 100,
+    "icon": "minecraft:potion",
+    "displayName": "text.itemswapper.palette.consumables.potions",
+    "openOnlyItems": [
+        "minecraft:glass_bottle"
+    ],
+    "items": [
+        "minecraft:potion",
+        "minecraft:splash_potion",
+        "minecraft:lingering_potion"
+    ]
+}

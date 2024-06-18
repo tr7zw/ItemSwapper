@@ -1,0 +1,33 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.wood.woodenslabs",
+    "items": [
+        "minecraft:oak_slab",
+        "minecraft:spruce_slab",
+        "minecraft:birch_slab",
+        "minecraft:dark_oak_slab",
+        "minecraft:acacia_slab",
+        "minecraft:jungle_slab",
+        "minecraft:mangrove_slab",
+        "minecraft:warped_slab",
+        "minecraft:crimson_slab",
+        "minecraft:cherry_slab",
+        "minecraft:bamboo_slab",
+        "minecraft:bamboo_mosaic_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/planktypes"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodenstairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodenslabs"
+        }
+    ]
+}

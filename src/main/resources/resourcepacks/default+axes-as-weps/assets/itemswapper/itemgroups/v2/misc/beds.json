@@ -1,0 +1,24 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.misc.beds",
+    "icon": "minecraft:red_bed",
+    "items": [
+        "minecraft:black_bed",
+        "minecraft:gray_bed",
+        "minecraft:light_gray_bed",
+        "minecraft:white_bed",
+        "minecraft:pink_bed",
+        "minecraft:magenta_bed",
+        "minecraft:purple_bed",
+        "minecraft:blue_bed",
+        "minecraft:light_blue_bed",
+        "minecraft:cyan_bed",
+        "minecraft:green_bed",
+        "minecraft:lime_bed",
+        "minecraft:yellow_bed",
+        "minecraft:orange_bed",
+        "minecraft:red_bed",
+        "minecraft:brown_bed"
+    ]
+}

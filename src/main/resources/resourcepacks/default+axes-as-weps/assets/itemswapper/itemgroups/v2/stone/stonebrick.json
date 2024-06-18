@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 41,
+    "displayName": "text.itemswapper.palette.stone.stonebrick",
+    "items": [
+        "minecraft:stone_bricks",
+        "minecraft:cracked_stone_bricks",
+        "minecraft:stone_brick_stairs",
+        "minecraft:stone_brick_slab",
+        "minecraft:stone_brick_wall",
+        "minecraft:chiseled_stone_bricks",
+        "minecraft:mossy_stone_bricks",
+        "minecraft:mossy_stone_brick_stairs",
+        "minecraft:mossy_stone_brick_slab",
+        "minecraft:mossy_stone_brick_wall"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stonebrick"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/cobblestone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/andesite"
+        }
+    ]
+}

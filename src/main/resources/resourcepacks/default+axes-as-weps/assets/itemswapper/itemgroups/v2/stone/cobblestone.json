@@ -1,0 +1,33 @@
+{
+    "type": "palette",
+    "priority": 42,
+    "displayName": "text.itemswapper.palette.stone.cobblestone",
+    "items": [
+        "minecraft:cobblestone",
+        "minecraft:cobblestone_stairs",
+        "minecraft:cobblestone_slab",
+        "minecraft:cobblestone_wall",
+        "minecraft:mossy_cobblestone",
+        "minecraft:mossy_cobblestone_stairs",
+        "minecraft:mossy_cobblestone_slab",
+        "minecraft:mossy_cobblestone_wall"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stonebrick"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/cobblestone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/andesite"
+        }
+    ]
+}

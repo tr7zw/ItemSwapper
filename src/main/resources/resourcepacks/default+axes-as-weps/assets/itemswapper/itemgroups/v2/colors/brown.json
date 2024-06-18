@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.brown",
+    "items": [
+        "minecraft:brown_dye",
+        "minecraft:brown_concrete_powder",
+        "minecraft:brown_concrete",
+        "minecraft:brown_terracotta",
+        "minecraft:brown_glazed_terracotta",
+        "minecraft:brown_wool",
+        "minecraft:brown_carpet",
+        "minecraft:brown_stained_glass",
+        "minecraft:brown_stained_glass_pane",
+        "minecraft:brown_candle",
+        "minecraft:brown_banner",
+        "minecraft:brown_bed"
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.ice.ice",
+    "items": [
+        "minecraft:ice",
+        "minecraft:packed_ice",
+        "minecraft:blue_ice",
+        "minecraft:carved_pumpkin",
+        "minecraft:snow_block",
+        "minecraft:snow",
+        "minecraft:snowball"
+    ]
+}

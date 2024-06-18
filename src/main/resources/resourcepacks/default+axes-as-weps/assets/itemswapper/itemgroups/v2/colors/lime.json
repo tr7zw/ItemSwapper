@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.lime",
+    "items": [
+        "minecraft:lime_dye",
+        "minecraft:lime_concrete_powder",
+        "minecraft:lime_concrete",
+        "minecraft:lime_terracotta",
+        "minecraft:lime_glazed_terracotta",
+        "minecraft:lime_wool",
+        "minecraft:lime_carpet",
+        "minecraft:lime_stained_glass",
+        "minecraft:lime_stained_glass_pane",
+        "minecraft:lime_candle",
+        "minecraft:lime_banner",
+        "minecraft:lime_bed"
+    ]
+}

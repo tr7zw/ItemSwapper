@@ -1,0 +1,30 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.marbled.diorite",
+    "icon": "minecraft:polished_diorite",
+    "items": [
+        "minecraft:calcite",
+        "minecraft:diorite",
+        "minecraft:diorite_stairs",
+        "minecraft:diorite_slab",
+        "minecraft:diorite_wall",
+        "minecraft:polished_diorite",
+        "minecraft:polished_diorite_stairs",
+        "minecraft:polished_diorite_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/quartz"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/diorite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/amethyst"
+        }
+    ]
+}

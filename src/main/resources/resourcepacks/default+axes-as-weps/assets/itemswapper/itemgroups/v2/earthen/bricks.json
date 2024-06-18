@@ -1,0 +1,31 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.earthen.bricks",
+    "items": [
+        "minecraft:bricks",
+        "minecraft:brick_stairs",
+        "minecraft:brick_slab",
+        "minecraft:brick_wall",
+        "minecraft:clay",
+        "minecraft:terracotta"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/bricks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/granite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/mud"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/earthen/dirt"
+        }
+    ]
+}

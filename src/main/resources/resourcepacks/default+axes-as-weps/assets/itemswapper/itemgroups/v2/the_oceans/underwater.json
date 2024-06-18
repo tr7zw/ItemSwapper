@@ -1,0 +1,34 @@
+{
+    "type": "palette",
+    "priority": 80,
+    "displayName": "text.itemswapper.palette.the_oceans.underwater",
+    "items": [
+        "minecraft:lily_pad",
+        "minecraft:kelp",
+        "minecraft:seagrass",
+        "minecraft:sea_pickle",
+        "minecraft:big_dripleaf",
+        "minecraft:small_dripleaf",
+        "minecraft:sponge",
+        "minecraft:wet_sponge",
+        "minecraft:dried_kelp_block"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/prismarine"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/coral"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/dead_coral"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_oceans/underwater"
+        }
+    ]
+}

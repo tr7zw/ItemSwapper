@@ -1,0 +1,38 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.nature.leaves",
+    "items": [
+        "minecraft:flowering_azalea_leaves",
+        "minecraft:azalea_leaves",
+        "minecraft:oak_leaves",
+        "minecraft:spruce_leaves",
+        "minecraft:birch_leaves",
+        "minecraft:dark_oak_leaves",
+        "minecraft:acacia_leaves",
+        "minecraft:jungle_leaves",
+        "minecraft:mangrove_leaves",
+        "minecraft:mangrove_roots",
+        "minecraft:muddy_mangrove_roots",
+        "minecraft:cherry_leaves",
+        "minecraft:pink_petals"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/natural"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/lush"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/flowers"
+        }
+    ]
+}

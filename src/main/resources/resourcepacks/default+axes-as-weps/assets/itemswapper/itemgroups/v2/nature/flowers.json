@@ -1,0 +1,48 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.nature.flowers",
+    "items": [
+        "minecraft:oxeye_daisy",
+        "minecraft:azure_bluet",
+        "minecraft:lily_of_the_valley",
+        "minecraft:dandelion",
+        "minecraft:poppy",
+        "minecraft:red_tulip",
+        "minecraft:orange_tulip",
+        "minecraft:white_tulip",
+        "minecraft:pink_tulip",
+        "minecraft:allium",
+        "minecraft:cornflower",
+        "minecraft:blue_orchid",
+        "minecraft:wither_rose",
+        "minecraft:spore_blossom",
+        "minecraft:rose_bush",
+        "minecraft:lilac",
+        "minecraft:peony",
+        "minecraft:sunflower",
+        "minecraft:flower_pot",
+        "minecraft:pitcher_plant",
+        "minecraft:torchflower",
+        "minecraft:pink_petals",
+        "minecraft:bone_meal"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/natural"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/lush"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/flowers"
+        }
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "type": "palette",
+    "priority": 49,
+    "displayName": "text.itemswapper.palette.stone.stone_stairs",
+    "items": [
+        "minecraft:stone_brick_stairs",
+        "minecraft:cobblestone_stairs",
+        "minecraft:stone_stairs",
+        "minecraft:polished_andesite_stairs",
+        "minecraft:andesite_stairs",
+        "minecraft:mossy_stone_brick_stairs",
+        "minecraft:mossy_cobblestone_stairs"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone_wall"
+        }
+    ]
+}

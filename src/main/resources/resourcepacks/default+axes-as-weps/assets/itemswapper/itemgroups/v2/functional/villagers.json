@@ -1,0 +1,43 @@
+{
+    "type": "palette",
+    "priority": 120,
+    "displayName": "text.itemswapper.palette.functional.villagers",
+    "icon": "minecraft:lectern",
+    "items": [
+        "minecraft:blast_furnace",
+        "minecraft:smoker",
+        "minecraft:cartography_table",
+        "minecraft:barrel",
+        "minecraft:fletching_table",
+        "minecraft:cauldron",
+        "minecraft:lectern",
+        "minecraft:stonecutter",
+        "minecraft:brewing_stand",
+        "minecraft:composter",
+        "minecraft:grindstone",
+        "minecraft:loom",
+        "minecraft:smithing_table"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/decorative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/villagers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/lights"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/miscellaneous"
+        }
+    ]
+}

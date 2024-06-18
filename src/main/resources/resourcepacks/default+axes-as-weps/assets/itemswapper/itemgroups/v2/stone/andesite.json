@@ -1,0 +1,32 @@
+{
+    "type": "palette",
+    "priority": 43,
+    "displayName": "text.itemswapper.palette.stone.andesite",
+    "items": [
+        "minecraft:andesite",
+        "minecraft:andesite_stairs",
+        "minecraft:andesite_slab",
+        "minecraft:andesite_wall",
+        "minecraft:polished_andesite",
+        "minecraft:polished_andesite_stairs",
+        "minecraft:polished_andesite_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stonebrick"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/cobblestone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/andesite"
+        }
+    ]
+}

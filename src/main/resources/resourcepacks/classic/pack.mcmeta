@@ -1,6 +1,6 @@
 {
   "pack": {
-    "pack_format": ${pack_format_number},
+    "pack_format": 34,
     "description": "ItemSwapper classic palettes"
   }
 }

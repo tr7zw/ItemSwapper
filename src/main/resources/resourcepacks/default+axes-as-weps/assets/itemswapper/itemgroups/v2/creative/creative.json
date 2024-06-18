@@ -1,0 +1,27 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.creative",
+    "icon": "minecraft:command_block",
+    "items": [
+        "minecraft:command_block",
+        "minecraft:chain_command_block",
+        "minecraft:repeating_command_block",
+        "minecraft:command_block_minecart",
+        "minecraft:jigsaw",
+        "minecraft:structure_block",
+        "minecraft:structure_void",
+        "minecraft:barrier",
+        "minecraft:debug_stick",
+        "minecraft:light",
+        "minecraft:bedrock",
+        "minecraft:end_portal_frame",
+        "minecraft:spawner",
+        "minecraft:frogspawn",
+        "minecraft:dirt_path",
+        "minecraft:farmland",
+        "minecraft:chorus_plant",
+        "minecraft:reinforced_deepslate",
+        "minecraft:budding_amethyst"
+    ]
+}

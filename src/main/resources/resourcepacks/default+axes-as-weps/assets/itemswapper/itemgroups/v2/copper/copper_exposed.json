@@ -1,0 +1,37 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.copper.copper_exposed",
+    "items": [
+        "minecraft:exposed_copper",
+        "minecraft:exposed_cut_copper",
+        "minecraft:exposed_cut_copper_stairs",
+        "minecraft:exposed_cut_copper_slab",
+        "minecraft:waxed_exposed_copper",
+        "minecraft:waxed_exposed_cut_copper",
+        "minecraft:waxed_exposed_cut_copper_stairs",
+        "minecraft:waxed_exposed_cut_copper_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_exposed"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_weathered"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_oxidized"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/honeycomb_weathering"
+        }
+    ]
+}

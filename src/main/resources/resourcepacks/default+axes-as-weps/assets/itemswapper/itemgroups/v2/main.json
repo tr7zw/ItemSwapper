@@ -1,0 +1,157 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.directory.title",
+    "disableAutoLink": true,
+    "icon": "minecraft:book",
+    "items": [
+        {
+            "id": "minecraft:magma_block",
+            "name": "text.itemswapper.directory.nether",
+            "link": "itemswapper:v2/the_nether/netherterrain",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:chorus_flower",
+            "name": "text.itemswapper.directory.end",
+            "link": "itemswapper:v2/the_end/purpur",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:prismarine_bricks",
+            "name": "text.itemswapper.directory.ocean",
+            "link": "itemswapper:v2/the_oceans/prismarine",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:basalt",
+            "name": "text.itemswapper.directory.depths",
+            "link": "itemswapper:v2/the_depths/basalt",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:stone",
+            "name": "text.itemswapper.directory.stone",
+            "link": "itemswapper:v2/stone/stone",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:bricks",
+            "name": "text.itemswapper.directory.earthen",
+            "link": "itemswapper:v2/earthen/bricks",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:chiseled_quartz_block",
+            "name": "text.itemswapper.directory.marble",
+            "link": "itemswapper:v2/marbled/quartz",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:sandstone",
+            "name": "text.itemswapper.directory.sand",
+            "link": "itemswapper:v2/sand/sand",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:copper_block",
+            "name": "text.itemswapper.directory.copper",
+            "link": "itemswapper:v2/copper/copper",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:ice",
+            "name": "text.itemswapper.directory.ice",
+            "link": "itemswapper:v2/ice/ice",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:oak_log",
+            "name": "text.itemswapper.directory.wood_core",
+            "link": "itemswapper:v2/wood/oak",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:acacia_log",
+            "name": "text.itemswapper.directory.wood_speciality",
+            "link": "itemswapper:v2/wood/acacia",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:warped_stem",
+            "name": "text.itemswapper.directory.wood_nether",
+            "link": "itemswapper:v2/wood/warped",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:melon",
+            "name": "text.itemswapper.directory.nature",
+            "link": "itemswapper:v2/nature/natural",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:wheat_seeds",
+            "name": "text.itemswapper.directory.seeds",
+            "link": "itemswapper:v2/growable/seeds",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:diamond",
+            "name": "text.itemswapper.directory.ores",
+            "link": "itemswapper:v2/precious_materials/ores",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:magenta_dye",
+            "name": "text.itemswapper.directory.colors",
+            "link": "itemswapper:v2/colors/dyes",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:white_wool",
+            "name": "text.itemswapper.directory.wool",
+            "link": "itemswapper:v2/colored_items/wool",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:red_glazed_terracotta",
+            "name": "text.itemswapper.directory.terracotta",
+            "link": "itemswapper:v2/colored_items/terracotta",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:glass",
+            "name": "text.itemswapper.directory.glass",
+            "link": "itemswapper:v2/colored_items/glass",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:cyan_concrete",
+            "name": "text.itemswapper.directory.concrete",
+            "link": "itemswapper:v2/colored_items/concrete",
+            "actAsLink": true
+        }
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/directory_technical"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/tools"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/weapons"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
+        }
+    ]
+}

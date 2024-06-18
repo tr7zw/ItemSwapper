@@ -1,0 +1,44 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.spawnegg_hostile",
+    "icon": "minecraft:slime_spawn_egg",
+    "items": [
+        "minecraft:cave_spider_spawn_egg",
+        "minecraft:creeper_spawn_egg",
+        "minecraft:drowned_spawn_egg",
+        "minecraft:elder_guardian_spawn_egg",
+        "minecraft:enderman_spawn_egg",
+        "minecraft:endermite_spawn_egg",
+        "minecraft:guardian_spawn_egg",
+        "minecraft:husk_spawn_egg",
+        "minecraft:phantom_spawn_egg",
+        "minecraft:shulker_spawn_egg",
+        "minecraft:silverfish_spawn_egg",
+        "minecraft:skeleton_spawn_egg",
+        "minecraft:slime_spawn_egg",
+        "minecraft:spider_spawn_egg",
+        "minecraft:stray_spawn_egg",
+        "minecraft:warden_spawn_egg",
+        "minecraft:wither_skeleton_spawn_egg",
+        "minecraft:zombie_spawn_egg",
+        "minecraft:zombie_horse_spawn_egg",
+        "minecraft:zombie_villager_spawn_egg",
+        "minecraft:ender_dragon_spawn_egg",
+        "minecraft:wither_spawn_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile_raid"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile_nether"
+        }
+    ]
+}

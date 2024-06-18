@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.green",
+    "items": [
+        "minecraft:green_dye",
+        "minecraft:green_concrete_powder",
+        "minecraft:green_concrete",
+        "minecraft:green_terracotta",
+        "minecraft:green_glazed_terracotta",
+        "minecraft:green_wool",
+        "minecraft:green_carpet",
+        "minecraft:green_stained_glass",
+        "minecraft:green_stained_glass_pane",
+        "minecraft:green_candle",
+        "minecraft:green_banner",
+        "minecraft:green_bed"
+    ]
+}

@@ -1,0 +1,32 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.wood.crimson",
+    "items": [
+        "minecraft:crimson_stem",
+        "minecraft:crimson_hyphae",
+        "minecraft:stripped_crimson_stem",
+        "minecraft:stripped_crimson_hyphae",
+        "minecraft:crimson_planks",
+        "minecraft:crimson_stairs",
+        "minecraft:crimson_slab",
+        "minecraft:crimson_trapdoor",
+        "minecraft:crimson_door",
+        "minecraft:crimson_fence_gate",
+        "minecraft:crimson_fence",
+        "minecraft:crimson_sign",
+        "minecraft:crimson_hanging_sign",
+        "minecraft:crimson_button",
+        "minecraft:crimson_pressure_plate"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/warped"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/crimson"
+        }
+    ]
+}

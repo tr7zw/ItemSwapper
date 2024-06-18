@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.stone.moss",
+    "items": [
+        "minecraft:moss_block",
+        "minecraft:moss_carpet",
+        "minecraft:mossy_cobblestone",
+        "minecraft:mossy_cobblestone_stairs",
+        "minecraft:mossy_cobblestone_slab",
+        "minecraft:mossy_cobblestone_wall",
+        "minecraft:mossy_stone_bricks",
+        "minecraft:mossy_stone_brick_stairs",
+        "minecraft:mossy_stone_brick_slab",
+        "minecraft:mossy_stone_brick_wall"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/lush"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stonebrick"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/cobblestone"
+        }
+    ]
+}

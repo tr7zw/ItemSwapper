@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.growable.seeds",
+    "items": [
+        "minecraft:wheat_seeds",
+        "minecraft:pumpkin_seeds",
+        "minecraft:melon_seeds",
+        "minecraft:beetroot_seeds",
+        "minecraft:cocoa_beans",
+        "minecraft:potato",
+        "minecraft:carrot",
+        "minecraft:bamboo",
+        "minecraft:sugar_cane",
+        "minecraft:brown_mushroom",
+        "minecraft:red_mushroom",
+        "minecraft:pitcher_pod",
+        "minecraft:torchflower_seeds",
+        "minecraft:bone_meal"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/growable/seeds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/growable/saplings"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/growable/hoes"
+        }
+    ]
+}

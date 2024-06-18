@@ -1,0 +1,39 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.crafting.misc",
+    "items": [
+        "minecraft:stick",
+        "minecraft:paper",
+        "minecraft:flint",
+        "minecraft:brick",
+        "minecraft:nether_brick",
+        "minecraft:leather",
+        "minecraft:clay_ball",
+        "minecraft:book",
+        "minecraft:slime_ball",
+        "minecraft:bowl",
+        "minecraft:wheat",
+        "minecraft:echo_shard",
+        "minecraft:disc_fragment_5",
+        "minecraft:amethyst_shard",
+        "minecraft:quartz",
+        "minecraft:nautilus_shell",
+        "minecraft:heart_of_the_sea",
+        "minecraft:firework_star"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/misc"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/mob_drops"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/banner_patterns"
+        }
+    ]
+}

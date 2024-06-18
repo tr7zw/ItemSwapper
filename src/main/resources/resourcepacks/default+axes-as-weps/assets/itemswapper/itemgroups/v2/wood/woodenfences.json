@@ -1,0 +1,36 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.wood.woodenfences",
+    "items": [
+        "minecraft:oak_fence",
+        "minecraft:spruce_fence",
+        "minecraft:birch_fence",
+        "minecraft:dark_oak_fence",
+        "minecraft:acacia_fence",
+        "minecraft:jungle_fence",
+        "minecraft:mangrove_fence",
+        "minecraft:warped_fence",
+        "minecraft:crimson_fence",
+        "minecraft:cherry_fence",
+        "minecraft:bamboo_fence"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodentrapdoors"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/doors"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodenfencegate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodenfences"
+        }
+    ]
+}

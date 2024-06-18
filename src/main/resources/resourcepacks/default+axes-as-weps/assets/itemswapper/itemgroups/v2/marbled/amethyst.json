@@ -1,0 +1,29 @@
+{
+    "type": "palette",
+    "priority": 150,
+    "displayName": "text.itemswapper.palette.marbled.amethyst",
+    "icon": "minecraft:amethyst_cluster",
+    "items": [
+        "minecraft:amethyst_block",
+        "minecraft:amethyst_cluster",
+        "minecraft:large_amethyst_bud",
+        "minecraft:medium_amethyst_bud",
+        "minecraft:small_amethyst_bud",
+        "minecraft:calcite",
+        "minecraft:smooth_basalt"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/quartz"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/diorite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/marbled/amethyst"
+        }
+    ]
+}

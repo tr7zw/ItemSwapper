@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.the_depths.basalt",
+    "icon": "minecraft:basalt",
+    "items": [
+        "minecraft:tuff",
+        "minecraft:deepslate",
+        "minecraft:cobbled_deepslate",
+        "minecraft:cobbled_deepslate_stairs",
+        "minecraft:cobbled_deepslate_slab",
+        "minecraft:cobbled_deepslate_wall",
+        "minecraft:basalt",
+        "minecraft:polished_basalt",
+        "minecraft:smooth_basalt"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/basalt"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/deepslate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/blackstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/sculk"
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+{
+    "type": "palette",
+    "priority": 300,
+    "displayName": "text.itemswapper.palette.technical.fluid",
+    "icon": "minecraft:water_bucket",
+    "items": [
+        "minecraft:ice",
+        "minecraft:packed_ice",
+        "minecraft:blue_ice",
+        "minecraft:magma_block",
+        "minecraft:soul_sand",
+        "minecraft:kelp",
+        "minecraft:oak_fence_gate",
+        "minecraft:oak_sign",
+        "minecraft:oak_trapdoor",
+        "minecraft:oak_pressure_plate",
+        "minecraft:chest",
+        "minecraft:honey_block",
+        "minecraft:bucket",
+        "minecraft:water_bucket",
+        "minecraft:sponge",
+        "minecraft:wet_sponge",
+        "minecraft:conduit"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone_functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/triggers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/rail"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/fluid"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/musical"
+        }
+    ]
+}

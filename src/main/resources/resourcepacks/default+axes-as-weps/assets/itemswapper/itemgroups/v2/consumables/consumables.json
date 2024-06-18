@@ -1,0 +1,26 @@
+{
+    "type": "palette",
+    "priority": 10,
+    "displayName": "text.itemswapper.palette.consumables.consumables",
+    "items": [
+        "minecraft:firework_rocket",
+        "minecraft:enchanted_golden_apple",
+        "minecraft:golden_apple",
+        "minecraft:golden_carrot",
+        "minecraft:ender_pearl"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/arrow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/potions"
+        }
+    ]
+}

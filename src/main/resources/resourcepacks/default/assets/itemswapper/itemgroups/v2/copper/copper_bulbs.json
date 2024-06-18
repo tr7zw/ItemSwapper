@@ -1,0 +1,37 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Copper Bulb",
+    "items": [
+        "minecraft:copper_bulb",
+        "minecraft:exposed_copper_bulb",
+        "minecraft:weathered_copper_bulb",
+        "minecraft:oxidized_copper_bulb",
+        "minecraft:waxed_copper_bulb",
+        "minecraft:waxed_exposed_copper_bulb",
+        "minecraft:waxed_weathered_copper_bulb",
+        "minecraft:waxed_oxidized_copper_bulb"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_trapdoor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_grate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_door"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_bulbs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/honeycomb_type"
+        }
+    ]
+}

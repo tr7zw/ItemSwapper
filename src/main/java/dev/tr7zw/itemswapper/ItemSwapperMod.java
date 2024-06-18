@@ -46,9 +46,9 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourcePackActivationType.NORMAL));
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        ResourceLocation.fromNamespaceAndPath("itemswapper", "experimental_addon"), container,
-                        Component.translatable("text.itemswapper.resourcepack.experimental_addon"),
-                        ResourcePackActivationType.DEFAULT_ENABLED));
+                        ResourceLocation.fromNamespaceAndPath("itemswapper", "default+axes-as-weps"), container,
+                        Component.translatable("text.itemswapper.resourcepack.default+axes-as-weps"),
+                        ResourcePackActivationType.NORMAL));
         //#else
         //$$         FabricLoader.getInstance().getModContainer("itemswapper")
         //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
@@ -60,11 +60,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         //$$                        new ResourceLocation("itemswapper", "classic"), container,
         //$$                        Component.translatable("text.itemswapper.resourcepack.classic"),
         //$$                        ResourcePackActivationType.NORMAL));
-        //$$        FabricLoader.getInstance().getModContainer("itemswapper")
-        //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-        //$$                        new ResourceLocation("itemswapper", "experimental_addon"), container,
-        //$$                        Component.translatable("text.itemswapper.resourcepack.experimental_addon"),
-        //$$                        ResourcePackActivationType.DEFAULT_ENABLED));
         //#endif
         //spotless:on
 

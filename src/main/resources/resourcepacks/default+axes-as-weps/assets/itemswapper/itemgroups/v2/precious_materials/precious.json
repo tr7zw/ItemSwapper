@@ -1,0 +1,46 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.precious_materials.precious",
+    "icon": "minecraft:diamond",
+    "items": [
+        "minecraft:coal",
+        "minecraft:charcoal",
+        "minecraft:coal_block",
+        "minecraft:redstone",
+        "minecraft:redstone_block",
+        "minecraft:gold_nugget",
+        "minecraft:gold_ingot",
+        "minecraft:gold_block",
+        "minecraft:copper_ingot",
+        "minecraft:copper_block",
+        "minecraft:iron_nugget",
+        "minecraft:iron_ingot",
+        "minecraft:iron_block",
+        "minecraft:diamond",
+        "minecraft:diamond_block",
+        "minecraft:emerald",
+        "minecraft:emerald_block",
+        "minecraft:lapis_lazuli",
+        "minecraft:lapis_block",
+        "minecraft:netherite_block",
+        "minecraft:netherite_ingot",
+        "minecraft:netherite_scrap",
+        "minecraft:nether_star",
+        "minecraft:dragon_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/ores"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/precious"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/potion_brewing"
+        }
+    ]
+}

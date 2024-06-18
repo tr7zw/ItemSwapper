@@ -1,0 +1,43 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.precious_materials.potion_brewing",
+    "icon": "minecraft:brewing_stand",
+    "items": [
+        "minecraft:blaze_rod",
+        "minecraft:blaze_powder",
+        "minecraft:nether_wart",
+        "minecraft:glass_bottle",
+        "minecraft:potion",
+        "minecraft:brewing_stand",
+        "minecraft:glowstone_dust",
+        "minecraft:redstone",
+        "minecraft:gunpowder",
+        "minecraft:dragon_breath",
+        "minecraft:fermented_spider_eye",
+        "minecraft:sugar",
+        "minecraft:magma_cream",
+        "minecraft:pufferfish",
+        "minecraft:spider_eye",
+        "minecraft:ghast_tear",
+        "minecraft:glistering_melon_slice",
+        "minecraft:golden_carrot",
+        "minecraft:turtle_helmet",
+        "minecraft:rabbit_foot",
+        "minecraft:phantom_membrane"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/ores"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/precious"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/precious_materials/potion_brewing"
+        }
+    ]
+}

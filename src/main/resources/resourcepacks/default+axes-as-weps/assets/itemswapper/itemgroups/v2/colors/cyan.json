@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.cyan",
+    "items": [
+        "minecraft:cyan_dye",
+        "minecraft:cyan_concrete_powder",
+        "minecraft:cyan_concrete",
+        "minecraft:cyan_terracotta",
+        "minecraft:cyan_glazed_terracotta",
+        "minecraft:cyan_wool",
+        "minecraft:cyan_carpet",
+        "minecraft:cyan_stained_glass",
+        "minecraft:cyan_stained_glass_pane",
+        "minecraft:cyan_candle",
+        "minecraft:cyan_banner",
+        "minecraft:cyan_bed"
+    ]
+}

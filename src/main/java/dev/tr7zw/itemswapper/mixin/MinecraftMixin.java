@@ -44,12 +44,15 @@ public class MinecraftMixin {
         return server.isPublished();
     }
 
-//    // FIXME
-//    @Inject(method = "createSearchTrees", at = @At("HEAD"))
-//    private void createSearchTrees(CallbackInfo ci) {
-//        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
-//                .registerReloadListener(new SwapperResourceLoader());
-//    } //TODO fix and find out what this is for
+    //#if MC < 12100
+    @Inject(method = "createSearchTrees", at = @At("HEAD"))
+    private void createSearchTrees(CallbackInfo ci) {
+        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
+                .registerReloadListener(new SwapperResourceLoader());
+    }
+    //#endif
+    //spotless:on
+
 
     @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     private void pickBlock(CallbackInfo ci) {

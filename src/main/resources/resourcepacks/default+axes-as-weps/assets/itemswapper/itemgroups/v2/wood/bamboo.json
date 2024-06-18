@@ -1,0 +1,47 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.wood.bamboo",
+    "icon": "minecraft:bamboo_block",
+    "items": [
+        "minecraft:bamboo",
+        "minecraft:bamboo_block",
+        "minecraft:stripped_bamboo_block",
+        "minecraft:bamboo_planks",
+        "minecraft:bamboo_stairs",
+        "minecraft:bamboo_slab",
+        "minecraft:bamboo_mosaic",
+        "minecraft:bamboo_mosaic_stairs",
+        "minecraft:bamboo_mosaic_slab",
+        "minecraft:bamboo_trapdoor",
+        "minecraft:bamboo_door",
+        "minecraft:bamboo_fence_gate",
+        "minecraft:bamboo_fence",
+        "minecraft:bamboo_sign",
+        "minecraft:bamboo_hanging_sign",
+        "minecraft:bamboo_button",
+        "minecraft:bamboo_pressure_plate"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/acacia"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/jungle"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/mangrove"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/bamboo"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/cherry"
+        }
+    ]
+}

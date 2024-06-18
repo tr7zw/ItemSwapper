@@ -1,0 +1,40 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.nature.natural",
+    "icon": "minecraft:melon",
+    "items": [
+        "minecraft:red_mushroom_block",
+        "minecraft:mushroom_stem",
+        "minecraft:brown_mushroom_block",
+        "minecraft:pumpkin",
+        "minecraft:carved_pumpkin",
+        "minecraft:jack_o_lantern",
+        "minecraft:melon",
+        "minecraft:honeycomb_block",
+        "minecraft:honey_block",
+        "minecraft:hay_block",
+        "minecraft:bone_block",
+        "minecraft:dried_kelp_block",
+        "minecraft:turtle_egg",
+        "minecraft:sniffer_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/natural"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/lush"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/flowers"
+        }
+    ]
+}

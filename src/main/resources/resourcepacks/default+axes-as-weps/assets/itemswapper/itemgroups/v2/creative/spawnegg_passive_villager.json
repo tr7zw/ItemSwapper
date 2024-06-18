@@ -1,0 +1,32 @@
+{
+    "type": "palette",
+    "priority": 30,
+    "displayName": "text.itemswapper.palette.creative.spawnegg_passive_villager",
+    "icon": "minecraft:villager_spawn_egg",
+    "items": [
+        "minecraft:camel_spawn_egg",
+        "minecraft:cat_spawn_egg",
+        "minecraft:iron_golem_spawn_egg",
+        "minecraft:trader_llama_spawn_egg",
+        "minecraft:villager_spawn_egg",
+        "minecraft:wandering_trader_spawn_egg"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_water"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_air"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive_villager"
+        }
+    ]
+}

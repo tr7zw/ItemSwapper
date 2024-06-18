@@ -1,0 +1,19 @@
+{
+    "type": "palette",
+    "priority": 250,
+    "displayName": "text.itemswapper.palette.color.pink",
+    "items": [
+        "minecraft:pink_dye",
+        "minecraft:pink_concrete_powder",
+        "minecraft:pink_concrete",
+        "minecraft:pink_terracotta",
+        "minecraft:pink_glazed_terracotta",
+        "minecraft:pink_wool",
+        "minecraft:pink_carpet",
+        "minecraft:pink_stained_glass",
+        "minecraft:pink_stained_glass_pane",
+        "minecraft:pink_candle",
+        "minecraft:pink_banner",
+        "minecraft:pink_bed"
+    ]
+}

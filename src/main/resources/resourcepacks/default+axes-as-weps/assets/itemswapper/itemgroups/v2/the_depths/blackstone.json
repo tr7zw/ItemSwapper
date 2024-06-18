@@ -1,0 +1,43 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.the_depths.blackstone",
+    "icon": "minecraft:chiseled_polished_blackstone",
+    "items": [
+        "minecraft:blackstone",
+        "minecraft:gilded_blackstone",
+        "minecraft:blackstone_stairs",
+        "minecraft:blackstone_slab",
+        "minecraft:blackstone_wall",
+        "minecraft:chiseled_polished_blackstone",
+        "minecraft:polished_blackstone",
+        "minecraft:polished_blackstone_stairs",
+        "minecraft:polished_blackstone_slab",
+        "minecraft:polished_blackstone_wall",
+        "minecraft:polished_blackstone_bricks",
+        "minecraft:cracked_polished_blackstone_bricks",
+        "minecraft:polished_blackstone_brick_stairs",
+        "minecraft:polished_blackstone_brick_slab",
+        "minecraft:polished_blackstone_brick_wall",
+        "minecraft:polished_blackstone_button",
+        "minecraft:polished_blackstone_pressure_plate"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/basalt"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/deepslate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/blackstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/sculk"
+        }
+    ]
+}

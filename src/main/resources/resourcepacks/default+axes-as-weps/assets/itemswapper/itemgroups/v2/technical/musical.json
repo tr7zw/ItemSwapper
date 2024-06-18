@@ -1,0 +1,101 @@
+{
+    "type": "palette",
+    "priority": 500,
+    "displayName": "text.itemswapper.palette.technical.musical",
+    "icon": "minecraft:note_block",
+    "openOnlyItems": [
+        "minecraft:note_block"
+    ],
+    "items": [
+        {
+            "id": "minecraft:honeycomb_block",
+            "name": "text.itemswapper.item.musical.note_block.harp"
+        },
+        {
+            "id": "minecraft:oak_planks",
+            "name": "text.itemswapper.item.musical.note_block.bass"
+        },
+        {
+            "id": "minecraft:sand",
+            "name": "text.itemswapper.item.musical.note_block.snare"
+        },
+        {
+            "id": "minecraft:glass",
+            "name": "text.itemswapper.item.musical.note_block.hat"
+        },
+        {
+            "id": "minecraft:stone",
+            "name": "text.itemswapper.item.musical.note_block.basedrum"
+        },
+        {
+            "id": "minecraft:gold_block",
+            "name": "text.itemswapper.item.musical.note_block.bell"
+        },
+        {
+            "id": "minecraft:clay",
+            "name": "text.itemswapper.item.musical.note_block.flute"
+        },
+        {
+            "id": "minecraft:packed_ice",
+            "name": "text.itemswapper.item.musical.note_block.chime"
+        },
+        {
+            "id": "minecraft:lime_wool",
+            "name": "text.itemswapper.item.musical.note_block.guitar"
+        },
+        {
+            "id": "minecraft:bone_block",
+            "name": "text.itemswapper.item.musical.note_block.xylophone"
+        },
+        {
+            "id": "minecraft:iron_block",
+            "name": "text.itemswapper.item.musical.note_block.iron_xylophone"
+        },
+        {
+            "id": "minecraft:soul_sand",
+            "name": "text.itemswapper.item.musical.note_block.cow_bell"
+        },
+        {
+            "id": "minecraft:pumpkin",
+            "name": "text.itemswapper.item.musical.note_block.didgeridoo"
+        },
+        {
+            "id": "minecraft:emerald_block",
+            "name": "text.itemswapper.item.musical.note_block.bit"
+        },
+        {
+            "id": "minecraft:hay_block",
+            "name": "text.itemswapper.item.musical.note_block.banjo"
+        },
+        {
+            "id": "minecraft:glowstone",
+            "name": "text.itemswapper.item.musical.note_block.pling"
+        }
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/redstone_functional"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/triggers"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/rail"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/fluid"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/musical"
+        }
+    ]
+}
