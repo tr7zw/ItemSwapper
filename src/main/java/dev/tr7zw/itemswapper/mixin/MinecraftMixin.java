@@ -15,6 +15,8 @@ import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
@@ -42,6 +44,17 @@ public class MinecraftMixin {
         }
         return server.isPublished();
     }
+
+    // spotless:off
+    //#if MC >= 12100
+    //#else
+    //$$@Inject(method = "createSearchTrees", at = @At("HEAD"))
+    //$$private void createSearchTrees(CallbackInfo ci) {
+    //$$    ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
+    //$$            .registerReloadListener(new SwapperResourceLoader());
+    //$$}
+    //#endif
+    //spotless:on
 
     @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     private void pickBlock(CallbackInfo ci) {

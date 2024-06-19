@@ -5,12 +5,17 @@ import java.util.Optional;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
-import dev.tr7zw.itemswapper.manager.ResourceLoaderInit;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
+//spotless:off
+//#if MC >= 12100
+import dev.tr7zw.itemswapper.manager.ResourceLoaderInit;
+//#endif
+//spotless:on
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
+
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -19,6 +24,7 @@ import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
+
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -45,6 +51,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourceLocation.fromNamespaceAndPath("itemswapper", "classic"), container,
                         Component.translatable("text.itemswapper.resourcepack.classic"),
                         ResourcePackActivationType.NORMAL));
+        ResourceLoaderInit.init();
         //#else
         //$$         FabricLoader.getInstance().getModContainer("itemswapper")
         //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
@@ -58,7 +65,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         //$$                        ResourcePackActivationType.NORMAL));
         //#endif
         //spotless:on
-        ResourceLoaderInit.init();
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");

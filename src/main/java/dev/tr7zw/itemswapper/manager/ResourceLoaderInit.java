@@ -1,3 +1,5 @@
+// spotless:off
+//#if MC >= 12100
 package dev.tr7zw.itemswapper.manager;
 
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
@@ -11,3 +13,5 @@ public class ResourceLoaderInit {
                 .registerReloadListener((IdentifiableResourceReloadListener) new SwapperResourceLoader());
     }
 }
+//#endif
+//spotless:on
