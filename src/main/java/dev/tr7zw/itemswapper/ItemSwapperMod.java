@@ -45,11 +45,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourceLocation.fromNamespaceAndPath("itemswapper", "classic"), container,
                         Component.translatable("text.itemswapper.resourcepack.classic"),
                         ResourcePackActivationType.NORMAL));
-        FabricLoader.getInstance().getModContainer("itemswapper")
-                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        ResourceLocation.fromNamespaceAndPath("itemswapper", "default_with_axes_as_weapons"), container,
-                        Component.translatable("text.itemswapper.resourcepack.default_with_axes_as_weapons"),
-                        ResourcePackActivationType.NORMAL));
         //#else
         //$$         FabricLoader.getInstance().getModContainer("itemswapper")
         //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(

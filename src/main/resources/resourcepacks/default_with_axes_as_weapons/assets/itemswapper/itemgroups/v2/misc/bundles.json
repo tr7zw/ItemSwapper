@@ -1,8 +1,0 @@
-{
-    "type": "list",
-    "priority": 100,
-    "displayName": "text.itemswapper.palette.misc.bundles",
-    "items": [
-        "minecraft:bundle"
-    ]
-}

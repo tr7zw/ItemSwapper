@@ -7,6 +7,7 @@ import net.minecraft.server.packs.PackType;
 public class ResourceLoaderInit {
 
     public static void init() {
-        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener((IdentifiableResourceReloadListener) new SwapperResourceLoader());
+        ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
+                .registerReloadListener((IdentifiableResourceReloadListener) new SwapperResourceLoader());
     }
 }
