@@ -55,9 +55,7 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
                 try {
                     InputStream stream = resourceRef.open();
                     JsonElement data = JsonParser.parseReader(new InputStreamReader(stream));
-                    ItemSwapperBase.LOGGER.error(id);
                     String ids = id.toString().replaceFirst("itemgroups/","").replaceFirst(".json","");
-                    ItemSwapperBase.LOGGER.error(ids);
                     Entry<ResourceLocation, JsonElement> entry = new AbstractMap.SimpleEntry<>(ResourceLocation.parse(ids), data);
                     processEntry(entry);
                 } catch (Exception e) {
