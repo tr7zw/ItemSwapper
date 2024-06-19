@@ -13,9 +13,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
-
-    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
+    // spotless:off
+    //#if MC >= 12100
+    private final Icon icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/clear_slot.png"),
             ComponentProvider.translatable("text.itemswapper.clearSlot"));
+    //#else
+    //$$     private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
+    //$$            ComponentProvider.translatable("text.itemswapper.clearSlot"));
+    //#endif
+    //spotless:on
+
     private final Minecraft minecraft = Minecraft.getInstance();
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");
 

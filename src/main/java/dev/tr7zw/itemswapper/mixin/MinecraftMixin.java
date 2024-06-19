@@ -15,12 +15,13 @@ import dev.tr7zw.itemswapper.config.PickBlockMode;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
+
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.client.server.IntegratedServer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ReloadableResourceManager;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.phys.HitResult.Type;
@@ -44,12 +45,16 @@ public class MinecraftMixin {
         return server.isPublished();
     }
 
-    // FIXME
-    @Inject(method = "createSearchTrees", at = @At("HEAD"))
-    private void createSearchTrees(CallbackInfo ci) {
-        ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
-                .registerReloadListener(new SwapperResourceLoader());
-    }
+    // spotless:off
+    //#if MC >= 12100
+    //#else
+    //$$@Inject(method = "createSearchTrees", at = @At("HEAD"))
+    //$$private void createSearchTrees(CallbackInfo ci) {
+    //$$    ((ReloadableResourceManager) Minecraft.getInstance().getResourceManager())
+    //$$            .registerReloadListener(new SwapperResourceLoader());
+    //$$}
+    //#endif
+    //spotless:on
 
     @Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     private void pickBlock(CallbackInfo ci) {
@@ -74,8 +79,15 @@ public class MinecraftMixin {
         if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(player.getMainHandItem().getItem());
-            if (list != null && (list.getId().equals(new ResourceLocation("itemswapper", "v2/weapons"))
-                    || list.getId().equals(new ResourceLocation("itemswapper", "v2/tools")))) {
+            // spotless:off
+            //#if MC >= 12100
+            if (list != null && (list.getId().equals(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/weapons"))
+                    || list.getId().equals(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/tools")))) {
+                //#else
+            //$$ if (list != null && (list.getId().equals(new ResourceLocation("itemswapper", "v2/weapons"))
+            //$$         || list.getId().equals(new ResourceLocation("itemswapper", "v2/tools")))) {
+                //#endif
+                //spotless:on
                 if (ConfigManager.getInstance().getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
                     // skip vanilla logic
                     ci.cancel();

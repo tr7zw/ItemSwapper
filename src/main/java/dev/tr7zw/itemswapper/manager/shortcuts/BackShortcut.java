@@ -9,9 +9,16 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class BackShortcut implements Shortcut {
-
-    private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"),
+    // spotless:off
+    //#if MC >= 12100
+    private final Icon icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/back.png"),
             ComponentProvider.translatable("text.itemswapper.back"));
+    //#else
+    //$$ private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/back.png"),
+    //$$            ComponentProvider.translatable("text.itemswapper.back"));
+    //#endif
+    //spotless:on
+
     private final SwitchItemOverlay overlay;
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.back.tooltip");
 

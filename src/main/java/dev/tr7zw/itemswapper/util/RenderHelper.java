@@ -23,6 +23,12 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
+//spotless:off
+//#if MC >= 12100
+import com.mojang.blaze3d.vertex.ByteBufferBuilder;
+//#endif
+//spotless:on
+
 public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
@@ -66,12 +72,16 @@ public final class RenderHelper {
         renderGuiItemText(font, text, x, y, color);
     }
 
+    // TODO: create mixin for Tesselator to add interface for persistent
+    // builder/byteBuffer to render to, below is cause for memory issues
+    // spotless:off
+    //#if MC >= 12100
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, (400.0F));
             MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                    .immediate(Tesselator.getInstance().getBuilder());
+                    .immediate(new ByteBufferBuilder(16384));
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
                     y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
                     Font.DisplayMode.NORMAL, 0, 15728880);
@@ -84,11 +94,37 @@ public final class RenderHelper {
         String string2 = text;
         poseStack.translate(0.0D, 0.0D, 400.0F);
         MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                .immediate(Tesselator.getInstance().getBuilder());
+                .immediate(new ByteBufferBuilder(16384));
         font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
     }
+    //#else
+    //$$     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
+    //$$        PoseStack poseStack = new PoseStack();
+    //$$        for (int line = 0; line < text.size(); line++) {
+    //$$            poseStack.translate(0.0D, 0.0D, (400.0F));
+    //$$            MultiBufferSource.BufferSource bufferSource = MultiBufferSource
+    //$$                    .immediate(Tesselator.getInstance().getBuilder());
+    //$$            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
+    //$$                    y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
+    //$$                    Font.DisplayMode.NORMAL, 0, 15728880);
+    //$$            bufferSource.endBatch();
+    //$$        }
+    //$$    }
+    //$$
+    //$$    public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
+    //$$        PoseStack poseStack = new PoseStack();
+    //$$        String string2 = text;
+    //$$        poseStack.translate(0.0D, 0.0D, 400.0F);
+    //$$        MultiBufferSource.BufferSource bufferSource = MultiBufferSource
+    //$$                .immediate(Tesselator.getInstance().getBuilder());
+    //$$        font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
+    //$$                Font.DisplayMode.NORMAL, 0, 15728880);
+    //$$        bufferSource.endBatch();
+    //$$    }
+    //#endif
+    //spotless:on
 
     public enum SlotEffect {
         NONE, RED, GRAY

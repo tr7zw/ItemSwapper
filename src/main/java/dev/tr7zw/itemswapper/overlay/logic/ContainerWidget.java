@@ -24,9 +24,16 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
-
-    private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
+    // spotless:off
+    //#if MC >= 12100
+    private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
             "textures/gui/inventory.png");
+    //#else
+    //$$     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
+    //$$            "textures/gui/inventory.png");
+    //#endif
+    //spotless:on
+
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();
     private int slotId;
