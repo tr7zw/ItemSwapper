@@ -17,6 +17,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import dev.tr7zw.itemswapper.ItemSwapperBase;
+import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.ItemSwapperServerMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
@@ -28,52 +30,63 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.util.ComponentProvider;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
+public class SwapperResourceLoader extends ItemSwapperMod {
+    public static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
 
-    public SwapperResourceLoader() {
-        super(GSON, "itemgroups");
-    }
+    public List<ItemGroup.Builder> itemGroups = new ArrayList<>();
+    public List<ItemList.Builder> itemLists = new ArrayList<>();
+    public List<ItemGroupModifier> itemGroupModifiers = new ArrayList<>();
+    public List<ItemListModifier> itemListModifiers = new ArrayList<>();
 
-    @Override
-    protected void apply(Map<ResourceLocation, JsonElement> object, ResourceManager resourceManager, ProfilerFiller profiler) {
-
-    }
-
-    public static void load(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager,
-                         ProfilerFiller profilerFiller) { // WHY U NOT GETTING CALLED :( MIXINS MAKE ME MAD
-        List<ItemGroup.Builder> itemGroups = new ArrayList<>();
-        List<ItemList.Builder> itemLists = new ArrayList<>();
-        List<ItemGroupModifier> itemGroupModifiers = new ArrayList<>();
-        List<ItemListModifier> itemListModifiers = new ArrayList<>();
-        ItemSwapperBase.LOGGER.info("Processing item groups: " + map.keySet());
-        ItemSwapperSharedMod.instance.getItemGroupManager().reset();
-        for (Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
-            processEntry(entry, itemGroups, itemLists, itemGroupModifiers, itemListModifiers);
+    ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleJsonResourceReloadListener(GSON, "itemgroups") {
+        @Override
+        public ResourceLocation getFabricId() {
+            return ResourceLocation.fromNamespaceAndPath("itemswapper", "itemgroups");
         }
-        applyModifications(itemGroupModifiers, itemGroups, itemLists, itemListModifiers);
-        registerItemGroups(itemGroups, itemLists);
-        ItemSwapperBase.LOGGER.info("Loaded swapper pack");
-    }
 
-    private static void processEntry(Entry<ResourceLocation, JsonElement> entry, List<ItemGroup.Builder> itemGroups, List<ItemList.Builder> itemLists, List<ItemGroupModifier> itemGroupModifiers, List<ItemListModifier> itemListModifiers) {
+        @Override
+        public void reload(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager,
+                             ProfilerFiller profilerFiller) {
+            itemGroups.clear();
+            itemGroupModifiers.clear();
+            itemListModifiers.clear();
+            itemLists.clear();
+    //        ItemSwapperBase.LOGGER.info("Processing item groups: " + map.keySet());
+            ItemSwapperSharedMod.instance.getItemGroupManager().reset();
+            for (Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
+                processEntry(entry);
+            }
+            applyModifications();
+            registerItemGroups();
+            itemGroups.clear();
+            itemGroupModifiers.clear();
+            itemListModifiers.clear();
+            itemLists.clear();
+        }
+    });
+
+    private void processEntry(Entry<ResourceLocation, JsonElement> entry) {
         try {
             if (!entry.getKey().getNamespace().equals("itemswapper"))
                 return;
             if (entry.getKey().getPath().startsWith("wheel_combined/")) {
-                processCombined(entry.getKey(), entry.getValue(), itemGroups);
+                processCombined(entry.getKey(), entry.getValue());
                 return;
             }
             if (entry.getKey().getPath().startsWith("v2/")) {
-                processV2(entry.getKey(), entry.getValue(), itemGroupModifiers, itemGroups, itemLists, itemListModifiers);
+                processV2(entry.getKey(), entry.getValue());
                 return;
             }
             Item[] items = getItemArray(entry.getKey(), entry.getValue(), entry.getKey().getPath().startsWith("wheel"));
@@ -94,7 +107,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
     }
 
-    private static void registerItemGroups(List<ItemGroup.Builder> itemGroups, List<ItemList.Builder> itemLists) {
+    private void registerItemGroups() {
         for (int i = 0; i < itemGroups.size(); i++) {
             ItemSwapperSharedMod.instance.getItemGroupManager()
                     .registerItemGroup(itemGroups.get(i).withItems(filterAir(itemGroups.get(i).getItems())).build());
@@ -104,7 +117,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
     }
 
-    private static ItemEntry[] filterAir(ItemEntry[] items) {
+    private ItemEntry[] filterAir(ItemEntry[] items) {
         List<ItemEntry> filteredEntries = new ArrayList<ItemEntry>();
         for (ItemEntry entry : items) {
             if (entry.getItem() != Items.AIR) {
@@ -114,7 +127,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         return filteredEntries.toArray(new ItemEntry[0]);
     }
 
-    private static void applyModifications(List<ItemGroupModifier> itemGroupModifiers, List<ItemGroup.Builder> itemGroups, List<ItemList.Builder> itemLists, List<ItemListModifier> itemListModifiers) {
+    private void applyModifications() {
         for (int i = 0; i < itemGroupModifiers.size(); i++) {
             ItemGroupModifier modifier = itemGroupModifiers.get(i);
             for (ItemGroup.Builder group : itemGroups) {
@@ -153,7 +166,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
     }
 
-    private static void processV2(ResourceLocation jsonLocation, JsonElement json, List<ItemGroupModifier> itemGroupModifiers, List<ItemGroup.Builder> itemGroups, List<ItemList.Builder> itemLists, List<ItemListModifier> itemListModifiers) {
+    private void processV2(ResourceLocation jsonLocation, JsonElement json) {
         if (!json.isJsonObject()) {
             ItemSwapperBase.LOGGER.warn("Invalid data in " + jsonLocation);
             return;
@@ -161,24 +174,24 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         JsonObject obj = json.getAsJsonObject();
         String type = obj.get("type").getAsString();
         if (type.equals("palette")) {
-            processPalette(jsonLocation, obj, itemGroups);
+            processPalette(jsonLocation, obj);
             return;
         }
         if (type.equals("paletteModification")) {
-            processPaletteModification(jsonLocation, obj, itemGroupModifiers);
+            processPaletteModification(jsonLocation, obj);
             return;
         }
         if (type.equals("listModification")) {
-            processListModification(jsonLocation, obj, itemListModifiers);
+            processListModification(jsonLocation, obj);
             return;
         }
         if (type.equals("list")) {
-            processList(jsonLocation, obj, itemLists);
+            processList(jsonLocation, obj);
             return;
         }
     }
 
-    private static void processList(ResourceLocation jsonLocation, JsonObject json, List<ItemList.Builder> itemLists) {
+    private void processList(ResourceLocation jsonLocation, JsonObject json) {
         dev.tr7zw.itemswapper.manager.itemgroups.ItemList.Builder group = ItemList.builder().withId(jsonLocation);
         if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
@@ -208,7 +221,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         itemLists.add(group);
     }
 
-    private static void processPalette(ResourceLocation jsonLocation, JsonObject json, List<ItemGroup.Builder> itemGroups) {
+    private void processPalette(ResourceLocation jsonLocation, JsonObject json) {
         Builder group = ItemGroup.builder().withId(jsonLocation);
         if (json.has("priority") && json.get("priority").isJsonPrimitive()) {
             group.withPriority(json.getAsJsonPrimitive("priority").getAsInt());
@@ -251,7 +264,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         itemGroups.add(group);
     }
 
-    private static void processListModification(ResourceLocation jsonLocation, JsonObject json, List<ItemListModifier> itemListModifiers) {
+    private void processListModification(ResourceLocation jsonLocation, JsonObject json) {
         dev.tr7zw.itemswapper.manager.itemgroups.ItemListModifier.Builder changes = ItemListModifier.builder();
         if (json.has("target") && json.get("target").isJsonPrimitive()) {
             try {
@@ -266,7 +279,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         itemListModifiers.add(changes.build());
     }
 
-    private static void processPaletteModification(ResourceLocation jsonLocation, JsonObject json, List<ItemGroupModifier> itemGroupModifiers) {
+    private void processPaletteModification(ResourceLocation jsonLocation, JsonObject json) {
         dev.tr7zw.itemswapper.manager.itemgroups.ItemGroupModifier.Builder changes = ItemGroupModifier.builder();
         if (json.has("target") && json.get("target").isJsonPrimitive()) {
             try {
@@ -281,7 +294,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         itemGroupModifiers.add(changes.build());
     }
 
-    private static List<Shortcut> processShortcuts(ResourceLocation jsonLocation, JsonElement object) {
+    private List<Shortcut> processShortcuts(ResourceLocation jsonLocation, JsonElement object) {
         if (object == null || !object.isJsonArray()) {
             return Collections.emptyList();
         }
@@ -312,7 +325,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         return shortcuts;
     }
 
-    private static ItemEntry[] processItems(ResourceLocation jsonLocation, JsonElement object) {
+    private ItemEntry[] processItems(ResourceLocation jsonLocation, JsonElement object) {
         if (object == null || !object.isJsonArray()) {
             return null;
         }
@@ -365,7 +378,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         return null;
     }
 
-    private static void processCombined(ResourceLocation jsonLocation, JsonElement json, List<ItemGroup.Builder> itemGroups) {
+    private void processCombined(ResourceLocation jsonLocation, JsonElement json) {
         if (json == null || !json.isJsonArray()) {
             return;
         }
@@ -390,7 +403,7 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
     }
 
-    private static Item[] getItemArray(ResourceLocation jsonLocation, JsonElement json, boolean pallet) {
+    private Item[] getItemArray(ResourceLocation jsonLocation, JsonElement json, boolean pallet) {
         if (json == null || !json.isJsonArray()) {
             return null;
         }
@@ -416,7 +429,6 @@ public class SwapperResourceLoader extends SimpleJsonResourceReloadListener {
         }
         return null;
     }
-
 }
 //#else
 //$$ import java.util.ArrayList;

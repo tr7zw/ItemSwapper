@@ -18,7 +18,7 @@ public class ItemSwapperMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> FALSE = () -> false;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "dev.tr7zw.itemswapper.mixin.SearchTreeMixin", FALSE, "dev.tr7zw.itemswapper.mixin.LitematicaMixin",
+            "dev.tr7zw.itemswapper.mixin.LitematicaMixin",
             () -> FabricLoader.getInstance().isModLoaded("litematica"));
 
     @Override

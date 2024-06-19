@@ -6,7 +6,6 @@
     "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
     "mixins": [
         "PlayerListMixin",
-        "SearchTreeMixin",
         "ServerboundCustomPayloadPacketMixin",
         "ServerGamePacketListenerImplMixin"
     ],
