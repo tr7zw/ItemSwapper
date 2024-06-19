@@ -50,7 +50,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourceLocation.fromNamespaceAndPath("itemswapper", "default_with_axes_as_weapons"), container,
                         Component.translatable("text.itemswapper.resourcepack.default_with_axes_as_weapons"),
                         ResourcePackActivationType.NORMAL));
-        ResourceLoaderInit.init();
         //#else
         //$$         FabricLoader.getInstance().getModContainer("itemswapper")
         //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
@@ -64,6 +63,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         //$$                        ResourcePackActivationType.NORMAL));
         //#endif
         //spotless:on
+        ResourceLoaderInit.init();
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");
