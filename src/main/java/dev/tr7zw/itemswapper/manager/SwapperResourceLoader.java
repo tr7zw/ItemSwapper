@@ -2,23 +2,16 @@ package dev.tr7zw.itemswapper.manager;
 
 //spotless:off
 //#if MC >= 12100
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.*;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.*;
 
 import dev.tr7zw.itemswapper.ItemSwapperBase;
-import dev.tr7zw.itemswapper.ItemSwapperMod;
-import dev.tr7zw.itemswapper.ItemSwapperServerMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
@@ -30,52 +23,59 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.util.ComponentProvider;
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.impl.resource.loader.ResourceManagerHelperImpl;
+import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-public class SwapperResourceLoader extends ItemSwapperMod {
+public class SwapperResourceLoader implements SimpleSynchronousResourceReloadListener {
     public static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().disableHtmlEscaping().create();
-
-    public List<ItemGroup.Builder> itemGroups = new ArrayList<>();
+    public List<Builder> itemGroups = new ArrayList<>();
     public List<ItemList.Builder> itemLists = new ArrayList<>();
     public List<ItemGroupModifier> itemGroupModifiers = new ArrayList<>();
     public List<ItemListModifier> itemListModifiers = new ArrayList<>();
 
-    ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(new SimpleJsonResourceReloadListener(GSON, "itemgroups") {
         @Override
         public ResourceLocation getFabricId() {
             return ResourceLocation.fromNamespaceAndPath("itemswapper", "itemgroups");
         }
 
         @Override
-        public void reload(Map<ResourceLocation, JsonElement> map, ResourceManager resourceManager,
-                             ProfilerFiller profilerFiller) {
+        public CompletableFuture<Void> reload(PreparationBarrier preparationBarrier, ResourceManager resourceManager, ProfilerFiller preparationsProfiler, ProfilerFiller reloadProfiler, Executor backgroundExecutor, Executor gameExecutor) {
             itemGroups.clear();
             itemGroupModifiers.clear();
             itemListModifiers.clear();
             itemLists.clear();
-    //        ItemSwapperBase.LOGGER.info("Processing item groups: " + map.keySet());
-            ItemSwapperSharedMod.instance.getItemGroupManager().reset();
-            for (Entry<ResourceLocation, JsonElement> entry : map.entrySet()) {
-                processEntry(entry);
-            }
-            applyModifications();
-            registerItemGroups();
-            itemGroups.clear();
-            itemGroupModifiers.clear();
-            itemListModifiers.clear();
-            itemLists.clear();
+            resourceManager.listResources("itemgroups", id -> id.getPath().endsWith(".json")).forEach((id, resourceRef) -> {
+                try {
+                    InputStream stream = resourceRef.open();
+                    JsonObject data = JsonParser.parseReader(new InputStreamReader(stream)).getAsJsonObject();
+                    for (String ids : data.keySet()) {
+                        ItemSwapperBase.LOGGER.error(data.toString());
+                        Entry<ResourceLocation, JsonElement> entry = new AbstractMap.SimpleEntry<>(ResourceLocation.fromNamespaceAndPath("itemgroups",data.get("type").getAsString()), data.get("items"));
+                        processEntry(entry);
+                        applyModifications();
+                        registerItemGroups();
+                        itemGroups.clear();
+                        itemGroupModifiers.clear();
+                        itemListModifiers.clear();
+                        itemLists.clear();
+                    }
+                } catch (Exception e) {
+                    ItemSwapperBase.LOGGER.error("Error occurred while loading resource {}. {}", id.toString(), e.toString());
+                }
+            });
+            return new CompletableFuture<Void>();
         }
-    });
+
+    @Override
+    public void onResourceManagerReload(ResourceManager resourceManager) {
+
+    }
+
 
     private void processEntry(Entry<ResourceLocation, JsonElement> entry) {
         try {
@@ -130,7 +130,7 @@ public class SwapperResourceLoader extends ItemSwapperMod {
     private void applyModifications() {
         for (int i = 0; i < itemGroupModifiers.size(); i++) {
             ItemGroupModifier modifier = itemGroupModifiers.get(i);
-            for (ItemGroup.Builder group : itemGroups) {
+            for (Builder group : itemGroups) {
                 if (modifier.getTarget().equals(group.getId())) {
                     List<ItemEntry> entries = new ArrayList<>(Arrays.asList(group.getItems()));
                     if (modifier.getRemoveItems() != null) {
@@ -192,7 +192,7 @@ public class SwapperResourceLoader extends ItemSwapperMod {
     }
 
     private void processList(ResourceLocation jsonLocation, JsonObject json) {
-        dev.tr7zw.itemswapper.manager.itemgroups.ItemList.Builder group = ItemList.builder().withId(jsonLocation);
+        ItemList.Builder group = ItemList.builder().withId(jsonLocation);
         if (json.has("disableAutoLink") && json.get("disableAutoLink").isJsonPrimitive()) {
             group.withDisableAutoLink(json.get("disableAutoLink").getAsBoolean());
         }
@@ -265,7 +265,7 @@ public class SwapperResourceLoader extends ItemSwapperMod {
     }
 
     private void processListModification(ResourceLocation jsonLocation, JsonObject json) {
-        dev.tr7zw.itemswapper.manager.itemgroups.ItemListModifier.Builder changes = ItemListModifier.builder();
+        ItemListModifier.Builder changes = ItemListModifier.builder();
         if (json.has("target") && json.get("target").isJsonPrimitive()) {
             try {
                 changes.withTarget(ResourceLocation.tryParse(json.getAsJsonPrimitive("target").getAsString()));
@@ -280,7 +280,7 @@ public class SwapperResourceLoader extends ItemSwapperMod {
     }
 
     private void processPaletteModification(ResourceLocation jsonLocation, JsonObject json) {
-        dev.tr7zw.itemswapper.manager.itemgroups.ItemGroupModifier.Builder changes = ItemGroupModifier.builder();
+        ItemGroupModifier.Builder changes = ItemGroupModifier.builder();
         if (json.has("target") && json.get("target").isJsonPrimitive()) {
             try {
                 changes.withTarget(ResourceLocation.tryParse(json.getAsJsonPrimitive("target").getAsString()));

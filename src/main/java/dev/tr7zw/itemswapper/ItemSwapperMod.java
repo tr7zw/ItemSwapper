@@ -5,6 +5,7 @@ import java.util.Optional;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
+import dev.tr7zw.itemswapper.manager.ResourceLoaderInit;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
@@ -49,6 +50,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         ResourceLocation.fromNamespaceAndPath("itemswapper", "default_with_axes_as_weapons"), container,
                         Component.translatable("text.itemswapper.resourcepack.default_with_axes_as_weapons"),
                         ResourcePackActivationType.NORMAL));
+        ResourceLoaderInit.init();
         //#else
         //$$         FabricLoader.getInstance().getModContainer("itemswapper")
         //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
