@@ -155,7 +155,6 @@ public final class RenderHelper {
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
-
             graphics.pose().popPose();
         }
     }
