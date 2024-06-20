@@ -250,7 +250,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
                     selectionHandler.getWidgets().get(0).titleYOffset(),
                     selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40,
-                    forceAvailable);
+                    forceAvailable, renderContext);
             if (configManager.getConfig().showTooltips) {
                 selectionHandler.getSelectedWidget().renderSelectedTooltip(this, renderContext,
                         selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX,

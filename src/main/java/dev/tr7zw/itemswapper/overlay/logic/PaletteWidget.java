@@ -94,23 +94,24 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable,
+            RenderContext graphics) {
         ItemEntry slot = itemGroup.getItem(selected.id());
         if (slot == null) {
             return;
         }
         if (slot.isActAsLink()) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
-                    slot.getItem().getDefaultInstance(), false, yOffset, maxWidth);
+                    slot.getItem().getDefaultInstance(), false, yOffset, maxWidth, graphics);
             return;
         }
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
-                    availableSlots.get(0).item(), false, yOffset, maxWidth);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         } else {
             RenderHelper.renderSelectedItemName(RenderHelper.getName(itemGroup.getItem(selected.id())),
-                    slot.getItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth);
+                    slot.getItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth, graphics);
         }
 
     }

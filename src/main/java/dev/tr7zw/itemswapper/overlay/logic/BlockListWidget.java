@@ -91,7 +91,8 @@ public class BlockListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable,
+            RenderContext graphics) {
         if (selected.id() >= blocks.size()) {
             return;
         }
@@ -99,11 +100,12 @@ public class BlockListWidget extends ItemGridWidget {
         List<AvailableSlot> availableSlots = providerManager.findSlotsMatchingItem(item, true, false);
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(availableSlots.get(0).item().getDisplayName(),
-                    availableSlots.get(0).item(), false, yOffset, maxWidth);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         } else {
             RenderHelper.renderSelectedItemName(
                     ItemUtil.getDisplayname(blocks.get(selected.id()).asItem().getDefaultInstance()),
-                    blocks.get(selected.id()).asItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth);
+                    blocks.get(selected.id()).asItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth,
+                    graphics);
         }
 
     }

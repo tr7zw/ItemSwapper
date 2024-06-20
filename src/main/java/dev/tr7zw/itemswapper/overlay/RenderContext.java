@@ -5,6 +5,7 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import lombok.AllArgsConstructor;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
@@ -48,6 +49,15 @@ public class RenderContext {
         //#endif
         // spotless:on
     }
+
+    // spotless:off
+    //#if MC >= 12100
+    public MultiBufferSource.BufferSource getbufferSource()
+    {
+        return guiGraphics.bufferSource();
+    }
+    //#endif
+    // spotless:on
 
     public void blit(ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height,
             int textureWidth, int textureHeight) {
