@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.gui;
 
 import static dev.tr7zw.itemswapper.util.ItemUtil.itemstackToSingleItem;
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,15 +44,8 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 //#endif
 //spotless:on
 
-    // spotless:off
-    //#if MC >= 12100
-    private static final ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(ItemSwapperBase.MODID,
+    private static final ResourceLocation texture = getResourceLocation(ItemSwapperBase.MODID,
             "textures/gui/button.png");
-    //#else
-    //$$ private static final ResourceLocation texture = new ResourceLocation(ItemSwapperBase.MODID,
-    //$$            "textures/gui/button.png");
-    //#endif
-    //spotless:on
 
     private static final int TEXTURE_WIDTH = 10;
     private static final int TEXTURE_HEIGHT = 18;

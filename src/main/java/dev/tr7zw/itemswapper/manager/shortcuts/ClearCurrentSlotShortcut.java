@@ -1,27 +1,22 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.TextureIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.util.ComponentProvider;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Items;
 
 public class ClearCurrentSlotShortcut implements Shortcut {
-    // spotless:off
-    //#if MC >= 12100
-    private final Icon icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/clear_slot.png"),
+
+    private final Icon icon = new TextureIcon(getResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
             ComponentProvider.translatable("text.itemswapper.clearSlot"));
-    //#else
-    //$$     private final Icon icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/clear_slot.png"),
-    //$$            ComponentProvider.translatable("text.itemswapper.clearSlot"));
-    //#endif
-    //spotless:on
 
     private final Minecraft minecraft = Minecraft.getInstance();
     private final Component hoverText = ComponentProvider.translatable("text.itemswapper.clearSlot.tooltip");

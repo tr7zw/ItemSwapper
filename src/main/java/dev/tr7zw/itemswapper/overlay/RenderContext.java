@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import com.mojang.blaze3d.vertex.Tesselator;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
@@ -66,14 +67,15 @@ public class RenderContext {
         // spotless:on
     }
 
-    // spotless:off
-    //#if MC >= 12100
-    public MultiBufferSource.BufferSource getbufferSource()
-    {
+    public MultiBufferSource.BufferSource getbufferSource() {
+        // spotless:off
+        //#if MC >= 12100
         return guiGraphics.bufferSource();
+        //#else
+        //$$ return MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        //#endif
+        // spotless:on
     }
-    //#endif
-    // spotless:on
 
     public void blit(ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height,
             int textureWidth, int textureHeight) {

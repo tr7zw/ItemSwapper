@@ -1,6 +1,8 @@
 package dev.tr7zw.itemswapper.packets;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
@@ -14,13 +16,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public record SwapItemPayload(int inventorySlot, int slot) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
-    // spotless:off
-    //#if MC >= 12100
-    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(ItemSwapperMod.MODID, "swap");
-    //#else
-    //$$     public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "swap");
-    //#endif
-    //spotless:on
+    public static final ResourceLocation ID = getResourceLocation(ItemSwapperMod.MODID, "swap");
 
     @Override
     public ResourceLocation id() {

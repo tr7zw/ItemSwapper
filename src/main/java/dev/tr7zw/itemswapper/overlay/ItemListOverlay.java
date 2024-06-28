@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
@@ -19,6 +20,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.util.ComponentProvider;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -39,39 +41,20 @@ import net.minecraft.client.gui.GuiGraphics;
 //spotless:on
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
-    // spotless:off
-    //#if MC >= 12100
-    private static final ResourceLocation SELECTION_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation SELECTION_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/selection.png");
-    private static final ResourceLocation BOTTOM_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation BOTTOM_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_bottom_slot.png");
-    private static final ResourceLocation MIDDLE_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation MIDDLE_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_middle_slot.png");
-    private static final ResourceLocation TOP_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation TOP_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_top_slot.png");
-    private static final ResourceLocation SINGLE_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation SINGLE_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_single_slot.png");
-    private static final ResourceLocation MIDDLE_TOP_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation MIDDLE_TOP_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_middle_continue_top_slot.png");
-    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_middle_continue_bottom_slot.png");
-    //#else
-    //$$     private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/selection.png");
-    //$$    private static final ResourceLocation BOTTOM_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/list_bottom_slot.png");
-    //$$    private static final ResourceLocation MIDDLE_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/list_middle_slot.png");
-    //$$    private static final ResourceLocation TOP_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/list_top_slot.png");
-    //$$    private static final ResourceLocation SINGLE_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/list_single_slot.png");
-    //$$    private static final ResourceLocation MIDDLE_TOP_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/list_middle_continue_top_slot.png");
-    //$$    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/list_middle_continue_bottom_slot.png");
-    //#endif
-    //spotless:on
 
     private static final double entrySize = 33;
     private static final int yOffset = 75;

@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
@@ -19,20 +20,15 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
-    // spotless:off
-    //#if MC >= 12100
-    private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+
+    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/inventory.png");
-    //#else
-    //$$     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/inventory.png");
-    //#endif
-    //spotless:on
 
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
@@ -46,12 +47,12 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 // spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
+
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
@@ -104,16 +105,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        // spotless:off
-        //#if MC >= 12100
-        shortcutList.add(new LinkShortcut(ResourceLocation.fromNamespaceAndPath("itemswapper", "v2/main"),
+        shortcutList.add(new LinkShortcut(getResourceLocation("itemswapper", "v2/main"),
                 ComponentProvider.translatable("text.itemswapper.overview"), null));
-        //#else
-        //$$         shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"),
-        //$$                ComponentProvider.translatable("text.itemswapper.overview"), null));
-        //#endif
-        //spotless:on
-
     }
 
     public static SwitchItemOverlay createPageOverlay(Page page) {

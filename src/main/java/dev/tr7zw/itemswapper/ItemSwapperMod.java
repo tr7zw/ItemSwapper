@@ -2,18 +2,16 @@ package dev.tr7zw.itemswapper;
 
 import java.util.Optional;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
+import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
-//spotless:off
-//#if MC >= 12100
-import dev.tr7zw.itemswapper.manager.ResourceLoaderInit;
-//#endif
-//spotless:on
+
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
 
 import net.fabricmc.api.ClientModInitializer;
@@ -26,7 +24,6 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.fabricmc.loader.api.ModContainer;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
 
@@ -39,32 +36,16 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
         // Register default resource pack
 
-        // spotless:off
-        //#if MC >= 12100
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        ResourceLocation.fromNamespaceAndPath("itemswapper", "default"), container,
+                        getResourceLocation("itemswapper", "default"), container,
                         Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
         FabricLoader.getInstance().getModContainer("itemswapper")
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        ResourceLocation.fromNamespaceAndPath("itemswapper", "classic"), container,
+                        getResourceLocation("itemswapper", "classic"), container,
                         Component.translatable("text.itemswapper.resourcepack.classic"),
                         ResourcePackActivationType.NORMAL));
-        ResourceLoaderInit.init();
-        //#else
-        //$$         FabricLoader.getInstance().getModContainer("itemswapper")
-        //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-        //$$                        new ResourceLocation("itemswapper", "default"), container,
-        //$$                        Component.translatable("text.itemswapper.resourcepack.default"),
-        //$$                        ResourcePackActivationType.DEFAULT_ENABLED));
-        //$$        FabricLoader.getInstance().getModContainer("itemswapper")
-        //$$                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-        //$$                        new ResourceLocation("itemswapper", "classic"), container,
-        //$$                        Component.translatable("text.itemswapper.resourcepack.classic"),
-        //$$                        ResourcePackActivationType.NORMAL));
-        //#endif
-        //spotless:on
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");
@@ -73,7 +54,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
         FabricLoader.getInstance().getModContainer("vivecraft").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding ViveCraft support...");
-
             Optional<ModContainer> midnightControls = FabricLoader.getInstance().getModContainer("midnightcontrols");
             // To handle case when VR players uses ViveCraft without VR Controllers
             if (midnightControls.isPresent()) {
@@ -87,6 +67,8 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             ItemSwapperBase.LOGGER.info("Adding Amecs-API support!");
             AmecsAPISupport.getInstance().init();
         });
+
+        SwapperResourceLoader.ResourceLoaderInit.init();
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
             NetworkUtil.registerClientCustomPacket(ShulkerSupportPayload.class, ShulkerSupportPayload.ID,

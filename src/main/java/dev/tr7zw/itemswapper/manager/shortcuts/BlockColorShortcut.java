@@ -1,5 +1,6 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
@@ -10,9 +11,9 @@ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ColorUtil;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.util.ComponentProvider;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 
 public class BlockColorShortcut implements Shortcut {
@@ -31,16 +32,8 @@ public class BlockColorShortcut implements Shortcut {
                     .getBlocksByAverageColor(new UnpackedColor[] { ColorUtil.createTetradPalette(color).get(offset) })
                     .get(0).asItem().getDefaultInstance(), displayName);
         } else {
-            // spotless:off
-            //#if MC >= 12100
-            icon = new TextureIcon(ResourceLocation.fromNamespaceAndPath("itemswapper", "textures/gui/paint_brush.png"),
+            icon = new TextureIcon(getResourceLocation("itemswapper", "textures/gui/paint_brush.png"),
                     ComponentProvider.translatable("text.itemswapper.openPalette"));
-            //#else
-            //$$ icon = new TextureIcon(new ResourceLocation("itemswapper", "textures/gui/paint_brush.png"),
-            //$$                    ComponentProvider.translatable("text.itemswapper.openPalette"));
-            //#endif
-            //spotless:on
-
         }
     }
 

@@ -3,22 +3,18 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.Collections;
 import java.util.List;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class HotbarWidget extends InventoryAbstractWidget {
-    // spotless:off
-    //#if MC >= 12100
-    private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
+
+    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/hotbar.png");
-    //#else
-    //$$     private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/hotbar.png");
-    //#endif
-    //spotless:on
 
     public HotbarWidget(int x, int y) {
         super(x, y);

@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
@@ -13,23 +14,16 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
-import net.minecraft.client.gui.GuiGraphics;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 
 public class BlockListWidget extends ItemGridWidget {
-    // spotless:off
-    //#if MC >= 12100
-    private static final ResourceLocation BACKGROUND_LOCATION = ResourceLocation.fromNamespaceAndPath("itemswapper",
-            "textures/gui/inventory.png");
-    //#else
-    //$$ private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
-    //$$            "textures/gui/inventory.png");
-    //#endif
-    //spotless:on
 
+    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
+            "textures/gui/inventory.png");
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();
     private List<Block> blocks;

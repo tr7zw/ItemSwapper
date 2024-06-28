@@ -23,12 +23,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-//spotless:off
-//#if MC >= 12100
-import com.mojang.blaze3d.vertex.ByteBufferBuilder;
-//#endif
-//spotless:on
-
 public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
@@ -60,8 +54,6 @@ public final class RenderHelper {
         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
 
-    // spotless:off
-    //#if MC >= 12100
     public static void renderGuiItemCount(Font font, String text, int i, int j, int color, RenderContext graphics) {
         renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color, graphics);
     }
@@ -70,11 +62,13 @@ public final class RenderHelper {
         renderGuiItemText(font, text, (i - font.width(text) / 2), j, color, graphics);
     }
 
-    public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color, RenderContext graphics) {
+    public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color,
+            RenderContext graphics) {
         renderGuiItemText(font, text, x, y, color, graphics);
     }
 
-    public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color, RenderContext graphics) {
+    public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color,
+            RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
@@ -95,43 +89,6 @@ public final class RenderHelper {
                 Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
     }
-    //#else
-    //$$ public static void renderGuiItemCount(Font font, String text, int i, int j, int color, RenderContext graphics) {
-    //$$     renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color, graphics);
-    //$$ }
-    //$$
-    //$$ public static void renderGuiItemName(Font font, String text, int i, int j, int color, RenderContext graphics) {
-    //$$     renderGuiItemText(font, text, (i - font.width(text) / 2), j, color, graphics);
-    //$$ }
-    //$$
-    //$$ public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color, RenderContext graphics) {
-    //$$     renderGuiItemText(font, text, x, y, color, graphics);
-    //$$ }
-    //$$     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color, RenderContext graphics) {
-    //$$        PoseStack poseStack = new PoseStack();
-    //$$        for (int line = 0; line < text.size(); line++) {
-    //$$            poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
-    //$$            MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-    //$$                    .immediate(Tesselator.getInstance().getBuilder());
-    //$$            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
-    //$$                    y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
-    //$$                    Font.DisplayMode.NORMAL, 0, 15728880);
-    //$$            bufferSource.endBatch();
-    //$$        }
-    //$$    }
-    //$$
-    //$$ public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
-    //$$     PoseStack poseStack = new PoseStack();
-    //$$     String string2 = text;
-    //$$     poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
-    //$$     MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-    //$$             .immediate(Tesselator.getInstance().getBuilder());
-    //$$     font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
-    //$$             Font.DisplayMode.NORMAL, 0, 15728880);
-    //$$     bufferSource.endBatch();
-    //$$ }
-    //#endif
-    //spotless:on
 
     public enum SlotEffect {
         NONE, RED, GRAY
