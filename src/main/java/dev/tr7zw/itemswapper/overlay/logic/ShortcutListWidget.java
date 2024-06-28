@@ -49,7 +49,8 @@ public class ShortcutListWidget extends ItemGridWidget {
             itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, item.item(), 1,
                     grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
         } else if (icon instanceof TextureIcon texture) {
-            graphics.blit(texture.texture(), x - 1, y, 200, 0, 0, 24, 24, 24, 24);
+            graphics.pose().translate(0, 0, RenderContext.LAYERS_ITEM);
+            graphics.blit(texture.texture(), x - 1, y, 0, 0, 24, 24, 24, 24);
         }
     }
 
@@ -91,7 +92,7 @@ public class ShortcutListWidget extends ItemGridWidget {
         Shortcut shortcut = list.get(selected.id());
         if (shortcut.getHoverText() != null) {
             graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 100);
+            graphics.pose().translate(0, 0, RenderContext.LAYERS_TOOLTIP);
             graphics.renderTooltip(minecraft.font, minecraft.font.split(shortcut.getHoverText(), 170), (int) x,
                     (int) y);
             graphics.pose().popPose();

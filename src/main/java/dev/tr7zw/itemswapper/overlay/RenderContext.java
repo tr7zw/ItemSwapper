@@ -31,6 +31,22 @@ public class RenderContext {
     @SuppressWarnings("unused")
     private final static Minecraft minecraft = Minecraft.getInstance();
 
+    // spotless:off
+    //#if MC >= 12000
+    public static final int LAYERS_BACKGROUND = 0;
+    public static final int LAYERS_SELECTION = 300;
+    public static final int LAYERS_ITEM = 2000;
+    public static final int LAYERS_TOOLTIP = 3000;
+    public static final int LAYERS_CURSOR = 4000;
+    //#else
+    //$$ public static final int LAYERS_BACKGROUND = 0;
+    //$$ public static final int LAYERS_SELECTION = 1;
+    //$$ public static final int LAYERS_ITEM = 2;
+    //$$ public static final int LAYERS_TOOLTIP = 400;
+    //$$ public static final int LAYERS_CURSOR = 450;
+    //#endif
+    //spotless:on
+
     // spotless:off 
     //#if MC >= 12000
     private final GuiGraphics guiGraphics;
@@ -67,7 +83,7 @@ public class RenderContext {
         //#else
         //$$ RenderSystem.setShader(GameRenderer::getPositionTexShader);
         //$$ RenderSystem.setShaderTexture(0, atlasLocation);
-        //$$ screen.blit(pose, x, y, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        //$$ screen.blit(pose, x, y, 0, uOffset, vOffset, width, height, textureWidth, textureHeight);
         //#endif
         // spotless:on
     }

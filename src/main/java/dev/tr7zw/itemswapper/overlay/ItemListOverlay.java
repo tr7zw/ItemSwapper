@@ -209,17 +209,16 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         // dummy item code
         AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
-            itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
                 graphics.pose().pushPose();
-                graphics.pose().translate(0, 0, 300);
+                graphics.pose().translate(0, 0, RenderContext.LAYERS_SELECTION);
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 graphics.pose().popPose();
             });
         }
-        itemRenderList.add(() -> {
+        lateRenderList.add(() -> {
             graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 2000);
+            graphics.pose().translate(0, 0, RenderContext.LAYERS_ITEM);
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             graphics.pose().popPose();
             var name = ItemUtil.getDisplayname(slot.item());

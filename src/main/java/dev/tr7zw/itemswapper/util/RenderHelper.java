@@ -77,7 +77,7 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color, RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
-            poseStack.translate(0.0D, 0.0D, (400.0F));
+            poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
             MultiBufferSource.BufferSource bufferSource = graphics.getbufferSource();
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
                     y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
@@ -89,7 +89,7 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
-        poseStack.translate(0.0D, 0.0D, 400.0F);
+        poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
         MultiBufferSource.BufferSource bufferSource = graphics.getbufferSource();
         font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
@@ -110,7 +110,7 @@ public final class RenderHelper {
     //$$     public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color, RenderContext graphics) {
     //$$        PoseStack poseStack = new PoseStack();
     //$$        for (int line = 0; line < text.size(); line++) {
-    //$$            poseStack.translate(0.0D, 0.0D, (400.0F));
+    //$$            poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
     //$$            MultiBufferSource.BufferSource bufferSource = MultiBufferSource
     //$$                    .immediate(Tesselator.getInstance().getBuilder());
     //$$            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
@@ -123,7 +123,7 @@ public final class RenderHelper {
     //$$ public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
     //$$     PoseStack poseStack = new PoseStack();
     //$$     String string2 = text;
-    //$$     poseStack.translate(0.0D, 0.0D, 400.0F);
+    //$$     poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
     //$$     MultiBufferSource.BufferSource bufferSource = MultiBufferSource
     //$$             .immediate(Tesselator.getInstance().getBuilder());
     //$$     font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
