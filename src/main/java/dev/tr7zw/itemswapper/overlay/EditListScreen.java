@@ -10,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.ObjectSelectionList;
-import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -21,6 +20,13 @@ import net.minecraft.network.chat.FormattedText;
 import net.minecraft.client.gui.GuiGraphics;
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
+//#endif
+//spotless:on
+//spotless:off
+//#if MC >= 12100
+import net.minecraft.client.gui.screens.options.OptionsSubScreen;
+//#else
+//$$ import net.minecraft.client.gui.screens.OptionsSubScreen;
 //#endif
 //spotless:on
 
@@ -54,6 +60,15 @@ public class EditListScreen extends OptionsSubScreen {
         }).bounds(this.width / 2 - 155 + 160, this.height - 38, 150, 20).build());
         super.init();
     }
+
+    // spotless:off
+    //#if MC >= 12100
+    @Override
+    protected void addOptions() {
+
+    }
+    //#endif
+    //spotless:on
 
     // spotless:off 
   //#if MC >= 12000

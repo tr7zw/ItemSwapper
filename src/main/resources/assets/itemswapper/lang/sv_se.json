@@ -50,7 +50,6 @@
     "text.itemswapper.restockAll.tooltip": "Fyll på föremålsstaplar i förrådet med hjälp av föremål från behållare.",
     "text.itemswapper.resourcepack.classic": "Föremålsväxlare Klassisktpaket",
     "text.itemswapper.resourcepack.default": "Föremålsväxlare Standardpaket",
-    "text.itemswapper.resourcepack.experimental_addon": "Föremålsväxlare Standardpaket 1.21 Föremålstillägg",
     "text.itemswapper.whitelist": "Vitlista",
     "text.itemswapper.blacklist": "Svartlista",
     "text.itemswapper.remove": "Ta Bort",

@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
@@ -13,7 +14,7 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
-import net.minecraft.client.gui.GuiGraphics;
+
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -21,7 +22,7 @@ import net.minecraft.world.level.block.Block;
 
 public class BlockListWidget extends ItemGridWidget {
 
-    private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/inventory.png");
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();
@@ -84,7 +85,8 @@ public class BlockListWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable,
+            RenderContext graphics) {
         if (selected.id() >= blocks.size()) {
             return;
         }
@@ -92,11 +94,12 @@ public class BlockListWidget extends ItemGridWidget {
         List<AvailableSlot> availableSlots = providerManager.findSlotsMatchingItem(item, true, false);
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(availableSlots.get(0).item().getDisplayName(),
-                    availableSlots.get(0).item(), false, yOffset, maxWidth);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         } else {
             RenderHelper.renderSelectedItemName(
                     ItemUtil.getDisplayname(blocks.get(selected.id()).asItem().getDefaultInstance()),
-                    blocks.get(selected.id()).asItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth);
+                    blocks.get(selected.id()).asItem().getDefaultInstance(), !overwrideAvailable, yOffset, maxWidth,
+                    graphics);
         }
 
     }

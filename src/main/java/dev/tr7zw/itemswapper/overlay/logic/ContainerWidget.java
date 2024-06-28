@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
@@ -19,14 +20,16 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
 
-    private static final ResourceLocation BACKGROUND_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/inventory.png");
+
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();
     private int slotId;
@@ -101,11 +104,12 @@ public class ContainerWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable,
+            RenderContext graphics) {
         List<AvailableSlot> availableSlots = getItem(selected.id());
         if (!availableSlots.isEmpty() && !overwrideAvailable) {
             RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(availableSlots.get(0).item()),
-                    availableSlots.get(0).item(), false, yOffset, maxWidth);
+                    availableSlots.get(0).item(), false, yOffset, maxWidth, graphics);
         }
     }
 

@@ -6,23 +6,23 @@
     "plugin": "dev.tr7zw.itemswapper.compat.ItemSwapperMixinPlugin",
     "mixins": [
         "PlayerListMixin",
-        "ServerGamePacketListenerImplMixin",
-        "ServerboundCustomPayloadPacketMixin"
+        "ServerboundCustomPayloadPacketMixin",
+        "ServerGamePacketListenerImplMixin"
     ],
     "client": [
-        "MouseHandlerMixin",
-        "MinecraftMixin",
-        "ClientPacketListenerMixin",
-        "ClientLevelMixin",
         "AbstractContainerScreenMixin",
+        "ClientboundCustomPayloadPacketMixin",
+        "ClientLevelMixin",
+        "ClientPacketListenerMixin",
         "ContainerScreenMixin",
-        "RecordItemMixin",
         "InstrumentItemMixin",
         "KeyboardHandlerMixin",
         "KeyMappingMixin",
-        "SmithingTemplateItemMixin",
         "LitematicaMixin",
-        "ClientboundCustomPayloadPacketMixin",
+        "MinecraftMixin",
+        "MouseHandlerMixin",
+        "RecordItemMixin",
+        "SmithingTemplateItemMixin",
         "SpriteContentsMixin"
     ],
     "injectors": {

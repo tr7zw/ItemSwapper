@@ -1,0 +1,37 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "Copper Trapdoor",
+    "items": [
+        "minecraft:copper_trapdoor",
+        "minecraft:exposed_copper_trapdoor",
+        "minecraft:weathered_copper_trapdoor",
+        "minecraft:oxidized_copper_trapdoor",
+        "minecraft:waxed_copper_trapdoor",
+        "minecraft:waxed_exposed_copper_trapdoor",
+        "minecraft:waxed_weathered_copper_trapdoor",
+        "minecraft:waxed_oxidized_copper_trapdoor"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_trapdoor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_grate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_door"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_bulbs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/honeycomb_type"
+        }
+    ]
+}

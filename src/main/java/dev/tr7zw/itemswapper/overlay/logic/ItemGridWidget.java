@@ -55,14 +55,15 @@ public abstract class ItemGridWidget implements GuiWidget {
           //#if MC >= 12002
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
           //#else
-          //$$ graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);   
+          //$$ graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
           //#endif
           //spotless:on
         }
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-            graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 200, 0, 0, 24, 24, 24, 24);
+            graphics.pose().translate(0, 0, RenderContext.LAYERS_SELECTION);
+            graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);
         }
         renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);
     }

@@ -1,6 +1,0 @@
-{
-  "pack": {
-    "pack_format": ${pack_format_number},
-    "description": "Add 1.21 experimental items to ItemSwapper"
-  }
-}

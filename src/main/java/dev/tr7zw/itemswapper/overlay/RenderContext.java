@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import com.mojang.blaze3d.vertex.Tesselator;
 import lombok.AllArgsConstructor;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
@@ -30,6 +32,22 @@ public class RenderContext {
     @SuppressWarnings("unused")
     private final static Minecraft minecraft = Minecraft.getInstance();
 
+    // spotless:off
+    //#if MC >= 12000
+    public static final int LAYERS_BACKGROUND = 0;
+    public static final int LAYERS_SELECTION = 300;
+    public static final int LAYERS_ITEM = 2000;
+    public static final int LAYERS_TOOLTIP = 3000;
+    public static final int LAYERS_CURSOR = 4000;
+    //#else
+    //$$ public static final int LAYERS_BACKGROUND = 0;
+    //$$ public static final int LAYERS_SELECTION = 1;
+    //$$ public static final int LAYERS_ITEM = 2;
+    //$$ public static final int LAYERS_TOOLTIP = 400;
+    //$$ public static final int LAYERS_CURSOR = 450;
+    //#endif
+    //spotless:on
+
     // spotless:off 
     //#if MC >= 12000
     private final GuiGraphics guiGraphics;
@@ -49,6 +67,16 @@ public class RenderContext {
         // spotless:on
     }
 
+    public MultiBufferSource.BufferSource getbufferSource() {
+        // spotless:off
+        //#if MC >= 12100
+        return guiGraphics.bufferSource();
+        //#else
+        //$$ return MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        //#endif
+        // spotless:on
+    }
+
     public void blit(ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height,
             int textureWidth, int textureHeight) {
         // spotless:off 
@@ -57,7 +85,7 @@ public class RenderContext {
         //#else
         //$$ RenderSystem.setShader(GameRenderer::getPositionTexShader);
         //$$ RenderSystem.setShaderTexture(0, atlasLocation);
-        //$$ screen.blit(pose, x, y, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        //$$ screen.blit(pose, x, y, 0, uOffset, vOffset, width, height, textureWidth, textureHeight);
         //#endif
         // spotless:on
     }

@@ -15,7 +15,14 @@ import net.minecraft.client.server.IntegratedPlayerList;
 import net.minecraft.server.Bootstrap;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.item.InstrumentItem;
-import net.minecraft.world.item.RecordItem;
+
+//spotless:off
+//#if MC >= 12100
+import net.minecraft.world.item.Items;
+//#else
+//$$ import net.minecraft.world.item.RecordItem;
+//#endif
+//spotless:on
 
 public class MixinTests {
 
@@ -35,7 +42,13 @@ public class MixinTests {
         objenesis.newInstance(Minecraft.class);
         objenesis.newInstance(MouseHandler.class);
         objenesis.newInstance(IntegratedPlayerList.class);
-        objenesis.newInstance(RecordItem.class);
+        // spotless:off
+        //#if MC >= 12100
+        objenesis.newInstance(Items.class);
+        //#else
+        //$$ objenesis.newInstance(RecordItem.class);
+        //#endif
+        //spotless:on
         objenesis.newInstance(ServerGamePacketListenerImpl.class);
     }
 
