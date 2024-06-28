@@ -4,10 +4,7 @@ import java.util.Set;
 
 import dev.tr7zw.itemswapper.accessor.ItemVariantAccess;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
-import dev.tr7zw.itemswapper.mixin.RecordItemMixin;
 import dev.tr7zw.util.ComponentProvider;
-import net.fabricmc.fabric.mixin.item.ItemAccessor;
-import net.fabricmc.fabric.mixin.itemgroup.ItemGroupAccessor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;

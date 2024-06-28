@@ -1,12 +1,9 @@
 package dev.tr7zw.itemswapper.mixin;
 
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
-import net.minecraft.core.component.DataComponents;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 import dev.tr7zw.itemswapper.accessor.ItemVariantAccess;
 
@@ -22,6 +19,7 @@ import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import net.minecraft.core.component.DataComponents;
 
 @Mixin(Items.class)
 public class RecordItemMixin implements ItemVariantAccess {
@@ -44,6 +42,8 @@ public class RecordItemMixin implements ItemVariantAccess {
 //#else
 //$$ import net.minecraft.sounds.SoundEvent;
 //$$ import net.minecraft.world.item.RecordItem;
+//$$ import java.util.Map;
+//$$ import org.spongepowered.asm.mixin.Shadow;
 //$$
 //$$ @Mixin(RecordItem.class)
 //$$ public class RecordItemMixin implements ItemVariantAccess {
