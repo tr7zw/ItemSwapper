@@ -54,24 +54,25 @@ public final class RenderHelper {
         blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
 
-    public static void renderGuiItemCount(Font font, String text, int i, int j, int color) {
-        renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color);
+    public static void renderGuiItemCount(Font font, String text, int i, int j, int color, RenderContext graphics) {
+        renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color, graphics);
     }
 
-    public static void renderGuiItemName(Font font, String text, int i, int j, int color) {
-        renderGuiItemText(font, text, (i - font.width(text) / 2), j, color);
+    public static void renderGuiItemName(Font font, String text, int i, int j, int color, RenderContext graphics) {
+        renderGuiItemText(font, text, (i - font.width(text) / 2), j, color, graphics);
     }
 
-    public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
-        renderGuiItemText(font, text, x, y, color);
+    public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color,
+            RenderContext graphics) {
+        renderGuiItemText(font, text, x, y, color, graphics);
     }
 
-    public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color) {
+    public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color,
+            RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
-            poseStack.translate(0.0D, 0.0D, (400.0F));
-            MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                    .immediate(Tesselator.getInstance().getBuilder());
+            poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
+            MultiBufferSource.BufferSource bufferSource = graphics.getbufferSource();
             font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
                     y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
                     Font.DisplayMode.NORMAL, 0, 15728880);
@@ -79,12 +80,11 @@ public final class RenderHelper {
         }
     }
 
-    public static void renderGuiItemText(Font font, String text, int i, int j, int color) {
+    public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
-        poseStack.translate(0.0D, 0.0D, 400.0F);
-        MultiBufferSource.BufferSource bufferSource = MultiBufferSource
-                .immediate(Tesselator.getInstance().getBuilder());
+        poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
+        MultiBufferSource.BufferSource bufferSource = graphics.getbufferSource();
         font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
                 Font.DisplayMode.NORMAL, 0, 15728880);
         bufferSource.endBatch();
@@ -111,7 +111,7 @@ public final class RenderHelper {
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
-                RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color);
+                RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
             graphics.pose().popPose();
         }
     }
@@ -147,11 +147,11 @@ public final class RenderHelper {
     }
 
     public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY,
-            int maxWidth) {
+            int maxWidth, RenderContext graphics) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
-        // spotless:off 
+        // spotless:off
         //#if MC <= 12004
         //$$ ChatFormatting rarityColor = arg2.getRarity().color;
         //#else
@@ -167,10 +167,11 @@ public final class RenderHelper {
             color = rarityColor.getColor();
         }
         RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
-                originY - (offsetY / 2) - 12, color);
+                originY - (offsetY / 2) - 12, color, graphics);
     }
 
-    public static void renderSelectedEntryName(Component comp, boolean grayOut, int offsetY, int maxWidth) {
+    public static void renderSelectedEntryName(Component comp, boolean grayOut, int offsetY, int maxWidth,
+            RenderContext graphics) {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         int color = 0xFFFFFF;
@@ -178,7 +179,7 @@ public final class RenderHelper {
             color = 0xAAAAAA;
         }
         RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
-                originY - (offsetY / 2) - 12, color);
+                originY - (offsetY / 2) - 12, color, graphics);
     }
 
 }

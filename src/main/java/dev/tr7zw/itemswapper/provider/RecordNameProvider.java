@@ -14,8 +14,13 @@ public class RecordNameProvider implements NameProvider {
 
     @Override
     public Set<Item> getItemHandlers() {
-        // TODO late init this, so other mods music discs are loaded?
-        return ((ItemVariantAccess) (Object) Items.MUSIC_DISC_CAT).getAllItemVariants();
+        // spotless:off
+        //#if MC >= 12100
+        return ((ItemVariantAccess) (Object) new Items()).getAllItemVariants();
+        //#else
+        //$$ return ((ItemVariantAccess) (Object) Items.MUSIC_DISC_CAT).getAllItemVariants();
+        //#endif
+        //spotless:on
     }
 
     @Override

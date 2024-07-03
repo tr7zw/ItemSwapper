@@ -92,7 +92,8 @@ public class ListContentWidget extends ItemGridWidget {
     }
 
     @Override
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable) {
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable,
+            RenderContext graphics) {
         if (selected.id() > entries.size() - 1) {
             return;
         }
@@ -100,8 +101,8 @@ public class ListContentWidget extends ItemGridWidget {
         if (slot == null) {
             return;
         }
-        RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()), slot.item(), false, yOffset,
-                maxWidth);
+        RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(slot.item()), slot.item(), false, yOffset, maxWidth,
+                graphics);
 
     }
 

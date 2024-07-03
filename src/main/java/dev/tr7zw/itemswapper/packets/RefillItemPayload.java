@@ -1,12 +1,15 @@
 package dev.tr7zw.itemswapper.packets;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 //spotless:off 
 //#if MC >= 12002
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+
 //#else
 //$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 //#endif
@@ -14,7 +17,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public record RefillItemPayload(int slot) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
-    public static final ResourceLocation ID = new ResourceLocation(ItemSwapperMod.MODID, "refill");
+    public static final ResourceLocation ID = getResourceLocation(ItemSwapperMod.MODID, "refill");
 
     @Override
     public ResourceLocation id() {

@@ -14,7 +14,8 @@ public interface GuiWidget {
 
     public void render(Screen parent, RenderContext graphics, int originX, int originY, boolean overwrideAvailable);
 
-    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable);
+    public void renderSelectedSlotName(GuiSlot selected, int yOffset, int maxWidth, boolean overwrideAvailable,
+            RenderContext graphics);
 
     public default void renderSelectedTooltip(SwitchItemOverlay overlay, RenderContext graphics, GuiSlot selected,
             double x, double y) {

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
@@ -46,12 +47,12 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 // spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
+
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
@@ -104,7 +105,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         }
         shortcutList.add(new OpenInventoryShortcut(this));
         shortcutList.add(new BackShortcut(this));
-        shortcutList.add(new LinkShortcut(new ResourceLocation("itemswapper", "v2/main"),
+        shortcutList.add(new LinkShortcut(getResourceLocation("itemswapper", "v2/main"),
                 ComponentProvider.translatable("text.itemswapper.overview"), null));
     }
 
@@ -242,7 +243,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             selectionHandler.getSelectedWidget().renderSelectedSlotName(selectionHandler.getSelectedSlot(),
                     selectionHandler.getWidgets().get(0).titleYOffset(),
                     selectionHandler.getWidgets().get(0).getWidgetArea().getBackgroundTextureSizeX() - 40,
-                    forceAvailable);
+                    forceAvailable, renderContext);
             if (configManager.getConfig().showTooltips) {
                 selectionHandler.getSelectedWidget().renderSelectedTooltip(this, renderContext,
                         selectionHandler.getSelectedSlot(), selectionHandler.getCursorX() + originX,
@@ -254,12 +255,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                 && !ControlifySupport.getInstance().isActive(this)) {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             renderContext.pose().pushPose();
-            // spotless:off
-            //#if MC >= 12000
-            // for some reason this used to work on 1.19.4, now it doesn't. Who knows
-            renderContext.pose().translate(0, 0, 1000);
-            //#endif
-            // spotless:on
+            renderContext.pose().translate(0, 0, RenderContext.LAYERS_CURSOR);
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             renderContext.pose().popPose();

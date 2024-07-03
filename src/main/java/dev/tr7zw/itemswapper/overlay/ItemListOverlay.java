@@ -6,6 +6,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
+import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
@@ -19,6 +20,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.util.ComponentProvider;
+
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
@@ -39,21 +41,21 @@ import net.minecraft.client.gui.GuiGraphics;
 //spotless:on
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
-
-    private static final ResourceLocation SELECTION_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation SELECTION_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/selection.png");
-    private static final ResourceLocation BOTTOM_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation BOTTOM_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_bottom_slot.png");
-    private static final ResourceLocation MIDDLE_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation MIDDLE_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_middle_slot.png");
-    private static final ResourceLocation TOP_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation TOP_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_top_slot.png");
-    private static final ResourceLocation SINGLE_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation SINGLE_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_single_slot.png");
-    private static final ResourceLocation MIDDLE_TOP_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation MIDDLE_TOP_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_middle_continue_top_slot.png");
-    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = new ResourceLocation("itemswapper",
+    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/list_middle_continue_bottom_slot.png");
+
     private static final double entrySize = 33;
     private static final int yOffset = 75;
     private static final int slotSize = 18;
@@ -190,17 +192,16 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         // dummy item code
         AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
-            itemRenderList = lateRenderList;
             lateRenderList.add(() -> {
                 graphics.pose().pushPose();
-                graphics.pose().translate(0, 0, 300);
+                graphics.pose().translate(0, 0, RenderContext.LAYERS_SELECTION);
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 graphics.pose().popPose();
             });
         }
-        itemRenderList.add(() -> {
+        lateRenderList.add(() -> {
             graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 2000);
+            graphics.pose().translate(0, 0, RenderContext.LAYERS_ITEM);
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             graphics.pose().popPose();
             var name = ItemUtil.getDisplayname(slot.item());
