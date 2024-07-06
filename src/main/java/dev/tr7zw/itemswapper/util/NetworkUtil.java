@@ -80,6 +80,29 @@ public class NetworkUtil {
         //spotless:on
     }
 
+    public static <T extends CustomPacketPayload> void registerServerCustomPacket(Class<T> type, ResourceLocation id,
+            Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder) {
+        // spotless:off 
+        //#if MC > 12005
+        if(PayloadTypeRegistryImpl.PLAY_C2S.get(id) == null) {
+            PayloadTypeRegistryImpl.PLAY_C2S.register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
+    
+                @Override
+                public T decode(FriendlyByteBuf buffer) {
+                    return streamMemberEncoder.apply(buffer);
+                }
+    
+                @Override
+                public void encode(FriendlyByteBuf buffer, T object) {
+                    streamDecoder.accept(object, buffer);
+                }
+    
+            });
+        }
+        //#endif
+        //spotless:on
+    }
+    
     public static <T extends CustomPacketPayload> void registerClientCustomPacket(Class<T> type, ResourceLocation id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
             Consumer<T> action) {

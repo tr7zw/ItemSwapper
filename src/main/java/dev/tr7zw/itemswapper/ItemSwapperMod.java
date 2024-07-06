@@ -8,8 +8,10 @@ import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
+import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
+import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 
 import eu.midnightdust.midnightcontrols.client.compat.MidnightControlsCompat;
@@ -71,6 +73,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         SwapperResourceLoader.ResourceLoaderInit.init();
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
+            NetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID,
+                    b -> new SwapItemPayload(b), (p, b) -> p.write(b));
+            NetworkUtil.registerServerCustomPacket(RefillItemPayload.class, RefillItemPayload.ID,
+                    b -> new RefillItemPayload(b), (p, b) -> p.write(b));
+
             NetworkUtil.registerClientCustomPacket(ShulkerSupportPayload.class, ShulkerSupportPayload.ID,
                     b -> new ShulkerSupportPayload(b), (p, b) -> p.write(b), payload -> {
                         try {
