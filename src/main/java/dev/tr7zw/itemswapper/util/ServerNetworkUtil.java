@@ -6,7 +6,6 @@ import java.util.function.Function;
 import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
-import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
 
@@ -14,6 +13,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
 // spotless:off
+//#if MC >= 12005
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
+//#endif
 //#if MC >= 12002
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //#else
@@ -99,7 +101,7 @@ public class ServerNetworkUtil {
         //#endif
         //spotless:on
     }
-    
+
     public static <T extends CustomPacketPayload> void registerServerCustomPacket(Class<T> type, ResourceLocation id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
             BiConsumer<T, ServerPlayer> action) {

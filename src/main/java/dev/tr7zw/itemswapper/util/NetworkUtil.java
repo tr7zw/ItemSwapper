@@ -4,10 +4,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import dev.tr7zw.itemswapper.packets.DisableModPayload;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
-import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
-import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 
@@ -102,7 +99,7 @@ public class NetworkUtil {
         //#endif
         //spotless:on
     }
-    
+
     public static <T extends CustomPacketPayload> void registerClientCustomPacket(Class<T> type, ResourceLocation id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
             Consumer<T> action) {

@@ -293,7 +293,12 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
             return Collections.emptyList();
         }
         if (!object.isJsonArray()) {
-            try { object = ((JsonObject) object).get("items"); } catch (Exception ex) {ex.printStackTrace(); return Collections.emptyList();}
+            try {
+                object = ((JsonObject) object).get("items");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return Collections.emptyList();
+            }
         }
         List<Shortcut> shortcuts = new ArrayList<>();
         object.getAsJsonArray().forEach(el -> {
@@ -327,7 +332,12 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
             return null;
         }
         if (!object.isJsonArray()) {
-            try { object = ((JsonObject) object).get("items"); } catch (Exception ex) {ex.printStackTrace(); return null;}
+            try {
+                object = ((JsonObject) object).get("items");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
         }
         List<ItemEntry> itemList = new ArrayList<>();
         object.getAsJsonArray().forEach(el -> {
@@ -383,7 +393,12 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
             return;
         }
         if (!json.isJsonArray()) {
-            try { json = ((JsonObject) json).get("items"); } catch (Exception ex) {ex.printStackTrace(); return;}
+            try {
+                json = ((JsonObject) json).get("items");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return;
+            }
         }
         JsonArray ar = json.getAsJsonArray();
         List<Item[]> lists = new ArrayList<>();
@@ -411,7 +426,12 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
             return null;
         }
         if (!json.isJsonArray()) {
-            try { json = ((JsonObject) json).get("items"); } catch (Exception ex) {ex.printStackTrace(); return null;}
+            try {
+                json = ((JsonObject) json).get("items");
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                return null;
+            }
         }
         List<Item> itemList = new ArrayList<>();
         json.getAsJsonArray().forEach(el -> {
