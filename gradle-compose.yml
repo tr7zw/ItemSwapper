@@ -3,7 +3,7 @@ source: "https://github.com/tr7zw/ProcessedModTemplate/tree/master"
 replacements:
   name: "ItemSwapper"
   id: "itemswapper"
-  version: "0.6.4"
+  version: "0.7.0"
   description: "Proof of concept mod to for a different system to swap items in the inventory."
   homepageUrl: "https://modrinth.com/plugin/itemswapper"
   sourcesUrl: "https://github.com/tr7zw/ItemSwapper"
