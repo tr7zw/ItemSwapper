@@ -80,5 +80,7 @@
     "text.itemswapper.rememberPalette": "Remember Palette",
     "text.itemswapper.rememberPalette.tooltip": "Remember the last palette you used for each item and open it again when you open the UI with that item.",
     "text.itemswapper.showOpenInventoryButton": "Show Open Inventory Button",
-    "text.itemswapper.showOpenInventoryButton.tooltip": "Show or hide the open inventory button in the UI."
+    "text.itemswapper.showOpenInventoryButton.tooltip": "Show or hide the open inventory button in the UI.",
+    "text.itemswapper.doubleTapQuickSwap": "Double Tap Quick Swap",
+    "text.itemswapper.doubleTapQuickSwap.tooltip": "Enable or disable double tap to quick swap to the last used item"
 }

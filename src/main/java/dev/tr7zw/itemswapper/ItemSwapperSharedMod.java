@@ -60,6 +60,9 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private Item lastItem;
     private Page lastPage;
 
+    private long lastKeyPressTime = 0;
+    private static final long DOUBLE_TAP_THRESHOLD = 200; // 200 milliseconds
+
     public void init() {
         instance = this;
         minecraft = Minecraft.getInstance();
@@ -111,6 +114,13 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
                 ItemSwapperSharedMod.openInventoryScreen();
             }
         } else {
+            if (pressed) {
+                long currentTime = System.currentTimeMillis();
+                if (currentTime - lastKeyPressTime <= DOUBLE_TAP_THRESHOLD) {
+                    handleDoubleTap();
+                }
+                lastKeyPressTime = currentTime;
+            }
             pressed = false;
 
             if (screen instanceof ItemSwapperUI ui) {
@@ -337,6 +347,12 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
 
     public void setLastPage(Page lastPage) {
         this.lastPage = lastPage;
+    }
+
+    private void handleDoubleTap() {
+        if (configManager.getConfig().doubleTapQuickSwap && lastItem != null) {
+            ItemUtil.grabItem(lastItem, true);
+        }
     }
 
 }
