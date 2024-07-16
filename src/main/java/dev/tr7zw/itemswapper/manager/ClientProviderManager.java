@@ -74,7 +74,7 @@ public class ClientProviderManager {
             if (itemStack.isEmpty() && item != Items.AIR) {
                 continue;
             }
-            if ((!ignoreHotbar || i > 9) && itemStack.getItem() == item) {
+            if ((!ignoreHotbar || i >= 9) && itemStack.getItem() == item) {
                 addUnstackableItems(ids, new AvailableSlot(-1, i, items.get(i)));
                 if (limit) {
                     return ids;
