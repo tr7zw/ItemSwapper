@@ -23,6 +23,7 @@ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
+import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
@@ -31,6 +32,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.ConfirmScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ServerData;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 
 public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
@@ -58,10 +60,11 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private boolean pressed = false;
     private boolean lateInitCompleted = false;
     private Item lastItem;
+    private Item previousItem;
     private Page lastPage;
 
     private long lastKeyPressTime = 0;
-    private static final long DOUBLE_TAP_THRESHOLD = 200; // 200 milliseconds
+    private static final long DOUBLE_TAP_THRESHOLD = 400; // 400 milliseconds
 
     public void init() {
         instance = this;
@@ -118,8 +121,9 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
                 long currentTime = System.currentTimeMillis();
                 if (currentTime - lastKeyPressTime <= DOUBLE_TAP_THRESHOLD) {
                     handleDoubleTap();
+                } else {
+                    lastKeyPressTime = currentTime;
                 }
-                lastKeyPressTime = currentTime;
             }
             pressed = false;
 
@@ -340,6 +344,10 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     public void setLastItem(Item lastItem) {
         this.lastItem = lastItem;
     }
+    
+    public void setPreviousItem(Item item) {
+        this.previousItem = item;
+    }
 
     public Page getLastPage() {
         return lastPage;
@@ -350,8 +358,9 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     }
 
     private void handleDoubleTap() {
-        if (configManager.getConfig().doubleTapQuickSwap && lastItem != null) {
-            ItemUtil.grabItem(lastItem, true);
+        if (configManager.getConfig().doubleTapQuickSwap && previousItem != null) { 
+            ItemUtil.grabItem(previousItem, true);
+            lastKeyPressTime = 0;
         }
     }
 

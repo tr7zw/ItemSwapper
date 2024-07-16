@@ -24,6 +24,6 @@ public class Config {
     public boolean showHotbar = false;
     public boolean rememberPalette = false;
     public boolean showOpenInventoryButton = true;
-    public boolean doubleTapQuickSwap = true;
+    public boolean doubleTapQuickSwap = false;
 
 }
