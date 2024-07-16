@@ -46,6 +46,9 @@ public class ConfigScreenProvider {
                 options.add(getOnOffOption("text.itemswapper.disableShulkers",
                         () -> configManager.getConfig().disableShulkers,
                         b -> configManager.getConfig().disableShulkers = b));
+                options.add(getOnOffOption("text.itemswapper.showOpenInventoryButton",
+                        () -> configManager.getConfig().showOpenInventoryButton,
+                        b -> configManager.getConfig().showOpenInventoryButton = b));
 
                 options.add(getDoubleOption("text.itemswapper.controllerSpeed", 1, 16, 0.1f,
                         () -> (double) configManager.getConfig().controllerSpeed,
