@@ -23,5 +23,6 @@ public class Config {
     public boolean alwaysInventory = false;
     public boolean showHotbar = false;
     public boolean rememberPalette = false;
+    public boolean showOpenInventoryButton = true;
 
 }
