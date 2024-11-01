@@ -21,7 +21,6 @@
         "LitematicaMixin",
         "MinecraftMixin",
         "MouseHandlerMixin",
-        "RecordItemMixin",
         "SmithingTemplateItemMixin",
         "SpriteContentsMixin"
     ],

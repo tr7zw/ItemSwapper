@@ -1,7 +1,6 @@
 package dev.tr7zw.itemswapper.provider;
 
 import java.util.Optional;
-import java.util.Set;
 
 import dev.tr7zw.itemswapper.accessor.InstrumentItemAccess;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
@@ -10,15 +9,13 @@ import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 
 public class InstrumentItemNameProvider implements NameProvider {
 
     @Override
-    public Set<Item> getItemHandlers() {
-        return ((InstrumentItemAccess) (Object) Items.GOAT_HORN).getItems();
+    public boolean isProvider(ItemStack item) {
+        return item.getItem() instanceof InstrumentItemAccess;
     }
 
     @Override

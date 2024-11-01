@@ -1,12 +1,13 @@
 package dev.tr7zw.itemswapper.overlay;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import com.mojang.blaze3d.vertex.Tesselator;
 import lombok.AllArgsConstructor;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Player;
@@ -14,6 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 // spotless:off 
+//#if MC < 12102
+//$$ import com.mojang.blaze3d.vertex.Tesselator;
+//#endif
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
 //#else
@@ -67,12 +71,17 @@ public class RenderContext {
         // spotless:on
     }
 
-    public MultiBufferSource.BufferSource getbufferSource() {
+    public void drawSpecial(Consumer<MultiBufferSource> consumer) {
         // spotless:off
-        //#if MC >= 12100
-        return guiGraphics.bufferSource();
+        //#if MC >= 12102
+        guiGraphics.drawSpecial(consumer);
+        //#elseif MC >= 12100
+        //$$ consumer.accept(guiGraphics.bufferSource());
+        //$$ guiGraphics.bufferSource().endBatch();
         //#else
-        //$$ return MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        //$$ net.minecraft.client.renderer.MultiBufferSource.BufferSource bs = MultiBufferSource.immediate(Tesselator.getInstance().getBuilder());
+        //$$ consumer.accept(bs);
+        //$$ bs.endBatch();
         //#endif
         // spotless:on
     }
@@ -80,8 +89,10 @@ public class RenderContext {
     public void blit(ResourceLocation atlasLocation, int x, int y, float uOffset, float vOffset, int width, int height,
             int textureWidth, int textureHeight) {
         // spotless:off 
-        //#if MC >= 12000
-        guiGraphics.blit(atlasLocation, x, y, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        //#if MC >= 12102
+        guiGraphics.blit(t -> RenderType.guiTextured(t), atlasLocation, x, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
+        //#elseif MC >= 12000
+        //$$ guiGraphics.blit(atlasLocation, x, y, y, uOffset, vOffset, width, height, textureWidth, textureHeight);
         //#else
         //$$ RenderSystem.setShader(GameRenderer::getPositionTexShader);
         //$$ RenderSystem.setShaderTexture(0, atlasLocation);
@@ -92,8 +103,10 @@ public class RenderContext {
 
     public void blit(ResourceLocation atlasLocation, int x, int y, int uOffset, int vOffset, int uWidth, int vHeight) {
         // spotless:off 
-        //#if MC >= 12000
-        guiGraphics.blit(atlasLocation, x, y, uOffset, vOffset, uWidth, vHeight);
+        //#if MC >= 12102
+        guiGraphics.blit(t -> RenderType.guiTextured(t), atlasLocation, x, y, (float)uOffset, (float)vOffset, uWidth, vHeight, 64, 64);
+        //#elseif MC >= 12000
+        //$$ guiGraphics.blit(atlasLocation, x, y, uOffset, vOffset, uWidth, vHeight);
         //#else
         //$$ RenderSystem.setShader(GameRenderer::getPositionTexShader);
         //$$ RenderSystem.setShaderTexture(0, atlasLocation);
@@ -105,9 +118,13 @@ public class RenderContext {
     public void blit(ResourceLocation atlasLocation, int x, int y, int blitOffset, float uOffset, float vOffset,
             int uWidth, int vHeight, int textureWidth, int textureHeight) {
         // spotless:off 
-        //#if MC >= 12000
-        guiGraphics.blit(atlasLocation, x, y, blitOffset, uOffset, vOffset, uWidth, vHeight, textureWidth,
+        //#if MC >= 12102
+        //TODO blitOffset
+        guiGraphics.blit(t -> RenderType.guiTextured(t), atlasLocation, x, y, uOffset, vOffset, uWidth, vHeight, textureWidth,
                 textureHeight);
+        //#elseif MC >= 12000
+        //$$ guiGraphics.blit(atlasLocation, x, y, blitOffset, uOffset, vOffset, uWidth, vHeight, textureWidth,
+        //$$        textureHeight);
         //#else
         //$$ RenderSystem.setShader(GameRenderer::getPositionTexShader);
         //$$ RenderSystem.setShaderTexture(0, atlasLocation);
@@ -118,8 +135,10 @@ public class RenderContext {
 
     public void blitSprite(ResourceLocation hotbarOffhandLeftSprite, int x, int y, int width, int height) {
         // spotless:off 
-        //#if MC >= 12002
-        guiGraphics.blitSprite(hotbarOffhandLeftSprite, x, y, width, height);
+        //#if MC >= 12102
+        guiGraphics.blitSprite(t -> RenderType.guiTextured(t), hotbarOffhandLeftSprite, x, y, width, height);
+        //#elseif MC >= 12002
+        //$$ guiGraphics.blitSprite(hotbarOffhandLeftSprite, x, y, width, height);
         //#else
         //$$ throw new java.lang.RuntimeException();
         //#endif

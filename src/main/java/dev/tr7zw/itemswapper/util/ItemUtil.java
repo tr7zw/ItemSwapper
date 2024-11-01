@@ -72,8 +72,7 @@ public final class ItemUtil {
         if (NMSWrapper.hasCustomName(item)) {
             return item.getHoverName();
         }
-        NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager()
-                .getNameProvider(item.getItem());
+        NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getNameProvider(item);
         if (provider != null) {
             return provider.getDisplayName(item);
         }

@@ -22,7 +22,6 @@ import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
-import dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider;
 import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
@@ -71,9 +70,14 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private void lateInit() {
         clientProviderManager.registerContainerProvider(new ShulkerContainerProvider());
         clientProviderManager.registerNameProvider(new PotionNameProvider());
-        clientProviderManager.registerNameProvider(new RecordNameProvider());
         clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
-        clientProviderManager.registerNameProvider(new SmithingTemplateItemNameProvider());
+        clientProviderManager.registerNameProvider(new RecordNameProvider());
+
+        // spotless:off 
+        //#if MC < 12102
+        //$$clientProviderManager.registerNameProvider(new dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider());
+        //#endif
+        //spotless:on
     }
 
     public void clientTick() {

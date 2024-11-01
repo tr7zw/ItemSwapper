@@ -24,7 +24,7 @@ public class ClientProviderManager {
     private Set<ItemProvider> earlyItemProvider = new HashSet<>();
     private Set<ItemProvider> lateItemProvider = new HashSet<>();
     private Map<Item, ContainerProvider> containerProvider = new HashMap<>();
-    private Map<Item, NameProvider> nameProvider = new HashMap<>();
+    private Set<NameProvider> nameProvider = new HashSet<>();
 
     public void registerEarlyItemProvider(ItemProvider provider) {
         earlyItemProvider.add(provider);
@@ -41,9 +41,7 @@ public class ClientProviderManager {
     }
 
     public void registerNameProvider(NameProvider provider) {
-        for (Item item : provider.getItemHandlers()) {
-            nameProvider.put(item, provider);
-        }
+        nameProvider.add(provider);
     }
 
     public Set<ItemProvider> getEarlyItemProvider() {
@@ -58,8 +56,13 @@ public class ClientProviderManager {
         return containerProvider.get(item);
     }
 
-    public NameProvider getNameProvider(Item item) {
-        return nameProvider.get(item);
+    public NameProvider getNameProvider(ItemStack item) {
+        for (NameProvider provider : nameProvider) {
+            if (provider.isProvider(item)) {
+                return provider;
+            }
+        }
+        return null;
     }
 
     public List<AvailableSlot> findSlotsMatchingItem(Item item, boolean limit, boolean ignoreHotbar) {

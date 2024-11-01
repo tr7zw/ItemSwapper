@@ -85,7 +85,13 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
   // spotless:on
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        // spotless:off
+        //#if MC >= 12102
+        RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //#else
+        //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+        //#endif
+        //spotless:on
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
@@ -215,7 +221,13 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
             graphics.renderItem(arg, arg2, x, y, k);
-            RenderSystem.setShader(GameRenderer::getPositionColorShader);
+            // spotless:off
+            //#if MC >= 12102
+            RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //#else
+            //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            //#endif
+            //spotless:on
             graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
         }
     }

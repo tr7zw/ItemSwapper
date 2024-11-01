@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.Tesselator;
-
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.overlay.RenderContext;
@@ -13,8 +11,6 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
@@ -72,11 +68,12 @@ public final class RenderHelper {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
-            MultiBufferSource.BufferSource bufferSource = graphics.getbufferSource();
-            font.drawInBatch(text.get(line), (x - font.width(text.get(line)) / 2),
-                    y - (font.lineHeight * (text.size() - line)), color, true, poseStack.last().pose(), bufferSource,
-                    Font.DisplayMode.NORMAL, 0, 15728880);
-            bufferSource.endBatch();
+            int fline = line;
+            graphics.drawSpecial(bufferSource -> {
+                font.drawInBatch(text.get(fline), (x - font.width(text.get(fline)) / 2),
+                        y - (font.lineHeight * (text.size() - fline)), color, true, poseStack.last().pose(),
+                        bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
+            });
         }
     }
 
@@ -84,10 +81,10 @@ public final class RenderHelper {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
         poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
-        MultiBufferSource.BufferSource bufferSource = graphics.getbufferSource();
-        font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
-                Font.DisplayMode.NORMAL, 0, 15728880);
-        bufferSource.endBatch();
+        graphics.drawSpecial(bufferSource -> {
+            font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
+                    Font.DisplayMode.NORMAL, 0, 15728880);
+        });
     }
 
     public enum SlotEffect {
@@ -107,7 +104,13 @@ public final class RenderHelper {
                 return;
             }
             graphics.renderItem(arg, copy, x, y, k);
-            RenderSystem.setShader(GameRenderer::getPositionColorShader);
+            // spotless:off
+            //#if MC >= 12102
+            RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //#else
+            //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            //#endif
+            //spotless:on
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)

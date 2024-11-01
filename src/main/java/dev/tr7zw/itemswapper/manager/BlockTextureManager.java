@@ -42,7 +42,8 @@ public class BlockTextureManager {
                     }
                 }
                 NativeImage img = ((SpriteContentsAccess) sprite.contents()).getOriginalImage();
-                colorMap.put(e.getValue(), ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f));
+                // colorMap.put(e.getValue(),
+                // ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f));
 //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
 //                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
 //                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));

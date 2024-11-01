@@ -29,8 +29,8 @@ public class PotionNameProvider implements NameProvider {
             Items.TIPPED_ARROW);
 
     @Override
-    public Set<Item> getItemHandlers() {
-        return potions;
+    public boolean isProvider(ItemStack item) {
+        return potions.contains(item.getItem());
     }
 
     @Override

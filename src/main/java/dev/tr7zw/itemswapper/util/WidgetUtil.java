@@ -9,8 +9,6 @@ import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
-
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {
@@ -67,7 +65,13 @@ public class WidgetUtil {
     public static void renderBackground(WidgetArea widgetArea, RenderContext graphics, int originX, int originY) {
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        // spotless:off
+        //#if MC >= 12102
+        RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //#else
+        //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+        //#endif
+        //spotless:on
         if (widgetArea.getBackgroundTexture() != null) {
             graphics.blit(widgetArea.getBackgroundTexture(), originX - (widgetArea.getBackgroundSizeX() / 2),
                     originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0, widgetArea.getBackgroundSizeX(),

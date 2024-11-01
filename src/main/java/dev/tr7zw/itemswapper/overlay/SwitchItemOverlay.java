@@ -46,7 +46,6 @@ import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.world.item.ItemStack;
 
 // spotless:off 
@@ -255,7 +254,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
                 && !ControlifySupport.getInstance().isActive(this)) {
-            RenderSystem.setShader(GameRenderer::getPositionTexShader);
+            // spotless:off
+            //#if MC >= 12102
+            RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+            //#else
+            //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+            //#endif
+            //spotless:on
             renderContext.pose().pushPose();
             renderContext.pose().translate(0, 0, RenderContext.LAYERS_CURSOR);
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,

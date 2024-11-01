@@ -1,31 +1,56 @@
 package dev.tr7zw.itemswapper.provider;
 
-import java.util.Set;
+import java.util.Optional;
 
-import dev.tr7zw.itemswapper.accessor.ItemVariantAccess;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
-import dev.tr7zw.util.ComponentProvider;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
+import net.minecraft.network.chat.ComponentUtils;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+
+//spotless:off 
+//#if MC >= 12100
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.JukeboxPlayable;
+import net.minecraft.world.item.JukeboxSong;
+//#else
+//$$ import net.minecraft.tags.ItemTags;
+//#endif
+//spotless:on
 
 public class RecordNameProvider implements NameProvider {
 
     @Override
-    public Set<Item> getItemHandlers() {
-        // spotless:off
+    public boolean isProvider(ItemStack item) {
+        // spotless:off 
         //#if MC >= 12100
-        return ((ItemVariantAccess) (Object) new Items()).getAllItemVariants();
+        return item.getComponents().has(DataComponents.JUKEBOX_PLAYABLE);
         //#else
-        //$$ return ((ItemVariantAccess) (Object) Items.MUSIC_DISC_CAT).getAllItemVariants();
+        //$$ return item.is(ItemTags.MUSIC_DISCS);
         //#endif
         //spotless:on
     }
 
     @Override
     public Component getDisplayName(ItemStack item) {
-        return ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
+        // spotless:off 
+        //#if MC >= 12102
+        JukeboxPlayable data = item.getComponents().get(DataComponents.JUKEBOX_PLAYABLE);
+        Optional<Holder<JukeboxSong>> holder = data.song().unwrap(Minecraft.getInstance().level.registryAccess());
+        if(holder.isPresent()){
+            MutableComponent mutableComponent = ((JukeboxSong) holder.get().value()).description().copy();
+            ComponentUtils.mergeStyles(mutableComponent, Style.EMPTY.withColor(ChatFormatting.GRAY));
+            return mutableComponent;
+        };
+        return item.getStyledHoverName();
+        //#else
+        //$$ return dev.tr7zw.util.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
+        //#endif
+        //spotless:on
     }
 
 }

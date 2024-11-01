@@ -1,17 +1,17 @@
 package dev.tr7zw.itemswapper.api.client;
 
-import java.util.Set;
-
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public interface NameProvider {
 
     /**
-     * @return A list of all Items this provider wants to process
+     * Check if this NameProvider wants to provide the display name for this item
+     * 
+     * @param item
+     * @return
      */
-    Set<Item> getItemHandlers();
+    boolean isProvider(ItemStack item);
 
     /**
      * Provide a formatted display name for the provided item.
