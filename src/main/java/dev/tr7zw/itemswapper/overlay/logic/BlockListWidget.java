@@ -62,6 +62,8 @@ public class BlockListWidget extends ItemGridWidget {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
                 minecraft.gameMode.handleCreativeModeItemAdd(item.getDefaultInstance().copy(),
                         36 + minecraft.player.getInventory().selected);
+                minecraft.player.getInventory().setItem(minecraft.player.getInventory().selected,
+                        item.getDefaultInstance().copy());
                 ItemSwapperSharedMod.instance.setLastItem(item);
                 ItemSwapperSharedMod.instance
                         .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));

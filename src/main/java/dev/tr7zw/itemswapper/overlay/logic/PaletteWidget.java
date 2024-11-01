@@ -75,6 +75,8 @@ public class PaletteWidget extends ItemGridWidget {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
                 minecraft.gameMode.handleCreativeModeItemAdd(entry.getItem().getDefaultInstance().copy(),
                         36 + minecraft.player.getInventory().selected);
+                minecraft.player.getInventory().setItem(minecraft.player.getInventory().selected,
+                        entry.getItem().getDefaultInstance().copy());
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance
                         .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
