@@ -14,6 +14,7 @@ import com.mojang.blaze3d.platform.NativeImage;
 
 import dev.tr7zw.itemswapper.accessor.SpriteContentsAccess;
 import dev.tr7zw.itemswapper.util.ColorUtil;
+import dev.tr7zw.itemswapper.util.ColorUtil.ColorFormat;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -42,8 +43,11 @@ public class BlockTextureManager {
                     }
                 }
                 NativeImage img = ((SpriteContentsAccess) sprite.contents()).getOriginalImage();
-                // colorMap.put(e.getValue(),
-                // ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f));
+                //#if MC >= 12103
+                colorMap.put(e.getValue(), ColorUtil.primaryColorDetection(img.getPixelsABGR(), ColorFormat.ABGR, 0.3f));
+                //#else
+                //$$colorMap.put(e.getValue(), ColorUtil.primaryColorDetection(img.getPixelsRGBA(), ColorFormat.RGBA, 0.3f));
+                //#endif
 //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
 //                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
 //                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));

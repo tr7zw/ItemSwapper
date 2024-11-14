@@ -10,9 +10,19 @@ public class ColorUtil {
 
     private static final float COLOR_NORMAL = (float) Math.sqrt(255d * 255d * 3d);
 
+    public enum ColorFormat {
+        RGBA, ABGR
+    }
+
     public record UnpackedColor(int a, int r, int g, int b) {
-        public UnpackedColor(int color) {
-            this((color >>> 24), (color & 0xFF), (color >> 8 & 0xFF), (color >> 16 & 0xFF));
+        public static UnpackedColor parse(int color, ColorFormat format) {
+            return switch (format) {
+            case RGBA:
+                yield new UnpackedColor((color >>> 24), (color & 0xFF), (color >> 8 & 0xFF), (color >> 16 & 0xFF));
+            case ABGR:
+                // ABGR: Alpha in bits 24-31, Blue in bits 16-23, Green in bits 8-15, Red in bits 0-7
+                yield new UnpackedColor((color >>> 24), (color >> 16 & 0xFF), (color >> 8 & 0xFF), (color & 0xFF));
+            };
         }
 
         public UnpackedColor(Color color) {
@@ -121,7 +131,7 @@ public class ColorUtil {
         return palette;
     }
 
-    public static UnpackedColor[] primaryColorDetection(int[] colors, float closenessThreshold) {
+    public static UnpackedColor[] primaryColorDetection(int[] colors, ColorFormat format, float closenessThreshold) {
         if (colors == null || colors.length == 0) {
             return new UnpackedColor[0];
         }
@@ -131,7 +141,7 @@ public class ColorUtil {
 
         // Perform blob detection
         for (int mojangColor : colors) {
-            UnpackedColor color = new UnpackedColor(mojangColor);
+            UnpackedColor color = UnpackedColor.parse(mojangColor, format);
             boolean foundGroup = false;
             for (UnpackedColor groupColor : colorGroups.keySet()) {
                 if (colorDistance(color, groupColor) < closenessThreshold) {
@@ -152,7 +162,7 @@ public class ColorUtil {
         return new UnpackedColor[] { calculateAverageColor(blobs.get(0)) };
     }
 
-    public static UnpackedColor[] blobDetection(int[] colors, float closenessThreshold) {
+    public static UnpackedColor[] blobDetection(int[] colors, ColorFormat format, float closenessThreshold) {
         if (colors == null || colors.length == 0) {
             return new UnpackedColor[0];
         }
@@ -162,7 +172,7 @@ public class ColorUtil {
 
         // Perform blob detection
         for (int mojangColor : colors) {
-            UnpackedColor color = new UnpackedColor(mojangColor);
+            UnpackedColor color = UnpackedColor.parse(mojangColor, format);
             boolean foundGroup = false;
             for (UnpackedColor groupColor : colorGroups.keySet()) {
                 if (colorDistance(color, groupColor) < closenessThreshold) {
@@ -189,11 +199,11 @@ public class ColorUtil {
         return result;
     }
 
-    public static UnpackedColor[] calculateColorClumps(int[] colors, float closenessTreshold) {
+    public static UnpackedColor[] calculateColorClumps(int[] colors, ColorFormat format, float closenessTreshold) {
         // colorset, (color, colortotal)
         List<UnpackedColor> colorArrays = new ArrayList<UnpackedColor>();
         for (int color : colors) {
-            UnpackedColor pixel = new UnpackedColor(color);
+            UnpackedColor pixel = UnpackedColor.parse(color, format);
             boolean colorExists = false;
 
             for (int i = 0; i < colorArrays.size(); i++) {
@@ -208,7 +218,7 @@ public class ColorUtil {
             }
             // new clump
             if (!colorExists) {
-                colorArrays.add(new UnpackedColor(color));
+                colorArrays.add(UnpackedColor.parse(color, format));
             }
         }
         return colorArrays.toArray(new UnpackedColor[0]);
