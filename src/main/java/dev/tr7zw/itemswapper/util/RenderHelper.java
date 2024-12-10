@@ -31,9 +31,10 @@ public final class RenderHelper {
             int i, int j, int k, SlotEffect effect) {
         if (itemStack.isEmpty())
             return;
-        float blitOffset = 0;
-        BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
-        blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
+        // Unused??
+        //float blitOffset = 0;
+        //BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
+        //blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
         int l = i;
         int m = j;
         int color = 0;
@@ -47,7 +48,7 @@ public final class RenderHelper {
         graphics.renderFakeItem(itemStack, l, m);
         if (k == 0)
             graphics.renderItemDecorations(minecraft.font, itemStack, l, m);
-        blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
+        //blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
     }
 
     public static void renderGuiItemCount(Font font, String text, int i, int j, int color, RenderContext graphics) {
