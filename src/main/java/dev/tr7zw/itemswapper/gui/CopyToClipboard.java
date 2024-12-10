@@ -80,8 +80,8 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 
         Minecraft.getInstance().keyboardHandler.setClipboard(json);
         ItemSwapperMod.LOGGER.info(json);
-//        instance.player
-//                .sendSystemMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"));
+        //        instance.player
+        //                .sendSystemMessage(ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.success"));
 
     }
 

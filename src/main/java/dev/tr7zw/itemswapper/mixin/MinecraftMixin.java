@@ -44,9 +44,11 @@ public class MinecraftMixin {
     @Shadow
     public LocalPlayer player;
 
-    @Shadow public ClientLevel level;
+    @Shadow
+    public ClientLevel level;
 
-    @Shadow public HitResult hitResult;
+    @Shadow
+    public HitResult hitResult;
 
     @Redirect(method = "runTick", at = @At(target = "Lnet/minecraft/client/server/IntegratedServer;isPublished()Z", value = "INVOKE", ordinal = 0))
     private boolean dontPauseSingleplayer(IntegratedServer server, boolean bl) {
@@ -76,33 +78,34 @@ public class MinecraftMixin {
     //#if MC >= 12104
     @Unique
     private ItemStack getHitResultStack(HitResult hitResult, boolean ctrl) {
-        if (hitResult == null) return ItemStack.EMPTY;
+        if (hitResult == null)
+            return ItemStack.EMPTY;
         return switch (hitResult.getType()) {
-            case BLOCK -> {
-                BlockPos pos = ((BlockHitResult)hitResult).getBlockPos();
-                BlockState blockState = this.level.getBlockState(pos);
-                if (blockState.isAir()) {
-                    yield ItemStack.EMPTY;
-                }
-                ItemStack itemStack = blockState.getCloneItemStack(this.level, pos, ctrl);
-                if (itemStack.isEmpty()) {
-                    yield ItemStack.EMPTY;
-                }
-                BlockEntity blockEntity = blockState.hasBlockEntity() ? level.getBlockEntity(pos) : null;
-                if (blockEntity != null) {
-                    CompoundTag compoundTag = blockEntity.saveCustomOnly(level.registryAccess());
-                    blockEntity.removeComponentsFromTag(compoundTag); // Deprecated might go bye bye soon
-                    BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), compoundTag);
-                    itemStack.applyComponents(blockEntity.collectComponents());
-                }
-                yield itemStack;
+        case BLOCK -> {
+            BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
+            BlockState blockState = this.level.getBlockState(pos);
+            if (blockState.isAir()) {
+                yield ItemStack.EMPTY;
             }
-            case ENTITY -> {
-                Entity entity = ((EntityHitResult)hitResult).getEntity();
-                ItemStack itemStack = entity.getPickResult();
-                yield itemStack == null ? ItemStack.EMPTY : itemStack;
+            ItemStack itemStack = blockState.getCloneItemStack(this.level, pos, ctrl);
+            if (itemStack.isEmpty()) {
+                yield ItemStack.EMPTY;
             }
-            default -> ItemStack.EMPTY;
+            BlockEntity blockEntity = blockState.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+            if (blockEntity != null) {
+                CompoundTag compoundTag = blockEntity.saveCustomOnly(level.registryAccess());
+                blockEntity.removeComponentsFromTag(compoundTag); // Deprecated might go bye bye soon
+                BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), compoundTag);
+                itemStack.applyComponents(blockEntity.collectComponents());
+            }
+            yield itemStack;
+        }
+        case ENTITY -> {
+            Entity entity = ((EntityHitResult) hitResult).getEntity();
+            ItemStack itemStack = entity.getPickResult();
+            yield itemStack == null ? ItemStack.EMPTY : itemStack;
+        }
+        default -> ItemStack.EMPTY;
         };
     }
 
@@ -110,11 +113,11 @@ public class MinecraftMixin {
     private void pickBlockShulkerSupport(CallbackInfo ci) {
         boolean creative = player.getAbilities().instabuild;
         ItemStack stack = getHitResultStack(this.hitResult, Screen.hasControlDown());
-    //#else
-    //$$@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-    //$$private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
-    //$$        Type type) {
-    //#endif
+        //#else
+        //$$@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+        //$$private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
+        //$$        Type type) {
+        //#endif
         if (creative) {
             return;
         }
