@@ -31,11 +31,11 @@ public class BlockTextureManager {
     public void init() {
         colorMap.clear();
         BuiltInRegistries.BLOCK.entrySet().forEach(e -> {
-//            System.out.println(e.getKey() + " " + e.getValue());
+            //            System.out.println(e.getKey() + " " + e.getValue());
             BlockState state = e.getValue().getStateDefinition().any();
             TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
                     .getParticleIcon();
-//            System.out.println(sprite);
+            //            System.out.println(sprite);
             if (state.canOcclude() && !state.hasBlockEntity()) {
                 for (String key : bannedKeywords) {
                     if (e.getKey().location().toString().contains(key)) {
@@ -44,13 +44,14 @@ public class BlockTextureManager {
                 }
                 NativeImage img = ((SpriteContentsAccess) sprite.contents()).getOriginalImage();
                 //#if MC >= 12103
-                colorMap.put(e.getValue(), ColorUtil.primaryColorDetection(img.getPixelsABGR(), ColorFormat.ABGR, 0.3f));
+                colorMap.put(e.getValue(),
+                        ColorUtil.primaryColorDetection(img.getPixelsABGR(), ColorFormat.ABGR, 0.3f));
                 //#else
                 //$$colorMap.put(e.getValue(), ColorUtil.primaryColorDetection(img.getPixelsRGBA(), ColorFormat.RGBA, 0.3f));
                 //#endif
-//                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
-//                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
-//                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));
+                //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
+                //                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
+                //                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));
             }
         });
     }
