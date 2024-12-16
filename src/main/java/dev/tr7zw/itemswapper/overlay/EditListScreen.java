@@ -107,9 +107,15 @@ public class EditListScreen extends OptionsSubScreen {
             super.removeEntry(entry);
         }
 
-        protected int getScrollbarPosition() {
-            return super.getScrollbarPosition() + 20;
+        //#if MC >= 12104
+        public double scrollAmount() {
+            return super.scrollAmount() + 20;
         }
+        //#else
+        //$$protected int getScrollbarPosition() {
+        //$$    return super.getScrollbarPosition() + 20;
+        //$$}
+        //#endif
 
         public int getRowWidth() {
             return super.getRowWidth() + 50;

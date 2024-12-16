@@ -31,7 +31,7 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
 
     private Set<Item> items = new HashSet<>();
 
-// spotless:off
+    // spotless:off
 //#if MC < 12102
 //$$    @Inject(method = "<init>", at = @At("RETURN"))
 //$$    public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
