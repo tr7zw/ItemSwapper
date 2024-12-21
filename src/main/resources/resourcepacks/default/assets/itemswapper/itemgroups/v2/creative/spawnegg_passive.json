@@ -23,7 +23,8 @@
         "minecraft:sniffer_spawn_egg",
         "minecraft:snow_golem_spawn_egg",
         "minecraft:strider_spawn_egg",
-        "minecraft:wolf_spawn_egg"
+        "minecraft:wolf_spawn_egg",
+        "minecraft:armadillo_spawn_egg"
     ],
     "shortcuts": [
         {

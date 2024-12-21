@@ -1,0 +1,29 @@
+{
+    "type": "palette",
+    "priority": 52,
+    "displayName": "text.itemswapper.palette.nature.resin",
+    "items": [
+        "minecraft:resin_clump",
+        "minecraft:resin_brick",
+        "minecraft:resin_block",
+        "minecraft:resin_bricks",
+        "minecraft:chiseled_resin_bricks",
+        "minecraft:resin_brick_wall",
+        "minecraft:resin_brick_stairs",
+        "minecraft:resin_brick_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/pale_oak"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/pale"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/resin"
+        }
+    ]
+}

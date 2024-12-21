@@ -24,7 +24,9 @@
         "minecraft:blackstone_wall",
         "minecraft:polished_blackstone_wall",
         "minecraft:polished_blackstone_brick_wall",
-        "minecraft:end_stone_brick_wall"
+        "minecraft:end_stone_brick_wall",
+        "minecraft:tuff_brick_wall",
+        "minecraft:polished_tuff_wall"
     ],
     "shortcuts": [
         {

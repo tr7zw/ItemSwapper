@@ -1,0 +1,36 @@
+{
+    "type": "palette",
+    "priority": 100,
+    "displayName": "text.itemswapper.palette.wood.pale_oak",
+    "items": [
+        "minecraft:pale_oak_log",
+        "minecraft:pale_oak_wood",
+        "minecraft:stripped_pale_oak_log",
+        "minecraft:stripped_pale_oak_wood",
+        "minecraft:pale_oak_planks",
+        "minecraft:pale_oak_stairs",
+        "minecraft:pale_oak_slab",
+        "minecraft:pale_oak_trapdoor",
+        "minecraft:pale_oak_door",
+        "minecraft:pale_oak_fence_gate",
+        "minecraft:pale_oak_fence",
+        "minecraft:pale_oak_sign",
+        "minecraft:pale_oak_hanging_sign",
+        "minecraft:pale_oak_button",
+        "minecraft:pale_oak_pressure_plate"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/pale_oak"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/pale"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/resin"
+        }
+    ]
+}

@@ -27,7 +27,8 @@
         "minecraft:netherite_ingot",
         "minecraft:netherite_scrap",
         "minecraft:nether_star",
-        "minecraft:dragon_egg"
+        "minecraft:dragon_egg",
+        "minecraft:heavy_core"
     ],
     "shortcuts": [
         {

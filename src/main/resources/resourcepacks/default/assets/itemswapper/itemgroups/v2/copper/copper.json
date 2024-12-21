@@ -7,10 +7,12 @@
         "minecraft:cut_copper",
         "minecraft:cut_copper_stairs",
         "minecraft:cut_copper_slab",
+        "minecraft:chiseled_copper",
         "minecraft:waxed_copper_block",
         "minecraft:waxed_cut_copper",
         "minecraft:waxed_cut_copper_stairs",
-        "minecraft:waxed_cut_copper_slab"
+        "minecraft:waxed_cut_copper_slab",
+        "minecraft:waxed_chiseled_copper"
     ],
     "shortcuts": [
         {

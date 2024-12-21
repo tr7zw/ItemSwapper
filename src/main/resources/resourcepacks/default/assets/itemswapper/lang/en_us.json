@@ -185,5 +185,9 @@
     "text.itemswapper.palette.misc.enchanted_books": "Enchanted Books",
     "text.itemswapper.palette.misc.books": "Books",
     "text.itemswapper.list.armor": "Armor",
-    "text.itemswapper.palette.stone.infested_stone": "Infested Stone"
+    "text.itemswapper.palette.stone.infested_stone": "Infested Stone",
+    "text.itemswapper.palette.wood.pale_oak": "Pale Oak",
+    "text.itemswapper.palette.stone.tuff": "Tuff",
+    "text.itemswapper.palette.nature.pale": "Pale Garden",
+    "text.itemswapper.palette.nature.resin": "Resin"
 }

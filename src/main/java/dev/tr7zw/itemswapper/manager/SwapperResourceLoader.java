@@ -68,6 +68,7 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
         itemGroupModifiers.clear();
         itemListModifiers.clear();
         itemLists.clear();
+        //ItemSwapperSharedMod.instance.getItemGroupManager().dumpUnmappedItems();
     }
 
     private void processEntry(Entry<ResourceLocation, JsonElement> entry) {

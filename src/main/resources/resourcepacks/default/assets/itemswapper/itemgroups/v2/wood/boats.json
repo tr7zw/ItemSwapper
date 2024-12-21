@@ -12,6 +12,7 @@
         "minecraft:mangrove_boat",
         "minecraft:cherry_boat",
         "minecraft:bamboo_raft",
+        "minecraft:pale_oak_boat",
         "minecraft:oak_chest_boat",
         "minecraft:spruce_chest_boat",
         "minecraft:birch_chest_boat",
@@ -20,7 +21,8 @@
         "minecraft:jungle_chest_boat",
         "minecraft:mangrove_chest_boat",
         "minecraft:cherry_chest_boat",
-        "minecraft:bamboo_chest_raft"
+        "minecraft:bamboo_chest_raft",
+        "minecraft:pale_oak_chest_boat"
     ],
     "shortcuts": [
         {

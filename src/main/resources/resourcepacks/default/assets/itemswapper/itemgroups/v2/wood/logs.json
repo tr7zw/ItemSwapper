@@ -13,7 +13,8 @@
         "minecraft:warped_stem",
         "minecraft:crimson_stem",
         "minecraft:cherry_log",
-        "minecraft:bamboo_block"
+        "minecraft:bamboo_block",
+        "minecraft:pale_oak_log"
     ],
     "shortcuts": [
         {

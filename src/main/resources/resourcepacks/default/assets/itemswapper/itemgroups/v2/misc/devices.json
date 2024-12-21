@@ -26,8 +26,13 @@
         "minecraft:golden_horse_armor",
         "minecraft:iron_horse_armor",
         "minecraft:leather_horse_armor",
+        "minecraft:wolf_armor",
         "minecraft:end_crystal",
         "minecraft:ender_eye",
-        "minecraft:experience_bottle"
+        "minecraft:experience_bottle",
+        "minecraft:trial_key",
+        "minecraft:ominous_trial_key",
+        "minecraft:ominous_bottle",
+        "minecraft:wind_charge"
     ]
 }

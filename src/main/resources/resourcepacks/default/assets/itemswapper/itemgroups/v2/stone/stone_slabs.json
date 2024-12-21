@@ -9,7 +9,8 @@
         "minecraft:polished_andesite_slab",
         "minecraft:andesite_slab",
         "minecraft:mossy_stone_brick_slab",
-        "minecraft:mossy_cobblestone_slab"
+        "minecraft:mossy_cobblestone_slab",
+        "minecraft:tuff_brick_slab"
     ],
     "shortcuts": [
         {

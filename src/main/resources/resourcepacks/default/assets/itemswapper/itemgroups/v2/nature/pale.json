@@ -1,0 +1,28 @@
+{
+    "type": "palette",
+    "priority": 52,
+    "displayName": "text.itemswapper.palette.nature.pale",
+    "items": [
+        "minecraft:pale_moss_block",
+        "minecraft:pale_moss_carpet",
+        "minecraft:pale_hanging_moss",
+        "minecraft:pale_oak_sapling",
+        "minecraft:pale_oak_leaves",
+        "minecraft:creaking_heart",
+        "minecraft:bone_meal"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/pale_oak"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/pale"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/resin"
+        }
+    ]
+}

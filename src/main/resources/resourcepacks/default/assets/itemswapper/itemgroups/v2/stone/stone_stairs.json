@@ -9,7 +9,8 @@
         "minecraft:polished_andesite_stairs",
         "minecraft:andesite_stairs",
         "minecraft:mossy_stone_brick_stairs",
-        "minecraft:mossy_cobblestone_stairs"
+        "minecraft:mossy_cobblestone_stairs",
+        "minecraft:tuff_brick_stairs"
     ],
     "shortcuts": [
         {

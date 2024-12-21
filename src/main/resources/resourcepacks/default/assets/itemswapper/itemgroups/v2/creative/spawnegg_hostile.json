@@ -25,7 +25,10 @@
         "minecraft:zombie_horse_spawn_egg",
         "minecraft:zombie_villager_spawn_egg",
         "minecraft:ender_dragon_spawn_egg",
-        "minecraft:wither_spawn_egg"
+        "minecraft:wither_spawn_egg",
+        "minecraft:breeze_spawn_egg",
+        "minecraft:creaking_spawn_egg",
+        "minecraft:bogged_spawn_egg"
     ],
     "shortcuts": [
         {

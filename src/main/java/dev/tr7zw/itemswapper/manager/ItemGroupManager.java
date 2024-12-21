@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
@@ -13,13 +14,14 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class ItemGroupManager {
 
-    private final ConfigManager configManager = ConfigManager.getInstance();
     private Map<ResourceLocation, ItemGroup> groupMapping = new HashMap<>();
     private Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
     private Map<ResourceLocation, ItemList> listKeyMapping = new HashMap<>();
@@ -170,6 +172,18 @@ public class ItemGroupManager {
             return new ListPage(listKeyMapping.get(location));
         }
         return NO_PAGE;
+    }
+    
+    /**
+     * Write to console a list of all unmapped items
+     */
+    public void dumpUnmappedItems() {
+        ItemSwapperBase.LOGGER.info("All unmapped Items/Blocks:");
+        for (Entry<ResourceKey<Item>, Item> entry : BuiltInRegistries.ITEM.entrySet()) {
+            if (!(paletteMapping.containsKey(entry.getValue()) || listMapping.containsKey(entry.getValue()))) {
+                ItemSwapperBase.LOGGER.info("Unmapped: " + entry.getKey());
+            }
+        }
     }
 
     /**

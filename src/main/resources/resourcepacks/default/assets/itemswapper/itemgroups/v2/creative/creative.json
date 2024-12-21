@@ -22,6 +22,8 @@
         "minecraft:farmland",
         "minecraft:chorus_plant",
         "minecraft:reinforced_deepslate",
-        "minecraft:budding_amethyst"
+        "minecraft:budding_amethyst",
+        "minecraft:vault",
+        "minecraft:trial_spawner"
     ]
 }

@@ -20,7 +20,9 @@
         "minecraft:vex_armor_trim_smithing_template",
         "minecraft:ward_armor_trim_smithing_template",
         "minecraft:wayfinder_armor_trim_smithing_template",
-        "minecraft:wild_armor_trim_smithing_template"
+        "minecraft:wild_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:bolt_armor_trim_smithing_template"
     ],
     "shortcuts": []
 }

@@ -13,7 +13,8 @@
         "minecraft:warped_trapdoor",
         "minecraft:crimson_trapdoor",
         "minecraft:cherry_trapdoor",
-        "minecraft:bamboo_trapdoor"
+        "minecraft:bamboo_trapdoor",
+        "minecraft:pale_oak_trapdoor"
     ],
     "shortcuts": [
         {
