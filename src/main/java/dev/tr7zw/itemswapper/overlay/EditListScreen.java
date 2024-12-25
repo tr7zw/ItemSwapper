@@ -4,6 +4,7 @@ import java.util.List;
 
 import dev.tr7zw.itemswapper.config.CacheManager;
 import dev.tr7zw.util.ComponentProvider;
+import dev.tr7zw.util.RenderContext;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

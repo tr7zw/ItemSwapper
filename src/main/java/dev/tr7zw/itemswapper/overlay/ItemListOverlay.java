@@ -19,11 +19,11 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
+import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.util.ComponentProvider;
-
+import dev.tr7zw.util.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -200,14 +200,14 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         if (selectedEntry == id) {
             lateRenderList.add(() -> {
                 graphics.pose().pushPose();
-                graphics.pose().translate(0, 0, RenderContext.LAYERS_SELECTION);
+                graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 graphics.pose().popPose();
             });
         }
         lateRenderList.add(() -> {
             graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, RenderContext.LAYERS_ITEM);
+            graphics.pose().translate(0, 0, RenderHelper.LAYERS_ITEM);
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             graphics.pose().popPose();
             var name = ItemUtil.getDisplayname(slot.item());

@@ -2,8 +2,8 @@ package dev.tr7zw.itemswapper.overlay.logic;
 
 import java.util.List;
 
-import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.util.RenderContext;
 import net.minecraft.client.gui.screens.Screen;
 
 public interface GuiWidget {

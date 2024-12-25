@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
-import dev.tr7zw.itemswapper.overlay.RenderContext;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.util.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
 import net.minecraft.util.FormattedCharSequence;
@@ -22,6 +22,20 @@ import net.minecraft.world.item.ItemStack;
 public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
+
+    //#if MC >= 12000
+    public static final int LAYERS_BACKGROUND = 0;
+    public static final int LAYERS_SELECTION = 300;
+    public static final int LAYERS_ITEM = 2000;
+    public static final int LAYERS_TOOLTIP = 3000;
+    public static final int LAYERS_CURSOR = 4000;
+    //#else
+    //$$ public static final int LAYERS_BACKGROUND = 0;
+    //$$ public static final int LAYERS_SELECTION = 1;
+    //$$ public static final int LAYERS_ITEM = 2;
+    //$$ public static final int LAYERS_TOOLTIP = 400;
+    //$$ public static final int LAYERS_CURSOR = 450;
+    //#endif
 
     private RenderHelper() {
         // private
@@ -68,7 +82,7 @@ public final class RenderHelper {
             RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
-            poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
+            poseStack.translate(0.0D, 0.0D, LAYERS_TOOLTIP);
             int fline = line;
             graphics.drawSpecial(bufferSource -> {
                 font.drawInBatch(text.get(fline), (x - font.width(text.get(fline)) / 2),
@@ -81,7 +95,7 @@ public final class RenderHelper {
     public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
         PoseStack poseStack = new PoseStack();
         String string2 = text;
-        poseStack.translate(0.0D, 0.0D, RenderContext.LAYERS_TOOLTIP);
+        poseStack.translate(0.0D, 0.0D, LAYERS_TOOLTIP);
         graphics.drawSpecial(bufferSource -> {
             font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
                     Font.DisplayMode.NORMAL, 0, 15728880);

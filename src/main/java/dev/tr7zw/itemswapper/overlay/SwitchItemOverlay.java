@@ -41,8 +41,10 @@ import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
+import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.util.ComponentProvider;
+import dev.tr7zw.util.RenderContext;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
@@ -262,7 +264,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             //#endif
             //spotless:on
             renderContext.pose().pushPose();
-            renderContext.pose().translate(0, 0, RenderContext.LAYERS_CURSOR);
+            renderContext.pose().translate(0, 0, RenderHelper.LAYERS_CURSOR);
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             renderContext.pose().popPose();

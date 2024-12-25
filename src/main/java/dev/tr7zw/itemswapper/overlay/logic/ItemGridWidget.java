@@ -9,8 +9,9 @@ import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
-import dev.tr7zw.itemswapper.overlay.RenderContext;
+import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.util.RenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -62,7 +63,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-            graphics.pose().translate(0, 0, RenderContext.LAYERS_SELECTION);
+            graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
             graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);
         }
         renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);

@@ -173,7 +173,7 @@ public class ItemGroupManager {
         }
         return NO_PAGE;
     }
-    
+
     /**
      * Write to console a list of all unmapped items
      */

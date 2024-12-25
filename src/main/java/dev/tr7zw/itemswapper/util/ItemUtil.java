@@ -14,6 +14,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.util.NMSHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.ClickType;
@@ -69,7 +70,7 @@ public final class ItemUtil {
     }
 
     public static Component getDisplayname(ItemStack item) {
-        if (NMSWrapper.hasCustomName(item)) {
+        if (NMSHelper.hasCustomName(item)) {
             return item.getHoverName();
         }
         NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getNameProvider(item);
