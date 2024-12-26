@@ -15,7 +15,6 @@ import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.InstrumentItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-//spotless:off
 //#if MC >=12102
 import net.minecraft.core.HolderLookup.Provider;
 //#else
@@ -24,34 +23,30 @@ import net.minecraft.core.HolderLookup.Provider;
 //$$ import org.spongepowered.asm.mixin.injection.Inject;
 //$$ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //#endif
-//spotless:on
 
 @Mixin(InstrumentItem.class)
 public abstract class InstrumentItemMixin implements InstrumentItemAccess {
 
     private Set<Item> items = new HashSet<>();
 
-    // spotless:off
-//#if MC < 12102
-//$$    @Inject(method = "<init>", at = @At("RETURN"))
-//$$    public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
-//$$        items.add((Item) (Object) this);
-//$$    }
-//#endif
-//spotless:on
+    //#if MC < 12102
+    //$$    @Inject(method = "<init>", at = @At("RETURN"))
+    //$$    public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
+    //$$        items.add((Item) (Object) this);
+    //$$    }
+    //#endif
 
     @Override
     public Set<Item> getItems() {
         return items;
     }
 
-    // spotless:off
     //#if MC >= 12102
     @Override
     public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
         return getInstrument(itemStack, Minecraft.getInstance().level.registryAccess());
     }
-    
+
     @Shadow
     protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack itemStack, Provider provider);
     //#else
@@ -62,6 +57,5 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
     //$$    @Shadow
     //$$ protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
     //#endif
-    //spotless:on
 
 }

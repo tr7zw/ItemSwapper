@@ -18,13 +18,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 
-//spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
-//spotless:on
 
 @Mixin(AbstractContainerScreen.class)
 public class AbstractContainerScreenMixin extends Screen {
@@ -59,13 +57,11 @@ public class AbstractContainerScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    // spotless:off 
-  //#if MC >= 12000
+    //#if MC >= 12000
     private void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo info) {
         //#else
         //$$ private void render(PoseStack graphics, int i, int j, float f, CallbackInfo info) {
         //#endif
-        // spotless:on
         if (copyToClipboardBtn != null) {
             copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
         }

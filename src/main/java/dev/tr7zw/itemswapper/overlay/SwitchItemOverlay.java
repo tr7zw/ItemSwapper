@@ -50,14 +50,12 @@ import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
-// spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
 
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
-//spotless:on
 
 public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
@@ -224,15 +222,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    // spotless:off 
-  //#if MC >= 12000
+    //#if MC >= 12000
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-  //#else
-  //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
-  //$$ RenderContext renderContext = new RenderContext(this, pose);
-  //#endif
-  // spotless:on
+        //#else
+        //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+        //$$ RenderContext renderContext = new RenderContext(this, pose);
+        //#endif
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
 
@@ -256,13 +252,11 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
                 && !ControlifySupport.getInstance().isActive(this)) {
-            // spotless:off
             //#if MC >= 12102
             RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
             //#endif
-            //spotless:on
             renderContext.pose().pushPose();
             renderContext.pose().translate(0, 0, RenderHelper.LAYERS_CURSOR);
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,

@@ -19,13 +19,11 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-//spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
-//spotless:on
 
 @Mixin(ContainerScreen.class)
 public abstract class ContainerScreenMixin extends AbstractContainerScreen<ChestMenu> {
@@ -35,13 +33,11 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     }
 
     @Inject(method = "render", at = @At("HEAD"))
-    // spotless:off 
-  //#if MC >= 12000
+    //#if MC >= 12000
     public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
         //#else
         //$$     public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
         //#endif
-        // spotless:on
         if (!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }

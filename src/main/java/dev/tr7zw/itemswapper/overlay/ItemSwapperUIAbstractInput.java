@@ -39,20 +39,18 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
         return vCursorHandler != null;
     }
 
-    // spotless:off 
     //#if MC >= 12002
     @Override
     public boolean mouseScrolled(double d, double e, double f, double g) {
         onScroll(g);
         return true;
     }
-  //#else
-  //$$     @Override
-  //$$  public boolean mouseScrolled(double d, double e, double f) {
-  //$$      onScroll(f);
-  //$$      return true;
-  //$$  }
-  //#endif
-  //spotless:on
+    //#else
+    //$$     @Override
+    //$$  public boolean mouseScrolled(double d, double e, double f) {
+    //$$      onScroll(f);
+    //$$      return true;
+    //$$  }
+    //#endif
 
 }

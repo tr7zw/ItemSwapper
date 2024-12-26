@@ -12,7 +12,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.network.protocol.common.ClientboundCustomPayloadPacket;
-// spotless:off
 //#if MC >= 12005
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 //#endif
@@ -38,7 +37,6 @@ import net.fabricmc.fabric.impl.networking.PayloadTypeRegistryImpl;
 //$$ import net.minecraft.server.MinecraftServer;
 //$$ import net.fabricmc.fabric.api.networking.v1.PacketSender;
 //#endif
-//spotless:on
 
 public class ServerNetworkUtil {
 
@@ -47,79 +45,70 @@ public class ServerNetworkUtil {
     }
 
     public static void sendShulkerSupportPacket(ServerPlayer player, boolean enabled) {
-        // spotless:off 
         //#if MC >= 12002
         player.connection.send(new ClientboundCustomPayloadPacket(new ShulkerSupportPayload(enabled)));
         //#else
         //$$ player.connection.send(new ClientboundCustomPayloadPacket(ShulkerSupportPayload.ID,
         //$$        new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
         //#endif
-        //spotless:on
     }
 
     public static void sendRefillSupportPacket(ServerPlayer player, boolean enabled) {
-        // spotless:off 
         //#if MC >= 12002
         player.connection.send(new ClientboundCustomPayloadPacket(new RefillSupportPayload(enabled)));
         //#else
         //$$ player.connection.send(new ClientboundCustomPayloadPacket(RefillSupportPayload.ID,
         //$$ new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
         //#endif
-        //spotless:on
     }
 
     public static void sendDisableModPacket(ServerPlayer player, boolean enabled) {
-        // spotless:off 
         //#if MC >= 12002
         player.connection.send(new ClientboundCustomPayloadPacket(new DisableModPayload(enabled)));
         //#else
         //$$         player.connection.send(new ClientboundCustomPayloadPacket(DisableModPayload.ID,
         //$$ new FriendlyByteBuf(Unpooled.copyBoolean(enabled))));
         //#endif
-        //spotless:on
     }
 
     public static <T extends CustomPacketPayload> void registerClientCustomPacket(Class<T> type, ResourceLocation id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder) {
-        // spotless:off 
         //#if MC > 12005
-        if(PayloadTypeRegistryImpl.PLAY_S2C.get(id) == null) {
+        if (PayloadTypeRegistryImpl.PLAY_S2C.get(id) == null) {
             PayloadTypeRegistry.playS2C().register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
-    
+
                 @Override
                 public T decode(FriendlyByteBuf buffer) {
                     return streamMemberEncoder.apply(buffer);
                 }
-    
+
                 @Override
                 public void encode(FriendlyByteBuf buffer, T object) {
                     streamDecoder.accept(object, buffer);
                 }
-    
+
             });
         }
         //#endif
-        //spotless:on
     }
 
     public static <T extends CustomPacketPayload> void registerServerCustomPacket(Class<T> type, ResourceLocation id,
             Function<FriendlyByteBuf, T> streamMemberEncoder, BiConsumer<T, FriendlyByteBuf> streamDecoder,
             BiConsumer<T, ServerPlayer> action) {
-        // spotless:off 
         //#if MC > 12005
-        if(PayloadTypeRegistryImpl.PLAY_C2S.get(id) == null) {
+        if (PayloadTypeRegistryImpl.PLAY_C2S.get(id) == null) {
             PayloadTypeRegistry.playC2S().register(new Type<>(id), new StreamCodec<FriendlyByteBuf, T>() {
-    
+
                 @Override
                 public T decode(FriendlyByteBuf buffer) {
                     return streamMemberEncoder.apply(buffer);
                 }
-    
+
                 @Override
                 public void encode(FriendlyByteBuf buffer, T object) {
                     streamDecoder.accept(object, buffer);
                 }
-    
+
             });
         }
         ServerPlayNetworking.registerGlobalReceiver(new Type<T>(id), new PlayPayloadHandler<T>() {
@@ -131,15 +120,14 @@ public class ServerNetworkUtil {
         });
         //#else
         //$$ ServerPlayNetworking.registerGlobalReceiver(id, new PlayChannelHandler() {
-      //$$ 
-      //$$     @Override
-      //$$     public void receive(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler,
-      //$$             FriendlyByteBuf buf, PacketSender responseSender) {
-      //$$         action.accept(streamMemberEncoder.apply(buf), player);
-      //$$     }
-      //$$  });
+        //$$ 
+        //$$     @Override
+        //$$     public void receive(MinecraftServer server, ServerPlayer player, ServerGamePacketListenerImpl handler,
+        //$$             FriendlyByteBuf buf, PacketSender responseSender) {
+        //$$         action.accept(streamMemberEncoder.apply(buf), player);
+        //$$     }
+        //$$  });
         //#endif
-        //spotless:on
     }
 
 }

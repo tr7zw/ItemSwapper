@@ -23,26 +23,22 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-//spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
-//spotless:on
 import net.minecraft.client.gui.screens.Screen;
 
-// spotless:off 
 //#if MC >= 12002
 import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
 
 public class CopyToClipboard extends LegacyTexturedButtonWidget {
-//#else
-//$$ import net.minecraft.client.gui.components.ImageButton;
-//$$
-//$$ public class CopyToClipboard extends ImageButton {    
-//#endif
-//spotless:on
+    //#else
+    //$$ import net.minecraft.client.gui.components.ImageButton;
+    //$$
+    //$$ public class CopyToClipboard extends ImageButton {    
+    //#endif
 
     private static final ResourceLocation texture = getResourceLocation(ItemSwapperBase.MODID,
             "textures/gui/button.png");
@@ -86,15 +82,13 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     }
 
     @Override
-    // spotless:off 
-  //#if MC >= 12000
+    //#if MC >= 12000
     public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-    //#else
-    //$$ public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
-    //$$ RenderContext renderContext = new RenderContext(screen, pose);
-    //#endif
-    // spotless:on
+        //#else
+        //$$ public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
+        //$$ RenderContext renderContext = new RenderContext(screen, pose);
+        //#endif
         RenderSystem.enableDepthTest();
         RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore

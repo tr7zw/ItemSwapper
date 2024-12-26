@@ -32,13 +32,11 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-//spotless:off 
 //#if MC >= 12000
 import net.minecraft.client.gui.GuiGraphics;
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
-//spotless:on
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private static final ResourceLocation SELECTION_LOCATION = getResourceLocation("itemswapper",
@@ -74,24 +72,20 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    // spotless:off 
-  //#if MC >= 12000
+    //#if MC >= 12000
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-  //#else
-  //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
-  //$$ RenderContext renderContext = new RenderContext(this, pose);
-  //#endif
-  // spotless:on
+        //#else
+        //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+        //$$ RenderContext renderContext = new RenderContext(this, pose);
+        //#endif
         RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        // spotless:off
         //#if MC >= 12102
         RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
         //#else
         //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         //#endif
-        //spotless:on
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
@@ -221,13 +215,11 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
             graphics.renderItem(arg, arg2, x, y, k);
-            // spotless:off
             //#if MC >= 12102
             RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             //#endif
-            //spotless:on
             graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
         }
     }

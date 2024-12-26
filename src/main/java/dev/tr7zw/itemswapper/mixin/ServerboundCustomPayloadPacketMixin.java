@@ -1,9 +1,9 @@
 package dev.tr7zw.itemswapper.mixin;
 
-//spotless:off 
 //#if MC >= 12005
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
+
 @Mixin(ServerboundCustomPayloadPacket.class)
 public class ServerboundCustomPayloadPacketMixin {
 

@@ -12,30 +12,26 @@ import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 
-//spotless:off 
 //#if MC >= 12002
- import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 //#else
 //$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 //$$ import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
 //$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 //#endif
-//spotless:on
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListenerMixin {
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
-    // spotless:off 
-  //#if MC >= 12002
+    //#if MC >= 12002
     public void handleCustomPayload(CustomPacketPayload customPacketPayload, CallbackInfo ci) {
         try {
-      //#else
-      //$$     public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
-      //$$ try {
-      //$$ CustomPacketPayload customPacketPayload = ((CustomPayloadLoader)clientboundCustomPayloadPacket).resolveObject(clientboundCustomPayloadPacket.getIdentifier(), clientboundCustomPayloadPacket.getData());
-      //#endif
-      //spotless:on
+            //#else
+            //$$     public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
+            //$$ try {
+            //$$ CustomPacketPayload customPacketPayload = ((CustomPayloadLoader)clientboundCustomPayloadPacket).resolveObject(clientboundCustomPayloadPacket.getIdentifier(), clientboundCustomPayloadPacket.getData());
+            //#endif
 
             if (customPacketPayload instanceof ShulkerSupportPayload payload) {
                 ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());

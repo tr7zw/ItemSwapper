@@ -119,13 +119,11 @@ public final class RenderHelper {
                 return;
             }
             graphics.renderItem(arg, copy, x, y, k);
-            // spotless:off
             //#if MC >= 12102
             RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             //#endif
-            //spotless:on
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
@@ -169,13 +167,11 @@ public final class RenderHelper {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
-        // spotless:off
         //#if MC <= 12004
         //$$ ChatFormatting rarityColor = arg2.getRarity().color;
         //#else
         ChatFormatting rarityColor = arg2.getRarity().color();
         //#endif
-        //spotless:on
         int color = 0xFFFFFF;
         if (grayOut) {
             color = 0xAAAAAA;

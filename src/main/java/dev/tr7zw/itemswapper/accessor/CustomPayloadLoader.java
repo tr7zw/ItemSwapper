@@ -1,6 +1,5 @@
 package dev.tr7zw.itemswapper.accessor;
 
-//spotless:off 
 //#if MC >= 12005
 //#elseif MC >= 12002
 //$$ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
@@ -11,14 +10,11 @@ package dev.tr7zw.itemswapper.accessor;
 //$$ import net.minecraft.network.FriendlyByteBuf;
 //$$ import net.minecraft.resources.ResourceLocation;
 //#endif
-//spotless:on
 
 public interface CustomPayloadLoader {
 
-    // spotless:off 
-  //#if MC < 12005
-  //$$  CustomPacketPayload resolveObject(ResourceLocation id, FriendlyByteBuf buffer);
-  //#endif
-  //spotless:on
+    //#if MC < 12005
+    //$$  CustomPacketPayload resolveObject(ResourceLocation id, FriendlyByteBuf buffer);
+    //#endif
 
 }
