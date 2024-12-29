@@ -21,7 +21,6 @@ import net.minecraft.client.gui.GuiGraphics;
 //#else
 //$$ import com.mojang.blaze3d.vertex.PoseStack;
 //#endif
-//spotless:off
 //#if MC >= 12100
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 //#else

@@ -1,3 +1,7 @@
 dependencies {
     modCompileOnlyApi 'maven.modrinth:controlify:FeADDFg7'
+    modCompileOnlyApi 'maven.modrinth:midnightcontrols:1.9.4+1.20.4'
+    modCompileOnly 'maven.modrinth:midnightlib:1.0.0-fabric'
+    modCompileOnly 'org.aperlambda:lambdajcommon:1.8.1'
+    modCompileOnly 'curse.maven:litematica-308892:4626718'
 }
