@@ -1,21 +1,19 @@
 package dev.tr7zw.itemswapper.packets;
 
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
-
+import dev.tr7zw.itemswapper.util.ServerUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 //#if MC >= 12002
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-
 //#else
 //$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 //#endif
 
 public record RefillSupportPayload(boolean enabled) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
-    public static final ResourceLocation ID = getResourceLocation(ItemSwapperMod.MODID, "enablerefill");
+    public static final ResourceLocation ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "enablerefill");
 
     @Override
     public ResourceLocation id() {

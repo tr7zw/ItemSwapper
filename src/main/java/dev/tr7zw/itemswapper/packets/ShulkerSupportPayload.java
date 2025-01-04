@@ -1,8 +1,7 @@
 package dev.tr7zw.itemswapper.packets;
 
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
-
+import dev.tr7zw.itemswapper.util.ServerUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
@@ -14,7 +13,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 
 public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
-    public static final ResourceLocation ID = getResourceLocation(ItemSwapperMod.MODID, "enableshulker");
+    public static final ResourceLocation ID = ServerUtil.getResourceLocation(ItemSwapperMod.MODID, "enableshulker");
 
     @Override
     public ResourceLocation id() {
