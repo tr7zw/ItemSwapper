@@ -71,13 +71,13 @@ public final class ItemUtil {
 
     public static Component getDisplayname(ItemStack item) {
         if (NMSHelper.hasCustomName(item)) {
-            return item.getHoverName();
+            return item.getHoverName().copy();
         }
         NameProvider provider = ItemSwapperSharedMod.instance.getClientProviderManager().getNameProvider(item);
         if (provider != null) {
-            return provider.getDisplayName(item);
+            return provider.getDisplayName(item).copy();
         }
-        return item.getHoverName();
+        return item.getHoverName().copy();
     }
 
     public static boolean grabItem(Item item, boolean ignoreHotbar) {
