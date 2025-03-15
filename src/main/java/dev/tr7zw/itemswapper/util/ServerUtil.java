@@ -26,5 +26,5 @@ public class ServerUtil {
         //$$ return new ResourceLocation(namespace, path);
         //#endif
     }
-    
+
 }
