@@ -22,7 +22,7 @@ jobs:
           gradle-home-cache-cleanup: true
           dependency-graph: generate-and-submit
       - name: build
-        run: ./gradlecw build --info
+        run: ./gradlecw build --stacktrace
       - name: capture build artifacts
         uses: actions/upload-artifact@v4
         with:
