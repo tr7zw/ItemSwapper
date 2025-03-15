@@ -13,9 +13,9 @@ import com.google.gson.GsonBuilder;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.util.ComponentProvider;
-import dev.tr7zw.util.RenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;

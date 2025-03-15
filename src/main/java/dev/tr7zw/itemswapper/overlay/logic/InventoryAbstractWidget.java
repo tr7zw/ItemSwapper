@@ -13,7 +13,7 @@ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
-import dev.tr7zw.util.RenderContext;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.world.inventory.ClickType;
 
 public abstract class InventoryAbstractWidget extends ItemGridWidget {

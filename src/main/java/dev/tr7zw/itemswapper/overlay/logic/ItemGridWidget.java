@@ -11,7 +11,7 @@ import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import dev.tr7zw.util.RenderContext;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.entity.ItemRenderer;
@@ -53,9 +53,9 @@ public abstract class ItemGridWidget implements GuiWidget {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
             //#if MC >= 12002
-            graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24);
+            graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 0, 29, 24);
             //#else
-            //$$ graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24);
+            //$$ graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 0, 0, 24, 22, 29, 24);
             //#endif
         }
         GuiSlot guiSlot = getSlots().get(listId);

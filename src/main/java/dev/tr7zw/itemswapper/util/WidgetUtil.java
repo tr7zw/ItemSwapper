@@ -9,7 +9,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
-import dev.tr7zw.util.RenderContext;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.resources.ResourceLocation;
 
 public class WidgetUtil {

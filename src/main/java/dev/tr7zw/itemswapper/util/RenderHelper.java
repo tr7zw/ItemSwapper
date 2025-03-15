@@ -8,7 +8,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
-import dev.tr7zw.util.RenderContext;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;

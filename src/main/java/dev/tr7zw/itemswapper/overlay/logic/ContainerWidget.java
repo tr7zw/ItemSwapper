@@ -20,7 +20,7 @@ import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import dev.tr7zw.util.RenderContext;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;

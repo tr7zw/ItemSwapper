@@ -13,7 +13,7 @@ import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import dev.tr7zw.util.RenderContext;
+import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
