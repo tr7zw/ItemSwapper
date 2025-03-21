@@ -29,6 +29,9 @@ import net.minecraft.network.chat.Component;
 
 public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModInitializer {
 
+    private static final String ERROR_WHILE_PROCESSING_PACKET = "Error while processing packet!";
+    protected static final String ITEMSWAPPER = "itemswapper";
+
     @Override
     public void initModloader() {
         new ItemSwapperServerMod().onLoad();
@@ -38,14 +41,14 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
 
         // Register default resource pack
 
-        FabricLoader.getInstance().getModContainer("itemswapper")
+        FabricLoader.getInstance().getModContainer(ITEMSWAPPER)
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        getResourceLocation("itemswapper", "default"), container,
+                        getResourceLocation(ITEMSWAPPER, "default"), container,
                         Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
-        FabricLoader.getInstance().getModContainer("itemswapper")
+        FabricLoader.getInstance().getModContainer(ITEMSWAPPER)
                 .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        getResourceLocation("itemswapper", "classic"), container,
+                        getResourceLocation(ITEMSWAPPER, "classic"), container,
                         Component.translatable("text.itemswapper.resourcepack.classic"),
                         ResourcePackActivationType.NORMAL));
 
@@ -73,33 +76,33 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
         SwapperResourceLoader.ResourceLoaderInit.init();
 
         ClientPlayConnectionEvents.INIT.register((handle, client) -> {
-            NetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID,
-                    b -> new SwapItemPayload(b), (p, b) -> p.write(b));
+            NetworkUtil.registerServerCustomPacket(SwapItemPayload.class, SwapItemPayload.ID, SwapItemPayload::new,
+                    (p, b) -> p.write(b));
             NetworkUtil.registerServerCustomPacket(RefillItemPayload.class, RefillItemPayload.ID,
-                    b -> new RefillItemPayload(b), (p, b) -> p.write(b));
+                    RefillItemPayload::new, (p, b) -> p.write(b));
 
             NetworkUtil.registerClientCustomPacket(ShulkerSupportPayload.class, ShulkerSupportPayload.ID,
-                    b -> new ShulkerSupportPayload(b), (p, b) -> p.write(b), payload -> {
+                    ShulkerSupportPayload::new, (p, b) -> p.write(b), payload -> {
                         try {
                             ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());
                         } catch (Throwable th) {
-                            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
+                            ItemSwapperBase.LOGGER.error(ERROR_WHILE_PROCESSING_PACKET, th);
                         }
                     });
             NetworkUtil.registerClientCustomPacket(RefillSupportPayload.class, RefillSupportPayload.ID,
-                    b -> new RefillSupportPayload(b), (p, b) -> p.write(b), payload -> {
+                    RefillSupportPayload::new, (p, b) -> p.write(b), payload -> {
                         try {
                             ItemSwapperSharedMod.instance.setEnableRefill(payload.enabled());
                         } catch (Throwable th) {
-                            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
+                            ItemSwapperBase.LOGGER.error(ERROR_WHILE_PROCESSING_PACKET, th);
                         }
                     });
             NetworkUtil.registerClientCustomPacket(DisableModPayload.class, DisableModPayload.ID,
-                    b -> new DisableModPayload(b), (p, b) -> p.write(b), payload -> {
+                    DisableModPayload::new, (p, b) -> p.write(b), payload -> {
                         try {
                             ItemSwapperSharedMod.instance.setModDisabled(payload.enabled());
                         } catch (Throwable th) {
-                            ItemSwapperBase.LOGGER.error("Error while processing packet!", th);
+                            ItemSwapperBase.LOGGER.error(ERROR_WHILE_PROCESSING_PACKET, th);
                         }
                     });
         });
