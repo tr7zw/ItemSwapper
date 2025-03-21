@@ -13,12 +13,11 @@ jobs:
         with:
           java-version: 21
       - name: Get Release Changelog
-        id: get_changelog
         run: |
-          # Read the event payload to get the changelog
+          # Read the event payload to get the changelog and save it to a file
           changelog=$(jq -r '.release.body' $GITHUB_EVENT_PATH)
-          echo "Changelog: $changelog"
-          echo "::set-output name=changelog::$changelog"
+          echo "$changelog" > changelog.md
+          echo "Changelog saved to changelog.md"
       - name: make gradle wrapper executable
         run: chmod +x ./gradlecw
       - name: build
