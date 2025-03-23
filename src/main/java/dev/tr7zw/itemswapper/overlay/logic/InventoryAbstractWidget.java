@@ -10,6 +10,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
@@ -59,7 +60,7 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
                 }
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        minecraft.player.getInventory().selected, ClickType.SWAP, this.minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, this.minecraft.player);
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
                 ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
                 ItemSwapperSharedMod.instance

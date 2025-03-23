@@ -91,9 +91,9 @@ public final class ItemUtil {
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        minecraft.player.getInventory().selected, ClickType.SWAP, minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, minecraft.player);
             } else {
-                if (ShulkerHelper.isShulker(minecraft.player.getInventory().getSelected().getItem())) {
+                if (ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
                     // Can't put a shulker into a shulker, so search a different spot
                     continue;
                 }

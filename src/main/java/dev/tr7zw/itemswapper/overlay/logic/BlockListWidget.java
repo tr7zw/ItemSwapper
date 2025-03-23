@@ -10,6 +10,7 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
@@ -61,8 +62,8 @@ public class BlockListWidget extends ItemGridWidget {
         if (item != null && item != Items.AIR) {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
                 minecraft.gameMode.handleCreativeModeItemAdd(item.getDefaultInstance().copy(),
-                        36 + minecraft.player.getInventory().selected);
-                minecraft.player.getInventory().setItem(minecraft.player.getInventory().selected,
+                        36 + InventoryUtil.getSelectedId(minecraft.player.getInventory()));
+                minecraft.player.getInventory().setItem(InventoryUtil.getSelectedId(minecraft.player.getInventory()),
                         item.getDefaultInstance().copy());
                 ItemSwapperSharedMod.instance.setLastItem(item);
                 ItemSwapperSharedMod.instance

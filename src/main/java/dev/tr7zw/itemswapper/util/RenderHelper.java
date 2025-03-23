@@ -119,8 +119,9 @@ public final class RenderHelper {
                 return;
             }
             graphics.renderItem(arg, copy, x, y, k);
-            //#if MC >= 12102
-            RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //#if MC >= 12105
+            //#elseif MC >= 12102
+            //$$ RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             //#endif

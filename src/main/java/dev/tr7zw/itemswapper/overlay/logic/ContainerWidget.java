@@ -15,6 +15,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -43,7 +44,7 @@ public class ContainerWidget extends ItemGridWidget {
     }
 
     private NonNullList<AvailableSlot> getItems() {
-        ItemStack item = minecraft.player.getInventory().items.get(slotId);
+        ItemStack item = InventoryUtil.getNonEquipmentItems(minecraft.player.getInventory()).get(slotId);
         ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
         if (provider == null) {
             return NonNullList.create();

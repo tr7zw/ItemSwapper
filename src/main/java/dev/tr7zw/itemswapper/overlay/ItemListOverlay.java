@@ -17,6 +17,7 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -79,10 +80,11 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
         //$$ RenderContext renderContext = new RenderContext(this, pose);
         //#endif
-        RenderSystem.enableBlend();
+//        RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //#if MC >= 12102
-        RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //#if MC >= 12105
+        //#elseif MC >= 12102
+        //$$RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
         //#else
         //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         //#endif
@@ -133,8 +135,8 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private void refreshList() {
         entries.clear();
         // first slot is always the current item
-        entries.add(new AvailableSlot(-1, minecraft.player.getInventory().selected,
-                minecraft.player.getInventory().getSelected()));
+        entries.add(new AvailableSlot(-1, InventoryUtil.getSelectedId(minecraft.player.getInventory()),
+                InventoryUtil.getSelected(minecraft.player.getInventory())));
         for (Item item : itemSelection.getItems()) {
             List<AvailableSlot> ids = providerManager.findSlotsMatchingItem(item, false,
                     ConfigManager.getInstance().getConfig().ignoreHotbar);
@@ -177,7 +179,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        minecraft.player.getInventory().selected, ClickType.SWAP, this.minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, this.minecraft.player);
             } else {
                 NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }
@@ -215,8 +217,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
             graphics.renderItem(arg, arg2, x, y, k);
-            //#if MC >= 12102
-            RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //#if MC >= 12105
+            //#elseif MC >= 12102
+            //$$RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             //#endif

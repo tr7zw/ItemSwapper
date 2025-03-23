@@ -6,8 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
@@ -25,7 +25,7 @@ public class HotbarWidget extends InventoryAbstractWidget {
 
     @Override
     protected List<AvailableSlot> getItem(int id) {
-        NonNullList<ItemStack> items = minecraft.player.getInventory().items;
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(minecraft.player.getInventory());
         if (id != -1 && !items.get(id).isEmpty()) {
             return Collections.singletonList(new AvailableSlot(-1, id, items.get(id)));
         }

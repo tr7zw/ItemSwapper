@@ -41,6 +41,7 @@ import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
@@ -186,7 +187,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     public void openContainer(int slotId) {
         // Check that this is valid
-        ItemStack item = minecraft.player.getInventory().items.get(slotId);
+        ItemStack item = InventoryUtil.getNonEquipmentItems(minecraft.player.getInventory()).get(slotId);
         ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
         if (provider == null) {
             // fallback, reset the UI and open the inventory
@@ -252,8 +253,9 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
                 && !ControlifySupport.getInstance().isActive(this)) {
-            //#if MC >= 12102
-            RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+            //#if MC >= 12105
+            //#elseif MC >= 12102
+            //$$ RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
             //#endif

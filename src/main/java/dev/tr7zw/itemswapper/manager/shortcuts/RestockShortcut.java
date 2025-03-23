@@ -1,9 +1,12 @@
 package dev.tr7zw.itemswapper.manager.shortcuts;
 
+import java.util.List;
+
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
@@ -29,7 +32,7 @@ public class RestockShortcut implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        NonNullList<ItemStack> items = Minecraft.getInstance().player.getInventory().items;
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(Minecraft.getInstance().player.getInventory());
         for (int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
             int space = item.getMaxStackSize() - item.getCount();

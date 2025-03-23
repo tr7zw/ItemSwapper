@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ServerUtil;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
@@ -23,16 +24,16 @@ public class ServerItemHandler {
             return;
         }
         try {
-            if (ShulkerHelper.isShulker(player.getInventory().getSelected().getItem())) {
+            if (ShulkerHelper.isShulker(InventoryUtil.getSelected(player.getInventory()).getItem())) {
                 // Don't try to put a shulker into another shulker
                 return;
             }
-            ItemStack shulker = player.getInventory().items.get(payload.inventorySlot());
+            ItemStack shulker = player.getInventory().getItem(payload.inventorySlot());
             NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
             if (content != null) {
                 ItemStack tmp = content.get(payload.slot());
-                content.set(payload.slot(), player.getInventory().getSelected());
-                player.getInventory().setItem(player.getInventory().selected, tmp);
+                content.set(payload.slot(), InventoryUtil.getSelected(player.getInventory()));
+                player.getInventory().setItem(InventoryUtil.getSelectedId(player.getInventory()), tmp);
                 ShulkerHelper.setItem(shulker, content);
             }
         } catch (Throwable th) {
@@ -55,8 +56,8 @@ public class ServerItemHandler {
                 // nothing to do
                 return;
             }
-            for (int i = 0; i < player.getInventory().items.size(); i++) {
-                ItemStack shulker = player.getInventory().items.get(i);
+            for (int i = 0; i < InventoryUtil.getNonEquipmentItems(player.getInventory()).size(); i++) {
+                ItemStack shulker = InventoryUtil.getNonEquipmentItems(player.getInventory()).get(i);
                 NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
                 if (content != null) {
                     boolean boxChanged = false;

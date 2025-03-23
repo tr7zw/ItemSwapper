@@ -10,6 +10,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -81,7 +82,7 @@ public class ListContentWidget extends ItemGridWidget {
             if (entry.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(entry.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        minecraft.player.getInventory().selected, ClickType.SWAP, this.minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, this.minecraft.player);
             } else {
                 NetworkUtil.swapItem(entry.inventory(), entry.slot());
             }

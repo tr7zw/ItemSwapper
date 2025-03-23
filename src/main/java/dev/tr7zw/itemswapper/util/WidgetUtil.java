@@ -64,11 +64,13 @@ public class WidgetUtil {
     }
 
     public static void renderBackground(WidgetArea widgetArea, RenderContext graphics, int originX, int originY) {
-        RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //#if MC >= 12102
-        RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //#if MC >= 12105
+        //#elseif MC >= 12102
+        //$$ RenderSystem.enableBlend();
+        //$$ RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
         //#else
+        //$$ RenderSystem.enableBlend();
         //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         //#endif
         if (widgetArea.getBackgroundTexture() != null) {

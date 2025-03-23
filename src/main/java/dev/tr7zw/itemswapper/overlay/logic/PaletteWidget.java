@@ -9,6 +9,7 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.util.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
@@ -74,8 +75,8 @@ public class PaletteWidget extends ItemGridWidget {
         if (entry != null && entry.getItem() != Items.AIR) {
             if (minecraft.player.isCreative() && configManager.getConfig().creativeCheatMode) {
                 minecraft.gameMode.handleCreativeModeItemAdd(entry.getItem().getDefaultInstance().copy(),
-                        36 + minecraft.player.getInventory().selected);
-                minecraft.player.getInventory().setItem(minecraft.player.getInventory().selected,
+                        36 + InventoryUtil.getSelectedId(minecraft.player.getInventory()));
+                minecraft.player.getInventory().setItem(InventoryUtil.getSelectedId(minecraft.player.getInventory()),
                         entry.getItem().getDefaultInstance().copy());
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance

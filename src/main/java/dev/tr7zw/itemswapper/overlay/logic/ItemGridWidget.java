@@ -42,9 +42,13 @@ public abstract class ItemGridWidget implements GuiWidget {
             renderSelection(parent, graphics, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
                     itemRenderList, lateRenderList, overwrideAvailable);
         }
-        RenderSystem.enableBlend();
+        //#if MC < 12104
+        //$$ RenderSystem.enableBlend();
+        //#endif
         itemRenderList.forEach(Runnable::run);
-        RenderSystem.enableBlend();
+        //#if MC < 12104
+        //$$ RenderSystem.enableBlend();
+        //#endif
         lateRenderList.forEach(Runnable::run);
     }
 
