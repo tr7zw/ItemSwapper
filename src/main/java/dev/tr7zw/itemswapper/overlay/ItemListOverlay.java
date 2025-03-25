@@ -80,7 +80,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
         //$$ RenderContext renderContext = new RenderContext(this, pose);
         //#endif
-//        RenderSystem.enableBlend();
+        //        RenderSystem.enableBlend();
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         //#if MC >= 12105
         //#elseif MC >= 12102
@@ -179,7 +179,8 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             if (slot.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, this.minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP,
+                        this.minecraft.player);
             } else {
                 NetworkUtil.swapItem(slot.inventory(), slot.slot());
             }

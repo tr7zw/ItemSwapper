@@ -60,7 +60,8 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
                 }
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(slot.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, this.minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP,
+                        this.minecraft.player);
                 clientAPI.itemSwapSentEvent.callEvent(new SwapSent(slot));
                 ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
                 ItemSwapperSharedMod.instance

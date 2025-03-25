@@ -89,8 +89,8 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
         //$$ public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
         //$$ RenderContext renderContext = new RenderContext(screen, pose);
         //#endif
-//        RenderSystem.enableDepthTest();
-//        RenderSystem.enableBlend();
+        //        RenderSystem.enableDepthTest();
+        //        RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore
         renderContext.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
                 TEXTURE_WIDTH, TEXTURE_HEIGHT);

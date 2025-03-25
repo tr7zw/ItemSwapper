@@ -82,7 +82,8 @@ public class ListContentWidget extends ItemGridWidget {
             if (entry.inventory() == -1) {
                 int hudSlot = ItemUtil.inventorySlotToHudSlot(entry.slot());
                 this.minecraft.gameMode.handleInventoryMouseClick(minecraft.player.inventoryMenu.containerId, hudSlot,
-                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP, this.minecraft.player);
+                        InventoryUtil.getSelectedId(minecraft.player.getInventory()), ClickType.SWAP,
+                        this.minecraft.player);
             } else {
                 NetworkUtil.swapItem(entry.inventory(), entry.slot());
             }

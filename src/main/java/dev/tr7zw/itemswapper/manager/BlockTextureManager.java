@@ -34,7 +34,7 @@ public class BlockTextureManager {
             //            System.out.println(e.getKey() + " " + e.getValue());
             BlockState state = e.getValue().getStateDefinition().any();
             TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
-            //#if MC >= 12105
+                    //#if MC >= 12105
                     .particleIcon();
             //#else
             //$$        .getParticleIcon();

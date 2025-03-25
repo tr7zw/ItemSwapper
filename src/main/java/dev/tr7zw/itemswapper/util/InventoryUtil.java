@@ -14,7 +14,7 @@ public class InventoryUtil {
         //$$ return inventory.getSelected();
         //#endif
     }
-    
+
     public static int getSelectedId(Inventory inventory) {
         //#if MC >= 12105
         return inventory.getSelectedSlot();
@@ -22,7 +22,7 @@ public class InventoryUtil {
         //$$ return inventory.selected;
         //#endif
     }
-    
+
     public static List<ItemStack> getNonEquipmentItems(Inventory inventory) {
         //#if MC >= 12105
         return inventory.getNonEquipmentItems();
@@ -30,5 +30,5 @@ public class InventoryUtil {
         //$$ return inventory.items;
         //#endif
     }
-    
+
 }
