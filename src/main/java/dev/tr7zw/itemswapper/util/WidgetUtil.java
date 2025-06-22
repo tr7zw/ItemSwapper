@@ -4,8 +4,6 @@ import static dev.tr7zw.util.NMSHelper.getResourceLocation;
 
 import java.util.List;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.overlay.logic.GuiSlot;
 import dev.tr7zw.itemswapper.overlay.logic.WidgetArea;
@@ -64,7 +62,9 @@ public class WidgetUtil {
     }
 
     public static void renderBackground(WidgetArea widgetArea, RenderContext graphics, int originX, int originY) {
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //#if MC < 12106
+        //$$ com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //#endif
         //#if MC >= 12105
         //#elseif MC >= 12102
         //$$ RenderSystem.enableBlend();

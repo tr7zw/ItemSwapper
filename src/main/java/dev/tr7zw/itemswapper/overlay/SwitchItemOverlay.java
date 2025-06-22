@@ -259,11 +259,15 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             //#else
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
             //#endif
-            renderContext.pose().pushPose();
-            renderContext.pose().translate(0, 0, RenderHelper.LAYERS_CURSOR);
+            //#if MC < 12106
+            //$$renderContext.pose().pushPose();
+            //$$renderContext.pose().translate(0, 0, RenderHelper.LAYERS_CURSOR);
+            //#endif
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
-            renderContext.pose().popPose();
+            //#if MC < 12106
+            //$$renderContext.pose().popPose();
+            //#endif
         }
     }
 

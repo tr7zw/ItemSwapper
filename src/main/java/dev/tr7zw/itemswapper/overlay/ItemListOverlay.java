@@ -81,7 +81,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         //$$ RenderContext renderContext = new RenderContext(this, pose);
         //#endif
         //        RenderSystem.enableBlend();
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //#if MC < 12106
+        //$$ RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //#endif
         //#if MC >= 12105
         //#elseif MC >= 12102
         //$$RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
@@ -196,17 +198,24 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
             lateRenderList.add(() -> {
-                graphics.pose().pushPose();
-                graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+                //#if MC < 12106
+                //$$graphics.pose().pushPose();
+                //$$graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+                //#endif
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
-                graphics.pose().popPose();
+                //#if MC < 12106
+              //$$graphics.pose().popPose();
+              //#endif
             });
         }
         lateRenderList.add(() -> {
-            graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, RenderHelper.LAYERS_ITEM);
+            //#if MC < 12106
+            //$$graphics.pose().pushPose();
+            //$$graphics.pose().translate(0, 0, RenderHelper.LAYERS_ITEM);
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
-            graphics.pose().popPose();
+            //#if MC < 12106
+            //$$graphics.pose().popPose();
+            //#endif
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);

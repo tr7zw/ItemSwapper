@@ -91,13 +91,14 @@ public class MinecraftMixin {
             if (itemStack.isEmpty()) {
                 yield ItemStack.EMPTY;
             }
-            BlockEntity blockEntity = blockState.hasBlockEntity() ? level.getBlockEntity(pos) : null;
-            if (blockEntity != null) {
-                CompoundTag compoundTag = blockEntity.saveCustomOnly(level.registryAccess());
-                blockEntity.removeComponentsFromTag(compoundTag); // Deprecated might go bye bye soon
-                BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), compoundTag);
-                itemStack.applyComponents(blockEntity.collectComponents());
-            }
+            //TODO: Was this ever needed?
+//            BlockEntity blockEntity = blockState.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+//            if (blockEntity != null) {
+//                CompoundTag compoundTag = blockEntity.saveCustomOnly(level.registryAccess());
+//                blockEntity.removeComponentsFromTag(compoundTag); // Deprecated might go bye bye soon
+//                BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), compoundTag);
+//                itemStack.applyComponents(blockEntity.collectComponents());
+//            }
             yield itemStack;
         }
         case ENTITY -> {

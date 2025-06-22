@@ -109,13 +109,17 @@ public final class RenderHelper {
     public static void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k,
             SlotEffect effect, int count) {
         if (!arg2.isEmpty()) {
-            graphics.pose().pushPose();
-            graphics.pose().translate(0, 0, 200);
+            //#if MC < 12106
+            //$$ graphics.pose().pushPose();
+            //$$ graphics.pose().translate(0, 0, 200);
+            //#endif
             ItemStack copy = arg2.copy();
             copy.setCount(1);
             if (effect != SlotEffect.NONE) {
                 RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
-                graphics.pose().popPose();
+                //#if MC < 12106
+                //$$graphics.pose().popPose();
+                //#endif
                 return;
             }
             graphics.renderItem(arg, copy, x, y, k);
@@ -129,7 +133,9 @@ public final class RenderHelper {
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
-            graphics.pose().popPose();
+            //#if MC < 12106
+            //$$graphics.pose().popPose();
+            //#endif
         }
     }
 

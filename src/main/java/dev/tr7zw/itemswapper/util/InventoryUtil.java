@@ -14,6 +14,14 @@ public class InventoryUtil {
         //$$ return inventory.getSelected();
         //#endif
     }
+    
+    public static ItemStack getOffhand(Inventory inventory) {
+        //#if MC >= 12105
+        return inventory.getItem(Inventory.SLOT_OFFHAND);
+        //#else
+        //$$ return inventory.offhand;
+        //#endif
+    }
 
     public static int getSelectedId(Inventory inventory) {
         //#if MC >= 12105

@@ -65,7 +65,9 @@ public abstract class ItemGridWidget implements GuiWidget {
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-            graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+            //#if MC < 12106
+            //$$ graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+            //#endif
             graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);
         }
         renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);
