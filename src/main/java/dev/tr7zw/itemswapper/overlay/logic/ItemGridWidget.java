@@ -3,13 +3,10 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
 import dev.tr7zw.itemswapper.config.ConfigManager;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
-import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.client.Minecraft;
@@ -43,11 +40,11 @@ public abstract class ItemGridWidget implements GuiWidget {
                     itemRenderList, lateRenderList, overwrideAvailable);
         }
         //#if MC < 12104
-        //$$ RenderSystem.enableBlend();
+        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         //#endif
         itemRenderList.forEach(Runnable::run);
         //#if MC < 12104
-        //$$ RenderSystem.enableBlend();
+        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         //#endif
         lateRenderList.forEach(Runnable::run);
     }
@@ -66,7 +63,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
             //#if MC < 12106
-            //$$ graphics.getPose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+            //$$ graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
             //#endif
             graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);
         }

@@ -2,7 +2,6 @@ package dev.tr7zw.itemswapper.util;
 
 import java.util.List;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
@@ -125,9 +124,9 @@ public final class RenderHelper {
             graphics.renderItem(arg, copy, x, y, k);
             //#if MC >= 12105
             //#elseif MC >= 12102
-            //$$ RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //#else
-            //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             //#endif
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;

@@ -1,6 +1,6 @@
 package dev.tr7zw.itemswapper.util;
 
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 
 import java.util.List;
 

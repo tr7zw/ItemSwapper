@@ -12,9 +12,8 @@ import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.api.client.ItemProvider;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
-import dev.tr7zw.util.NMSHelper;
+import dev.tr7zw.transition.mc.ItemUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -115,7 +114,7 @@ public class ClientProviderManager {
 
     private void addUnstackableItems(List<AvailableSlot> ids, AvailableSlot slot) {
         for (AvailableSlot s : ids) {
-            if (NMSHelper.isSame(s.item(), slot.item())) {
+            if (ItemUtil.isSame(s.item(), slot.item())) {
                 s.amount().accumulateAndGet(slot.item().getCount(), (i1, i2) -> i1 + i2);
                 return;
             }

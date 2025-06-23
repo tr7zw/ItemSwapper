@@ -2,7 +2,7 @@ package dev.tr7zw.itemswapper;
 
 import java.util.Optional;
 
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.compat.AmecsAPISupport;
 import dev.tr7zw.itemswapper.compat.MidnightControllsSupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;

@@ -5,7 +5,7 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 import dev.tr7zw.itemswapper.api.client.NameProvider;
-import dev.tr7zw.util.ComponentProvider;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.effect.MobEffectInstance;

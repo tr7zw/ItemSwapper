@@ -1,7 +1,7 @@
 package dev.tr7zw.itemswapper.gui;
 
 import static dev.tr7zw.itemswapper.util.ItemUtil.itemstackToSingleItem;
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
-import dev.tr7zw.util.ComponentProvider;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;

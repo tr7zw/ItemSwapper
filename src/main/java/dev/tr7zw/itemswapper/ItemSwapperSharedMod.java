@@ -22,7 +22,7 @@ import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
-import dev.tr7zw.util.ComponentProvider;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;

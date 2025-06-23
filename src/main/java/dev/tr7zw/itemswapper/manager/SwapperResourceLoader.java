@@ -7,7 +7,7 @@ import java.util.Map.Entry;
 
 import com.google.gson.*;
 
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
@@ -19,13 +19,11 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemListModifier;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
-import dev.tr7zw.util.ComponentProvider;
-import dev.tr7zw.util.NMSHelper;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
 import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
 
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
@@ -211,7 +209,8 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
         }
         if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
-            group.withIcon(NMSHelper.getItem(getResourceLocation(json.get("icon").getAsString())));
+            group.withIcon(
+                    dev.tr7zw.transition.mc.ItemUtil.getItem(getResourceLocation(json.get("icon").getAsString())));
         }
         itemLists.add(group);
     }
@@ -254,7 +253,8 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
         }
         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
         if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
-            group.withIcon(NMSHelper.getItem(getResourceLocation(json.get("icon").getAsString())));
+            group.withIcon(
+                    dev.tr7zw.transition.mc.ItemUtil.getItem(getResourceLocation(json.get("icon").getAsString())));
         }
         itemGroups.add(group);
     }
@@ -314,7 +314,8 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
                         : null;
                 Item icon = null;
                 if (entry.has("icon") && entry.get("icon").isJsonPrimitive()) {
-                    icon = NMSHelper.getItem(getResourceLocation(entry.get("icon").getAsString()));
+                    icon = dev.tr7zw.transition.mc.ItemUtil
+                            .getItem(getResourceLocation(entry.get("icon").getAsString()));
                 }
                 try {
                     shortcuts
@@ -344,7 +345,7 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
         object.getAsJsonArray().forEach(el -> {
             if (el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = getResourceLocation(el.getAsString());
-                Item item = NMSHelper.getItem(resourceLocation);
+                Item item = dev.tr7zw.transition.mc.ItemUtil.getItem(resourceLocation);
                 if (item == Items.AIR) {
                     ItemSwapperBase.LOGGER.info("Unable to find " + resourceLocation + ", ignoring.");
                 }
@@ -356,7 +357,7 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
             if (el.isJsonObject()) {
                 JsonObject obj = el.getAsJsonObject();
                 ResourceLocation resourceLocation = getResourceLocation(obj.get("id").getAsString());
-                Item item = NMSHelper.getItem(resourceLocation);
+                Item item = dev.tr7zw.transition.mc.ItemUtil.getItem(resourceLocation);
                 if (item == Items.AIR) {
                     ItemSwapperBase.LOGGER.info("Unable to find " + resourceLocation + ", ignoring.");
                 }
@@ -438,7 +439,7 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
         json.getAsJsonArray().forEach(el -> {
             if (el.isJsonPrimitive()) {
                 ResourceLocation resourceLocation = getResourceLocation(el.getAsString());
-                Item item = NMSHelper.getItem(resourceLocation);
+                Item item = dev.tr7zw.transition.mc.ItemUtil.getItem(resourceLocation);
                 if (item.equals(Items.AIR)) {
                     ItemSwapperBase.LOGGER.warn("Unknown item: " + el.getAsString() + " in " + jsonLocation);
                     if (pallet) {

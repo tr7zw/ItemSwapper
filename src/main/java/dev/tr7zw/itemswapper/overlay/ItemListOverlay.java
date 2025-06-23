@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI;
@@ -17,12 +15,11 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
-import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.MutableComponent;
@@ -80,15 +77,15 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
         //$$ RenderContext renderContext = new RenderContext(this, pose);
         //#endif
-        //        RenderSystem.enableBlend();
+        //        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         //#if MC < 12106
-        //$$ RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //$$ com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
         //#endif
         //#if MC >= 12105
         //#elseif MC >= 12102
-        //$$RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //$$com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
         //#else
-        //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+        //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         //#endif
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
@@ -200,7 +197,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             lateRenderList.add(() -> {
                 //#if MC < 12106
                 //$$graphics.getPose().pushPose();
-                //$$graphics.getPose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+                //$$graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
                 //#endif
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 //#if MC < 12106
@@ -211,7 +208,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         lateRenderList.add(() -> {
             //#if MC < 12106
             //$$graphics.getPose().pushPose();
-            //$$graphics.getPose().translate(0, 0, RenderHelper.LAYERS_ITEM);
+            //$$graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_ITEM);
             //#endif
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             //#if MC < 12106
@@ -230,9 +227,9 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             graphics.renderItem(arg, arg2, x, y, k);
             //#if MC >= 12105
             //#elseif MC >= 12102
-            //$$RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //$$com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //#else
-            //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             //#endif
             graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
         }

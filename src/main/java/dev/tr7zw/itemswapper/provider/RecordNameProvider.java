@@ -41,10 +41,10 @@ public class RecordNameProvider implements NameProvider {
             ComponentUtils.mergeStyles(mutableComponent, Style.EMPTY.withColor(ChatFormatting.GRAY));
             return mutableComponent;
         }
-        ;
+
         return item.getStyledHoverName();
         //#else
-        //$$ return dev.tr7zw.util.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
+        //$$ return dev.tr7zw.transition.mc.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
         //#endif
     }
 

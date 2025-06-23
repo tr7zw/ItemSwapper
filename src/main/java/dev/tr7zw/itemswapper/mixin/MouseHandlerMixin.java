@@ -47,7 +47,6 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
     }
 
     private void mouseHandler(ItemSwapperUI over) {
-        double d0 = Blaze3D.getTime();
         //        this.lastMouseEventTime = d0;
         if (this.isMouseGrabbed() && this.minecraft.isWindowActive()) {
             double d4 = 0.3D * configManager.getConfig().mouseSpeed;

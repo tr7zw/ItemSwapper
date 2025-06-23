@@ -3,8 +3,8 @@ package dev.tr7zw.itemswapper.overlay;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.config.CacheManager;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import dev.tr7zw.util.ComponentProvider;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

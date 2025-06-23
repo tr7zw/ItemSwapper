@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import static dev.tr7zw.util.NMSHelper.getResourceLocation;
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
@@ -42,9 +42,9 @@ import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
