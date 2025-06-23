@@ -17,7 +17,7 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -199,22 +199,23 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         if (selectedEntry == id) {
             lateRenderList.add(() -> {
                 //#if MC < 12106
-                //$$graphics.pose().pushPose();
-                //$$graphics.pose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
+                //$$graphics.getPose().pushPose();
+                //$$graphics.getPose().translate(0, 0, RenderHelper.LAYERS_SELECTION);
                 //#endif
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 //#if MC < 12106
-              //$$graphics.pose().popPose();
-              //#endif
+                //$$graphics.getPose().popPose();
+                //#endif
             });
         }
         lateRenderList.add(() -> {
             //#if MC < 12106
-            //$$graphics.pose().pushPose();
-            //$$graphics.pose().translate(0, 0, RenderHelper.LAYERS_ITEM);
+            //$$graphics.getPose().pushPose();
+            //$$graphics.getPose().translate(0, 0, RenderHelper.LAYERS_ITEM);
+            //#endif
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             //#if MC < 12106
-            //$$graphics.pose().popPose();
+            //$$graphics.getPose().popPose();
             //#endif
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {

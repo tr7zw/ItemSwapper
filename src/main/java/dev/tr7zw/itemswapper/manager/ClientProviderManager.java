@@ -11,7 +11,7 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.api.client.ItemProvider;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.util.NMSHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;

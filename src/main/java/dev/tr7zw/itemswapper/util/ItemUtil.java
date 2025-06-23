@@ -14,6 +14,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
 import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.util.NMSHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;

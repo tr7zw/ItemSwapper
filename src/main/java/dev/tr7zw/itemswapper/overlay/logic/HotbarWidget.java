@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;

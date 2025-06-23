@@ -67,11 +67,11 @@ public class WidgetUtil {
         //#endif
         //#if MC >= 12105
         //#elseif MC >= 12102
-        //$$ RenderSystem.enableBlend();
-        //$$ RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
         //#else
-        //$$ RenderSystem.enableBlend();
-        //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         //#endif
         if (widgetArea.getBackgroundTexture() != null) {
             graphics.blit(widgetArea.getBackgroundTexture(), originX - (widgetArea.getBackgroundSizeX() / 2),

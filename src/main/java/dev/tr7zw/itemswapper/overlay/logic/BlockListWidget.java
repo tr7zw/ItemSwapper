@@ -10,7 +10,7 @@ import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;

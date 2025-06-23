@@ -41,9 +41,8 @@ import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
-import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import dev.tr7zw.util.ComponentProvider;
 import lombok.Getter;
@@ -260,13 +259,13 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
             //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
             //#endif
             //#if MC < 12106
-            //$$renderContext.pose().pushPose();
-            //$$renderContext.pose().translate(0, 0, RenderHelper.LAYERS_CURSOR);
+            //$$renderContext.getPose().pushPose();
+            //$$renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
             //#endif
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
             //#if MC < 12106
-            //$$renderContext.pose().popPose();
+            //$$renderContext.getPose().popPose();
             //#endif
         }
     }

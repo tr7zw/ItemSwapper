@@ -10,7 +10,7 @@ import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;

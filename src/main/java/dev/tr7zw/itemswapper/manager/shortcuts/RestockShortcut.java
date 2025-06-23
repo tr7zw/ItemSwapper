@@ -6,7 +6,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon;
 import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.util.InventoryUtil;
+import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.util.ComponentProvider;
 import net.minecraft.client.Minecraft;
