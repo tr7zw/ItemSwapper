@@ -1,5 +1,5 @@
 {
-  "text.itemswapper.list.tools": "工具",
+    "text.itemswapper.list.tools": "工具",
     "text.itemswapper.list.weapons": "武器",
     "text.itemswapper.directory.title": "总目录",
     "text.itemswapper.directory.nether": "下界",
@@ -184,12 +184,6 @@
     "text.itemswapper.palette.creative.spawnegg_passive_villager": "村民被动生物刷怪蛋",
     "text.itemswapper.palette.misc.enchanted_books": "附魔书",
     "text.itemswapper.palette.misc.books": "书",
-    "text.itemswapper.list.armor": "盔甲",
-    "text.itemswapper.palette.stone.infested_stone": "蠹虫石",
-    "text.itemswapper.palette.wood.pale_oak": "苍橡木",
-    "text.itemswapper.palette.stone.tuff": "凝灰岩",
-    "text.itemswapper.palette.nature.pale": "苍翠花园",
-    "text.itemswapper.palette.nature.resin": "树脂块"
     "text.itemswapper.list.armor": "盔甲",
     "text.itemswapper.palette.stone.infested_stone": "蠹虫石",
     "text.itemswapper.palette.wood.pale_oak": "苍橡木",
