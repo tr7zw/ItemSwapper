@@ -4,6 +4,7 @@ import java.util.function.BiConsumer;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -14,6 +15,13 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     protected ItemSwapperUIAbstractInput(Component component) {
         super(component);
     }
+
+    //#if MC >= 12106
+    @Override
+    protected void renderBlurredBackground(GuiGraphics guiGraphics) {
+        // No blur
+    }
+    //#endif
 
     @Override
     public boolean mouseClicked(double d, double e, int i) {
