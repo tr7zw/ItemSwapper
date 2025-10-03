@@ -20,17 +20,17 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Shortcut;
 import dev.tr7zw.itemswapper.manager.shortcuts.LinkShortcut;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.transition.mc.ComponentProvider;
-import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
-import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
-import net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener;
+import dev.tr7zw.transition.mc.GeneralUtil;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.server.packs.resources.ResourceManagerReloadListener;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
-public class SwapperResourceLoader implements SimpleSynchronousResourceReloadListener {
+public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.SimpleSynchronousResourceReloadListener,
+        ResourceManagerReloadListener {
     public List<Builder> itemGroups = new ArrayList<>();
     public List<ItemList.Builder> itemLists = new ArrayList<>();
     public List<ItemGroupModifier> itemGroupModifiers = new ArrayList<>();
@@ -43,6 +43,7 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
 
     @Override
     public void onResourceManagerReload(ResourceManager resourceManager) {
+        ItemSwapperBase.LOGGER.info("Reloading ItemSwapper item groups and lists...");
         itemGroups.clear();
         itemGroupModifiers.clear();
         itemListModifiers.clear();
@@ -461,8 +462,13 @@ public class SwapperResourceLoader implements SimpleSynchronousResourceReloadLis
     public static class ResourceLoaderInit {
 
         public static void init() {
-            ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
-                    .registerReloadListener((IdentifiableResourceReloadListener) new SwapperResourceLoader());
+            //#if MC >= 12110
+            net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
+                    GeneralUtil.getResourceLocation("itemswapper:reloader"), new SwapperResourceLoader());
+            //#else
+            //$$net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
+            //$$        .registerReloadListener((net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener) new SwapperResourceLoader());
+            //#endif
         }
     }
 }

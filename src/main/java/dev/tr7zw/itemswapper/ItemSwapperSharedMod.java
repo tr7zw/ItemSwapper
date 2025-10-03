@@ -23,6 +23,7 @@ import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
 import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import dev.tr7zw.transition.mc.ComponentProvider;
+import dev.tr7zw.transition.mc.GeneralUtil;
 import lombok.Getter;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.KeyMapping;
@@ -45,9 +46,10 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private final List<String> enableOnIp = cacheManager.getCache().enableOnIp;
     private final List<String> disableOnIp = cacheManager.getCache().disableOnIp;
 
-    protected KeyMapping keybind = new KeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R, "ItemSwapper");
-    protected KeyMapping openInventoryKeybind = new KeyMapping("key.itemswapper.openInventory",
-            InputConstants.UNKNOWN.getValue(), "ItemSwapper");
+    protected KeyMapping keybind = GeneralUtil.createKeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
+            "itemswapper");
+    protected KeyMapping openInventoryKeybind = GeneralUtil.createKeyMapping("key.itemswapper.openInventory",
+            InputConstants.UNKNOWN.getValue(), "itemswapper");
 
     private boolean enableShulkers = false;
     private boolean enableRefill = false;

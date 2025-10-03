@@ -27,26 +27,47 @@ public class KeyboardHandlerMixin {
     private final ConfigManager configManager = ConfigManager.getInstance();
 
     @Inject(method = "keyPress", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
-    public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
+    //#if MC >= 12110
+    private void keyPress(long l, int i, net.minecraft.client.input.KeyEvent keyEvent, CallbackInfo ci) {
+        InputConstants.Key key = InputConstants.getKey(keyEvent);
+        //#else
+        //$$public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
+        //$$            InputConstants.Key key = InputConstants.getKey(i, j);
+        //#endif
         // restore movement, simulate "passEvents"
         if (this.minecraft.screen instanceof ItemSwapperUI) {
-            InputConstants.Key key = InputConstants.getKey(i, j);
+            //#if MC >= 12110
             if (!configManager.getConfig().allowWalkingWithUI
-                    && !(ItemSwapperSharedMod.instance.getKeybind().matches(i, j)
-                            || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(i, j))) {
+                    && !(ItemSwapperSharedMod.instance.getKeybind().matches(keyEvent)
+                            || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(keyEvent))) {
                 return;
             }
-            if (k == 0) {
+            //#else
+            //$$if (!configManager.getConfig().allowWalkingWithUI
+            //$$        && !(ItemSwapperSharedMod.instance.getKeybind().matches(i, j)
+            //$$                || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(i, j))) {
+            //$$    return;
+            //$$}
+            //#endif
+            //#if MC < 12110
+            //$$if (k == 0) {
+            //$$    KeyMapping.set(key, false);
+            //$$} else {
+            //#endif
+            boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow()
+            //#if MC < 12110
+            //$$.getWindow()
+            //#endif
+                    , 292);
+            if (bl2) {
                 KeyMapping.set(key, false);
             } else {
-                boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 292);
-                if (bl2) {
-                    KeyMapping.set(key, false);
-                } else {
-                    KeyMapping.set(key, true);
-                    KeyMapping.click(key);
-                }
+                KeyMapping.set(key, true);
+                KeyMapping.click(key);
             }
+            //#if MC < 12110
+            //$$}
+            //#endif
         }
     }
 

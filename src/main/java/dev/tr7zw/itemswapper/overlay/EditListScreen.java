@@ -152,6 +152,17 @@ public class EditListScreen extends OptionsSubScreen {
             public Component getNarration() {
                 return text;
             }
+
+            //#if MC >= 12110
+            @Override
+            public void renderContent(GuiGraphics guiGraphics, int i, int j, boolean bl, float f) {
+                RenderContext renderContext = new RenderContext(guiGraphics);
+                renderContext.drawString(EditListScreen.this.font, this.text,
+                        (int) (EntrySelectionList.this.width / 2
+                                - EditListScreen.this.font.width((FormattedText) this.text) / 2),
+                        (int) (j + 1), 16777215);
+            }
+            //#endif
         }
     }
 }

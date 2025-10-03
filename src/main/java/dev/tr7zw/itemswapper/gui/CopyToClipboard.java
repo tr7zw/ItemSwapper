@@ -10,8 +10,6 @@ import org.jetbrains.annotations.NotNull;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
@@ -48,29 +46,35 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     private static final int BUTTON_WIDTH = 10;
     private static final int BUTTON_HEIGHT = 9;
 
-    private final Minecraft instance = Minecraft.getInstance();
-    private Item[] lastItems = null;
-    private final Screen screen;
-
     public CopyToClipboard(Screen screen, int i, int j) {
-        super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT, null, CommonComponents.EMPTY);
-        this.screen = screen;
+        super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT,
+                //#if MC >= 12110
+                press -> {
+                    onPress();
+                }
+                //#else
+                //$$null
+                //#endif
+                , CommonComponents.EMPTY);
     }
 
-    @Override
-    public void onPress() {
-        if (instance.player == null) {
+    //#if MC < 12110
+    //$$@Override
+    //#endif
+    public
+    //#if MC >= 12110
+    static
+    //#endif
+    void onPress() {
+        if (Minecraft.getInstance().player == null) {
             return;
         }
 
         int limit = 25;
-        Item[] items = instance.player.containerMenu.getItems().stream().map(ItemStack::getItem).limit(limit).toList()
-                .toArray(new Item[0]);
+        Item[] items = Minecraft.getInstance().player.containerMenu.getItems().stream().map(ItemStack::getItem)
+                .limit(limit).toList().toArray(new Item[0]);
 
         items = itemstackToSingleItem(items);
-        if (lastItems == null || !Arrays.equals(lastItems, items)) {
-            lastItems = items;
-        }
 
         String json = arrayToJson(items);
 
@@ -87,7 +91,7 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
         RenderContext renderContext = new RenderContext(graphics);
         //#else
         //$$ public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
-        //$$ RenderContext renderContext = new RenderContext(screen, pose);
+        //$$ RenderContext renderContext = new RenderContext(Minecraft.getInstance().screen, pose);
         //#endif
         //        RenderSystem.enableDepthTest();
         //        RenderSystem.enableBlend();
@@ -98,13 +102,13 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     }
 
     public void renderToolTip(@NotNull RenderContext renderContext, int i, int j) {
-        if (this.isHovered && instance.screen != null) {
+        if (this.isHovered && Minecraft.getInstance().screen != null) {
             renderContext.renderTooltip(Minecraft.getInstance().font,
                     ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
         }
     }
 
-    private String arrayToJson(Item[] itemArray) {
+    private static String arrayToJson(Item[] itemArray) {
         List<String> names = Arrays.stream(itemArray).map(is -> BuiltInRegistries.ITEM.getKey(is).toString()).toList();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 

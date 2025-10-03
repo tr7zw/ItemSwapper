@@ -23,7 +23,21 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     }
     //#endif
 
+    //#if MC >= 12110
     @Override
+    public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mouseButtonEvent, boolean bl) {
+        if (mouseButtonEvent.buttonInfo().button() == 0) {
+            ItemSwapperSharedMod.onPrimaryClick(this, false);
+        } else if (mouseButtonEvent.buttonInfo().button() == 1 || mouseButtonEvent.buttonInfo().button() == 2) {
+            onSecondaryClick();
+        }
+        return true;
+    }
+    //#endif
+
+    //#if MC < 12110
+    //$$@Override
+    //#endif
     public boolean mouseClicked(double d, double e, int i) {
         if (i == 0) {
             ItemSwapperSharedMod.onPrimaryClick(this, false);

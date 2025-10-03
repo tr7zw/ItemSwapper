@@ -20,23 +20,38 @@ import dev.isxander.controlify.controller.ControllerEntity;
 
 public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
 
+    //#if MC >= 12110
     @Override
-    public void onControlifyPreInit(ControlifyApi arg0) {
+    public void onControlifyInit(dev.isxander.controlify.api.entrypoint.InitContext arg0) {
+    }
+
+    @Override
+    public void onControlifyPreInit(dev.isxander.controlify.api.entrypoint.PreInitContext arg0) {
         ControlifySupport.getInstance().init();
-        //#if MC >= 12000
         ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
         ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
-        //#else
-        //$$ ScreenProcessorProvider.REGISTRY.register(
-        //$$         SwitchItemOverlay.class,
-        //$$         ItemSwapperControlifyProcessor::new
-        //$$     );
-        //$$ ScreenProcessorProvider.REGISTRY.register(
-        //$$         ItemListOverlay.class,
-        //$$         ItemSwapperControlifyProcessor::new
-        //$$    );
-        //#endif
     }
+    //#endif
+
+    //#if MC < 12110
+    //$$@Override
+    //$$public void onControlifyPreInit(ControlifyApi arg0) {
+    //$$ControlifySupport.getInstance().init();
+    //#if MC >= 12000
+    //$$ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
+    //$$ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
+    //#else
+    //$$ ScreenProcessorProvider.REGISTRY.register(
+    //$$         SwitchItemOverlay.class,
+    //$$         ItemSwapperControlifyProcessor::new
+    //$$     );
+    //$$ ScreenProcessorProvider.REGISTRY.register(
+    //$$         ItemListOverlay.class,
+    //$$         ItemSwapperControlifyProcessor::new
+    //$$    );
+    //#endif
+    //$$}
+    //#endif
 
     @Override
     public void onControllersDiscovered(ControlifyApi arg0) {

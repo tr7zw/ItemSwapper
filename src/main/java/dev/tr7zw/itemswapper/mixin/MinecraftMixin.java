@@ -110,10 +110,19 @@ public class MinecraftMixin {
         };
     }
 
-    @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    //#if MC >= 12110
+    @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    //#else
+    //$$@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    //#endif
     private void pickBlockShulkerSupport(CallbackInfo ci) {
         boolean creative = player.getAbilities().instabuild;
-        ItemStack stack = getHitResultStack(this.hitResult, Screen.hasControlDown());
+        //#if MC >= 12110
+        boolean controlDown = this.hasControlDown();
+        //#else
+        //$$boolean controlDown = Screen.hasControlDown();
+        //#endif
+        ItemStack stack = getHitResultStack(this.hitResult, controlDown);
         //#else
         //$$@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
         //$$private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
@@ -143,5 +152,12 @@ public class MinecraftMixin {
         ItemUtil.grabItem(stack.getItem(), false);
         ci.cancel();
     }
+
+    //#if MC >= 12110
+    @Shadow
+    public boolean hasControlDown() {
+        return false;
+    }
+    //#endif
 
 }
