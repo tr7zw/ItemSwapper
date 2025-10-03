@@ -46,11 +46,6 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                         getResourceLocation(ITEMSWAPPER, "default"), container,
                         Component.translatable("text.itemswapper.resourcepack.default"),
                         ResourcePackActivationType.DEFAULT_ENABLED));
-        FabricLoader.getInstance().getModContainer(ITEMSWAPPER)
-                .ifPresent(container -> ResourceManagerHelper.registerBuiltinResourcePack(
-                        getResourceLocation(ITEMSWAPPER, "classic"), container,
-                        Component.translatable("text.itemswapper.resourcepack.classic"),
-                        ResourcePackActivationType.NORMAL));
 
         FabricLoader.getInstance().getModContainer("midnightcontrols").ifPresent(mod -> {
             ItemSwapperBase.LOGGER.info("Adding MidnightControls support!");
