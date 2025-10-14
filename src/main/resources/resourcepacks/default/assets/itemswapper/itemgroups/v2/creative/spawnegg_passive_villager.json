@@ -9,7 +9,8 @@
         "minecraft:iron_golem_spawn_egg",
         "minecraft:trader_llama_spawn_egg",
         "minecraft:villager_spawn_egg",
-        "minecraft:wandering_trader_spawn_egg"
+        "minecraft:wandering_trader_spawn_egg",
+        "minecraft:copper_golem_spawn_egg"
     ],
     "shortcuts": [
         {

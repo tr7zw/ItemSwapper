@@ -50,6 +50,7 @@
     "text.itemswapper.palette.earthen.dirt": "Dirt",
     "text.itemswapper.palette.earthen.granite": "Granite",
     "text.itemswapper.palette.earthen.mud": "Mud & Dripstone",
+    "text.itemswapper.palette.earthen.tuff": "Tuff",
     "text.itemswapper.palette.marbled.quartz": "Quartz",
     "text.itemswapper.palette.marbled.diorite": "Calcite & Diorite",
     "text.itemswapper.palette.marbled.amethyst": "Amethyst Geode",
@@ -63,6 +64,16 @@
     "text.itemswapper.palette.copper.copper_cut": "Copper Cut",
     "text.itemswapper.palette.copper.copper_slabs": "Copper Slabs",
     "text.itemswapper.palette.copper.copper_stairs": "Copper Stairs",
+    "text.itemswapper.palette.copper.copper_golem": "Copper Golem",
+    "text.itemswapper.palette.copper.copper_bulb": "Copper Bulb",
+    "text.itemswapper.palette.copper.copper_grate": "Copper Grate",
+    "text.itemswapper.palette.copper.copper_chain": "Copper Chain",
+    "text.itemswapper.palette.copper.copper_bars": "Copper Bars",
+    "text.itemswapper.palette.copper.copper_lantern": "Copper Lantern",
+    "text.itemswapper.palette.copper.lightning_rod": "Lightning Rod",
+    "text.itemswapper.palette.copper.copper_chest": "Copper Chest",
+    "text.itemswapper.palette.copper.copper_door": "Copper Door",
+    "text.itemswapper.palette.copper.copper_trapdoor": "Copper Trapdoor",
     "text.itemswapper.palette.copper.honeycomb": "Honey",
     "text.itemswapper.palette.colored_items.glass": "Glass Blocks",
     "text.itemswapper.palette.colored_items.glass_panes": "Glass Panes",
@@ -189,5 +200,7 @@
     "text.itemswapper.palette.wood.pale_oak": "Pale Oak",
     "text.itemswapper.palette.stone.tuff": "Tuff",
     "text.itemswapper.palette.nature.pale": "Pale Garden",
-    "text.itemswapper.palette.nature.resin": "Resin"
+    "text.itemswapper.palette.nature.resin": "Resin",
+    "text.itemswapper.palette.nature.flowerpot": "Flowerpot",
+    "text.itemswapper.palette.wood.shelf": "Shelf"
 }

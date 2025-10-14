@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "Tuff",
+    "displayName": "text.itemswapper.palette.earthen.tuff",
     "icon": "minecraft:polished_tuff",
     "items": [
         "minecraft:tuff",

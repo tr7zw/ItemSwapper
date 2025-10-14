@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "Copper Grate",
+    "displayName": "text.itemswapper.palette.copper.copper_grate",
     "items": [
         "minecraft:copper_grate",
         "minecraft:exposed_copper_grate",

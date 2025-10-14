@@ -1,16 +1,16 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "text.itemswapper.palette.copper.copper_bulb",
+    "displayName": "text.itemswapper.palette.copper.lightning_rod",
     "items": [
-        "minecraft:copper_bulb",
-        "minecraft:exposed_copper_bulb",
-        "minecraft:weathered_copper_bulb",
-        "minecraft:oxidized_copper_bulb",
-        "minecraft:waxed_copper_bulb",
-        "minecraft:waxed_exposed_copper_bulb",
-        "minecraft:waxed_weathered_copper_bulb",
-        "minecraft:waxed_oxidized_copper_bulb"
+        "minecraft:lightning_rod",
+        "minecraft:exposed_lightning_rod",
+        "minecraft:weathered_lightning_rod",
+        "minecraft:oxidized_lightning_rod",
+        "minecraft:waxed_lightning_rod",
+        "minecraft:waxed_exposed_lightning_rod",
+        "minecraft:waxed_weathered_lightning_rod",
+        "minecraft:waxed_oxidized_lightning_rod"
     ],
     "shortcuts": [
         {
@@ -27,7 +27,7 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_bulbs"
+            "target": "itemswapper:v2/copper/lightning_rod"
         },
         {
             "type": "link",

@@ -1,16 +1,16 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "text.itemswapper.palette.copper.copper_bulb",
+    "displayName": "text.itemswapper.palette.copper.copper_chain",
     "items": [
-        "minecraft:copper_bulb",
-        "minecraft:exposed_copper_bulb",
-        "minecraft:weathered_copper_bulb",
-        "minecraft:oxidized_copper_bulb",
-        "minecraft:waxed_copper_bulb",
-        "minecraft:waxed_exposed_copper_bulb",
-        "minecraft:waxed_weathered_copper_bulb",
-        "minecraft:waxed_oxidized_copper_bulb"
+        "minecraft:copper_chain",
+        "minecraft:exposed_copper_chain",
+        "minecraft:weathered_copper_chain",
+        "minecraft:oxidized_copper_chain",
+        "minecraft:waxed_copper_chain",
+        "minecraft:waxed_exposed_copper_chain",
+        "minecraft:waxed_weathered_copper_chain",
+        "minecraft:waxed_oxidized_copper_chain"
     ],
     "shortcuts": [
         {
@@ -27,7 +27,7 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_bulbs"
+            "target": "itemswapper:v2/copper/copper_chain"
         },
         {
             "type": "link",

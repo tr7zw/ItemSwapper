@@ -184,6 +184,12 @@ public class ItemGroupManager {
                 ItemSwapperBase.LOGGER.info("Unmapped: " + entry.getKey());
             }
         }
+        groupMapping.values().stream().sorted((a, b) -> Integer.compare(((ItemGroup)b).getItems().length, ((ItemGroup)a).getItems().length)).limit(5).forEach(i -> System.out.println("Group: " + i.getId() + " Size: " + i.getItems().length));
+        for(ItemGroup group : groupMapping.values()) {
+            if(group.getDisplayName().getString().equals(group.getDisplayName().toString().replace("translation{key='", "").replace("', args=[]}", ""))) {
+                System.out.println("Broken name in " + group.getId() + ": " + group.getDisplayName());
+            }
+        }
     }
 
     /**

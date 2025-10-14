@@ -8,6 +8,7 @@
         "minecraft:diamond_sword",
         "minecraft:iron_sword",
         "minecraft:golden_sword",
+        "minecraft:copper_sword",
         "minecraft:stone_sword",
         "minecraft:wooden_sword",
         "minecraft:bow",
@@ -18,6 +19,7 @@
         "minecraft:diamond_axe",
         "minecraft:iron_axe",
         "minecraft:golden_axe",
+        "minecraft:copper_axe",
         "minecraft:stone_axe",
         "minecraft:mace",
         "minecraft:wooden_axe"
@@ -27,6 +29,7 @@
         "minecraft:diamond_axe",
         "minecraft:iron_axe",
         "minecraft:golden_axe",
+        "minecraft:copper_axe",
         "minecraft:stone_axe",
         "minecraft:wooden_axe"
     ]

@@ -7,7 +7,8 @@
         "minecraft:allay_spawn_egg",
         "minecraft:bat_spawn_egg",
         "minecraft:bee_spawn_egg",
-        "minecraft:parrot_spawn_egg"
+        "minecraft:parrot_spawn_egg",
+        "minecraft:happy_ghast_spawn_egg"
     ],
     "shortcuts": [
         {

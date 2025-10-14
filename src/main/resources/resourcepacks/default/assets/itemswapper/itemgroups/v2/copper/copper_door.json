@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 100,
-    "displayName": "Copper Door",
+    "displayName": "text.itemswapper.palette.copper.copper_door",
     "items": [
         "minecraft:copper_door",
         "minecraft:exposed_copper_door",

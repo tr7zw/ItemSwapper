@@ -1,0 +1,35 @@
+{
+    "type": "palette",
+    "priority": 200,
+    "displayName": "text.itemswapper.palette.wood.shelf",
+    "items": [
+        "minecraft:bookshelf",
+        "minecraft:chiseled_bookshelf",
+        "minecraft:oak_shelf",
+        "minecraft:spruce_shelf",
+        "minecraft:birch_shelf",
+        "minecraft:dark_oak_shelf",
+        "minecraft:acacia_shelf",
+        "minecraft:jungle_shelf",
+        "minecraft:mangrove_shelf",
+        "minecraft:warped_shelf",
+        "minecraft:crimson_shelf",
+        "minecraft:cherry_shelf",
+        "minecraft:bamboo_shelf",
+        "minecraft:pale_oak_shelf"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/signs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodenbuttons"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/woodenpressureplates"
+        }
+    ]
+}
