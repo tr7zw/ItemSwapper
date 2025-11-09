@@ -201,6 +201,10 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
             }
         }
         group.withItems(getItemArray(jsonLocation, json.get("items"), false));
+        if (group.getItems() == null || group.getItems().length == 0) {
+            ItemSwapperBase.LOGGER.warn("Item list " + jsonLocation + " has no items, skipping.");
+            return;
+        }
         Item[] openOnly = getItemArray(jsonLocation, json.get("openOnlyItems"), false);
         if (openOnly != null && openOnly.length > 0) {
             group.withOpenOnlyItems(new HashSet<>(Arrays.asList(openOnly)));
