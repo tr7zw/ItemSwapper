@@ -14,7 +14,7 @@ import net.minecraft.world.item.SmithingTemplateItem;
 public class SmithingTemplateItemMixin implements SmithingTemplateItemAccessor {
 
     //? if < 1.21.2 {
-/*
+    /*
     @Shadow
     *///? }
     private Component upgradeDescription;

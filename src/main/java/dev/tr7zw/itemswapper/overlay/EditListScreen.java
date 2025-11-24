@@ -23,7 +23,7 @@ import net.minecraft.client.gui.GuiGraphics;
 /*
 import com.mojang.blaze3d.vertex.PoseStack;
 *///? }
-//? if >= 1.21.0 {
+   //? if >= 1.21.0 {
 
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;
 //? } else {
@@ -63,20 +63,20 @@ public class EditListScreen extends OptionsSubScreen {
     }
 
     //? if >= 1.21.0 {
-    
+
     @Override
     protected void addOptions() {
-    
+
     }
     //? }
 
     //? if >= 1.20.0 {
-    
+
     public void render(final GuiGraphics graphics, final int i, final int j, final float f) {
         RenderContext renderContext = new RenderContext(graphics);
         //? } else {
-/*
-    public void render(final PoseStack graphics, final int i, final int j, final float f) {
+        /*
+            public void render(final PoseStack graphics, final int i, final int j, final float f) {
         RenderContext renderContext = new RenderContext(this, graphics);
         *///? }
         this.selectionList.render(graphics, i, j, f);
@@ -89,10 +89,10 @@ public class EditListScreen extends OptionsSubScreen {
             extends ObjectSelectionList<dev.tr7zw.itemswapper.overlay.EditListScreen.EntrySelectionList.ListEntry> {
         public EntrySelectionList(final Minecraft minecraft) {
             //? if >= 1.20.3 {
-            
+
             super(minecraft, EditListScreen.this.width, EditListScreen.this.height - 93, 32, 18);
             //? } else {
-/*
+            /*
             super(minecraft, EditListScreen.this.width, EditListScreen.this.height, 32,
                     -EditListScreen.this.height - 65 + 4, 18);
             *///? }
@@ -108,12 +108,12 @@ public class EditListScreen extends OptionsSubScreen {
         }
 
         //? if >= 1.21.4 {
-        
+
         public double scrollAmount() {
             return super.scrollAmount() + 20;
         }
         //? } else {
-/*
+        /*
         protected int getScrollbarPosition() {
             return super.getScrollbarPosition() + 20;
         }
@@ -134,13 +134,13 @@ public class EditListScreen extends OptionsSubScreen {
             }
 
             //? if >= 1.20.0 {
-            
+
             public void render(final GuiGraphics graphics, final int i, final int j, final int k, final int l,
                     final int m, final int n, final int o, final boolean bl, final float f) {
                 RenderContext renderContext = new RenderContext(graphics);
                 //? } else {
-/*
-            public void render(final PoseStack graphics, final int i, final int j, final int k, final int l,
+                /*
+                            public void render(final PoseStack graphics, final int i, final int j, final int k, final int l,
                     final int m, final int n, final int o, final boolean bl, final float f) {
                 RenderContext renderContext = new RenderContext(EditListScreen.this, graphics);
                 *///? }
@@ -167,7 +167,7 @@ public class EditListScreen extends OptionsSubScreen {
             }
 
             //? if >= 1.21.10 {
-            
+
             @Override
             public void renderContent(GuiGraphics guiGraphics, int i, int j, boolean bl, float f) {
                 RenderContext renderContext = new RenderContext(guiGraphics);

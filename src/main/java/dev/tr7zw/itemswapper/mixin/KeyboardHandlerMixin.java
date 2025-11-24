@@ -28,51 +28,51 @@ public class KeyboardHandlerMixin {
 
     @Inject(method = "keyPress", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
     //? if >= 1.21.10 {
-    
+
     private void keyPress(long l, int i, net.minecraft.client.input.KeyEvent keyEvent, CallbackInfo ci) {
         InputConstants.Key key = InputConstants.getKey(keyEvent);
         //? } else {
-/*
-    public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
+        /*
+            public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
         InputConstants.Key key = InputConstants.getKey(i, j);
         *///? }
-        // restore movement, simulate "passEvents"
+           // restore movement, simulate "passEvents"
         if (this.minecraft.screen instanceof ItemSwapperUI) {
             //? if >= 1.21.10 {
-            
+
             if (!configManager.getConfig().allowWalkingWithUI
                     && !(ItemSwapperSharedMod.instance.getKeybind().matches(keyEvent)
                             || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(keyEvent))) {
                 return;
             }
             //? } else {
-/*
+            /*
             if (!configManager.getConfig().allowWalkingWithUI
                     && !(ItemSwapperSharedMod.instance.getKeybind().matches(i, j)
                             || ItemSwapperSharedMod.instance.getInventoryKeybind().matches(i, j))) {
                 return;
             }
             *///? }
+               //? if < 1.21.10 {
+               /*
+               if (k == 0) {
+                   KeyMapping.set(key, false);
+               } else {
+                   *///? }
+            boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow()
             //? if < 1.21.10 {
-/*
-            if (k == 0) {
-                KeyMapping.set(key, false);
-            } else {
-                *///? }
-                boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow()
-                        //? if < 1.21.10 {
-/*
+            /*
                         .getWindow()
                 *///? }
-                        , 292);
-                if (bl2) {
-                    KeyMapping.set(key, false);
-                } else {
-                    KeyMapping.set(key, true);
-                    KeyMapping.click(key);
-                }
-                //? if < 1.21.10 {
-/*
+                    , 292);
+            if (bl2) {
+                KeyMapping.set(key, false);
+            } else {
+                KeyMapping.set(key, true);
+                KeyMapping.click(key);
+            }
+            //? if < 1.21.10 {
+            /*
             }
             *///? }
         }

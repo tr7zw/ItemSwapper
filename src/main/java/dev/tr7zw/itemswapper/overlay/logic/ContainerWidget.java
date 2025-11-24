@@ -23,13 +23,13 @@ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.core.NonNullList;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
 
-    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/inventory.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inventory.png");
 
     private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
             .getClientProviderManager();

@@ -19,6 +19,7 @@ import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -35,32 +36,33 @@ public class BlockTextureManager {
             BlockState state = e.getValue().getStateDefinition().any();
             TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
                     //? if >= 1.21.5 {
-                    
-                            .particleIcon();
-                    //? } else {
-/*
+
+                    .particleIcon();
+            //? } else {
+            /*
                     .getParticleIcon();
             *///? }
-            //            System.out.println(sprite);
+               //            System.out.println(sprite);
             if (state.canOcclude() && !state.hasBlockEntity()) {
                 for (String key : bannedKeywords) {
-                    if (e.getKey().location().toString().contains(key)) {
+                    if (e.getKey()/*? >= 1.21.11 {*/ .identifier() /*?} else {*//* .location() *//*?}*/.toString()
+                            .contains(key)) {
                         return;
                     }
                 }
                 NativeImage img = ((SpriteContentsAccess) sprite.contents()).getOriginalImage();
                 //? if >= 1.21.3 {
-                
+
                 colorMap.put(e.getValue(),
                         ColorUtil.primaryColorDetection(img.getPixelsABGR(), ColorFormat.ABGR, 0.3f));
                 //? } else {
-/*
+                /*
                 colorMap.put(e.getValue(),
                         ColorUtil.primaryColorDetection(img.getPixelsRGBA(), ColorFormat.RGBA, 0.3f));
                 *///? }
-                //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
-                //                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
-                //                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));
+                   //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
+                   //                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
+                   //                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));
             }
         });
     }

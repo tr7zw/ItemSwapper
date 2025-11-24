@@ -8,13 +8,13 @@ import java.util.List;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.ItemStack;
 
 public class HotbarWidget extends InventoryAbstractWidget {
 
-    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/hotbar.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/hotbar.png");
 
     public HotbarWidget(int x, int y) {
         super(x, y);

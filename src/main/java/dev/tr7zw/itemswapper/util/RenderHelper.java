@@ -23,14 +23,14 @@ public final class RenderHelper {
     private static final Minecraft minecraft = Minecraft.getInstance();
 
     //? if >= 1.20.0 {
-    
+
     public static final int LAYERS_BACKGROUND = 0;
     public static final int LAYERS_SELECTION = 300;
     public static final int LAYERS_ITEM = 2000;
     public static final int LAYERS_TOOLTIP = 3000;
     public static final int LAYERS_CURSOR = 4000;
     //? } else {
-/*
+    /*
     public static final int LAYERS_BACKGROUND = 0;
     public static final int LAYERS_SELECTION = 1;
     public static final int LAYERS_ITEM = 2;
@@ -111,7 +111,7 @@ public final class RenderHelper {
             SlotEffect effect, int count) {
         if (!arg2.isEmpty()) {
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().pushPose();
             graphics.getPose().translate(0, 0, 200);
             *///? }
@@ -120,7 +120,7 @@ public final class RenderHelper {
             if (effect != SlotEffect.NONE) {
                 RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
                 //? if < 1.21.6 {
-/*
+                /*
                 graphics.getPose().popPose();
                 *///? }
                 return;
@@ -132,7 +132,7 @@ public final class RenderHelper {
 
             // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //? } else {
-/*
+            /*
             com.mojang.blaze3d.systems.RenderSystem
                     .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             *///? }
@@ -141,7 +141,7 @@ public final class RenderHelper {
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().popPose();
             *///? }
         }
@@ -183,10 +183,10 @@ public final class RenderHelper {
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
         //? if <= 1.20.4 {
-/*
+        /*
         ChatFormatting rarityColor = arg2.getRarity().color;
         *///? } else {
-        
+
         ChatFormatting rarityColor = arg2.getRarity().color();
         //? }
         int color = 0xFFFFFF;

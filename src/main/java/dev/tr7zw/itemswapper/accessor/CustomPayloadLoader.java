@@ -6,18 +6,18 @@ package dev.tr7zw.itemswapper.accessor;
 /*
  import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
  import net.minecraft.network.FriendlyByteBuf;
- import net.minecraft.resources.ResourceLocation;
+ import net.minecraft.resources.*;
 *///? } else {
 /*
 import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 *///? }
 
 public interface CustomPayloadLoader {
 
     //? if < 1.20.5 {
-/*
+    /*
     CustomPacketPayload resolveObject(ResourceLocation id, FriendlyByteBuf buffer);
     *///? }
 

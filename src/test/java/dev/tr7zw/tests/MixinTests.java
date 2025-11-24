@@ -43,10 +43,10 @@ public class MixinTests {
         objenesis.newInstance(MouseHandler.class);
         objenesis.newInstance(IntegratedPlayerList.class);
         //? if >= 1.21.0 {
-        
+
         objenesis.newInstance(Items.class);
         //? } else {
-/*
+        /*
         objenesis.newInstance(RecordItem.class);
         *///? }
         objenesis.newInstance(ServerGamePacketListenerImpl.class);

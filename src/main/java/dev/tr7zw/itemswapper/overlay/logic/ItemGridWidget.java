@@ -40,12 +40,12 @@ public abstract class ItemGridWidget implements GuiWidget {
                     itemRenderList, lateRenderList, overwrideAvailable);
         }
         //? if < 1.21.4 {
-/*
+        /*
         com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         *///? }
         itemRenderList.forEach(Runnable::run);
         //? if < 1.21.4 {
-/*
+        /*
         com.mojang.blaze3d.systems.RenderSystem.enableBlend();
         *///? }
         lateRenderList.forEach(Runnable::run);
@@ -56,10 +56,10 @@ public abstract class ItemGridWidget implements GuiWidget {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
             //? if >= 1.20.2 {
-            
+
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 0xFFFFFFFF);
             //? } else {
-/*
+            /*
             graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24, 256, 256);
             *///? }
         }
@@ -67,7 +67,7 @@ public abstract class ItemGridWidget implements GuiWidget {
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
             *///? }
             graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);

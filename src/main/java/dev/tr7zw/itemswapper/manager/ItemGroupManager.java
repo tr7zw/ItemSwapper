@@ -16,15 +16,15 @@ import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
 public class ItemGroupManager {
 
-    private Map<ResourceLocation, ItemGroup> groupMapping = new HashMap<>();
+    private Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemGroup> groupMapping = new HashMap<>();
     private Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
-    private Map<ResourceLocation, ItemList> listKeyMapping = new HashMap<>();
+    private Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemList> listKeyMapping = new HashMap<>();
     private Map<Item, ItemList> listMapping = new HashMap<>();
     private Map<Item, ItemGroup> lastPicked = new HashMap<>();
 
@@ -165,7 +165,7 @@ public class ItemGroupManager {
         return null;
     }
 
-    public Page getPage(ResourceLocation location) {
+    public Page getPage(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ location) {
         if (groupMapping.containsKey(location)) {
             return new ItemGroupPage(groupMapping.get(location));
         } else if (listKeyMapping.containsKey(location)) {

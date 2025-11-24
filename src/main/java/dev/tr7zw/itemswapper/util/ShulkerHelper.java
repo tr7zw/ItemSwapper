@@ -29,7 +29,7 @@ public class ShulkerHelper {
             return null;
         }
         //? if <= 1.20.4 {
-/*
+        /*
         CompoundTag tag = BlockItem.getBlockEntityData(shulker);
         if (tag != null && tag.contains("Items", CompoundTag.TAG_LIST)) {
             NonNullList<ItemStack> items = NonNullList.withSize(3 * 9, ItemStack.EMPTY);
@@ -37,7 +37,7 @@ public class ShulkerHelper {
             return items;
         }
         *///? } else {
-        
+
         if (shulker.has(net.minecraft.core.component.DataComponents.CONTAINER)) {
             NonNullList<ItemStack> list = NonNullList.create();
             list.addAll(shulker.get(net.minecraft.core.component.DataComponents.CONTAINER).stream().toList());
@@ -49,12 +49,12 @@ public class ShulkerHelper {
 
     public static void setItem(ItemStack shulker, NonNullList<ItemStack> items) {
         //? if <= 1.20.4 {
-/*
+        /*
         CompoundTag tag = BlockItem.getBlockEntityData(shulker);
         CompoundTag rootTag = ContainerHelper.saveAllItems(tag != null ? tag : new CompoundTag(), items);
         BlockItem.setBlockEntityData(shulker, BlockEntityType.SHULKER_BOX, rootTag);
         *///? } else {
-        
+
         shulker.set(net.minecraft.core.component.DataComponents.CONTAINER,
                 net.minecraft.world.item.component.ItemContainerContents.fromItems(items));
         //? }

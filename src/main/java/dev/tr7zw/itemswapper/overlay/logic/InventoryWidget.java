@@ -8,13 +8,13 @@ import java.util.List;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.ItemStack;
 
 public class InventoryWidget extends InventoryAbstractWidget {
 
-    private static final ResourceLocation BACKGROUND_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/inventory.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inventory.png");
 
     public InventoryWidget(int x, int y) {
         super(x, y);

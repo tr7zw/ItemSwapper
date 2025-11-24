@@ -23,7 +23,7 @@ import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.ClickType;
@@ -39,20 +39,20 @@ import com.mojang.blaze3d.vertex.PoseStack;
 *///? }
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
-    private static final ResourceLocation SELECTION_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/selection.png");
-    private static final ResourceLocation BOTTOM_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/list_bottom_slot.png");
-    private static final ResourceLocation MIDDLE_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/list_middle_slot.png");
-    private static final ResourceLocation TOP_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/list_top_slot.png");
-    private static final ResourceLocation SINGLE_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/list_single_slot.png");
-    private static final ResourceLocation MIDDLE_TOP_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/list_middle_continue_top_slot.png");
-    private static final ResourceLocation MIDDLE_BOTTOM_LOCATION = getResourceLocation("itemswapper",
-            "textures/gui/list_middle_continue_bottom_slot.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ SELECTION_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/selection.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BOTTOM_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/list_bottom_slot.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ MIDDLE_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/list_middle_slot.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ TOP_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/list_top_slot.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ SINGLE_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/list_single_slot.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ MIDDLE_TOP_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/list_middle_continue_top_slot.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ MIDDLE_BOTTOM_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/list_middle_continue_bottom_slot.png");
 
     private static final double entrySize = 33;
     private static final int yOffset = 75;
@@ -66,33 +66,36 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     public ItemListOverlay(ItemList itemSelection) {
         super(ComponentProvider.empty());
+        //? if < 1.20.10 {
+        /*
         this.minecraft = Minecraft.getInstance();
+        *///? }
         this.itemSelection = itemSelection;
         refreshList();
     }
 
     @Override
     //? if >= 1.20.0 {
-    
+
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
         //? } else {
-/*
-    public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+        /*
+            public void render(PoseStack pose, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(this, pose);
         *///? }
-        //        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        //? if < 1.21.6 {
-/*
-        com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        *///? }
-        //? if >= 1.21.5 {
+           //        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+           //? if < 1.21.6 {
+           /*
+           com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+           *///? }
+           //? if >= 1.21.5 {
 
         //? } else if >= 1.21.2 {
 
         // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
         //? } else {
-/*
+        /*
         com.mojang.blaze3d.systems.RenderSystem
                 .setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
         *///? }
@@ -108,7 +111,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             boolean endBottom = i == 0;
             boolean midBottom = i == start;
             boolean midTop = i == start + limit - 1;
-            ResourceLocation background = MIDDLE_LOCATION;
+            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ background = MIDDLE_LOCATION;
             if (endTop && endBottom) {
                 background = SINGLE_LOCATION;
             } else if (endBottom) {
@@ -197,7 +200,8 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         return false;
     }
 
-    private void renderEntry(RenderContext graphics, ResourceLocation background, int id, int x, int y,
+    private void renderEntry(RenderContext graphics,
+            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ background, int id, int x, int y,
             List<Runnable> itemRenderList, List<Runnable> lateRenderList) {
         graphics.blit(background, x, y, 0, 0, 24, 24, 24, 24);
         // dummy item code
@@ -205,26 +209,26 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         if (selectedEntry == id) {
             lateRenderList.add(() -> {
                 //? if < 1.21.6 {
-/*
+                /*
                 graphics.getPose().pushPose();
                 graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
                 *///? }
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
                 //? if < 1.21.6 {
-/*
+                /*
                 graphics.getPose().popPose();
                 *///? }
             });
         }
         lateRenderList.add(() -> {
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().pushPose();
             graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_ITEM);
             *///? }
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().popPose();
             *///? }
             var name = ItemUtil.getDisplayname(slot.item());
@@ -244,7 +248,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
             // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
             //? } else {
-/*
+            /*
             com.mojang.blaze3d.systems.RenderSystem
                     .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             *///? }

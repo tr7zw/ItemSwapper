@@ -32,7 +32,7 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
     private Set<Item> items = new HashSet<>();
 
     //? if < 1.21.2 {
-/*
+    /*
     @Inject(method = "<init>", at = @At("RETURN"))
     public void constructor(Item.Properties properties, TagKey<Instrument> tagKey, CallbackInfo ci) {
         items.add((Item) (Object) this);
@@ -45,21 +45,21 @@ public abstract class InstrumentItemMixin implements InstrumentItemAccess {
     }
 
     //? if >= 1.21.2 {
-    
+
     @Override
     public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
         return getInstrument(itemStack, Minecraft.getInstance().level.registryAccess());
     }
-    
+
     @Shadow
     protected abstract Optional<Holder<Instrument>> getInstrument(ItemStack itemStack, Provider provider);
     //? } else {
-/*
+    /*
     @Override
     public Optional<? extends Holder<Instrument>> getOptionalInstrument(ItemStack itemStack) {
         return getInstrument(itemStack);
     }
-
+    
     @Shadow
     protected abstract Optional<? extends Holder<Instrument>> getInstrument(ItemStack itemStack);
     *///? }

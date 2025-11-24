@@ -35,7 +35,7 @@ public class PotionNameProvider implements NameProvider {
     @Override
     public Component getDisplayName(ItemStack item) {
         //? if < 1.20.5 {
-/*
+        /*
         List<MobEffectInstance> effects = PotionUtils.getPotion(item).getEffects();
         if (!effects.isEmpty()) {
             MutableComponent comp = formatEffect(effects.get(0));
@@ -45,7 +45,7 @@ public class PotionNameProvider implements NameProvider {
             return comp;
         }
         *///? } else {
-        
+
         net.minecraft.world.item.alchemy.PotionContents potionContents = item
                 .get(net.minecraft.core.component.DataComponents.POTION_CONTENTS);
         if (potionContents != null && potionContents.getAllEffects().iterator().hasNext()) {
@@ -62,7 +62,7 @@ public class PotionNameProvider implements NameProvider {
                     effects.append(Component.literal(" "));
                     effects.append(Component.translatable("potion.potency." + mobEffectInstance.getAmplifier()));
                 }
-        
+
                 if (!mobEffectInstance.endsWithin(20)) {
                     effects = Component.translatable("potion.withDuration",
                             new Object[] { effects, MobEffectUtil.formatDuration(mobEffectInstance, 1, 20) });
@@ -75,7 +75,7 @@ public class PotionNameProvider implements NameProvider {
     }
 
     //? if < 1.20.5 {
-/*
+    /*
     private MutableComponent formatEffect(MobEffectInstance effect) {
         MutableComponent comp = ComponentProvider.empty().append(effect.getEffect().getDisplayName());
         if (effect.getAmplifier() > 1) {

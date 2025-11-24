@@ -1,6 +1,6 @@
 package dev.tr7zw.itemswapper.util;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.ItemStack;
 
 /**
@@ -14,21 +14,39 @@ public class ServerUtil {
 
         // return ItemStack.isSame(a, b);
         //? } else if <= 1.20.4 {
-/*
+        /*
         return ItemStack.isSameItemSameTags(a, b);
         *///? } else {
-        
+
         return ItemStack.isSameItemSameComponents(a, b);
         //? }
     }
 
-    public static ResourceLocation getResourceLocation(String namespace, String path) {
-        //? if >= 1.21.0 {
-        
+    public static /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getResourceLocation(
+            String namespace, String path) {
+        //? if >= 1.21.11 {
+
+        return Identifier.fromNamespaceAndPath(namespace, path);
+        //? } else if >= 1.21.0 {
+        /*
         return ResourceLocation.fromNamespaceAndPath(namespace, path);
-        //? } else {
-/*
-        return new ResourceLocation(namespace, path);
+        *///? } else {
+        /*
+         return new ResourceLocation(namespace, path);
+        *///? }
+    }
+
+    public static /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getResourceLocation(
+            String key) {
+        //? if >= 1.21.11 {
+
+        return Identifier.parse(key);
+        //? } else if >= 1.21.0 {
+        /*
+        return ResourceLocation.parse(key);
+        *///? } else {
+        /*
+         return new ResourceLocation(key);
         *///? }
     }
 

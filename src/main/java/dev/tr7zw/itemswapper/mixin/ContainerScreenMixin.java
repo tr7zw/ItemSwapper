@@ -36,11 +36,11 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
 
     @Inject(method = "render", at = @At("HEAD"))
     //? if >= 1.20.0 {
-    
+
     public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
         //? } else {
-/*
-    public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
+        /*
+            public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
         *///? }
         if (!ConfigManager.getInstance().getConfig().editMode) {
             return;

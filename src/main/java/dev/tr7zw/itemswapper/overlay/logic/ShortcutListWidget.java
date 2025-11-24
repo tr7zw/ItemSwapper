@@ -13,14 +13,15 @@ import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 
 public class ShortcutListWidget extends ItemGridWidget {
 
-    private final ResourceLocation parentId;
+    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ parentId;
     private final List<Shortcut> list;
 
-    public ShortcutListWidget(ResourceLocation parentId, List<Shortcut> list, int x, int y) {
+    public ShortcutListWidget(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ parentId,
+            List<Shortcut> list, int x, int y) {
         super(x, y);
         this.parentId = parentId;
         this.list = list.stream().filter(Shortcut::isVisible).toList();
@@ -50,7 +51,7 @@ public class ShortcutListWidget extends ItemGridWidget {
                     grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
         } else if (icon instanceof TextureIcon texture) {
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().translate(0, 0, RenderHelper.LAYERS_ITEM);
             *///? }
             graphics.blit(texture.texture(), x - 1, y, 0, 0, 24, 24, 24, 24);
@@ -95,14 +96,14 @@ public class ShortcutListWidget extends ItemGridWidget {
         Shortcut shortcut = list.get(selected.id());
         if (shortcut.getHoverText() != null) {
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().pushPose();
             graphics.getPose().translate(0, 0, RenderHelper.LAYERS_TOOLTIP);
             *///? }
             graphics.renderTooltip(minecraft.font, minecraft.font.split(shortcut.getHoverText(), 170), (int) x,
                     (int) y);
             //? if < 1.21.6 {
-/*
+            /*
             graphics.getPose().popPose();
             *///? }
         }

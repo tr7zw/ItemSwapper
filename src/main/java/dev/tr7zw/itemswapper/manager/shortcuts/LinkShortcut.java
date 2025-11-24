@@ -13,7 +13,7 @@ import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -21,17 +21,18 @@ import net.minecraft.world.item.Items;
 public class LinkShortcut implements Shortcut {
 
     private final ItemGroupManager manager = ItemSwapperSharedMod.instance.getItemGroupManager();
-    private final ResourceLocation nextId;
+    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId;
     private final Component displayName;
     private final Item displayIcon;
 
-    public LinkShortcut(ResourceLocation nextId) {
+    public LinkShortcut(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId) {
         this.nextId = nextId;
         this.displayName = null;
         this.displayIcon = null;
     }
 
-    public LinkShortcut(ResourceLocation nextId, Component displayName, Item icon) {
+    public LinkShortcut(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ nextId,
+            Component displayName, Item icon) {
         this.nextId = nextId;
         this.displayName = displayName;
         this.displayIcon = icon;

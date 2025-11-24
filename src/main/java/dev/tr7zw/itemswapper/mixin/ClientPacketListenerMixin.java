@@ -27,13 +27,13 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
     //? if >= 1.20.2 {
-    
+
     public void handleCustomPayload(CustomPacketPayload customPacketPayload, CallbackInfo ci) {
         try {
             //? } else {
-/*
-    public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
-        try {
+            /*
+                public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
+                    try {
             CustomPacketPayload customPacketPayload = ((CustomPayloadLoader) clientboundCustomPayloadPacket)
                     .resolveObject(clientboundCustomPayloadPacket.getIdentifier(),
                             clientboundCustomPayloadPacket.getData());

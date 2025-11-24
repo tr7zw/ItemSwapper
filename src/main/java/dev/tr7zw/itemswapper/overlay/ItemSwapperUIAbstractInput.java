@@ -16,7 +16,7 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     }
 
     //? if >= 1.21.6 {
-    
+
     @Override
     protected void renderBlurredBackground(net.minecraft.client.gui.GuiGraphics guiGraphics) {
         // No blur
@@ -24,7 +24,7 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     //? }
 
     //? if >= 1.21.10 {
-    
+
     @Override
     public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mouseButtonEvent, boolean bl) {
         if (mouseButtonEvent.buttonInfo().button() == 0) {
@@ -37,7 +37,7 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     //? }
 
     //? if < 1.21.10 {
-/*
+    /*
     @Override
     *///? }
     public boolean mouseClicked(double d, double e, int i) {
@@ -64,14 +64,14 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     }
 
     //? if >= 1.20.2 {
-    
+
     @Override
     public boolean mouseScrolled(double d, double e, double f, double g) {
         onScroll(g);
         return true;
     }
     //? } else {
-/*
+    /*
     @Override
     public boolean mouseScrolled(double d, double e, double f) {
         onScroll(f);

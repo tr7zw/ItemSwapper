@@ -76,7 +76,7 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
         clientProviderManager.registerNameProvider(new RecordNameProvider());
 
         //? if < 1.21.2 {
-/*
+        /*
         clientProviderManager
                 .registerNameProvider(new dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider());
         *///? }

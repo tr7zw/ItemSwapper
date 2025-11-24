@@ -23,11 +23,11 @@ import dev.isxander.controlify.controller.ControllerEntity;
 public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
 
     //? if >= 1.21.10 {
-    
+
     @Override
     public void onControlifyInit(dev.isxander.controlify.api.entrypoint.InitContext arg0) {
     }
-    
+
     @Override
     public void onControlifyPreInit(dev.isxander.controlify.api.entrypoint.PreInitContext arg0) {
         ControlifySupport.getInstance().init();
@@ -45,7 +45,7 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
          ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
      }
     *///? } else if < 1.20.10 {
-/*
+    /*
     @Override
     public void onControlifyPreInit(ControlifyApi arg0) {
         ControlifySupport.getInstance().init();
@@ -74,18 +74,18 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
         @Override
         // why does 1.20.2 not have the 2.0 update?
         //? if = 1.20.2 || < 1.20.0 {
-/*
+        /*
         protected void handleScreenVMouse(Controller<?, ?> controller, VirtualMouseHandler vmouse) {
             *///? } else {
-            
-                    protected void handleScreenVMouse(ControllerEntity controller, VirtualMouseHandler vmouse) {
+
+        protected void handleScreenVMouse(ControllerEntity controller, VirtualMouseHandler vmouse) {
             //? }
             super.handleScreenVMouse(controller, vmouse);
             screen.registerVCursorHandler(this::handleMouseTeleport);
             if (snapPoint != null) {
                 // 1.19 Controlify is not getting update and missing this method
                 //? if >= 1.20.0 {
-                
+
                 vmouse.snapToPoint(snapPoint, new Vector2d(1));
                 //? }
                 snapPoint = null;

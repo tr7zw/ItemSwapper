@@ -2,7 +2,6 @@ package dev.tr7zw.itemswapper.mixin;
 
 //? if >= 1.20.5 {
 
-
 import org.spongepowered.asm.mixin.Mixin;
 import net.minecraft.network.protocol.common.ServerboundCustomPayloadPacket;
 
@@ -24,7 +23,7 @@ import dev.tr7zw.itemswapper.packets.RefillItemPayload;
 import dev.tr7zw.itemswapper.packets.SwapItemPayload;
 import net.minecraft.network.FriendlyByteBuf;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
 
 //? if >= 1.20.2 {

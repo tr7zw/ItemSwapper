@@ -17,7 +17,7 @@ import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
@@ -36,14 +36,14 @@ import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
 
 public class CopyToClipboard extends LegacyTexturedButtonWidget {
     //? } else {
-/*
-import net.minecraft.client.gui.components.ImageButton;
-
-public class CopyToClipboard extends ImageButton {
+    /*
+    import net.minecraft.client.gui.components.ImageButton;
+    
+    public class CopyToClipboard extends ImageButton {
     *///? }
 
-    private static final ResourceLocation texture = getResourceLocation(ItemSwapperBase.MODID,
-            "textures/gui/button.png");
+    private static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture = getResourceLocation(
+            ItemSwapperBase.MODID, "textures/gui/button.png");
 
     private static final int TEXTURE_WIDTH = 10;
     private static final int TEXTURE_HEIGHT = 18;
@@ -53,24 +53,24 @@ public class CopyToClipboard extends ImageButton {
     public CopyToClipboard(Screen screen, int i, int j) {
         super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT,
                 //? if >= 1.21.10 {
-                
-                        press -> {
-                            onPress();
-                        }
-                        //? } else {
-/*
-                null
-                *///? }
+
+                press -> {
+                    onPress();
+                }
+                //? } else {
+                /*
+                        null
+                        *///? }
                 , CommonComponents.EMPTY);
     }
 
     //? if < 1.21.10 {
-/*
+    /*
     @Override
     *///? }
     public
     //? if >= 1.21.10 {
-    
+
     static
     //? }
     void onPress() {
@@ -94,21 +94,24 @@ public class CopyToClipboard extends ImageButton {
     }
 
     @Override
-    //? if >= 1.20.0 {
-    
-    public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
+    //? if >= 1.21.11 {
+    public void renderContents(GuiGraphics graphics, int mouseX, int mouseY, float deltaTicks) {
         RenderContext renderContext = new RenderContext(graphics);
-        //? } else {
-/*
-    public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
+        //? } else if >= 1.20.0 {
+        /*
+        public void renderWidget(@NotNull GuiGraphics graphics, int mouseX, int mouseY, float deltaTicks) {
+        RenderContext renderContext = new RenderContext(graphics);
+        *///? } else {
+        /*
+            public void renderWidget(@NotNull PoseStack pose, int mouseX, int mouseY, float deltaTicks) {
         RenderContext renderContext = new RenderContext(Minecraft.getInstance().screen, pose);
         *///? }
-        //        RenderSystem.enableDepthTest();
-        //        RenderSystem.enableBlend();
-        // FIXME: Cursed and broken, but doesn't scale everything anymore
+           //        RenderSystem.enableDepthTest();
+           //        RenderSystem.enableBlend();
+           // FIXME: Cursed and broken, but doesn't scale everything anymore
         renderContext.blit(texture, this.getX(), this.getY(), 0, this.isHovered ? 9 : 0, BUTTON_WIDTH, BUTTON_HEIGHT,
                 TEXTURE_WIDTH, TEXTURE_HEIGHT);
-        this.renderToolTip(renderContext, i, j);
+        this.renderToolTip(renderContext, mouseX, mouseY);
     }
 
     public void renderToolTip(@NotNull RenderContext renderContext, int i, int j) {

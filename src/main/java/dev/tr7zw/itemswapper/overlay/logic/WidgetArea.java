@@ -1,6 +1,6 @@
 package dev.tr7zw.itemswapper.overlay.logic;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 
 public class WidgetArea {
     private int x;
@@ -9,12 +9,13 @@ public class WidgetArea {
     private int backgroundSizeY;
     private int backgroundTextureSizeX;
     private int backgroundTextureSizeY;
-    private ResourceLocation backgroundTexture;
+    private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ backgroundTexture;
     private int mouseBoundsX;
     private int mouseBoundsY;
 
     public WidgetArea(int backgroundSizeX, int backgroundSizeY, int backgroundTextureSizeX, int backgroundTextureSizeY,
-            ResourceLocation backgroundTexture, int mouseBoundsX, int mouseBoundsY) {
+            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ backgroundTexture, int mouseBoundsX,
+            int mouseBoundsY) {
         this.backgroundSizeX = backgroundSizeX;
         this.backgroundSizeY = backgroundSizeY;
         this.backgroundTextureSizeX = backgroundTextureSizeX;
@@ -72,11 +73,12 @@ public class WidgetArea {
         this.backgroundTextureSizeY = backgroundTextureSizeY;
     }
 
-    public ResourceLocation getBackgroundTexture() {
+    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getBackgroundTexture() {
         return backgroundTexture;
     }
 
-    public void setBackgroundTexture(ResourceLocation backgroundTexture) {
+    public void setBackgroundTexture(
+            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ backgroundTexture) {
         this.backgroundTexture = backgroundTexture;
     }
 

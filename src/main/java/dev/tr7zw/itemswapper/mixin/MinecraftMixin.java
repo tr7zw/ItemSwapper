@@ -76,7 +76,7 @@ public class MinecraftMixin {
     }
 
     //? if >= 1.21.4 {
-    
+
     @Unique
     private ItemStack getHitResultStack(HitResult hitResult, boolean ctrl) {
         if (hitResult == null)
@@ -110,9 +110,9 @@ public class MinecraftMixin {
         default -> ItemStack.EMPTY;
         };
     }
-    
+
     //? if >= 1.21.10 {
-    
+
     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
     //? } else {
     /*
@@ -121,7 +121,7 @@ public class MinecraftMixin {
     private void pickBlockShulkerSupport(CallbackInfo ci) {
         boolean creative = player.getAbilities().instabuild;
         //? if >= 1.21.10 {
-    
+
         boolean controlDown = this.hasControlDown();
         //? } else {
         /*
@@ -129,9 +129,9 @@ public class MinecraftMixin {
         *///? }
         ItemStack stack = getHitResultStack(this.hitResult, controlDown);
         //? } else {
-/*
-    @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-    private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
+        /*
+            @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+            private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
             Type type) {
         *///? }
         if (creative) {
@@ -160,7 +160,7 @@ public class MinecraftMixin {
     }
 
     //? if >= 1.21.10 {
-    
+
     @Shadow
     public boolean hasControlDown() {
         return false;

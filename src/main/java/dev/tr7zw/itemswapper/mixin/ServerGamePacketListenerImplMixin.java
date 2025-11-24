@@ -2,7 +2,6 @@ package dev.tr7zw.itemswapper.mixin;
 
 //? if >= 1.20.5 {
 
-
 import org.spongepowered.asm.mixin.Mixin;
 
 import net.minecraft.server.network.ServerCommonPacketListenerImpl;
@@ -92,4 +91,4 @@ public class ServerGamePacketListenerImplMixin {
 
 }
 *///? }
-//spotless:on
+   //spotless:on

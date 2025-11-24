@@ -27,10 +27,10 @@ public class RecordNameProvider implements NameProvider {
     @Override
     public boolean isProvider(ItemStack item) {
         //? if >= 1.21.0 {
-        
+
         return item.getComponents().has(DataComponents.JUKEBOX_PLAYABLE);
         //? } else {
-/*
+        /*
         return item.is(ItemTags.MUSIC_DISCS);
         *///? }
     }
@@ -38,7 +38,7 @@ public class RecordNameProvider implements NameProvider {
     @Override
     public Component getDisplayName(ItemStack item) {
         //? if >= 1.21.2 {
-        
+
         JukeboxPlayable data = item.getComponents().get(DataComponents.JUKEBOX_PLAYABLE);
         Optional<Holder<JukeboxSong>> holder = data.song().unwrap(Minecraft.getInstance().level.registryAccess());
         if (holder.isPresent()) {
@@ -46,10 +46,10 @@ public class RecordNameProvider implements NameProvider {
             ComponentUtils.mergeStyles(mutableComponent, Style.EMPTY.withColor(ChatFormatting.GRAY));
             return mutableComponent;
         }
-        
+
         return item.getStyledHoverName();
         //? } else {
-/*
+        /*
         return dev.tr7zw.transition.mc.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
         *///? }
     }

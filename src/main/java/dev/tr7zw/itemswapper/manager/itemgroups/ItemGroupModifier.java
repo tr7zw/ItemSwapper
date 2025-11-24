@@ -1,10 +1,10 @@
 package dev.tr7zw.itemswapper.manager.itemgroups;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 
 public class ItemGroupModifier {
 
-    private final ResourceLocation target;
+    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target;
     private final ItemEntry[] addItems;
     private final ItemEntry[] removeItems;
 
@@ -14,7 +14,7 @@ public class ItemGroupModifier {
         this.removeItems = builder.removeItems;
     }
 
-    public ResourceLocation getTarget() {
+    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getTarget() {
         return target;
     }
 
@@ -31,14 +31,14 @@ public class ItemGroupModifier {
     }
 
     public static final class Builder {
-        private ResourceLocation target;
+        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target;
         private ItemEntry[] addItems;
         private ItemEntry[] removeItems;
 
         private Builder() {
         }
 
-        public Builder withTarget(ResourceLocation target) {
+        public Builder withTarget(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ target) {
             this.target = target;
             return this;
         }

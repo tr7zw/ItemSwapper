@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 
 /**
@@ -16,13 +16,13 @@ import net.minecraft.world.item.Item;
  */
 public class ItemGroup {
 
-    private final ResourceLocation id;
+    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id;
     private final Component displayName;
     private final Item icon;
     private final int priority;
     private final boolean disableAutoLink;
-    private final ResourceLocation fallbackLink;
-    private final ResourceLocation forcedLink;
+    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ fallbackLink;
+    private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ forcedLink;
     private final ItemEntry[] items;
     private final Set<Item> openOnlyItems;
     private final Set<Item> ignoreItems;
@@ -42,7 +42,7 @@ public class ItemGroup {
         this.shortcuts = builder.shortcuts;
     }
 
-    public ResourceLocation getId() {
+    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
         return id;
     }
 
@@ -58,11 +58,11 @@ public class ItemGroup {
         return priority;
     }
 
-    public ResourceLocation getFallbackLink() {
+    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getFallbackLink() {
         return fallbackLink;
     }
 
-    public ResourceLocation getForcedLink() {
+    public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getForcedLink() {
         return forcedLink;
     }
 
@@ -98,13 +98,13 @@ public class ItemGroup {
     }
 
     public static final class Builder {
-        private ResourceLocation id;
+        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id;
         private Component displayName;
         private Item icon;
         private int priority;
         private boolean disableAutoLink;
-        private ResourceLocation fallbackLink;
-        private ResourceLocation forcedLink;
+        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ fallbackLink;
+        private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ forcedLink;
         private ItemEntry[] items;
         private Set<Item> openOnlyItems = Collections.emptySet();
         private Set<Item> ignoreItems = Collections.emptySet();
@@ -113,7 +113,7 @@ public class ItemGroup {
         private Builder() {
         }
 
-        public Builder withId(ResourceLocation id) {
+        public Builder withId(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ id) {
             this.id = id;
             return this;
         }
@@ -138,12 +138,14 @@ public class ItemGroup {
             return this;
         }
 
-        public Builder withFallbackLink(ResourceLocation fallbackLink) {
+        public Builder withFallbackLink(
+                /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ fallbackLink) {
             this.fallbackLink = fallbackLink;
             return this;
         }
 
-        public Builder withForcedLink(ResourceLocation forcedLink) {
+        public Builder withForcedLink(
+                /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ forcedLink) {
             this.forcedLink = forcedLink;
             return this;
         }
@@ -168,7 +170,7 @@ public class ItemGroup {
             return this;
         }
 
-        public ResourceLocation getId() {
+        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
             return id;
         }
 
@@ -184,11 +186,11 @@ public class ItemGroup {
             return disableAutoLink;
         }
 
-        public ResourceLocation getFallbackLink() {
+        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getFallbackLink() {
             return fallbackLink;
         }
 
-        public ResourceLocation getForcedLink() {
+        public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getForcedLink() {
             return forcedLink;
         }
 
