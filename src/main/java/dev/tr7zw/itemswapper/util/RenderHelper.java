@@ -22,19 +22,21 @@ public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
 
-    //#if MC >= 12000
+    //? if >= 1.20.0 {
+    
     public static final int LAYERS_BACKGROUND = 0;
     public static final int LAYERS_SELECTION = 300;
     public static final int LAYERS_ITEM = 2000;
     public static final int LAYERS_TOOLTIP = 3000;
     public static final int LAYERS_CURSOR = 4000;
-    //#else
-    //$$ public static final int LAYERS_BACKGROUND = 0;
-    //$$ public static final int LAYERS_SELECTION = 1;
-    //$$ public static final int LAYERS_ITEM = 2;
-    //$$ public static final int LAYERS_TOOLTIP = 400;
-    //$$ public static final int LAYERS_CURSOR = 450;
-    //#endif
+    //? } else {
+/*
+    public static final int LAYERS_BACKGROUND = 0;
+    public static final int LAYERS_SELECTION = 1;
+    public static final int LAYERS_ITEM = 2;
+    public static final int LAYERS_TOOLTIP = 400;
+    public static final int LAYERS_CURSOR = 450;
+    *///? }
 
     private RenderHelper() {
         // private
@@ -108,33 +110,40 @@ public final class RenderHelper {
     public static void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k,
             SlotEffect effect, int count) {
         if (!arg2.isEmpty()) {
-            //#if MC < 12106
-            //$$ graphics.getPose().pushPose();
-            //$$ graphics.getPose().translate(0, 0, 200);
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().pushPose();
+            graphics.getPose().translate(0, 0, 200);
+            *///? }
             ItemStack copy = arg2.copy();
             copy.setCount(1);
             if (effect != SlotEffect.NONE) {
                 RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
-                //#if MC < 12106
-                //$$graphics.getPose().popPose();
-                //#endif
+                //? if < 1.21.6 {
+/*
+                graphics.getPose().popPose();
+                *///? }
                 return;
             }
             graphics.renderItem(arg, copy, x, y, k);
-            //#if MC >= 12105
-            //#elseif MC >= 12102
-            //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
-            //#else
-            //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
-            //#endif
+            //? if >= 1.21.5 {
+
+            //? } else if >= 1.21.2 {
+
+            // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //? } else {
+/*
+            com.mojang.blaze3d.systems.RenderSystem
+                    .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            *///? }
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
             int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
-            //#if MC < 12106
-            //$$graphics.getPose().popPose();
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().popPose();
+            *///? }
         }
     }
 
@@ -173,11 +182,13 @@ public final class RenderHelper {
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
         TextColor textColor = arg2.getHoverName().getStyle().getColor();
-        //#if MC <= 12004
-        //$$ ChatFormatting rarityColor = arg2.getRarity().color;
-        //#else
+        //? if <= 1.20.4 {
+/*
+        ChatFormatting rarityColor = arg2.getRarity().color;
+        *///? } else {
+        
         ChatFormatting rarityColor = arg2.getRarity().color();
-        //#endif
+        //? }
         int color = 0xFFFFFF;
         if (grayOut) {
             color = 0xAAAAAA;

@@ -16,11 +16,13 @@ import net.minecraft.server.Bootstrap;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.item.InstrumentItem;
 
-//#if MC >= 12100
+//? if >= 1.21.0 {
+
 import net.minecraft.world.item.Items;
-//#else
-//$$ import net.minecraft.world.item.RecordItem;
-//#endif
+//? } else {
+/*
+import net.minecraft.world.item.RecordItem;
+*///? }
 
 public class MixinTests {
 
@@ -40,11 +42,13 @@ public class MixinTests {
         objenesis.newInstance(Minecraft.class);
         objenesis.newInstance(MouseHandler.class);
         objenesis.newInstance(IntegratedPlayerList.class);
-        //#if MC >= 12100
+        //? if >= 1.21.0 {
+        
         objenesis.newInstance(Items.class);
-        //#else
-        //$$ objenesis.newInstance(RecordItem.class);
-        //#endif
+        //? } else {
+/*
+        objenesis.newInstance(RecordItem.class);
+        *///? }
         objenesis.newInstance(ServerGamePacketListenerImpl.class);
     }
 

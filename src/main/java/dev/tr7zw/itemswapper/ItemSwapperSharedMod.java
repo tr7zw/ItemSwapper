@@ -75,9 +75,11 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
         clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
         clientProviderManager.registerNameProvider(new RecordNameProvider());
 
-        //#if MC < 12102
-        //$$clientProviderManager.registerNameProvider(new dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider());
-        //#endif
+        //? if < 1.21.2 {
+/*
+        clientProviderManager
+                .registerNameProvider(new dev.tr7zw.itemswapper.provider.SmithingTemplateItemNameProvider());
+        *///? }
     }
 
     public void clientTick() {

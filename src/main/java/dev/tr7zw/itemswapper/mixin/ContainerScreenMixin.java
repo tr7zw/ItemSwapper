@@ -19,11 +19,13 @@ import net.minecraft.world.inventory.ChestMenu;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-//#if MC >= 12000
+//? if >= 1.20.0 {
+
 import net.minecraft.client.gui.GuiGraphics;
-//#else
-//$$ import com.mojang.blaze3d.vertex.PoseStack;
-//#endif
+//? } else {
+/*
+import com.mojang.blaze3d.vertex.PoseStack;
+*///? }
 
 @Mixin(ContainerScreen.class)
 public abstract class ContainerScreenMixin extends AbstractContainerScreen<ChestMenu> {
@@ -33,11 +35,13 @@ public abstract class ContainerScreenMixin extends AbstractContainerScreen<Chest
     }
 
     @Inject(method = "render", at = @At("HEAD"))
-    //#if MC >= 12000
+    //? if >= 1.20.0 {
+    
     public void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo ci) {
-        //#else
-        //$$     public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
-        //#endif
+        //? } else {
+/*
+    public void render(PoseStack graphics, int i, int j, float f, CallbackInfo ci) {
+        *///? }
         if (!ConfigManager.getInstance().getConfig().editMode) {
             return;
         }

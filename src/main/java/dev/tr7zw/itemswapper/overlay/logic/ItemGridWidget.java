@@ -39,13 +39,15 @@ public abstract class ItemGridWidget implements GuiWidget {
             renderSelection(parent, graphics, i, originX + getSlots().get(i).x(), originY + getSlots().get(i).y(),
                     itemRenderList, lateRenderList, overwrideAvailable);
         }
-        //#if MC < 12104
-        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        //#endif
+        //? if < 1.21.4 {
+/*
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        *///? }
         itemRenderList.forEach(Runnable::run);
-        //#if MC < 12104
-        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        //#endif
+        //? if < 1.21.4 {
+/*
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        *///? }
         lateRenderList.forEach(Runnable::run);
     }
 
@@ -53,18 +55,21 @@ public abstract class ItemGridWidget implements GuiWidget {
             List<Runnable> itemRenderList, List<Runnable> lateRenderList, boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
-            //#if MC >= 12002
+            //? if >= 1.20.2 {
+            
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 0xFFFFFFFF);
-            //#else
-            //$$ graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24, 256, 256);
-            //#endif
+            //? } else {
+/*
+            graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24, 256, 256);
+            *///? }
         }
         GuiSlot guiSlot = getSlots().get(listId);
         if (guiSlot.selected().get()) {
             itemRenderList = lateRenderList;
-            //#if MC < 12106
-            //$$ graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
+            *///? }
             graphics.blit(WidgetUtil.SELECTION_LOCATION, x - 1, y, 0, 0, 24, 24, 24, 24);
         }
         renderSlot(graphics, x, y, itemRenderList, guiSlot, overwrideAvailable);

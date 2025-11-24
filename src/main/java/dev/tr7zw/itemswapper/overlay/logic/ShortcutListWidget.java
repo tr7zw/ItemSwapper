@@ -49,9 +49,10 @@ public class ShortcutListWidget extends ItemGridWidget {
             itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, item.item(), 1,
                     grayedOut ? SlotEffect.GRAY : SlotEffect.NONE, 1));
         } else if (icon instanceof TextureIcon texture) {
-            //#if MC < 12106
-            //$$ graphics.getPose().translate(0, 0, RenderHelper.LAYERS_ITEM);
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().translate(0, 0, RenderHelper.LAYERS_ITEM);
+            *///? }
             graphics.blit(texture.texture(), x - 1, y, 0, 0, 24, 24, 24, 24);
         }
     }
@@ -93,15 +94,17 @@ public class ShortcutListWidget extends ItemGridWidget {
             double y) {
         Shortcut shortcut = list.get(selected.id());
         if (shortcut.getHoverText() != null) {
-            //#if MC < 12106
-            //$$graphics.getPose().pushPose();
-            //$$graphics.getPose().translate(0, 0, RenderHelper.LAYERS_TOOLTIP);
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().pushPose();
+            graphics.getPose().translate(0, 0, RenderHelper.LAYERS_TOOLTIP);
+            *///? }
             graphics.renderTooltip(minecraft.font, minecraft.font.split(shortcut.getHoverText(), 170), (int) x,
                     (int) y);
-            //#if MC < 12106
-            //$$graphics.getPose().popPose();
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().popPose();
+            *///? }
         }
     }
 

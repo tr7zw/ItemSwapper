@@ -12,28 +12,33 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.ItemStack;
 
-//#if MC >= 12100
+//? if >= 1.21.0 {
+
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.JukeboxPlayable;
 import net.minecraft.world.item.JukeboxSong;
-//#else
-//$$ import net.minecraft.tags.ItemTags;
-//#endif
+//? } else {
+/*
+import net.minecraft.tags.ItemTags;
+*///? }
 
 public class RecordNameProvider implements NameProvider {
 
     @Override
     public boolean isProvider(ItemStack item) {
-        //#if MC >= 12100
+        //? if >= 1.21.0 {
+        
         return item.getComponents().has(DataComponents.JUKEBOX_PLAYABLE);
-        //#else
-        //$$ return item.is(ItemTags.MUSIC_DISCS);
-        //#endif
+        //? } else {
+/*
+        return item.is(ItemTags.MUSIC_DISCS);
+        *///? }
     }
 
     @Override
     public Component getDisplayName(ItemStack item) {
-        //#if MC >= 12102
+        //? if >= 1.21.2 {
+        
         JukeboxPlayable data = item.getComponents().get(DataComponents.JUKEBOX_PLAYABLE);
         Optional<Holder<JukeboxSong>> holder = data.song().unwrap(Minecraft.getInstance().level.registryAccess());
         if (holder.isPresent()) {
@@ -41,11 +46,12 @@ public class RecordNameProvider implements NameProvider {
             ComponentUtils.mergeStyles(mutableComponent, Style.EMPTY.withColor(ChatFormatting.GRAY));
             return mutableComponent;
         }
-
+        
         return item.getStyledHoverName();
-        //#else
-        //$$ return dev.tr7zw.transition.mc.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
-        //#endif
+        //? } else {
+/*
+        return dev.tr7zw.transition.mc.ComponentProvider.translatable(item.getItem().getDescriptionId() + ".desc");
+        *///? }
     }
 
 }

@@ -10,21 +10,26 @@ import net.minecraft.world.item.ItemStack;
 public class ServerUtil {
 
     public static boolean isSame(ItemStack a, ItemStack b) {
-        //#if MC < 11700
-        //$$return ItemStack.isSame(a, b);
-        //#elseif MC <= 12004
-        //$$ return ItemStack.isSameItemSameTags(a, b);
-        //#else
+        //? if < 1.17.0 {
+
+        // return ItemStack.isSame(a, b);
+        //? } else if <= 1.20.4 {
+/*
+        return ItemStack.isSameItemSameTags(a, b);
+        *///? } else {
+        
         return ItemStack.isSameItemSameComponents(a, b);
-        //#endif
+        //? }
     }
 
     public static ResourceLocation getResourceLocation(String namespace, String path) {
-        //#if MC >= 12100
+        //? if >= 1.21.0 {
+        
         return ResourceLocation.fromNamespaceAndPath(namespace, path);
-        //#else
-        //$$ return new ResourceLocation(namespace, path);
-        //#endif
+        //? } else {
+/*
+        return new ResourceLocation(namespace, path);
+        *///? }
     }
 
 }

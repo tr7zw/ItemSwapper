@@ -12,26 +12,32 @@ import dev.tr7zw.itemswapper.packets.RefillSupportPayload;
 import dev.tr7zw.itemswapper.packets.ShulkerSupportPayload;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 
-//#if MC >= 12002
+//? if >= 1.20.2 {
+
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-//#else
-//$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
-//$$ import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
-//$$ import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
-//#endif
+//? } else {
+/*
+import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
+import net.minecraft.network.protocol.game.ClientboundCustomPayloadPacket;
+import dev.tr7zw.itemswapper.accessor.CustomPayloadLoader;
+*///? }
 
 @Mixin(ClientPacketListener.class)
 public class ClientPacketListenerMixin {
 
     @Inject(method = "handleCustomPayload", at = @At("HEAD"))
-    //#if MC >= 12002
+    //? if >= 1.20.2 {
+    
     public void handleCustomPayload(CustomPacketPayload customPacketPayload, CallbackInfo ci) {
         try {
-            //#else
-            //$$     public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
-            //$$ try {
-            //$$ CustomPacketPayload customPacketPayload = ((CustomPayloadLoader)clientboundCustomPayloadPacket).resolveObject(clientboundCustomPayloadPacket.getIdentifier(), clientboundCustomPayloadPacket.getData());
-            //#endif
+            //? } else {
+/*
+    public void handleCustomPayload(ClientboundCustomPayloadPacket clientboundCustomPayloadPacket, CallbackInfo ci) {
+        try {
+            CustomPacketPayload customPacketPayload = ((CustomPayloadLoader) clientboundCustomPayloadPacket)
+                    .resolveObject(clientboundCustomPayloadPacket.getIdentifier(),
+                            clientboundCustomPayloadPacket.getData());
+            *///? }
 
             if (customPacketPayload instanceof ShulkerSupportPayload payload) {
                 ItemSwapperSharedMod.instance.setEnableShulkers(payload.enabled());

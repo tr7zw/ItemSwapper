@@ -75,7 +75,8 @@ public class MinecraftMixin {
         }
     }
 
-    //#if MC >= 12104
+    //? if >= 1.21.4 {
+    
     @Unique
     private ItemStack getHitResultStack(HitResult hitResult, boolean ctrl) {
         if (hitResult == null)
@@ -109,25 +110,30 @@ public class MinecraftMixin {
         default -> ItemStack.EMPTY;
         };
     }
-
-    //#if MC >= 12110
+    
+    //? if >= 1.21.10 {
+    
     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
-    //#else
-    //$$@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
-    //#endif
+    //? } else {
+    /*
+     @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    *///? }
     private void pickBlockShulkerSupport(CallbackInfo ci) {
         boolean creative = player.getAbilities().instabuild;
-        //#if MC >= 12110
+        //? if >= 1.21.10 {
+    
         boolean controlDown = this.hasControlDown();
-        //#else
-        //$$boolean controlDown = Screen.hasControlDown();
-        //#endif
+        //? } else {
+        /*
+         boolean controlDown = Screen.hasControlDown();
+        *///? }
         ItemStack stack = getHitResultStack(this.hitResult, controlDown);
-        //#else
-        //$$@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
-        //$$private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
-        //$$        Type type) {
-        //#endif
+        //? } else {
+/*
+    @Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+    private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
+            Type type) {
+        *///? }
         if (creative) {
             return;
         }
@@ -153,11 +159,12 @@ public class MinecraftMixin {
         ci.cancel();
     }
 
-    //#if MC >= 12110
+    //? if >= 1.21.10 {
+    
     @Shadow
     public boolean hasControlDown() {
         return false;
     }
-    //#endif
+    //? }
 
 }

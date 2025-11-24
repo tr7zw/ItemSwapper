@@ -12,46 +12,47 @@ import dev.isxander.controlify.virtualmouse.VirtualMouseHandler;
 import dev.tr7zw.itemswapper.overlay.ItemListOverlay;
 import dev.tr7zw.itemswapper.overlay.ItemSwapperUIAbstractInput;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-//#if MC == 12002 || MC < 12000
-//$$ import dev.isxander.controlify.controller.Controller;
-//#else
+//? if = 1.20.2 || < 1.20.0 {
+/*
+import dev.isxander.controlify.controller.Controller;
+*///? } else {
+
 import dev.isxander.controlify.controller.ControllerEntity;
-//#endif
+//? }
 
 public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
 
-    //#if MC >= 12110
+    //? if >= 1.21.10 {
+    
     @Override
     public void onControlifyInit(dev.isxander.controlify.api.entrypoint.InitContext arg0) {
     }
-
+    
     @Override
     public void onControlifyPreInit(dev.isxander.controlify.api.entrypoint.PreInitContext arg0) {
         ControlifySupport.getInstance().init();
         ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
         ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
     }
-    //#endif
+    //? }
 
-    //#if MC < 12110
-    //$$@Override
-    //$$public void onControlifyPreInit(ControlifyApi arg0) {
-    //$$ControlifySupport.getInstance().init();
-    //#if MC >= 12000
-    //$$ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
-    //$$ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
-    //#else
-    //$$ ScreenProcessorProvider.REGISTRY.register(
-    //$$         SwitchItemOverlay.class,
-    //$$         ItemSwapperControlifyProcessor::new
-    //$$     );
-    //$$ ScreenProcessorProvider.REGISTRY.register(
-    //$$         ItemListOverlay.class,
-    //$$         ItemSwapperControlifyProcessor::new
-    //$$    );
-    //#endif
-    //$$}
-    //#endif
+    //? if >= 1.20.0 && < 1.21.10 {
+    /*
+     @Override
+     public void onControlifyPreInit(ControlifyApi arg0) {
+         ControlifySupport.getInstance().init();
+         ScreenProcessorProvider.registerProvider(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
+         ScreenProcessorProvider.registerProvider(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
+     }
+    *///? } else if < 1.20.10 {
+/*
+    @Override
+    public void onControlifyPreInit(ControlifyApi arg0) {
+        ControlifySupport.getInstance().init();
+        ScreenProcessorProvider.REGISTRY.register(SwitchItemOverlay.class, ItemSwapperControlifyProcessor::new);
+        ScreenProcessorProvider.REGISTRY.register(ItemListOverlay.class, ItemSwapperControlifyProcessor::new);
+    }
+    *///? }
 
     @Override
     public void onControllersDiscovered(ControlifyApi arg0) {
@@ -72,18 +73,21 @@ public class ControlifyItemswapperEntrypoint implements ControlifyEntrypoint {
 
         @Override
         // why does 1.20.2 not have the 2.0 update?
-        //#if MC == 12002 || MC < 12000
-        //$$ protected void handleScreenVMouse(Controller<?, ?> controller, VirtualMouseHandler vmouse) {
-        //#else
-        protected void handleScreenVMouse(ControllerEntity controller, VirtualMouseHandler vmouse) {
-            //#endif
+        //? if = 1.20.2 || < 1.20.0 {
+/*
+        protected void handleScreenVMouse(Controller<?, ?> controller, VirtualMouseHandler vmouse) {
+            *///? } else {
+            
+                    protected void handleScreenVMouse(ControllerEntity controller, VirtualMouseHandler vmouse) {
+            //? }
             super.handleScreenVMouse(controller, vmouse);
             screen.registerVCursorHandler(this::handleMouseTeleport);
             if (snapPoint != null) {
                 // 1.19 Controlify is not getting update and missing this method
-                //#if MC >= 12000
+                //? if >= 1.20.0 {
+                
                 vmouse.snapToPoint(snapPoint, new Vector2d(1));
-                //#endif
+                //? }
                 snapPoint = null;
             }
         }

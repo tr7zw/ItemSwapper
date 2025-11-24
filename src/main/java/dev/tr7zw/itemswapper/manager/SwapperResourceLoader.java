@@ -466,13 +466,16 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
     public static class ResourceLoaderInit {
 
         public static void init() {
-            //#if MC >= 12110
+            //? if >= 1.21.10 {
+            
             net.fabricmc.fabric.api.resource.v1.ResourceLoader.get(PackType.CLIENT_RESOURCES).registerReloader(
                     GeneralUtil.getResourceLocation("itemswapper:reloader"), new SwapperResourceLoader());
-            //#else
-            //$$net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
-            //$$        .registerReloadListener((net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener) new SwapperResourceLoader());
-            //#endif
+            //? } else {
+/*
+            net.fabricmc.fabric.api.resource.ResourceManagerHelper.get(PackType.CLIENT_RESOURCES)
+                    .registerReloadListener(
+                            (net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener) new SwapperResourceLoader());
+            *///? }
         }
     }
 }

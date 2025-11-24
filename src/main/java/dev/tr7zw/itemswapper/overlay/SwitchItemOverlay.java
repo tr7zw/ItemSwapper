@@ -50,12 +50,14 @@ import lombok.Setter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemStack;
 
-//#if MC >= 12000
+//? if >= 1.20.0 {
+
 import net.minecraft.client.gui.GuiGraphics;
 
-//#else
-//$$ import com.mojang.blaze3d.vertex.PoseStack;
-//#endif
+//? } else {
+/*
+import com.mojang.blaze3d.vertex.PoseStack;
+*///? }
 
 public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
@@ -222,13 +224,15 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    //#if MC >= 12000
+    //? if >= 1.20.0 {
+    
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-        //#else
-        //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
-        //$$ RenderContext renderContext = new RenderContext(this, pose);
-        //#endif
+        //? } else {
+/*
+    public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+        RenderContext renderContext = new RenderContext(this, pose);
+        *///? }
         int originX = minecraft.getWindow().getGuiScaledWidth() / 2 + globalXOffset;
         int originY = minecraft.getWindow().getGuiScaledHeight() / 2 + globalYOffset;
 
@@ -252,21 +256,26 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
         if (configManager.getConfig().showCursor && !hideCursor && !ViveCraftSupport.getInstance().isActive()
                 && !ControlifySupport.getInstance().isActive(this)) {
-            //#if MC >= 12105
-            //#elseif MC >= 12102
-            //$$ RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-            //#else
-            //$$ RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
-            //#endif
-            //#if MC < 12106
-            //$$renderContext.getPose().pushPose();
-            //$$renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
-            //#endif
+            //? if >= 1.21.5 {
+
+            //? } else if >= 1.21.2 {
+
+            // RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+            //? } else {
+/*
+            RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+            *///? }
+            //? if < 1.21.6 {
+/*
+            renderContext.getPose().pushPose();
+            renderContext.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_CURSOR);
+            *///? }
             renderContext.blit(WidgetUtil.CURSOR_LOCATION, originX + (int) selectionHandler.getCursorX() - 12,
                     originY + (int) selectionHandler.getCursorY() - 12, 0, 0, 24, 24, 24, 24);
-            //#if MC < 12106
-            //$$renderContext.getPose().popPose();
-            //#endif
+            //? if < 1.21.6 {
+/*
+            renderContext.getPose().popPose();
+            *///? }
         }
     }
 

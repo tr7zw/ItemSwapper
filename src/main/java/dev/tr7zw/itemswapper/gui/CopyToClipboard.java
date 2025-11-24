@@ -21,22 +21,26 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-//#if MC >= 12000
+//? if >= 1.20.0 {
+
 import net.minecraft.client.gui.GuiGraphics;
-//#else
-//$$ import com.mojang.blaze3d.vertex.PoseStack;
-//#endif
+//? } else {
+/*
+import com.mojang.blaze3d.vertex.PoseStack;
+*///? }
 import net.minecraft.client.gui.screens.Screen;
 
-//#if MC >= 12002
+//? if >= 1.20.2 {
+
 import com.terraformersmc.modmenu.gui.widget.LegacyTexturedButtonWidget;
 
 public class CopyToClipboard extends LegacyTexturedButtonWidget {
-    //#else
-    //$$ import net.minecraft.client.gui.components.ImageButton;
-    //$$
-    //$$ public class CopyToClipboard extends ImageButton {    
-    //#endif
+    //? } else {
+/*
+import net.minecraft.client.gui.components.ImageButton;
+
+public class CopyToClipboard extends ImageButton {
+    *///? }
 
     private static final ResourceLocation texture = getResourceLocation(ItemSwapperBase.MODID,
             "textures/gui/button.png");
@@ -48,23 +52,27 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
 
     public CopyToClipboard(Screen screen, int i, int j) {
         super(i, j, 10, 9, 0, 0, 19, texture, TEXTURE_WIDTH, TEXTURE_HEIGHT,
-                //#if MC >= 12110
-                press -> {
-                    onPress();
-                }
-                //#else
-                //$$null
-                //#endif
+                //? if >= 1.21.10 {
+                
+                        press -> {
+                            onPress();
+                        }
+                        //? } else {
+/*
+                null
+                *///? }
                 , CommonComponents.EMPTY);
     }
 
-    //#if MC < 12110
-    //$$@Override
-    //#endif
+    //? if < 1.21.10 {
+/*
+    @Override
+    *///? }
     public
-    //#if MC >= 12110
+    //? if >= 1.21.10 {
+    
     static
-    //#endif
+    //? }
     void onPress() {
         if (Minecraft.getInstance().player == null) {
             return;
@@ -86,13 +94,15 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     }
 
     @Override
-    //#if MC >= 12000
+    //? if >= 1.20.0 {
+    
     public void renderWidget(@NotNull GuiGraphics graphics, int i, int j, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-        //#else
-        //$$ public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
-        //$$ RenderContext renderContext = new RenderContext(Minecraft.getInstance().screen, pose);
-        //#endif
+        //? } else {
+/*
+    public void renderWidget(@NotNull PoseStack pose, int i, int j, float f) {
+        RenderContext renderContext = new RenderContext(Minecraft.getInstance().screen, pose);
+        *///? }
         //        RenderSystem.enableDepthTest();
         //        RenderSystem.enableBlend();
         // FIXME: Cursed and broken, but doesn't scale everything anymore

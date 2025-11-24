@@ -34,11 +34,13 @@ public class BlockTextureManager {
             //            System.out.println(e.getKey() + " " + e.getValue());
             BlockState state = e.getValue().getStateDefinition().any();
             TextureAtlasSprite sprite = Minecraft.getInstance().getBlockRenderer().getBlockModel(state)
-                    //#if MC >= 12105
-                    .particleIcon();
-            //#else
-            //$$        .getParticleIcon();
-            //#endif
+                    //? if >= 1.21.5 {
+                    
+                            .particleIcon();
+                    //? } else {
+/*
+                    .getParticleIcon();
+            *///? }
             //            System.out.println(sprite);
             if (state.canOcclude() && !state.hasBlockEntity()) {
                 for (String key : bannedKeywords) {
@@ -47,12 +49,15 @@ public class BlockTextureManager {
                     }
                 }
                 NativeImage img = ((SpriteContentsAccess) sprite.contents()).getOriginalImage();
-                //#if MC >= 12103
+                //? if >= 1.21.3 {
+                
                 colorMap.put(e.getValue(),
                         ColorUtil.primaryColorDetection(img.getPixelsABGR(), ColorFormat.ABGR, 0.3f));
-                //#else
-                //$$colorMap.put(e.getValue(), ColorUtil.primaryColorDetection(img.getPixelsRGBA(), ColorFormat.RGBA, 0.3f));
-                //#endif
+                //? } else {
+/*
+                colorMap.put(e.getValue(),
+                        ColorUtil.primaryColorDetection(img.getPixelsRGBA(), ColorFormat.RGBA, 0.3f));
+                *///? }
                 //                UnpackedColor[] colors = ColorUtil.primaryColorDetection(img.getPixelsRGBA(), 0.3f);
                 //                UnpackedColor c2 = ColorUtil.calculateAverageColor(Arrays.stream(img.getPixelsRGBA()).mapToObj(UnpackedColor::new).toList());
                 //                System.out.println("Fist Pixel: " + new UnpackedColor(img.getPixelsRGBA()[0]) + " org: " + c2 + " new: " + Arrays.toString(colors));

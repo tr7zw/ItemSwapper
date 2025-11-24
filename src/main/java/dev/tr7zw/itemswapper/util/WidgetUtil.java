@@ -62,17 +62,22 @@ public class WidgetUtil {
     }
 
     public static void renderBackground(WidgetArea widgetArea, RenderContext graphics, int originX, int originY) {
-        //#if MC < 12106
-        //$$ com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //#endif
-        //#if MC >= 12105
-        //#elseif MC >= 12102
-        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-        //#else
-        //$$ com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
-        //#endif
+        //? if < 1.21.6 {
+/*
+        com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        *///? }
+        //? if >= 1.21.5 {
+
+        //? } else if >= 1.21.2 {
+
+        // com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //? } else {
+/*
+        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
+        com.mojang.blaze3d.systems.RenderSystem
+                .setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+        *///? }
         if (widgetArea.getBackgroundTexture() != null) {
             graphics.blit(widgetArea.getBackgroundTexture(), originX - (widgetArea.getBackgroundSizeX() / 2),
                     originY - (widgetArea.getBackgroundSizeY() / 2), 0, 0, widgetArea.getBackgroundSizeX(),

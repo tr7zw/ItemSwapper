@@ -18,11 +18,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ChestMenu;
 
-//#if MC >= 12000
+//? if >= 1.20.0 {
+
 import net.minecraft.client.gui.GuiGraphics;
-//#else
-//$$ import com.mojang.blaze3d.vertex.PoseStack;
-//#endif
+//? } else {
+/*
+import com.mojang.blaze3d.vertex.PoseStack;
+*///? }
 
 @Mixin(AbstractContainerScreen.class)
 public class AbstractContainerScreenMixin extends Screen {
@@ -57,11 +59,13 @@ public class AbstractContainerScreenMixin extends Screen {
     }
 
     @Inject(method = "render", at = @At("TAIL"))
-    //#if MC >= 12000
+    //? if >= 1.20.0 {
+    
     private void render(GuiGraphics graphics, int i, int j, float f, CallbackInfo info) {
-        //#else
-        //$$ private void render(PoseStack graphics, int i, int j, float f, CallbackInfo info) {
-        //#endif
+        //? } else {
+/*
+    private void render(PoseStack graphics, int i, int j, float f, CallbackInfo info) {
+        *///? }
         if (copyToClipboardBtn != null) {
             copyToClipboardBtn.setX(this.leftPos + this.imageWidth - 20);
         }

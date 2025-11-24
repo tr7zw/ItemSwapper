@@ -30,11 +30,13 @@ import net.minecraft.world.inventory.ClickType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-//#if MC >= 12000
+//? if >= 1.20.0 {
+
 import net.minecraft.client.gui.GuiGraphics;
-//#else
-//$$ import com.mojang.blaze3d.vertex.PoseStack;
-//#endif
+//? } else {
+/*
+import com.mojang.blaze3d.vertex.PoseStack;
+*///? }
 
 public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private static final ResourceLocation SELECTION_LOCATION = getResourceLocation("itemswapper",
@@ -70,23 +72,30 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     }
 
     @Override
-    //#if MC >= 12000
+    //? if >= 1.20.0 {
+    
     public void render(GuiGraphics graphics, int mouseX, int mouseY, float f) {
         RenderContext renderContext = new RenderContext(graphics);
-        //#else
-        //$$ public void render(PoseStack pose, int mouseX, int mouseY, float f) {
-        //$$ RenderContext renderContext = new RenderContext(this, pose);
-        //#endif
+        //? } else {
+/*
+    public void render(PoseStack pose, int mouseX, int mouseY, float f) {
+        RenderContext renderContext = new RenderContext(this, pose);
+        *///? }
         //        com.mojang.blaze3d.systems.RenderSystem.enableBlend();
-        //#if MC < 12106
-        //$$ com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
-        //#endif
-        //#if MC >= 12105
-        //#elseif MC >= 12102
-        //$$com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
-        //#else
-        //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
-        //#endif
+        //? if < 1.21.6 {
+/*
+        com.mojang.blaze3d.systems.RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        *///? }
+        //? if >= 1.21.5 {
+
+        //? } else if >= 1.21.2 {
+
+        // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_TEX);
+        //? } else {
+/*
+        com.mojang.blaze3d.systems.RenderSystem
+                .setShader(net.minecraft.client.renderer.GameRenderer::getPositionTexShader);
+        *///? }
         List<Runnable> itemRenderList = new ArrayList<>();
         List<Runnable> lateRenderList = new ArrayList<>();
         int limit = Math.max(5, (minecraft.getWindow().getGuiScaledHeight() - yOffset) / slotSize / 2);
@@ -195,25 +204,29 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         AvailableSlot slot = entries.get(id);
         if (selectedEntry == id) {
             lateRenderList.add(() -> {
-                //#if MC < 12106
-                //$$graphics.getPose().pushPose();
-                //$$graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
-                //#endif
+                //? if < 1.21.6 {
+/*
+                graphics.getPose().pushPose();
+                graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_SELECTION);
+                *///? }
                 graphics.blit(SELECTION_LOCATION, x, y, 0, 0, 24, 24, 24, 24);
-                //#if MC < 12106
-                //$$graphics.getPose().popPose();
-                //#endif
+                //? if < 1.21.6 {
+/*
+                graphics.getPose().popPose();
+                *///? }
             });
         }
         lateRenderList.add(() -> {
-            //#if MC < 12106
-            //$$graphics.getPose().pushPose();
-            //$$graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_ITEM);
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().pushPose();
+            graphics.getPose().translate(0, 0, dev.tr7zw.itemswapper.util.RenderHelper.LAYERS_ITEM);
+            *///? }
             renderSlot(graphics, x + 4, y + 4, minecraft.player, slot.item(), 1);
-            //#if MC < 12106
-            //$$graphics.getPose().popPose();
-            //#endif
+            //? if < 1.21.6 {
+/*
+            graphics.getPose().popPose();
+            *///? }
             var name = ItemUtil.getDisplayname(slot.item());
             if (selectedEntry != id && name instanceof MutableComponent mutName) {
                 mutName.withStyle(ChatFormatting.GRAY);
@@ -225,12 +238,16 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k) {
         if (!arg2.isEmpty()) {
             graphics.renderItem(arg, arg2, x, y, k);
-            //#if MC >= 12105
-            //#elseif MC >= 12102
-            //$$com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
-            //#else
-            //$$ com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
-            //#endif
+            //? if >= 1.21.5 {
+
+            //? } else if >= 1.21.2 {
+
+            // com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            //? } else {
+/*
+            com.mojang.blaze3d.systems.RenderSystem
+                    .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            *///? }
             graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
         }
     }

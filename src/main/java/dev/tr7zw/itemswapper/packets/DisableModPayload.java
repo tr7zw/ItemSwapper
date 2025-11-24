@@ -5,11 +5,13 @@ import dev.tr7zw.itemswapper.util.ServerUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
-//#if MC >= 12002
+//? if >= 1.20.2 {
+
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-//#else
-//$$ import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
-//#endif
+//? } else {
+/*
+import dev.tr7zw.itemswapper.legacy.CustomPacketPayload;
+*///? }
 
 public record DisableModPayload(boolean enabled) implements CustomPacketPayload, CustomPacketPayloadSupport {
 
