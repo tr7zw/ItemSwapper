@@ -59,6 +59,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     private static final int slotSize = 18;
     private final ItemSwapperClientAPI clientAPI = ItemSwapperClientAPI.getInstance();
     private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
+    private final Minecraft minecraft = Minecraft.getInstance();
     private ItemList itemSelection;
     private List<AvailableSlot> entries = new ArrayList<>();
     private int selectedEntry = 0;
@@ -66,10 +67,6 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
 
     public ItemListOverlay(ItemList itemSelection) {
         super(ComponentProvider.empty());
-        //? if < 1.20.10 {
-        /*
-        this.minecraft = Minecraft.getInstance();
-        *///? }
         this.itemSelection = itemSelection;
         refreshList();
     }
