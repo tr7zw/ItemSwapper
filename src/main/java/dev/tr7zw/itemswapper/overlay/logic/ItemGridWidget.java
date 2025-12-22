@@ -55,10 +55,13 @@ public abstract class ItemGridWidget implements GuiWidget {
             List<Runnable> itemRenderList, List<Runnable> lateRenderList, boolean overwrideAvailable) {
         if (getWidgetArea().getBackgroundTexture() == null) {
             // fallback in case of no background texture
-            //? if >= 1.20.2 {
+            //? if >= 1.21.5 {
 
             graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 0xFFFFFFFF);
-            //? } else {
+            //? } else if >= 1.20.2 {
+            /*
+            graphics.blitSprite(WidgetUtil.HOTBAR_OFFHAND_LEFT_SPRITE, x, y, 29, 24, 29, 24, 256, 256);
+            *///? } else {
             /*
             graphics.blit(WidgetUtil.WIDGETS_LOCATION, x, y, 24, 22, 29, 24, 256, 256);
             *///? }

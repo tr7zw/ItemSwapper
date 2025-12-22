@@ -85,11 +85,8 @@ public final class RenderHelper {
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, LAYERS_TOOLTIP);
             int fline = line;
-            graphics.drawSpecial(bufferSource -> {
-                font.drawInBatch(text.get(fline), (x - font.width(text.get(fline)) / 2),
-                        y - (font.lineHeight * (text.size() - fline)), color, true, poseStack.last().pose(),
-                        bufferSource, Font.DisplayMode.NORMAL, 0, 15728880);
-            });
+            graphics.drawString(font, text.get(fline), (x - font.width(text.get(fline)) / 2),
+                    y - (font.lineHeight * (text.size() - fline)), color, true);
         }
     }
 
@@ -197,6 +194,7 @@ public final class RenderHelper {
         } else if (rarityColor != null && rarityColor.getColor() != null) {
             color = rarityColor.getColor();
         }
+        color |= 0xFF000000;
         RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
                 originY - (offsetY / 2) - 12, color, graphics);
     }
