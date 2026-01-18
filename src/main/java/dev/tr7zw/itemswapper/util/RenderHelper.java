@@ -84,20 +84,13 @@ public final class RenderHelper {
         PoseStack poseStack = new PoseStack();
         for (int line = 0; line < text.size(); line++) {
             poseStack.translate(0.0D, 0.0D, LAYERS_TOOLTIP);
-            int fline = line;
-            graphics.drawString(font, text.get(fline), (x - font.width(text.get(fline)) / 2),
-                    y - (font.lineHeight * (text.size() - fline)), color, true);
+            graphics.drawString(font, text.get(line), (x - font.width(text.get(line)) / 2),
+                    y - (font.lineHeight * (text.size() - line)), color, true);
         }
     }
 
     public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
-        PoseStack poseStack = new PoseStack();
-        String string2 = text;
-        poseStack.translate(0.0D, 0.0D, LAYERS_TOOLTIP);
-        graphics.drawSpecial(bufferSource -> {
-            font.drawInBatch(string2, (float) i, (float) j, color, true, poseStack.last().pose(), bufferSource,
-                    Font.DisplayMode.NORMAL, 0, 15728880);
-        });
+        graphics.drawString(font, text, i, j, color, true);
     }
 
     public enum SlotEffect {
@@ -134,7 +127,7 @@ public final class RenderHelper {
                     .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
             *///? }
             graphics.renderItemDecorations(minecraft.font, copy, x, y);
-            int color = count > 64 ? 0xFFFF00 : 0xFFFFFF;
+            int color = count > 64 ? 0xFFFFFF00 : 0xFFFFFFFF;
             if (count > 1)
                 RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
             //? if < 1.21.6 {
