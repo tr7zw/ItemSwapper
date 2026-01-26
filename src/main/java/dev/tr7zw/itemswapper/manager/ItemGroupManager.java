@@ -1,18 +1,13 @@
 package dev.tr7zw.itemswapper.manager;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 import dev.tr7zw.itemswapper.ItemSwapperBase;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.config.ConfigManager;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+import dev.tr7zw.itemswapper.manager.itemgroups.*;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -20,13 +15,15 @@ import net.minecraft.resources.*;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
+
 public class ItemGroupManager {
 
-    private Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemGroup> groupMapping = new HashMap<>();
-    private Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
-    private Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemList> listKeyMapping = new HashMap<>();
-    private Map<Item, ItemList> listMapping = new HashMap<>();
-    private Map<Item, ItemGroup> lastPicked = new HashMap<>();
+    private final Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemGroup> groupMapping = new HashMap<>();
+    private final Map<Item, List<ItemGroup>> paletteMapping = new HashMap<>();
+    private final Map</*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/, ItemList> listKeyMapping = new HashMap<>();
+    private final Map<Item, ItemList> listMapping = new HashMap<>();
+    private final Map<Item, ItemGroup> lastPicked = new HashMap<>();
 
     public void reset() {
         listKeyMapping.clear();
@@ -63,7 +60,7 @@ public class ItemGroupManager {
             return;
         }
         list.add(group);
-        list.sort((a, b) -> Integer.compare(a.getPriority(), b.getPriority()));
+        list.sort(Comparator.comparingInt(ItemGroup::getPriority));
     }
 
     /**
@@ -181,9 +178,10 @@ public class ItemGroupManager {
         ItemSwapperBase.LOGGER.info("All unmapped Items/Blocks:");
         for (Entry<ResourceKey<Item>, Item> entry : BuiltInRegistries.ITEM.entrySet()) {
             if (!(paletteMapping.containsKey(entry.getValue()) || listMapping.containsKey(entry.getValue()))) {
-                ItemSwapperBase.LOGGER.info("Unmapped: " + entry.getKey());
+                ItemSwapperBase.LOGGER.info("Unmapped: {}", entry.getKey());
             }
         }
+        ItemSwapperBase.LOGGER.info("Biggest palettes:");
         groupMapping.values().stream()
                 .sorted((a, b) -> Integer.compare(((ItemGroup) b).getItems().length, ((ItemGroup) a).getItems().length))
                 .limit(5).forEach(i -> System.out.println("Group: " + i.getId() + " Size: " + i.getItems().length));
@@ -191,6 +189,48 @@ public class ItemGroupManager {
             if (group.getDisplayName().getString().equals(
                     group.getDisplayName().toString().replace("translation{key='", "").replace("', args=[]}", ""))) {
                 System.out.println("Broken name in " + group.getId() + ": " + group.getDisplayName());
+            }
+        }
+
+        ItemSwapperBase.LOGGER.info("Unreachable groups from the main page:");
+        ItemGroup main = groupMapping.get(getResourceLocation("itemswapper", "v2/main"));
+        if (main != null) {
+            List<ItemGroup> unreachable = new ArrayList<>(groupMapping.values());
+            traverseGroup(main, unreachable);
+            for (ItemGroup group : unreachable) {
+                ItemSwapperBase.LOGGER.info("Unreachable: {}", group.getId());
+            }
+        }
+    }
+
+    private void traverseGroup(ItemGroup group, List<ItemGroup> unreachable) {
+        unreachable.remove(group);
+        for (ItemEntry entry : group.getItems()) {
+            if (entry.getLink() != null) {
+                ItemGroup linked = groupMapping.get(entry.getLink());
+                if (linked != null && unreachable.contains(linked)) {
+                    traverseGroup(linked, unreachable); //NOPMD - suppressed AvoidInfiniteRecursion - not an infinite recursion
+                }
+            }
+        }
+        for (Item item : group.getOpenOnlyItems()) {
+            List<ItemGroup> linkedGroups = paletteMapping.get(item);
+            if (linkedGroups != null) {
+                for (ItemGroup linked : linkedGroups) {
+                    if (unreachable.contains(linked)) {
+                        traverseGroup(linked, unreachable);
+                    }
+                }
+            }
+        }
+        for (Shortcut shortcut : group.getShortcuts()) {
+            String id = shortcut.getSelector();
+            if (!id.startsWith("link|")) {
+                continue;
+            }
+            ItemGroup linked = groupMapping.get(getResourceLocation(id.replace("link|", "")));
+            if (linked != null && unreachable.contains(linked)) {
+                traverseGroup(linked, unreachable);
             }
         }
     }

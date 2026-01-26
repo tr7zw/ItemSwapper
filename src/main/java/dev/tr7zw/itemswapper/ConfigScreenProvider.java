@@ -95,8 +95,7 @@ public class ConfigScreenProvider {
                     () -> configManager.getConfig().experimentalAutoPalette,
                     b -> configManager.getConfig().experimentalAutoPalette = b));
             options.add(getOnOffOption("text.itemswapper.listsAsPalette",
-                    () -> configManager.getConfig().listsAsPalette,
-                    b -> configManager.getConfig().listsAsPalette = b));
+                    () -> configManager.getConfig().listsAsPalette, b -> configManager.getConfig().listsAsPalette = b));
 
             options.add(getSplitLine("text.itemswapper.category.misc"));
             options.add(getOnOffOption("text.itemswapper.editMode", () -> configManager.getConfig().editMode,
