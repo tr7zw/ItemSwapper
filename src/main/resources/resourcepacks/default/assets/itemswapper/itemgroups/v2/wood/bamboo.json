@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.bamboo",
     "icon": "minecraft:bamboo_block",
     "items": [
@@ -10,6 +10,7 @@
         "minecraft:bamboo_planks",
         "minecraft:bamboo_stairs",
         "minecraft:bamboo_slab",
+        "minecraft:bamboo_shelf",
         "minecraft:bamboo_mosaic",
         "minecraft:bamboo_mosaic_stairs",
         "minecraft:bamboo_mosaic_slab",
@@ -20,7 +21,9 @@
         "minecraft:bamboo_sign",
         "minecraft:bamboo_hanging_sign",
         "minecraft:bamboo_button",
-        "minecraft:bamboo_pressure_plate"
+        "minecraft:bamboo_pressure_plate",
+        "minecraft:bamboo_raft",
+        "minecraft:bamboo_chest_raft"
     ],
     "shortcuts": [
         {

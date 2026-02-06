@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.signs",
     "items": [
         "minecraft:oak_sign",
@@ -23,11 +23,11 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/wood/woodenbuttons"
+            "target": "itemswapper:v2/wood/hangingsigns"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/wood/woodenpressureplates"
+            "target": "itemswapper:v2/wood/boats"
         }
     ]
 }

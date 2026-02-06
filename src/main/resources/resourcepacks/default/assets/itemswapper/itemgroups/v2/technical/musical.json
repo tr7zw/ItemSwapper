@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 500,
+    "priority": 80,
     "displayName": "text.itemswapper.palette.technical.musical",
     "icon": "minecraft:note_block",
     "openOnlyItems": [
@@ -70,7 +70,13 @@
         {
             "id": "minecraft:glowstone",
             "name": "text.itemswapper.item.musical.note_block.pling"
-        }
+        },
+        "minecraft:dragon_head",
+        "minecraft:skeleton_skull",
+        "minecraft:wither_skeleton_skull",
+        "minecraft:zombie_head",
+        "minecraft:creeper_head",
+        "minecraft:piglin_head"
     ],
     "shortcuts": [
         {

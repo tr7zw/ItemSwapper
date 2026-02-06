@@ -1,0 +1,51 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.colored_items.dyes",
+    "icon": "minecraft:orange_dye",
+    "items": [
+        "minecraft:black_dye",
+        "minecraft:gray_dye",
+        "minecraft:light_gray_dye",
+        "minecraft:white_dye",
+        "minecraft:pink_dye",
+        "minecraft:magenta_dye",
+        "minecraft:purple_dye",
+        "minecraft:blue_dye",
+        "minecraft:light_blue_dye",
+        "minecraft:cyan_dye",
+        "minecraft:green_dye",
+        "minecraft:lime_dye",
+        "minecraft:yellow_dye",
+        "minecraft:orange_dye",
+        "minecraft:red_dye",
+        "minecraft:brown_dye",
+        "minecraft:glow_ink_sac"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/dyes"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/glass"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/glass_panes"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/candle"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/beds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/harness"
+        }
+    ]
+}

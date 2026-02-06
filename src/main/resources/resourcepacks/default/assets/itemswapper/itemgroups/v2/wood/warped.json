@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.warped",
     "items": [
         "minecraft:warped_stem",
@@ -10,6 +10,7 @@
         "minecraft:warped_planks",
         "minecraft:warped_stairs",
         "minecraft:warped_slab",
+        "minecraft:warped_shelf",
         "minecraft:warped_trapdoor",
         "minecraft:warped_door",
         "minecraft:warped_fence_gate",

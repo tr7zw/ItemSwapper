@@ -1,0 +1,52 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.block_sets.depths_blocks",
+    "icon": "minecraft:deepslate",
+    "items": [
+        "minecraft:tuff",
+        "minecraft:polished_tuff",
+        "minecraft:tuff_bricks",
+        "minecraft:chiseled_tuff",
+        "minecraft:chiseled_tuff_bricks",
+        "minecraft:basalt",
+        "minecraft:polished_basalt",
+        "minecraft:smooth_basalt",
+        "minecraft:deepslate",
+        "minecraft:cobbled_deepslate",
+        "minecraft:chiseled_deepslate",
+        "minecraft:polished_deepslate",
+        "minecraft:deepslate_bricks",
+        "minecraft:cracked_deepslate_bricks",
+        "minecraft:deepslate_tiles",
+        "minecraft:cracked_deepslate_tiles",
+        "minecraft:blackstone",
+        "minecraft:gilded_blackstone",
+        "minecraft:chiseled_polished_blackstone",
+        "minecraft:polished_blackstone",
+        "minecraft:polished_blackstone_bricks",
+        "minecraft:cracked_polished_blackstone_bricks"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/depths_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_wall"
+        }
+    ]
+}

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.yellow",
     "items": [
         "minecraft:yellow_dye",
@@ -14,6 +14,7 @@
         "minecraft:yellow_stained_glass_pane",
         "minecraft:yellow_candle",
         "minecraft:yellow_banner",
-        "minecraft:yellow_bed"
+        "minecraft:yellow_bed",
+        "minecraft:yellow_harness"
     ]
 }

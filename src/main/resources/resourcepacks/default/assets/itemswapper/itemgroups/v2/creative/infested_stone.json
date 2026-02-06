@@ -1,0 +1,33 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.creative.infested_stone",
+    "icon": "minecraft:silverfish_spawn_egg",
+    "items": [
+        "minecraft:infested_stone",
+        "minecraft:infested_deepslate",
+        "minecraft:infested_cracked_stone_bricks",
+        "minecraft:infested_stone_bricks",
+        "minecraft:infested_cobblestone",
+        "minecraft:infested_chiseled_stone_bricks",
+        "minecraft:infested_mossy_stone_bricks"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/creative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/infested_stone"
+        }
+    ]
+}

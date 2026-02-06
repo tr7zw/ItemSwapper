@@ -1,7 +1,7 @@
 {
     "type": "list",
-    "priority": 20,
-    "displayName": "text.itemswapper.list.armor",
+    "priority": 50,
+    "displayName": "text.itemswapper.directory.armor",
     "link": "itemswapper:v2/tools",
     "items": [
         "minecraft:netherite_helmet",
@@ -31,6 +31,7 @@
         "minecraft:leather_helmet",
         "minecraft:leather_chestplate",
         "minecraft:leather_leggings",
-        "minecraft:leather_boots"
+        "minecraft:leather_boots",
+        "minecraft:elytra"
     ]
 }

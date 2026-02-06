@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.nature.hanging",
+    "items": [
+        "minecraft:pink_petals",
+        "minecraft:wildflowers",
+        "minecraft:leaf_litter",
+        "minecraft:spore_blossom",
+        "minecraft:glow_berries",
+        "minecraft:pale_hanging_moss",
+        "minecraft:hanging_roots",
+        "minecraft:vine",
+        "minecraft:glow_lichen",
+        "minecraft:moss_carpet",
+        "minecraft:pale_moss_carpet",
+        "minecraft:bone_meal"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/natural"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/hanging"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/lush"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/flowers"
+        }
+    ]
+}

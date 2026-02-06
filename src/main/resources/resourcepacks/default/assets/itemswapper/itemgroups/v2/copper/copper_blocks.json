@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.copper.copper_blocks",
     "items": [
         "minecraft:copper_block",
@@ -31,7 +31,11 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/honeycomb_type"
+            "target": "itemswapper:v2/copper/copper_chiseled"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_grate"
         }
     ]
 }

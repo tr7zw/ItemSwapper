@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.copper.copper_chest",
     "items": [
         "minecraft:copper_chest",
@@ -15,19 +15,15 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_trapdoor"
+            "target": "itemswapper:v2/copper/copper_bulbs"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_grate"
+            "target": "itemswapper:v2/copper/copper_chest"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_door"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/copper_chests"
+            "target": "itemswapper:v2/copper/copper_golem"
         },
         {
             "type": "link",

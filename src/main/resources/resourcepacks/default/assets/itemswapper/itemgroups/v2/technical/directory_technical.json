@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 10,
+    "priority": 50,
     "displayName": "text.itemswapper.directory.technical",
     "disableAutoLink": true,
     "icon": "minecraft:sticky_piston",
@@ -12,7 +12,14 @@
         "minecraft:repeater",
         "minecraft:observer",
         "minecraft:note_block",
-        "minecraft:target"
+        "minecraft:target",
+        "minecraft:dispenser",
+        "minecraft:dropper",
+        "minecraft:hopper",
+        "minecraft:piston",
+        "minecraft:sticky_piston",
+        "minecraft:slime_block",
+        "minecraft:honey_block"
     ],
     "shortcuts": [
         {

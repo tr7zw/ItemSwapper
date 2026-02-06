@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.light_blue",
     "items": [
         "minecraft:light_blue_dye",
@@ -14,6 +14,7 @@
         "minecraft:light_blue_stained_glass_pane",
         "minecraft:light_blue_candle",
         "minecraft:light_blue_banner",
-        "minecraft:light_blue_bed"
+        "minecraft:light_blue_bed",
+        "minecraft:light_blue_harness"
     ]
 }

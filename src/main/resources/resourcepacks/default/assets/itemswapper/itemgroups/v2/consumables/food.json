@@ -1,6 +1,6 @@
 {
     "type": "list",
-    "priority": 60,
+    "priority": 10,
     "displayName": "text.itemswapper.palette.consumables.food",
     "icon": "minecraft:cooked_beef",
     "ignoreItems": [
@@ -35,5 +35,23 @@
         "minecraft:enchanted_golden_apple",
         "minecraft:sweet_berries",
         "minecraft:honey_bottle"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/arrow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/potions"
+        }
     ]
 }

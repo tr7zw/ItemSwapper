@@ -1,0 +1,49 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.copper.copper_exposed_waxed",
+    "items": [
+        "minecraft:waxed_exposed_copper",
+        "minecraft:waxed_exposed_cut_copper",
+        "minecraft:waxed_exposed_cut_copper_stairs",
+        "minecraft:waxed_exposed_cut_copper_slab",
+        "minecraft:waxed_exposed_chiseled_copper",
+        "minecraft:waxed_exposed_copper_grate",
+        "minecraft:waxed_exposed_copper_door",
+        "minecraft:waxed_exposed_copper_trapdoor",
+        "minecraft:waxed_exposed_copper_chain",
+        "minecraft:waxed_exposed_copper_bars",
+        "minecraft:waxed_exposed_lightning_rod",
+        "minecraft:waxed_exposed_copper_lantern",
+        "minecraft:waxed_exposed_copper_bulb",
+        "minecraft:waxed_exposed_copper_chest",
+        "minecraft:waxed_exposed_copper_golem_statue",
+        "minecraft:honeycomb"
+    ],
+    "ignoreItems": [
+        "minecraft:honeycomb"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_waxed"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_exposed_waxed"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_weathered_waxed"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_oxidized_waxed"
+        },
+        {
+            "type": "link",
+            "icon": "minecraft:iron_axe",
+            "target": "itemswapper:v2/copper/copper_exposed"
+        }
+    ]
+}

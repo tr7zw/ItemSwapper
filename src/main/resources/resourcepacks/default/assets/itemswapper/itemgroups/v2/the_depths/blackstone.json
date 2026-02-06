@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_depths.blackstone",
     "icon": "minecraft:chiseled_polished_blackstone",
     "items": [
@@ -23,6 +23,10 @@
         "minecraft:polished_blackstone_pressure_plate"
     ],
     "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/tuff"
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_depths/basalt"

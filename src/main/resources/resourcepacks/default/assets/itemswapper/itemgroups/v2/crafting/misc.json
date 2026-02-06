@@ -1,40 +1,49 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.crafting.misc",
+    "icon": "minecraft:leather",
     "items": [
         "minecraft:stick",
         "minecraft:paper",
         "minecraft:flint",
+        "minecraft:quartz",
         "minecraft:brick",
         "minecraft:nether_brick",
+        "minecraft:clay_ball",
         "minecraft:dried_ghast",
         "minecraft:leather",
-        "minecraft:clay_ball",
         "minecraft:book",
         "minecraft:slime_ball",
+        "minecraft:gunpowder",
         "minecraft:bowl",
         "minecraft:wheat",
         "minecraft:echo_shard",
         "minecraft:disc_fragment_5",
         "minecraft:amethyst_shard",
-        "minecraft:quartz",
         "minecraft:nautilus_shell",
+        "minecraft:nether_star",
         "minecraft:heart_of_the_sea",
+        "minecraft:dragon_egg",
+        "minecraft:heavy_core",
         "minecraft:firework_star"
     ],
     "shortcuts": [
-        {
-            "type": "link",
-            "target": "itemswapper:v2/crafting/misc"
-        },
         {
             "type": "link",
             "target": "itemswapper:v2/crafting/mob_drops"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/crafting/banner_patterns"
+            "target": "itemswapper:v2/crafting/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/unprocessed_food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/misc"
         }
     ]
 }

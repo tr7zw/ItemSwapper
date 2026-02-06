@@ -1,7 +1,7 @@
 {
     "type": "list",
-    "priority": 30,
-    "displayName": "text.itemswapper.list.tools",
+    "priority": 50,
+    "displayName": "text.itemswapper.directory.tools",
     "link": "itemswapper:v2/weapons",
     "items": [
         "minecraft:netherite_pickaxe",
@@ -31,6 +31,8 @@
         "minecraft:golden_hoe",
         "minecraft:copper_hoe",
         "minecraft:stone_hoe",
-        "minecraft:wooden_hoe"
+        "minecraft:wooden_hoe",
+        "minecraft:shears",
+        "minecraft:flint_and_steel"
     ]
 }

@@ -1,0 +1,31 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.technical.buttons",
+    "items": [
+        "minecraft:oak_button",
+        "minecraft:spruce_button",
+        "minecraft:birch_button",
+        "minecraft:dark_oak_button",
+        "minecraft:acacia_button",
+        "minecraft:jungle_button",
+        "minecraft:mangrove_button",
+        "minecraft:warped_button",
+        "minecraft:crimson_button",
+        "minecraft:cherry_button",
+        "minecraft:bamboo_button",
+        "minecraft:pale_oak_button",
+        "minecraft:stone_button",
+        "minecraft:polished_blackstone_button"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/buttons"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/technical/pressureplates"
+        }
+    ]
+}

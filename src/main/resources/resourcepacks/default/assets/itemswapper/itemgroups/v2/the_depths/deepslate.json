@@ -1,9 +1,14 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_depths.deepslate",
     "icon": "minecraft:chiseled_deepslate",
     "items": [
+        "minecraft:deepslate",
+        "minecraft:cobbled_deepslate",
+        "minecraft:cobbled_deepslate_stairs",
+        "minecraft:cobbled_deepslate_slab",
+        "minecraft:cobbled_deepslate_wall",
         "minecraft:chiseled_deepslate",
         "minecraft:polished_deepslate",
         "minecraft:polished_deepslate_stairs",
@@ -21,6 +26,10 @@
         "minecraft:deepslate_tile_wall"
     ],
     "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/tuff"
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_depths/basalt"

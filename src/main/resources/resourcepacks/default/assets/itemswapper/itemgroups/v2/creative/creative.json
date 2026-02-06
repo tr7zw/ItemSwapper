@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 30,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.creative.creative",
     "icon": "minecraft:command_block",
     "items": [
@@ -10,23 +10,33 @@
         "minecraft:command_block_minecart",
         "minecraft:test_block",
         "minecraft:test_instance_block",
-        "minecraft:petrified_oak_slab",
         "minecraft:jigsaw",
         "minecraft:structure_block",
         "minecraft:structure_void",
         "minecraft:barrier",
         "minecraft:debug_stick",
-        "minecraft:light",
-        "minecraft:bedrock",
-        "minecraft:end_portal_frame",
-        "minecraft:spawner",
-        "minecraft:frogspawn",
-        "minecraft:dirt_path",
-        "minecraft:farmland",
-        "minecraft:chorus_plant",
-        "minecraft:reinforced_deepslate",
-        "minecraft:budding_amethyst",
-        "minecraft:vault",
-        "minecraft:trial_spawner"
+        "minecraft:light"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/creative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/unobtainable"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/infested_stone"
+        }
     ]
 }

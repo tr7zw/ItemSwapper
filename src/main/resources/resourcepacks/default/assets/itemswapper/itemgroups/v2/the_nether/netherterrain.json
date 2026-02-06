@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 150,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_nether.netherterrain",
     "icon": "minecraft:magma_block",
     "items": [

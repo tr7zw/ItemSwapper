@@ -1,0 +1,52 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.items.records",
+    "icon": "minecraft:music_disc_creator",
+    "items": [
+        "minecraft:jukebox",
+        "minecraft:music_disc_13",
+        "minecraft:music_disc_cat",
+        "minecraft:music_disc_blocks",
+        "minecraft:music_disc_chirp",
+        "minecraft:music_disc_far",
+        "minecraft:music_disc_mall",
+        "minecraft:music_disc_mellohi",
+        "minecraft:music_disc_stal",
+        "minecraft:music_disc_strad",
+        "minecraft:music_disc_ward",
+        "minecraft:music_disc_11",
+        "minecraft:music_disc_wait",
+        "minecraft:music_disc_otherside",
+        "minecraft:music_disc_5",
+        "minecraft:music_disc_pigstep",
+        "minecraft:music_disc_relic",
+        "minecraft:music_disc_creator",
+        "minecraft:music_disc_creator_music_box",
+        "minecraft:music_disc_precipice",
+        "minecraft:music_disc_tears",
+        "minecraft:music_disc_lava_chicken"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/potion_brewing"
+        }
+    ]
+}

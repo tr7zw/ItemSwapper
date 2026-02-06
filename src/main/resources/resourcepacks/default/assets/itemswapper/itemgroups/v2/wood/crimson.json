@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.crimson",
     "items": [
         "minecraft:crimson_stem",
@@ -10,6 +10,7 @@
         "minecraft:crimson_planks",
         "minecraft:crimson_stairs",
         "minecraft:crimson_slab",
+        "minecraft:crimson_shelf",
         "minecraft:crimson_trapdoor",
         "minecraft:crimson_door",
         "minecraft:crimson_fence_gate",
