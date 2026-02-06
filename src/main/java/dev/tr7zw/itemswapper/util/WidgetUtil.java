@@ -58,6 +58,18 @@ public class WidgetUtil {
             "itemswapper", "textures/gui/inv_wheel_24_nocenter.png");
     public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_25_LOCATION = getResourceLocation(
             "itemswapper", "textures/gui/inv_wheel_25_nocenter.png");
+    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_28_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inv_wheel_28.png");
+    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_30_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inv_wheel_30.png");
+    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_33_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inv_wheel_33.png");
+    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_35_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inv_wheel_35.png");
+    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_38_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inv_wheel_38.png");
+    public static final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ BACKGROUND_40_LOCATION = getResourceLocation(
+            "itemswapper", "textures/gui/inv_wheel_40.png");
 
     private WidgetUtil() {
         // hiden constructor
@@ -129,33 +141,63 @@ public class WidgetUtil {
             setupHalfGridSlots(widgetArea, slots, 6, 4, BACKGROUND_22_LOCATION);
         } else if (length <= 24) {
             setupSlots(widgetArea, slots, 6, 4, false, BACKGROUND_24_LOCATION);
-        } else {
+        } else if (length <= 25) {
             setupSlots(widgetArea, slots, 5, 5, false, BACKGROUND_25_LOCATION);
+        } else if (length <= 28) {
+            setupSlots(widgetArea, slots, new int[]{3, 7, 8, 7, 3}, BACKGROUND_28_LOCATION);
+        } else if (length <= 30) {
+            setupSlots(widgetArea, slots, new int[]{6, 6, 6, 6, 6, 6}, BACKGROUND_30_LOCATION);
+        } else if (length <= 33) {
+            setupSlots(widgetArea, slots, new int[]{6, 7, 7, 7, 6}, BACKGROUND_33_LOCATION);
+        } else if (length <= 35) {
+            setupSlots(widgetArea, slots, new int[]{6, 7, 9, 7, 6}, BACKGROUND_35_LOCATION);
+        } else if (length <= 38) {
+            setupSlots(widgetArea, slots, new int[]{6, 8, 10, 8, 6}, BACKGROUND_38_LOCATION);
+        } else {
+            setupSlots(widgetArea, slots, new int[]{8, 8, 8, 8, 8}, BACKGROUND_40_LOCATION);
+        }
+    }
+
+    public static void setupSlots(WidgetArea widgetArea, List<GuiSlot> slots, int[] lines, /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture) {
+        int maxWidth = 0;
+        for (int line : lines) {
+            if (line > maxWidth) {
+                maxWidth = line;
+            }
+        }
+        widgetArea.setBackgroundTexture(texture);
+        widgetArea.setBackgroundSizeX(maxWidth * ItemSwapperUI.tinySlotSize + 6);
+        widgetArea.setBackgroundSizeY(lines.length * ItemSwapperUI.tinySlotSize + 6);
+        widgetArea.setBackgroundTextureSizeX(maxWidth >= 7 ? 256 : 128);
+        int sz = texture == null ? ItemSwapperUI.slotSize : ItemSwapperUI.tinySlotSize;
+        int lz = texture == null ? 11 : 9;
+        widgetArea.setMouseBoundsX(maxWidth * lz);
+        widgetArea.setMouseBoundsY(lines.length * lz);
+        int originX = (int) (-maxWidth / 2d * sz - 2);
+        int originY = (int) (-lines.length / 2d * sz - 1 - 2);
+        int slotId = 0;
+        for (int y = 0; y < lines.length; y++) {
+            int xOffset = (maxWidth - lines[y]) % 2 == 1 ? sz / 2 : 0;
+            for (int x = 0; x < lines[y]; x++) {
+                slots.add(new GuiSlot(originX + xOffset + ((maxWidth - lines[y]) / 2 + x) * sz, originY + y * sz, slotId, ItemSwapperUI.tinySlotSize));
+                slotId++;
+            }
         }
     }
 
     public static void setupSlots(WidgetArea widgetArea, List<GuiSlot> slots, int width, int height,
             boolean skipCorners, /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture) {
-        widgetArea.setBackgroundTexture(texture);
-        widgetArea.setBackgroundSizeX(width * ItemSwapperUI.tinySlotSize + 6);
-        widgetArea.setBackgroundSizeY(height * ItemSwapperUI.tinySlotSize + 6);
-        int sz = texture == null ? ItemSwapperUI.slotSize : ItemSwapperUI.tinySlotSize;
-        int lz = texture == null ? 11 : 9;
-        widgetArea.setMouseBoundsX(width * lz);
-        widgetArea.setMouseBoundsY(height * lz);
-        int originX = (int) (-width / 2d * sz - 2);
-        int originY = (int) (-height / 2d * sz - 1 - 2);
-        int slotId = 0;
+        int[] size = new int[height];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 boolean skip = skipCorners && ((x == 0 && y == 0) || (x == 0 && y == height - 1)
                         || (x == width - 1 && y == height - 1) || (x == width - 1 && y == 0));
                 if (!skip) {
-                    slots.add(new GuiSlot(originX + x * sz, originY + y * sz, slotId, ItemSwapperUI.tinySlotSize));
-                    slotId++;
+                    size[y]++;
                 }
             }
         }
+        setupSlots(widgetArea, slots, size, texture);
     }
 
     public static void setupHalfGridSlots(WidgetArea widgetArea, List<GuiSlot> slots, int width, int height,
@@ -165,31 +207,19 @@ public class WidgetUtil {
 
     public static void setupHalfGridSlots(WidgetArea widgetArea, List<GuiSlot> slots, int width, int height,
             /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture, boolean flip) {
-        widgetArea.setBackgroundTexture(texture);
-        widgetArea.setBackgroundSizeX(width * ItemSwapperUI.tinySlotSize + 6);
-        widgetArea.setBackgroundSizeY(height * ItemSwapperUI.tinySlotSize + 6);
-        int sz = texture == null ? ItemSwapperUI.slotSize : ItemSwapperUI.tinySlotSize;
-        int lz = texture == null ? 11 : 9;
-        widgetArea.setMouseBoundsX(width * lz);
-        widgetArea.setMouseBoundsY(height * lz);
-        int originX = (int) (-width / 2d * sz - 2);
-        int originY = (int) (-height / 2d * sz - 1 - 2);
-        int slotId = 0;
+        int[] size = new int[height];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 boolean skip = (x == width - 1 && y == height - 1) || (x == width - 1 && y == 0);
-                boolean needsOffset = y == 0 || y == height - 1;
                 if (flip) {
                     skip = (x == width - 1 && y != height - 1 && y != 0);
-                    needsOffset = !needsOffset;
                 }
-                int xOffset = needsOffset ? sz / 2 : 0;
                 if (!skip) {
-                    slots.add(new GuiSlot(originX + xOffset + x * sz, originY + y * sz, slotId++,
-                            ItemSwapperUI.tinySlotSize));
+                    size[y]++;
                 }
             }
         }
+        setupSlots(widgetArea, slots, size, texture);
     }
 
 }
