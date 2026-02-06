@@ -152,7 +152,7 @@ public class WidgetUtil {
         } else if (length <= 35) {
             setupSlots(widgetArea, slots, new int[]{6, 7, 9, 7, 6}, BACKGROUND_35_LOCATION);
         } else if (length <= 38) {
-            setupSlots(widgetArea, slots, new int[]{6, 8, 9, 8, 6}, BACKGROUND_38_LOCATION);
+            setupSlots(widgetArea, slots, new int[]{6, 8, 10, 8, 6}, BACKGROUND_38_LOCATION);
         } else {
             setupSlots(widgetArea, slots, new int[]{8, 8, 8, 8, 8}, BACKGROUND_40_LOCATION);
         }
@@ -211,6 +211,9 @@ public class WidgetUtil {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 boolean skip = (x == width - 1 && y == height - 1) || (x == width - 1 && y == 0);
+                if (flip) {
+                    skip = (x == width - 1 && y != height - 1 && y != 0);
+                }
                 if (!skip) {
                     size[y]++;
                 }
