@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 30,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.creative.spawnegg_passive_air",
     "icon": "minecraft:bee_spawn_egg",
     "items": [
@@ -11,6 +11,10 @@
         "minecraft:happy_ghast_spawn_egg"
     ],
     "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/creative"
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/creative/spawnegg_passive"

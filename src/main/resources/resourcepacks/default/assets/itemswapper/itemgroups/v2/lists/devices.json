@@ -1,0 +1,29 @@
+{
+    "type": "list",
+    "priority": 50,
+    "displayName": "text.itemswapper.list.devices",
+    "items": [
+        "minecraft:totem_of_undying",
+        "minecraft:fishing_rod",
+        "minecraft:spyglass",
+        "minecraft:compass",
+        "minecraft:clock",
+        "minecraft:filled_map",
+        "minecraft:map",
+        "minecraft:recovery_compass",
+        "minecraft:goat_horn",
+        "minecraft:fire_charge",
+        "minecraft:brush",
+        "minecraft:lead",
+        "minecraft:name_tag",
+        "minecraft:carrot_on_a_stick",
+        "minecraft:warped_fungus_on_a_stick",
+        "minecraft:end_crystal",
+        "minecraft:ender_eye",
+        "minecraft:experience_bottle",
+        "minecraft:trial_key",
+        "minecraft:ominous_trial_key",
+        "minecraft:ominous_bottle",
+        "minecraft:wind_charge"
+    ]
+}

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.purple",
     "items": [
         "minecraft:purple_dye",
@@ -14,6 +14,7 @@
         "minecraft:purple_stained_glass_pane",
         "minecraft:purple_candle",
         "minecraft:purple_banner",
-        "minecraft:purple_bed"
+        "minecraft:purple_bed",
+        "minecraft:purple_harness"
     ]
 }

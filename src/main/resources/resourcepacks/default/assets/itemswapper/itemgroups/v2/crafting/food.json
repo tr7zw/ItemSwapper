@@ -1,0 +1,52 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.crafting.consumables",
+    "icon": "minecraft:cooked_chicken",
+    "items": [
+        "minecraft:bread",
+        "minecraft:cooked_chicken",
+        "minecraft:cooked_beef",
+        "minecraft:cooked_porkchop",
+        "minecraft:cooked_mutton",
+        "minecraft:cooked_rabbit",
+        "minecraft:cooked_salmon",
+        "minecraft:cooked_cod",
+        "minecraft:baked_potato",
+        "minecraft:pumpkin_pie",
+        "minecraft:mushroom_stew",
+        "minecraft:beetroot_soup",
+        "minecraft:rabbit_stew",
+        "minecraft:cookie",
+        "minecraft:melon_slice",
+        "minecraft:apple",
+        "minecraft:carrot",
+        "minecraft:beetroot",
+        "minecraft:potato",
+        "minecraft:dried_kelp",
+        "minecraft:cake",
+        "minecraft:golden_carrot",
+        "minecraft:golden_apple",
+        "minecraft:enchanted_golden_apple",
+        "minecraft:sweet_berries",
+        "minecraft:honey_bottle"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/mob_drops"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/unprocessed_food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/misc"
+        }
+    ]
+}

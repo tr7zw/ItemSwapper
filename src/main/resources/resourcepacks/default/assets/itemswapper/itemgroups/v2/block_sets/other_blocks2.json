@@ -1,0 +1,45 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.block_sets.other_blocks2",
+    "icon": "minecraft:prismarine_bricks",
+    "items": [
+        "minecraft:calcite",
+        "minecraft:diorite",
+        "minecraft:polished_diorite",
+        "minecraft:quartz_block",
+        "minecraft:chiseled_quartz_block",
+        "minecraft:quartz_bricks",
+        "minecraft:quartz_pillar",
+        "minecraft:smooth_quartz",
+        "minecraft:prismarine_bricks",
+        "minecraft:prismarine",
+        "minecraft:dark_prismarine",
+        "minecraft:end_stone",
+        "minecraft:end_stone_bricks",
+        "minecraft:purpur_block",
+        "minecraft:purpur_pillar"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_blocks2"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_walls"
+        }
+    ]
+}

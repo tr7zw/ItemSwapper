@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.brown",
     "items": [
         "minecraft:brown_dye",
@@ -14,6 +14,7 @@
         "minecraft:brown_stained_glass_pane",
         "minecraft:brown_candle",
         "minecraft:brown_banner",
-        "minecraft:brown_bed"
+        "minecraft:brown_bed",
+        "minecraft:brown_harness"
     ]
 }

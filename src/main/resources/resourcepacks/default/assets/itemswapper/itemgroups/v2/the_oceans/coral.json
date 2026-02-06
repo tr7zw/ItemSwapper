@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_oceans.coral",
     "icon": "minecraft:brain_coral_block",
     "items": [

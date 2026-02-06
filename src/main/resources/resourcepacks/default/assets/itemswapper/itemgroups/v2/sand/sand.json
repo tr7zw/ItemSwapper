@@ -1,10 +1,9 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.sand.sand",
     "items": [
         "minecraft:sand",
-        "minecraft:suspicious_sand",
         "minecraft:sandstone",
         "minecraft:sandstone_stairs",
         "minecraft:sandstone_slab",

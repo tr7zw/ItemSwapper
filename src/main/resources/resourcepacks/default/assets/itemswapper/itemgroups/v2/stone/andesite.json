@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 43,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.stone.andesite",
     "items": [
         "minecraft:andesite",
@@ -27,6 +27,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/stone/andesite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/moss"
         }
     ]
 }

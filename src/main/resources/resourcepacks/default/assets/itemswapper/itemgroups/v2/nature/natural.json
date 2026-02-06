@@ -1,9 +1,12 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.nature.natural",
     "icon": "minecraft:melon",
     "items": [
+        "minecraft:cactus",
+        "minecraft:moss_block",
+        "minecraft:pale_moss_block",
         "minecraft:red_mushroom_block",
         "minecraft:mushroom_stem",
         "minecraft:brown_mushroom_block",
@@ -27,6 +30,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/hanging"
         },
         {
             "type": "link",

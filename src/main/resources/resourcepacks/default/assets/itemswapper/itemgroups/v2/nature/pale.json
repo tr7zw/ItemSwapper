@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 52,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.nature.pale",
     "items": [
         "minecraft:pale_moss_block",
@@ -9,6 +9,8 @@
         "minecraft:pale_oak_sapling",
         "minecraft:pale_oak_leaves",
         "minecraft:creaking_heart",
+        "minecraft:closed_eyeblossom",
+        "minecraft:open_eyeblossom",
         "minecraft:bone_meal"
     ],
     "shortcuts": [

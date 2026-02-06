@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.birch",
     "items": [
         "minecraft:birch_log",
@@ -10,6 +10,7 @@
         "minecraft:birch_planks",
         "minecraft:birch_stairs",
         "minecraft:birch_slab",
+        "minecraft:birch_shelf",
         "minecraft:birch_trapdoor",
         "minecraft:birch_door",
         "minecraft:birch_fence_gate",
@@ -17,7 +18,9 @@
         "minecraft:birch_sign",
         "minecraft:birch_hanging_sign",
         "minecraft:birch_button",
-        "minecraft:birch_pressure_plate"
+        "minecraft:birch_pressure_plate",
+        "minecraft:birch_boat",
+        "minecraft:birch_chest_boat"
     ],
     "shortcuts": [
         {

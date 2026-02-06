@@ -1,0 +1,40 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.items.banner_patterns",
+    "items": [
+        "minecraft:loom",
+        "minecraft:flower_banner_pattern",
+        "minecraft:creeper_banner_pattern",
+        "minecraft:skull_banner_pattern",
+        "minecraft:mojang_banner_pattern",
+        "minecraft:globe_banner_pattern",
+        "minecraft:piglin_banner_pattern",
+        "minecraft:flow_banner_pattern",
+        "minecraft:bordure_indented_banner_pattern",
+        "minecraft:field_masoned_banner_pattern",
+        "minecraft:guster_banner_pattern"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/potion_brewing"
+        }
+    ]
+}

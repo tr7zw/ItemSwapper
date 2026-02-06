@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.orange",
     "items": [
         "minecraft:orange_dye",
@@ -14,6 +14,7 @@
         "minecraft:orange_stained_glass_pane",
         "minecraft:orange_candle",
         "minecraft:orange_banner",
-        "minecraft:orange_bed"
+        "minecraft:orange_bed",
+        "minecraft:orange_harness"
     ]
 }

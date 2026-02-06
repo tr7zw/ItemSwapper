@@ -12,6 +12,10 @@
     "shortcuts": [
         {
             "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
+        },
+        {
+            "type": "link",
             "target": "itemswapper:v2/consumables/food"
         },
         {

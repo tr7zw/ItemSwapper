@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.woodentrapdoors",
     "items": [
         "minecraft:oak_trapdoor",

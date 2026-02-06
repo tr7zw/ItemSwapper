@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 42,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.stone.cobblestone",
     "items": [
         "minecraft:cobblestone",
@@ -28,6 +28,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/stone/andesite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/moss"
         }
     ]
 }

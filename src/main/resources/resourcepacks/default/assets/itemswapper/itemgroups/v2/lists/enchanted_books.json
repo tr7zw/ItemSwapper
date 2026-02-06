@@ -1,0 +1,8 @@
+{
+    "type": "list",
+    "priority": 50,
+    "displayName": "text.itemswapper.list.enchanted_books",
+    "items": [
+        "minecraft:enchanted_book"
+    ]
+}

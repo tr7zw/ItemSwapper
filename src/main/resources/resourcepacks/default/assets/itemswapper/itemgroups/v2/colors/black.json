@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.black",
     "items": [
         "minecraft:black_dye",
@@ -14,6 +14,7 @@
         "minecraft:black_stained_glass_pane",
         "minecraft:black_candle",
         "minecraft:black_banner",
-        "minecraft:black_bed"
+        "minecraft:black_bed",
+        "minecraft:black_harness"
     ]
 }

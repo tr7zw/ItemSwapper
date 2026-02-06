@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.lime",
     "items": [
         "minecraft:lime_dye",
@@ -14,6 +14,7 @@
         "minecraft:lime_stained_glass_pane",
         "minecraft:lime_candle",
         "minecraft:lime_banner",
-        "minecraft:lime_bed"
+        "minecraft:lime_bed",
+        "minecraft:lime_harness"
     ]
 }

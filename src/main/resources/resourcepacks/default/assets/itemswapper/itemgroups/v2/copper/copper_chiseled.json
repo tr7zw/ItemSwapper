@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.copper.chiseled_copper",
+    "items": [
+        "minecraft:chiseled_copper",
+        "minecraft:exposed_chiseled_copper",
+        "minecraft:weathered_chiseled_copper",
+        "minecraft:oxidized_chiseled_copper",
+        "minecraft:waxed_chiseled_copper",
+        "minecraft:waxed_chiseled_copper",
+        "minecraft:waxed_chiseled_copper",
+        "minecraft:waxed_chiseled_copper"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_cut"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_chiseled"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_grate"
+        }
+    ]
+}

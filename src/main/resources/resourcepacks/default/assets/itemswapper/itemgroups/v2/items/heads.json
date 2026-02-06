@@ -1,0 +1,23 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.items.heads",
+    "items": [
+        "minecraft:skeleton_skull",
+        "minecraft:wither_skeleton_skull",
+        "minecraft:zombie_head",
+        "minecraft:creeper_head",
+        "minecraft:dragon_head",
+        "minecraft:piglin_head"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/heads"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/lists/player_heads"
+        }
+    ]
+}

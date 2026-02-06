@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 25,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.technical.rail",
     "icon": "minecraft:hopper_minecart",
     "items": [

@@ -1,0 +1,18 @@
+{
+    "type": "list",
+    "priority": 10,
+    "displayName": "text.itemswapper.list.player_heads",
+    "items": [
+        "minecraft:player_head"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/heads"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/lists/player_heads"
+        }
+    ]
+}

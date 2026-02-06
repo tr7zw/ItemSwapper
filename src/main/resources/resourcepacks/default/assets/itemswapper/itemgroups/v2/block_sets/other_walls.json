@@ -1,0 +1,41 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.block_sets.other_walls",
+    "icon": "minecraft:red_sandstone_wall",
+    "items": [
+        "minecraft:nether_brick_fence",
+        "minecraft:nether_brick_wall",
+        "minecraft:red_nether_brick_wall",
+        "minecraft:brick_wall",
+        "minecraft:granite_wall",
+        "minecraft:mud_brick_wall",
+        "minecraft:red_sandstone_wall",
+        "minecraft:sandstone_wall",
+        "minecraft:diorite_wall",
+        "minecraft:prismarine_wall",
+        "minecraft:end_stone_brick_wall"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_blocks2"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_walls"
+        }
+    ]
+}

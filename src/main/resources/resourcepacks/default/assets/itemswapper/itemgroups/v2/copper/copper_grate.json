@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.copper.copper_grate",
     "items": [
         "minecraft:copper_grate",
@@ -15,23 +15,27 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_trapdoor"
+            "target": "itemswapper:v2/copper/copper_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_cut"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_chiseled"
         },
         {
             "type": "link",
             "target": "itemswapper:v2/copper/copper_grate"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/copper_door"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/copper_bulbs"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/honeycomb_type"
         }
     ]
 }

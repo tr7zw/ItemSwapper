@@ -1,6 +1,6 @@
 {
     "type": "list",
-    "priority": 100,
+    "priority": 10,
     "icon": "minecraft:potion",
     "displayName": "text.itemswapper.palette.consumables.potions",
     "openOnlyItems": [
@@ -10,5 +10,23 @@
         "minecraft:potion",
         "minecraft:splash_potion",
         "minecraft:lingering_potion"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/arrow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/potions"
+        }
     ]
 }

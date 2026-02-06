@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.mangrove",
     "items": [
         "minecraft:mangrove_log",
@@ -10,6 +10,7 @@
         "minecraft:mangrove_planks",
         "minecraft:mangrove_stairs",
         "minecraft:mangrove_slab",
+        "minecraft:mangrove_shelf",
         "minecraft:mangrove_trapdoor",
         "minecraft:mangrove_door",
         "minecraft:mangrove_fence_gate",
@@ -17,7 +18,9 @@
         "minecraft:mangrove_sign",
         "minecraft:mangrove_hanging_sign",
         "minecraft:mangrove_button",
-        "minecraft:mangrove_pressure_plate"
+        "minecraft:mangrove_pressure_plate",
+        "minecraft:mangrove_boat",
+        "minecraft:mangrove_chest_boat"
     ],
     "shortcuts": [
         {

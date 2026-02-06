@@ -1,46 +1,50 @@
 {
     "type": "palette",
-    "priority": 100,
-    "displayName": "text.itemswapper.palette.mob_drops",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.crafting.mob_drops",
+    "icon": "minecraft:bone",
     "items": [
-        "minecraft:feather",
-        "minecraft:leather",
-        "minecraft:bone",
         "minecraft:rotten_flesh",
-        "minecraft:ender_pearl",
-        "minecraft:blaze_rod",
-        "minecraft:ghast_tear",
+        "minecraft:bone",
         "minecraft:spider_eye",
-        "minecraft:shulker_shell",
+        "minecraft:gunpowder",
+        "minecraft:slime_ball",
+        "minecraft:phantom_membrane",
         "minecraft:prismarine_shard",
         "minecraft:prismarine_crystals",
-        "minecraft:phantom_membrane",
-        "minecraft:slime_ball",
-        "minecraft:egg",
-        "minecraft:blue_egg",
-        "minecraft:brown_egg",
-        "minecraft:ink_sac",
-        "minecraft:glow_ink_sac",
+        "minecraft:breeze_rod",
+        "minecraft:blaze_rod",
+        "minecraft:ghast_tear",
+        "minecraft:ender_pearl",
+        "minecraft:shulker_shell",
+        "minecraft:feather",
+        "minecraft:leather",
+        "minecraft:rabbit_hide",
         "minecraft:scute",
         "minecraft:turtle_scute",
         "minecraft:armadillo_scute",
-        "minecraft:spider_eye",
-        "minecraft:gunpowder",
-        "minecraft:rabbit_hide",
-        "minecraft:breeze_rod"
+        "minecraft:ink_sac",
+        "minecraft:glow_ink_sac",
+        "minecraft:egg",
+        "minecraft:blue_egg",
+        "minecraft:brown_egg"
     ],
     "shortcuts": [
-        {
-            "type": "link",
-            "target": "itemswapper:v2/crafting/misc"
-        },
         {
             "type": "link",
             "target": "itemswapper:v2/crafting/mob_drops"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/crafting/banner_patterns"
+            "target": "itemswapper:v2/crafting/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/unprocessed_food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/misc"
         }
     ]
 }

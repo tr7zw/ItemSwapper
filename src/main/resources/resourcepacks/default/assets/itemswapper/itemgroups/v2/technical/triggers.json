@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 30,
+    "priority": 75,
     "displayName": "text.itemswapper.palette.technical.triggers",
     "icon": "minecraft:iron_trapdoor",
     "items": [

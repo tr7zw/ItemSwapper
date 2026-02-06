@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.nature.leaves",
     "items": [
         "minecraft:flowering_azalea_leaves",
@@ -15,7 +15,6 @@
         "minecraft:mangrove_roots",
         "minecraft:muddy_mangrove_roots",
         "minecraft:cherry_leaves",
-        "minecraft:pink_petals",
         "minecraft:pale_oak_leaves"
     ],
     "shortcuts": [
@@ -26,6 +25,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/nature/leaves"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/nature/hanging"
         },
         {
             "type": "link",

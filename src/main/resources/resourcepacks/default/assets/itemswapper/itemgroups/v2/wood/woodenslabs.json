@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.woodenslabs",
     "items": [
         "minecraft:oak_slab",
@@ -29,6 +29,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/woodenslabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/shelf"
         }
     ]
 }

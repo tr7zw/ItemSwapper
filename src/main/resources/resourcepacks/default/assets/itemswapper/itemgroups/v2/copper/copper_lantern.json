@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.copper.copper_lantern",
     "items": [
         "minecraft:copper_lantern",
@@ -15,23 +15,27 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_trapdoor"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/copper_grate"
-        },
-        {
-            "type": "link",
             "target": "itemswapper:v2/copper/copper_door"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_lantern"
+            "target": "itemswapper:v2/copper/copper_trapdoor"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/honeycomb_type"
+            "target": "itemswapper:v2/copper/copper_chain"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_bars"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/lightning_rod"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/copper/copper_lantern"
         }
     ]
 }

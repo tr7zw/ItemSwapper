@@ -1,35 +1,42 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 60,
     "displayName": "text.itemswapper.palette.copper.copper_golem",
+    "icon": "minecraft:copper_golem_statue",
     "items": [
         "minecraft:copper_block",
+        "minecraft:exposed_copper",
+        "minecraft:weathered_copper",
+        "minecraft:oxidized_copper",
         "minecraft:carved_pumpkin",
         "minecraft:copper_golem_statue",
         "minecraft:exposed_copper_golem_statue",
         "minecraft:weathered_copper_golem_statue",
         "minecraft:oxidized_copper_golem_statue",
+        "minecraft:honeycomb",
         "minecraft:waxed_copper_golem_statue",
         "minecraft:waxed_exposed_copper_golem_statue",
         "minecraft:waxed_weathered_copper_golem_statue",
         "minecraft:waxed_oxidized_copper_golem_statue"
     ],
+    "ignoreItems": [
+        "minecraft:copper_block",
+        "minecraft:exposed_copper",
+        "minecraft:weathered_copper",
+        "minecraft:oxidized_copper"
+    ],
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_trapdoor"
+            "target": "itemswapper:v2/copper/copper_bulbs"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_grate"
+            "target": "itemswapper:v2/copper/copper_chest"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_door"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/copper_golem_statue"
+            "target": "itemswapper:v2/copper/copper_golem"
         },
         {
             "type": "link",

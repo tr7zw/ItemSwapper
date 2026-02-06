@@ -1,20 +1,24 @@
 {
     "type": "palette",
-    "priority": 30,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.creative.spawnegg_hostile_nether",
     "icon": "minecraft:zombified_piglin_spawn_egg",
     "items": [
-        "minecraft:blaze_spawn_egg",
-        "minecraft:ghast_spawn_egg",
-        "minecraft:hoglin_spawn_egg",
-        "minecraft:magma_cube_spawn_egg",
         "minecraft:piglin_spawn_egg",
         "minecraft:piglin_brute_spawn_egg",
-        "minecraft:zoglin_spawn_egg",
+        "minecraft:hoglin_spawn_egg",
         "minecraft:zombified_piglin_spawn_egg",
-        "minecraft:happy_ghast_spawn_egg"
+        "minecraft:zoglin_spawn_egg",
+        "minecraft:magma_cube_spawn_egg",
+        "minecraft:ghast_spawn_egg",
+        "minecraft:blaze_spawn_egg",
+        "minecraft:wither_skeleton_spawn_egg"
     ],
     "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/creative"
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/creative/spawnegg_hostile"

@@ -1,7 +1,8 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 60,
     "displayName": "text.itemswapper.palette.copper.honeycomb",
+    "icon": "minecraft:honeycomb_block",
     "disableAutoLink": true,
     "items": [
         "minecraft:honeycomb",
@@ -11,19 +12,15 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_blocks"
+            "target": "itemswapper:v2/copper/copper_bulbs"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_cut"
+            "target": "itemswapper:v2/copper/copper_chest"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/copper_stairs"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/copper/copper_slabs"
+            "target": "itemswapper:v2/copper/copper_golem"
         },
         {
             "type": "link",
