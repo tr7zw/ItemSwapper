@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.pale_oak",
     "items": [
         "minecraft:pale_oak_log",
@@ -10,6 +10,7 @@
         "minecraft:pale_oak_planks",
         "minecraft:pale_oak_stairs",
         "minecraft:pale_oak_slab",
+        "minecraft:pale_oak_shelf",
         "minecraft:pale_oak_trapdoor",
         "minecraft:pale_oak_door",
         "minecraft:pale_oak_fence_gate",
@@ -17,7 +18,9 @@
         "minecraft:pale_oak_sign",
         "minecraft:pale_oak_hanging_sign",
         "minecraft:pale_oak_button",
-        "minecraft:pale_oak_pressure_plate"
+        "minecraft:pale_oak_pressure_plate",
+        "minecraft:pale_oak_boat",
+        "minecraft:pale_oak_chest_boat"
     ],
     "shortcuts": [
         {

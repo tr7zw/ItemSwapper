@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 52,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.nature.resin",
     "items": [
         "minecraft:resin_clump",

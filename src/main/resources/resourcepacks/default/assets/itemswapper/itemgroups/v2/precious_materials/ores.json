@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.precious_materials.ore",
     "icon": "minecraft:deepslate_gold_ore",
     "items": [

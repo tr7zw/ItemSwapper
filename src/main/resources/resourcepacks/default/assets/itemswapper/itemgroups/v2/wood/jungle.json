@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.jungle",
     "items": [
         "minecraft:jungle_log",
@@ -10,6 +10,7 @@
         "minecraft:jungle_planks",
         "minecraft:jungle_stairs",
         "minecraft:jungle_slab",
+        "minecraft:jungle_shelf",
         "minecraft:jungle_trapdoor",
         "minecraft:jungle_door",
         "minecraft:jungle_fence_gate",
@@ -17,7 +18,9 @@
         "minecraft:jungle_sign",
         "minecraft:jungle_hanging_sign",
         "minecraft:jungle_button",
-        "minecraft:jungle_pressure_plate"
+        "minecraft:jungle_pressure_plate",
+        "minecraft:jungle_boat",
+        "minecraft:jungle_chest_boat"
     ],
     "shortcuts": [
         {

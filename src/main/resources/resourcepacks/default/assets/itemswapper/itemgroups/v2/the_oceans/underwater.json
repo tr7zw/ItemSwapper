@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 80,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_oceans.underwater",
     "items": [
         "minecraft:lily_pad",

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_oceans.prismarine",
     "items": [
         "minecraft:prismarine_bricks",
@@ -12,7 +12,8 @@
         "minecraft:dark_prismarine_slab",
         "minecraft:prismarine",
         "minecraft:prismarine_stairs",
-        "minecraft:prismarine_slab"
+        "minecraft:prismarine_slab",
+        "minecraft:prismarine_wall"
     ],
     "shortcuts": [
         {

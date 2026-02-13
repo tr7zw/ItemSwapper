@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.wood",
     "ignoreItems": [
         "minecraft:bamboo_block"

@@ -1,0 +1,44 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.block_sets.stone_wall",
+    "items": [
+        "minecraft:stone_brick_wall",
+        "minecraft:cobblestone_wall",
+        "minecraft:mossy_stone_brick_wall",
+        "minecraft:mossy_cobblestone_wall",
+        "minecraft:andesite_wall",
+        "minecraft:tuff_wall",
+        "minecraft:tuff_brick_wall",
+        "minecraft:polished_tuff_wall",
+        "minecraft:cobbled_deepslate_wall",
+        "minecraft:polished_deepslate_wall",
+        "minecraft:deepslate_brick_wall",
+        "minecraft:deepslate_tile_wall",
+        "minecraft:blackstone_wall",
+        "minecraft:polished_blackstone_wall",
+        "minecraft:polished_blackstone_brick_wall"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/depths_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/stone_wall"
+        }
+    ]
+}

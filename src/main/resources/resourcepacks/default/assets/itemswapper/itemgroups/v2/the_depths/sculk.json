@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_depths.sculk",
     "icon": "minecraft:sculk_sensor",
     "items": [
@@ -12,6 +12,10 @@
         "minecraft:calibrated_sculk_sensor"
     ],
     "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/tuff"
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/the_depths/basalt"

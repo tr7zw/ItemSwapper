@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.boats",
     "items": [
         "minecraft:oak_boat",
@@ -27,15 +27,15 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/wood/planktypes"
+            "target": "itemswapper:v2/wood/signs"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/wood/woodenstairs"
+            "target": "itemswapper:v2/wood/hangingsigns"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/wood/woodenslabs"
+            "target": "itemswapper:v2/wood/boats"
         }
     ]
 }

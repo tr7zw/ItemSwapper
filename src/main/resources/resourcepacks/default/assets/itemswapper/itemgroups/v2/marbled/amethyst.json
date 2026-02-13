@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 150,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.marbled.amethyst",
     "icon": "minecraft:amethyst_cluster",
     "items": [

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 150,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.the_nether.netherbrick",
     "icon": "minecraft:red_nether_bricks",
     "items": [

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.pink",
     "items": [
         "minecraft:pink_dye",
@@ -14,6 +14,7 @@
         "minecraft:pink_stained_glass_pane",
         "minecraft:pink_candle",
         "minecraft:pink_banner",
-        "minecraft:pink_bed"
+        "minecraft:pink_bed",
+        "minecraft:pink_harness"
     ]
 }

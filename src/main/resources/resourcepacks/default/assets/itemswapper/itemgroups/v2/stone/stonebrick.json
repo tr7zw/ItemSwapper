@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 41,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.stone.stonebrick",
     "items": [
         "minecraft:stone_bricks",
@@ -9,6 +9,7 @@
         "minecraft:stone_brick_slab",
         "minecraft:stone_brick_wall",
         "minecraft:chiseled_stone_bricks",
+        "minecraft:lodestone",
         "minecraft:mossy_stone_bricks",
         "minecraft:mossy_stone_brick_stairs",
         "minecraft:mossy_stone_brick_slab",
@@ -30,6 +31,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/stone/andesite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/moss"
         }
     ]
 }

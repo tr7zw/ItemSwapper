@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 150,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.strippedlogs",
     "items": [
         "minecraft:stripped_oak_log",

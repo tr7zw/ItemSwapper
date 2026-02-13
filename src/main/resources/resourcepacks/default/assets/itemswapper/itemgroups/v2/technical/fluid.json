@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 300,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.technical.fluid",
     "icon": "minecraft:water_bucket",
     "items": [

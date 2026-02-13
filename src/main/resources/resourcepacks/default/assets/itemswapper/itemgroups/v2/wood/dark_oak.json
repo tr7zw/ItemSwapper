@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.wood.dark_oak",
     "items": [
         "minecraft:dark_oak_log",
@@ -10,6 +10,7 @@
         "minecraft:dark_oak_planks",
         "minecraft:dark_oak_stairs",
         "minecraft:dark_oak_slab",
+        "minecraft:dark_oak_shelf",
         "minecraft:dark_oak_trapdoor",
         "minecraft:dark_oak_door",
         "minecraft:dark_oak_fence_gate",
@@ -17,7 +18,9 @@
         "minecraft:dark_oak_sign",
         "minecraft:dark_oak_hanging_sign",
         "minecraft:dark_oak_button",
-        "minecraft:dark_oak_pressure_plate"
+        "minecraft:dark_oak_pressure_plate",
+        "minecraft:dark_oak_boat",
+        "minecraft:dark_oak_chest_boat"
     ],
     "shortcuts": [
         {

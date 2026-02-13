@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.spruce",
     "items": [
         "minecraft:spruce_log",
@@ -10,6 +10,7 @@
         "minecraft:spruce_planks",
         "minecraft:spruce_stairs",
         "minecraft:spruce_slab",
+        "minecraft:spruce_shelf",
         "minecraft:spruce_trapdoor",
         "minecraft:spruce_door",
         "minecraft:spruce_fence_gate",
@@ -17,7 +18,9 @@
         "minecraft:spruce_sign",
         "minecraft:spruce_hanging_sign",
         "minecraft:spruce_button",
-        "minecraft:spruce_pressure_plate"
+        "minecraft:spruce_pressure_plate",
+        "minecraft:spruce_boat",
+        "minecraft:spruce_chest_boat"
     ],
     "shortcuts": [
         {

@@ -1,0 +1,53 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.block_sets.other_blocks",
+    "icon": "minecraft:red_sandstone",
+    "items": [
+        "minecraft:soul_sand",
+        "minecraft:soul_soil",
+        "minecraft:netherrack",
+        "minecraft:chiseled_nether_bricks",
+        "minecraft:nether_bricks",
+        "minecraft:cracked_nether_bricks",
+        "minecraft:red_nether_bricks",
+        "minecraft:bricks",
+        "minecraft:clay",
+        "minecraft:terracotta",
+        "minecraft:granite",
+        "minecraft:polished_granite",
+        "minecraft:packed_mud",
+        "minecraft:mud_bricks",
+        "minecraft:mud",
+        "minecraft:red_sandstone",
+        "minecraft:chiseled_red_sandstone",
+        "minecraft:smooth_red_sandstone",
+        "minecraft:cut_red_sandstone",
+        "minecraft:sandstone",
+        "minecraft:chiseled_sandstone",
+        "minecraft:smooth_sandstone",
+        "minecraft:cut_sandstone"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_blocks"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_blocks2"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_stairs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_slabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/block_sets/other_walls"
+        }
+    ]
+}

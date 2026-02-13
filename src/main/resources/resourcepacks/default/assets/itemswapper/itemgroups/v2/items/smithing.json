@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.items.smithing",
+    "icon": "minecraft:netherite_upgrade_smithing_template",
+    "items": [
+        "minecraft:smithing_table",
+        "minecraft:netherite_upgrade_smithing_template",
+        "minecraft:coast_armor_trim_smithing_template",
+        "minecraft:dune_armor_trim_smithing_template",
+        "minecraft:eye_armor_trim_smithing_template",
+        "minecraft:host_armor_trim_smithing_template",
+        "minecraft:raiser_armor_trim_smithing_template",
+        "minecraft:rib_armor_trim_smithing_template",
+        "minecraft:sentry_armor_trim_smithing_template",
+        "minecraft:shaper_armor_trim_smithing_template",
+        "minecraft:silence_armor_trim_smithing_template",
+        "minecraft:snout_armor_trim_smithing_template",
+        "minecraft:spire_armor_trim_smithing_template",
+        "minecraft:tide_armor_trim_smithing_template",
+        "minecraft:vex_armor_trim_smithing_template",
+        "minecraft:ward_armor_trim_smithing_template",
+        "minecraft:wayfinder_armor_trim_smithing_template",
+        "minecraft:wild_armor_trim_smithing_template",
+        "minecraft:flow_armor_trim_smithing_template",
+        "minecraft:bolt_armor_trim_smithing_template"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/items/potion_brewing"
+        }
+    ]
+}

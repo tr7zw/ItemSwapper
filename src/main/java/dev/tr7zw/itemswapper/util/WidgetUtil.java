@@ -144,21 +144,22 @@ public class WidgetUtil {
         } else if (length <= 25) {
             setupSlots(widgetArea, slots, 5, 5, false, BACKGROUND_25_LOCATION);
         } else if (length <= 28) {
-            setupSlots(widgetArea, slots, new int[]{3, 7, 8, 7, 3}, BACKGROUND_28_LOCATION);
+            setupSlots(widgetArea, slots, new int[] { 3, 7, 8, 7, 3 }, BACKGROUND_28_LOCATION);
         } else if (length <= 30) {
-            setupSlots(widgetArea, slots, new int[]{6, 6, 6, 6, 6, 6}, BACKGROUND_30_LOCATION);
+            setupSlots(widgetArea, slots, new int[] { 6, 6, 6, 6, 6, 6 }, BACKGROUND_30_LOCATION);
         } else if (length <= 33) {
-            setupSlots(widgetArea, slots, new int[]{6, 7, 7, 7, 6}, BACKGROUND_33_LOCATION);
+            setupSlots(widgetArea, slots, new int[] { 6, 7, 7, 7, 6 }, BACKGROUND_33_LOCATION);
         } else if (length <= 35) {
-            setupSlots(widgetArea, slots, new int[]{6, 7, 9, 7, 6}, BACKGROUND_35_LOCATION);
+            setupSlots(widgetArea, slots, new int[] { 6, 7, 9, 7, 6 }, BACKGROUND_35_LOCATION);
         } else if (length <= 38) {
-            setupSlots(widgetArea, slots, new int[]{6, 8, 10, 8, 6}, BACKGROUND_38_LOCATION);
+            setupSlots(widgetArea, slots, new int[] { 6, 8, 10, 8, 6 }, BACKGROUND_38_LOCATION);
         } else {
-            setupSlots(widgetArea, slots, new int[]{8, 8, 8, 8, 8}, BACKGROUND_40_LOCATION);
+            setupSlots(widgetArea, slots, new int[] { 8, 8, 8, 8, 8 }, BACKGROUND_40_LOCATION);
         }
     }
 
-    public static void setupSlots(WidgetArea widgetArea, List<GuiSlot> slots, int[] lines, /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture) {
+    public static void setupSlots(WidgetArea widgetArea, List<GuiSlot> slots, int[] lines,
+            /*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ texture) {
         int maxWidth = 0;
         for (int line : lines) {
             if (line > maxWidth) {
@@ -179,7 +180,8 @@ public class WidgetUtil {
         for (int y = 0; y < lines.length; y++) {
             int xOffset = (maxWidth - lines[y]) % 2 == 1 ? sz / 2 : 0;
             for (int x = 0; x < lines[y]; x++) {
-                slots.add(new GuiSlot(originX + xOffset + ((maxWidth - lines[y]) / 2 + x) * sz, originY + y * sz, slotId, ItemSwapperUI.tinySlotSize));
+                slots.add(new GuiSlot(originX + xOffset + ((maxWidth - lines[y]) / 2 + x) * sz, originY + y * sz,
+                        slotId, ItemSwapperUI.tinySlotSize));
                 slotId++;
             }
         }
