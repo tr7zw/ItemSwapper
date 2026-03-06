@@ -20,6 +20,14 @@
         "minecraft:dead_bush",
         "minecraft:bamboo",
         "minecraft:sugar_cane",
+        "minecraft:leaf_litter",
+        "minecraft:glow_berries",
+        "minecraft:pale_hanging_moss",
+        "minecraft:hanging_roots",
+        "minecraft:vine",
+        "minecraft:glow_lichen",
+        "minecraft:moss_carpet",
+        "minecraft:pale_moss_carpet",
         "minecraft:bone_meal"
     ],
     "shortcuts": [
@@ -30,10 +38,6 @@
         {
             "type": "link",
             "target": "itemswapper:v2/nature/leaves"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/nature/hanging"
         },
         {
             "type": "link",

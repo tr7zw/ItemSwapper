@@ -20,7 +20,8 @@
         "minecraft:dark_oak_button",
         "minecraft:dark_oak_pressure_plate",
         "minecraft:dark_oak_boat",
-        "minecraft:dark_oak_chest_boat"
+        "minecraft:dark_oak_chest_boat",
+        "minecraft:dark_oak_leaves"
     ],
     "shortcuts": [
         {

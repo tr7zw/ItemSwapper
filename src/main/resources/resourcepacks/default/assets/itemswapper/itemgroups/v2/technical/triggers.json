@@ -6,7 +6,9 @@
     "items": [
         "minecraft:iron_trapdoor",
         "minecraft:iron_door",
-        "minecraft:daylight_detector",
+        "minecraft:oak_trapdoor",
+        "minecraft:oak_door",
+        "minecraft:oak_fence_gate",
         "minecraft:oak_button",
         "minecraft:stone_button",
         "minecraft:oak_pressure_plate",
@@ -14,8 +16,23 @@
         "minecraft:heavy_weighted_pressure_plate",
         "minecraft:light_weighted_pressure_plate",
         "minecraft:lever",
+        "minecraft:daylight_detector",
+        "minecraft:bell",
+        "minecraft:oak_log",
+        "minecraft:oak_leaves",
+        "minecraft:scaffolding",
+        "minecraft:armor_stand",
+        "minecraft:cobweb",
+        "minecraft:stone_brick_wall",
+        "minecraft:glass_pane",
         "minecraft:tripwire_hook",
-        "minecraft:string"
+        "minecraft:string",
+        "minecraft:waxed_lightning_rod",
+        "minecraft:vine",
+        "minecraft:twisting_vines",
+        "minecraft:turtle_egg",
+        "minecraft:dried_ghast",
+        "minecraft:big_dripleaf"
     ],
     "shortcuts": [
         {

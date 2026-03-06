@@ -20,7 +20,8 @@
         "minecraft:oak_button",
         "minecraft:oak_pressure_plate",
         "minecraft:oak_boat",
-        "minecraft:oak_chest_boat"
+        "minecraft:oak_chest_boat",
+        "minecraft:oak_leaves"
     ],
     "shortcuts": [
         {

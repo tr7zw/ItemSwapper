@@ -20,7 +20,8 @@
         "minecraft:cherry_button",
         "minecraft:cherry_pressure_plate",
         "minecraft:cherry_boat",
-        "minecraft:cherry_chest_boat"
+        "minecraft:cherry_chest_boat",
+        "minecraft:cherry_leaves"
     ],
     "shortcuts": [
         {

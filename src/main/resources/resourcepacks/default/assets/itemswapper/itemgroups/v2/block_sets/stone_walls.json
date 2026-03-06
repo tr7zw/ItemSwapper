@@ -26,10 +26,6 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/block_sets/depths_blocks"
-        },
-        {
-            "type": "link",
             "target": "itemswapper:v2/block_sets/stone_stairs"
         },
         {
@@ -38,7 +34,7 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/block_sets/stone_wall"
+            "target": "itemswapper:v2/block_sets/other_walls"
         }
     ]
 }

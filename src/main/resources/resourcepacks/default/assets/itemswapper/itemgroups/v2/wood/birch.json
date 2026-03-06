@@ -20,7 +20,8 @@
         "minecraft:birch_button",
         "minecraft:birch_pressure_plate",
         "minecraft:birch_boat",
-        "minecraft:birch_chest_boat"
+        "minecraft:birch_chest_boat",
+        "minecraft:birch_leaves"
     ],
     "shortcuts": [
         {

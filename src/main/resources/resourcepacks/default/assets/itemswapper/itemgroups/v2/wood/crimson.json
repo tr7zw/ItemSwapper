@@ -18,7 +18,8 @@
         "minecraft:crimson_sign",
         "minecraft:crimson_hanging_sign",
         "minecraft:crimson_button",
-        "minecraft:crimson_pressure_plate"
+        "minecraft:crimson_pressure_plate",
+        "minecraft:nether_wart_block"
     ],
     "shortcuts": [
         {

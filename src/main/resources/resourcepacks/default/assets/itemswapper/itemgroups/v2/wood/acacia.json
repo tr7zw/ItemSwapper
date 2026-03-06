@@ -20,7 +20,8 @@
         "minecraft:acacia_button",
         "minecraft:acacia_pressure_plate",
         "minecraft:acacia_boat",
-        "minecraft:acacia_chest_boat"
+        "minecraft:acacia_chest_boat",
+        "minecraft:acacia_leaves"
     ],
     "shortcuts": [
         {

@@ -19,7 +19,12 @@
         "minecraft:piston",
         "minecraft:sticky_piston",
         "minecraft:slime_block",
-        "minecraft:honey_block"
+        "minecraft:honey_block",
+        "minecraft:waxed_copper_bulb",
+        "minecraft:redstone_lamp",
+        "minecraft:glass",
+        "minecraft:smooth_stone_slab",
+        "minecraft:smooth_stone"
     ],
     "shortcuts": [
         {

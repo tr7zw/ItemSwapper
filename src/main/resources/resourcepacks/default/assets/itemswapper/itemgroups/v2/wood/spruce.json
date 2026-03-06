@@ -20,7 +20,8 @@
         "minecraft:spruce_button",
         "minecraft:spruce_pressure_plate",
         "minecraft:spruce_boat",
-        "minecraft:spruce_chest_boat"
+        "minecraft:spruce_chest_boat",
+        "minecraft:spruce_leaves"
     ],
     "shortcuts": [
         {

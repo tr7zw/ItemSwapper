@@ -20,7 +20,8 @@
         "minecraft:jungle_button",
         "minecraft:jungle_pressure_plate",
         "minecraft:jungle_boat",
-        "minecraft:jungle_chest_boat"
+        "minecraft:jungle_chest_boat",
+        "minecraft:jungle_leaves"
     ],
     "shortcuts": [
         {

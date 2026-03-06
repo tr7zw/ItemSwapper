@@ -20,7 +20,9 @@
         "minecraft:mangrove_button",
         "minecraft:mangrove_pressure_plate",
         "minecraft:mangrove_boat",
-        "minecraft:mangrove_chest_boat"
+        "minecraft:mangrove_chest_boat",
+        "minecraft:mangrove_leaves",
+        "minecraft:mangrove_roots"
     ],
     "shortcuts": [
         {

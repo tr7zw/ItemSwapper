@@ -31,11 +31,7 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/block_sets/other_blocks2"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/block_sets/other_stairs"
+            "target": "itemswapper:v2/block_sets/stone_stairs"
         },
         {
             "type": "link",

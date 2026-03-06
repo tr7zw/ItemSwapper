@@ -18,7 +18,8 @@
         "minecraft:warped_sign",
         "minecraft:warped_hanging_sign",
         "minecraft:warped_button",
-        "minecraft:warped_pressure_plate"
+        "minecraft:warped_pressure_plate",
+        "minecraft:warped_wart_block"
     ],
     "shortcuts": [
         {
