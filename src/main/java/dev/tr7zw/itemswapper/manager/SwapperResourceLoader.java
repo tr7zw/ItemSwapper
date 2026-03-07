@@ -217,6 +217,9 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
             group.withIgnoreItems(new HashSet<>(Arrays.asList(ignoreItems)));
         }
         group.withShortcuts(processShortcuts(jsonLocation, json.get("shortcuts")));
+        if (json.has("paletteList") && json.get("paletteList").isJsonPrimitive() && json.get("paletteList").getAsBoolean()) {
+            group.withPaletteList(true);
+        }
         if (json.has("icon") && json.get("icon").isJsonPrimitive()) {
             group.withIcon(
                     dev.tr7zw.transition.mc.ItemUtil.getItem(getResourceLocation(json.get("icon").getAsString())));

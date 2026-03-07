@@ -17,6 +17,7 @@ public class ItemList {
     private final boolean disableAutoLink;
     private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
     private final List<Shortcut> shortcuts;
+    private boolean paletteList = false;
 
     private ItemList(Builder builder) {
         this.id = builder.id;
@@ -28,6 +29,7 @@ public class ItemList {
         this.disableAutoLink = builder.disableAutoLink;
         this.link = builder.link;
         this.shortcuts = builder.shortcuts;
+        this.paletteList = builder.paletteList;
     }
 
     public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
@@ -66,6 +68,10 @@ public class ItemList {
         return shortcuts;
     }
 
+    public boolean isPaletteList() {
+        return paletteList;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -80,6 +86,7 @@ public class ItemList {
         private boolean disableAutoLink;
         private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
         private List<Shortcut> shortcuts = Collections.emptyList();
+        private boolean paletteList = false;
 
         private Builder() {
         }
@@ -126,6 +133,11 @@ public class ItemList {
 
         public Builder withShortcuts(List<Shortcut> shortcuts) {
             this.shortcuts = shortcuts;
+            return this;
+        }
+
+        public Builder withPaletteList(boolean paletteList) {
+            this.paletteList = paletteList;
             return this;
         }
 

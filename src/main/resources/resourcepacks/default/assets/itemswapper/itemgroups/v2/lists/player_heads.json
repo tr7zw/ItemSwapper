@@ -2,8 +2,14 @@
     "type": "list",
     "priority": 10,
     "displayName": "text.itemswapper.list.player_heads",
+    "paletteList": true,
     "items": [
-        "minecraft:player_head"
+        "minecraft:player_head",
+        "minecraft:creeper_head",
+        "minecraft:zombie_head",
+        "minecraft:skeleton_skull",
+        "minecraft:wither_skeleton_skull",
+        "minecraft:dragon_head"
     ],
     "shortcuts": [
         {

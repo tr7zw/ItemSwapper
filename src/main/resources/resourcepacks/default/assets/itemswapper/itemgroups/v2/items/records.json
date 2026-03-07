@@ -1,8 +1,9 @@
 {
-    "type": "palette",
+    "type": "list",
     "priority": 50,
     "displayName": "text.itemswapper.palette.items.records",
     "icon": "minecraft:music_disc_creator",
+    "paletteList": true,
     "items": [
         "minecraft:jukebox",
         "minecraft:music_disc_13",
