@@ -150,6 +150,8 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(items.getId(), shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 1));
+        selectionHandler.addWidget(new ShortcutListWidget(items.getId(), items.getShortcuts(),
+                -mainWidget.getWidgetArea().getMouseBoundsX() - ItemSwapperUI.slotSize, 1));
     }
 
     public boolean openPage(Page page) {

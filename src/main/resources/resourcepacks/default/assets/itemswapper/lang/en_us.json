@@ -1,4 +1,8 @@
 {
+    "//Comment_lists": "LISTS",
+    "text.itemswapper.directory.tools": "§6Tools",
+    "text.itemswapper.directory.weapons": "§6Weapons",
+    "//Comment_main": "MAIN",
     "text.itemswapper.directory.technical": "§6Technical",
     "text.itemswapper.directory.title": "The Directory",
     "text.itemswapper.directory.armor": "§6Armor",

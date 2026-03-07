@@ -1,7 +1,6 @@
 package dev.tr7zw.itemswapper.manager.itemgroups;
 
-import java.util.Collections;
-import java.util.Set;
+import java.util.*;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.*;
@@ -17,6 +16,7 @@ public class ItemList {
     private final Set<Item> ignoreItems;
     private final boolean disableAutoLink;
     private final/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
+    private final List<Shortcut> shortcuts;
 
     private ItemList(Builder builder) {
         this.id = builder.id;
@@ -27,6 +27,7 @@ public class ItemList {
         this.ignoreItems = builder.ignoreItems;
         this.disableAutoLink = builder.disableAutoLink;
         this.link = builder.link;
+        this.shortcuts = builder.shortcuts;
     }
 
     public/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ getId() {
@@ -61,6 +62,10 @@ public class ItemList {
         return link;
     }
 
+    public List<Shortcut> getShortcuts() {
+        return shortcuts;
+    }
+
     public static Builder builder() {
         return new Builder();
     }
@@ -74,6 +79,7 @@ public class ItemList {
         private Set<Item> ignoreItems = Collections.emptySet();
         private boolean disableAutoLink;
         private/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link;
+        private List<Shortcut> shortcuts = Collections.emptyList();
 
         private Builder() {
         }
@@ -115,6 +121,11 @@ public class ItemList {
 
         public Builder withLink(/*? >= 1.21.11 {*/ Identifier /*?} else {*//* ResourceLocation *//*?}*/ link) {
             this.link = link;
+            return this;
+        }
+
+        public Builder withShortcuts(List<Shortcut> shortcuts) {
+            this.shortcuts = shortcuts;
             return this;
         }
 

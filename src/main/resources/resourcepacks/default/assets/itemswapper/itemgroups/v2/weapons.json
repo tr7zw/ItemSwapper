@@ -40,5 +40,11 @@
         "minecraft:copper_axe",
         "minecraft:stone_axe",
         "minecraft:wooden_axe"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/tools"
+        }
     ]
 }
