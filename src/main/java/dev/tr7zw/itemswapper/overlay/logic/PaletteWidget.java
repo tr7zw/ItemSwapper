@@ -1,7 +1,6 @@
 package dev.tr7zw.itemswapper.overlay.logic;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
@@ -21,16 +20,25 @@ import net.minecraft.world.item.Items;
 public class PaletteWidget extends ItemGridWidget {
 
     private final ItemGroup itemGroup;
+    private final List<List<AvailableSlot>> availableSlots = new ArrayList<>();
 
     public PaletteWidget(ItemGroup itemGroup, int x, int y) {
         super(x, y);
         this.itemGroup = itemGroup;
         WidgetUtil.setupDynamicSlots(widgetArea, slots, itemGroup.getItems().length);
+        for(int i = 0; i < itemGroup.getItems().length; i++) {
+            availableSlots.add(resolveItem(i));
+        }
+    }
+
+    private List<AvailableSlot> resolveItem(int id) {
+        return id > itemGroup.getItems().length - 1 ? Collections.emptyList()
+                : providerManager.findSlotsMatchingItem(itemGroup.getItems()[id].getItem(), false, false);
     }
 
     private List<AvailableSlot> getItem(int id) {
         return id > itemGroup.getItems().length - 1 ? Collections.emptyList()
-                : providerManager.findSlotsMatchingItem(itemGroup.getItems()[id].getItem(), false, false);
+                : availableSlots.get(id);
     }
 
     @Override
