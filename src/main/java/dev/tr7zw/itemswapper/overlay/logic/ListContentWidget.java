@@ -5,12 +5,13 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.transition.mc.InventoryUtil;
+import dev.tr7zw.transition.mc.*;
 import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.NetworkUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
@@ -18,7 +19,7 @@ import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.world.inventory.ClickType;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 
 public class ListContentWidget extends ItemGridWidget {
 
@@ -78,7 +79,8 @@ public class ListContentWidget extends ItemGridWidget {
                         !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 0));
             } else {
                 itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                        entries.get(guiSlot.id()).item(), 1, !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE,
+                        entries.get(guiSlot.id()).item(), 1,
+                        guiSlot.id() < itemSelection.getItems().length ? SlotEffect.NONE : SlotEffect.YELLOW,
                         entries.get(guiSlot.id()).amount().get()));
             }
         }
@@ -111,6 +113,22 @@ public class ListContentWidget extends ItemGridWidget {
             }
             clientAPI.itemSwapSentEvent.callEvent(new SwapSent(entry));
             return false;
+        } else if (guiSlot.id() < itemSelection.getItems().length && minecraft.player.isCreative()
+                && configManager.getConfig().creativeCheatMode) {
+            // stash away current item, if its not a default item to prevent item loss
+            ItemStack itemInHand = GeneralUtil.getPlayer().getMainHandItem();
+            if (!itemInHand.isEmpty() && !dev.tr7zw.transition.mc.ItemUtil.isSame(itemInHand,
+                    itemInHand.getItem().getDefaultInstance())) {
+                ItemUtil.grabItem(Items.AIR, true);
+            }
+            minecraft.gameMode.handleCreativeModeItemAdd(
+                    itemSelection.getItems()[guiSlot.id()].getDefaultInstance().copy(),
+                    36 + InventoryUtil.getSelectedId(minecraft.player.getInventory()));
+            minecraft.player.getInventory().setItem(InventoryUtil.getSelectedId(minecraft.player.getInventory()),
+                    itemSelection.getItems()[guiSlot.id()].getDefaultInstance().copy());
+            ItemSwapperSharedMod.instance.setLastItem(itemSelection.getItems()[guiSlot.id()]);
+            ItemSwapperSharedMod.instance.setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
+            return false;
         }
         return true;
     }
@@ -126,7 +144,7 @@ public class ListContentWidget extends ItemGridWidget {
             if (itemSelection.isPaletteList()) {
                 RenderHelper.renderSelectedItemName(
                         ItemUtil.getDisplayname(itemSelection.getItems()[selected.id()].getDefaultInstance()),
-                        itemSelection.getItems()[selected.id()].getDefaultInstance(), true, yOffset, maxWidth,
+                        itemSelection.getItems()[selected.id()].getDefaultInstance(), false, yOffset, maxWidth,
                         graphics);
             }
             return;

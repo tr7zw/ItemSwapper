@@ -1,5 +1,5 @@
 {
-    "type": "palette",
+    "type": "list",
     "priority": 50,
     "displayName": "text.itemswapper.palette.collectables.records",
     "icon": "minecraft:music_disc_creator",

@@ -139,7 +139,7 @@
         },
         {
             "id": "minecraft:cooked_chicken",
-            "name": "text.itemswapper.directory.crafting",
+            "name": "text.itemswapper.directory.food",
             "link": "itemswapper:v2/foods/food",
             "actAsLink": true
         },
