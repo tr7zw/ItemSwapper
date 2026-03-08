@@ -1,0 +1,54 @@
+{
+    "type": "list",
+    "priority": 50,
+    "displayName": "text.itemswapper.list.devices",
+    "icon": "minecraft:spyglass",
+    "paletteList": true,
+    "items": [
+        "minecraft:spyglass",
+        "minecraft:clock",
+        "minecraft:compass",
+        "minecraft:recovery_compass",
+        "minecraft:map",
+        "minecraft:filled_map",
+        "minecraft:name_tag",
+        "minecraft:lead",
+        "minecraft:fire_charge", 
+        "minecraft:brush",
+        "minecraft:fishing_rod",
+        "minecraft:carrot_on_a_stick",
+        "minecraft:warped_fungus_on_a_stick",
+        "minecraft:end_crystal",
+        "minecraft:ender_eye",
+        "minecraft:experience_bottle",
+        "minecraft:trial_key",
+        "minecraft:ominous_trial_key",
+        "minecraft:ominous_bottle"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/devices"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/books"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/buckets"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/banner"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/bundles"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/shulkers"
+        }
+    ]
+}

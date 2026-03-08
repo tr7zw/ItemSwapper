@@ -26,7 +26,7 @@ public class PaletteWidget extends ItemGridWidget {
         super(x, y);
         this.itemGroup = itemGroup;
         WidgetUtil.setupDynamicSlots(widgetArea, slots, itemGroup.getItems().length);
-        for(int i = 0; i < itemGroup.getItems().length; i++) {
+        for (int i = 0; i < itemGroup.getItems().length; i++) {
             availableSlots.add(resolveItem(i));
         }
     }
@@ -37,8 +37,7 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     private List<AvailableSlot> getItem(int id) {
-        return id > itemGroup.getItems().length - 1 ? Collections.emptyList()
-                : availableSlots.get(id);
+        return id > itemGroup.getItems().length - 1 ? Collections.emptyList() : availableSlots.get(id);
     }
 
     @Override

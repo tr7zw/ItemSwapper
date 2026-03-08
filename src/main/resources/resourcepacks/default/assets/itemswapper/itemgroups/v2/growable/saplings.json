@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.growable.saplings",
     "items": [
         "minecraft:oak_sapling",

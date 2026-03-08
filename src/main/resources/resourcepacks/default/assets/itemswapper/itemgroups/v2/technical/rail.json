@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 25,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.technical.rail",
     "icon": "minecraft:hopper_minecart",
     "items": [
@@ -12,7 +12,8 @@
         "minecraft:hopper_minecart",
         "minecraft:chest_minecart",
         "minecraft:furnace_minecart",
-        "minecraft:tnt_minecart"
+        "minecraft:tnt_minecart",
+        "minecraft:oak_chest_boat"
     ],
     "shortcuts": [
         {

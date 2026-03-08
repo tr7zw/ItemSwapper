@@ -1,0 +1,43 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.the_depths.tuff",
+    "items": [
+        "minecraft:tuff",
+        "minecraft:tuff_stairs",
+        "minecraft:tuff_slab",
+        "minecraft:tuff_wall",
+        "minecraft:chiseled_tuff",
+        "minecraft:polished_tuff",
+        "minecraft:polished_tuff_stairs",
+        "minecraft:polished_tuff_slab",
+        "minecraft:polished_tuff_wall",
+        "minecraft:tuff_bricks",
+        "minecraft:tuff_brick_stairs",
+        "minecraft:tuff_brick_slab",
+        "minecraft:tuff_brick_wall",
+        "minecraft:chiseled_tuff_bricks"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/tuff"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/basalt"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/deepslate"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/blackstone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/the_depths/sculk"
+        }
+    ]
+}

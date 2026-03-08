@@ -1,10 +1,28 @@
 {
     "type": "list",
-    "priority": 100,
+    "priority": 10,
     "displayName": "text.itemswapper.palette.consumables.arrow",
     "items": [
         "minecraft:arrow",
         "minecraft:spectral_arrow",
         "minecraft:tipped_arrow"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/arrow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/potions"
+        }
     ]
 }

@@ -2,14 +2,23 @@
     "type": "palette",
     "priority": 10,
     "displayName": "text.itemswapper.palette.consumables.consumables",
+    "icon": "minecraft:firework_rocket",
     "items": [
+        "totem_of_undying",
         "minecraft:firework_rocket",
+        "minecraft:wind_charge",
         "minecraft:enchanted_golden_apple",
         "minecraft:golden_apple",
         "minecraft:golden_carrot",
-        "minecraft:ender_pearl"
+        "minecraft:chorus_fruit",
+        "minecraft:ender_pearl",
+        "minecraft:cooked_chicken"
     ],
     "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
+        },
         {
             "type": "link",
             "target": "itemswapper:v2/consumables/food"

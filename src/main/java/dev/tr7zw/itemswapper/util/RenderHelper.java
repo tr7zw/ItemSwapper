@@ -53,10 +53,8 @@ public final class RenderHelper {
         int l = i;
         int m = j;
         int color = 0;
-        if (effect == SlotEffect.RED) {
-            color = 822018048;
-        } else if (effect == SlotEffect.GRAY) {
-            color = -1879048192;
+        if (effect != SlotEffect.NONE) {
+            color = effect.color;
         }
         // these values need to be fixed when the texture size gets fixed.
         graphics.fill(l - 1, m - 1, l + 17, m + 17, color);
@@ -94,7 +92,13 @@ public final class RenderHelper {
     }
 
     public enum SlotEffect {
-        NONE, RED, GRAY
+        NONE(0), RED(822018048), GRAY(-1879048192), YELLOW(687865610);
+
+        public int color;
+
+        SlotEffect(int color) {
+            this.color = color;
+        }
     }
 
     public static void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k,

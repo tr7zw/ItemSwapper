@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 250,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.color.green",
     "items": [
         "minecraft:green_dye",
@@ -14,6 +14,25 @@
         "minecraft:green_stained_glass_pane",
         "minecraft:green_candle",
         "minecraft:green_banner",
-        "minecraft:green_bed"
+        "minecraft:green_bed",
+        "minecraft:green_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/light_blue"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/cyan"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/green"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/lime"
+        }
     ]
 }

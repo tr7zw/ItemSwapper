@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.wood.planktypes",
     "items": [
         "minecraft:oak_planks",
@@ -28,6 +28,10 @@
         {
             "type": "link",
             "target": "itemswapper:v2/wood/woodenslabs"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/shelf"
         }
     ]
 }

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.colored_items.glazed_terracotta",
     "icon": "minecraft:red_glazed_terracotta",
     "items": [
@@ -25,6 +25,26 @@
         {
             "type": "link",
             "target": "itemswapper:v2/colored_items/terracotta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/glazed_terracotta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/powder"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/concrete"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/wool"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/carpets"
         }
     ]
 }

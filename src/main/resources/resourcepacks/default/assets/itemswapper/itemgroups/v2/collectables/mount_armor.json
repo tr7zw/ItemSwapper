@@ -1,0 +1,51 @@
+{
+    "type": "list",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.collectables.mount_armor",
+    "paletteList": true,
+    "items": [
+        "minecraft:netherite_horse_armor",
+        "minecraft:diamond_horse_armor",
+        "minecraft:golden_horse_armor",
+        "minecraft:iron_horse_armor",
+        "minecraft:copper_horse_armor",
+        "minecraft:leather_horse_armor",
+        "minecraft:netherite_nautilus_armor",
+        "minecraft:diamond_nautilus_armor",
+        "minecraft:golden_nautilus_armor",
+        "minecraft:iron_nautilus_armor",
+        "minecraft:copper_nautilus_armor",
+        "minecraft:wolf_armor",
+        "minecraft:saddle"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/heads"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/mount_armor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/horns"
+        }
+    ]
+}

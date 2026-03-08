@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 200,
+    "priority": 90,
     "displayName": "text.itemswapper.palette.precious_materials.precious",
     "icon": "minecraft:diamond",
     "items": [
@@ -28,8 +28,12 @@
         "minecraft:netherite_ingot",
         "minecraft:netherite_scrap",
         "minecraft:nether_star",
+        "minecraft:heart_of_the_sea",
         "minecraft:dragon_egg",
         "minecraft:heavy_core"
+    ],
+    "ignoreItems": [
+        "minecraft:copper_block"
     ],
     "shortcuts": [
         {

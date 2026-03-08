@@ -1,0 +1,29 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.crafting.unprocessed_food",
+    "icon": "minecraft:chicken",
+    "items": [
+        "minecraft:salmon",
+        "minecraft:cod",
+        "minecraft:tropical_fish",
+        "minecraft:pufferfish",
+        "minecraft:beef",
+        "minecraft:mutton",
+        "minecraft:rabbit",
+        "minecraft:chicken",
+        "minecraft:porkchop",
+        "minecraft:suspicious_stew",
+        "minecraft:poisonous_potato"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/food/food"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/food/unprocessed_food"
+        }
+    ]
+}

@@ -1,10 +1,9 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 45,
     "displayName": "text.itemswapper.palette.colored_items.glass_panes",
     "icon": "minecraft:lime_stained_glass_pane",
     "items": [
-        "minecraft:glass_pane",
         "minecraft:black_stained_glass_pane",
         "minecraft:gray_stained_glass_pane",
         "minecraft:light_gray_stained_glass_pane",
@@ -20,12 +19,33 @@
         "minecraft:yellow_stained_glass_pane",
         "minecraft:orange_stained_glass_pane",
         "minecraft:red_stained_glass_pane",
-        "minecraft:brown_stained_glass_pane"
+        "minecraft:brown_stained_glass_pane",
+        "minecraft:glass_pane"
     ],
     "shortcuts": [
         {
             "type": "link",
+            "target": "itemswapper:v2/colored_items/dyes"
+        },
+        {
+            "type": "link",
             "target": "itemswapper:v2/colored_items/glass"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/glass_panes"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/candle"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/beds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/harness"
         }
     ]
 }

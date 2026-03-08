@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.copper.copper",
     "items": [
         "minecraft:copper_block",
@@ -8,11 +8,20 @@
         "minecraft:cut_copper_stairs",
         "minecraft:cut_copper_slab",
         "minecraft:chiseled_copper",
-        "minecraft:waxed_copper_block",
-        "minecraft:waxed_cut_copper",
-        "minecraft:waxed_cut_copper_stairs",
-        "minecraft:waxed_cut_copper_slab",
-        "minecraft:waxed_chiseled_copper"
+        "minecraft:copper_grate",
+        "minecraft:copper_door",
+        "minecraft:copper_trapdoor",
+        "minecraft:copper_chain",
+        "minecraft:copper_bars",
+        "minecraft:lightning_rod",
+        "minecraft:copper_lantern",
+        "minecraft:copper_bulb",
+        "minecraft:copper_chest",
+        "minecraft:copper_golem_statue",
+        "minecraft:honeycomb"
+    ],
+    "ignoreItems": [
+        "minecraft:honeycomb"
     ],
     "shortcuts": [
         {
@@ -33,7 +42,8 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/copper/honeycomb_weathering"
+            "icon": "minecraft:honeycomb",
+            "target": "itemswapper:v2/copper/copper_waxed"
         }
     ]
 }

@@ -1,6 +1,6 @@
 {
     "type": "palette",
-    "priority": 300,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.technical.fluid",
     "icon": "minecraft:water_bucket",
     "items": [
@@ -18,6 +18,8 @@
         "minecraft:honey_block",
         "minecraft:bucket",
         "minecraft:water_bucket",
+        "minecraft:lava_bucket",
+        "minecraft:powder_snow_bucket",
         "minecraft:sponge",
         "minecraft:wet_sponge",
         "minecraft:conduit"

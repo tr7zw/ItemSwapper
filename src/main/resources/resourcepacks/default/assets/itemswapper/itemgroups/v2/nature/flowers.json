@@ -1,10 +1,8 @@
 {
     "type": "palette",
-    "priority": 100,
+    "priority": 50,
     "displayName": "text.itemswapper.palette.nature.flowers",
     "items": [
-        "minecraft:flower_pot",
-        "minecraft:bone_meal",
         "minecraft:oxeye_daisy",
         "minecraft:azure_bluet",
         "minecraft:lily_of_the_valley",
@@ -17,20 +15,22 @@
         "minecraft:allium",
         "minecraft:cornflower",
         "minecraft:blue_orchid",
-        "minecraft:wither_rose",
-        "minecraft:spore_blossom",
         "minecraft:rose_bush",
         "minecraft:lilac",
         "minecraft:peony",
         "minecraft:sunflower",
         "minecraft:pitcher_plant",
         "minecraft:torchflower",
-        "minecraft:pink_petals",
         "minecraft:closed_eyeblossom",
         "minecraft:open_eyeblossom",
+        "minecraft:wither_rose",
+        "minecraft:pink_petals",
         "minecraft:wildflowers",
-        "minecraft:firefly_bush",
-        "minecraft:cactus_flower"
+        "minecraft:spore_blossom",
+        "minecraft:cactus_flower",
+        "minecraft:decorated_pot",
+        "minecraft:flower_pot",
+        "minecraft:bone_meal"
     ],
     "shortcuts": [
         {

@@ -1,0 +1,38 @@
+{
+    "type": "list",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.collectables.horns",
+    "items": [
+        "minecraft:goat_horn"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/heads"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/mount_armor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/horns"
+        }
+    ]
+}

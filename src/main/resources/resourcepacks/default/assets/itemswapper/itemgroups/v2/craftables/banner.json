@@ -1,0 +1,51 @@
+{
+    "type": "list",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.colored_items.banner",
+    "icon": "minecraft:orange_banner",
+    "paletteList": true,
+    "items": [
+        "minecraft:white_banner",
+        "minecraft:orange_banner",
+        "minecraft:magenta_banner",
+        "minecraft:light_blue_banner",
+        "minecraft:yellow_banner",
+        "minecraft:lime_banner",
+        "minecraft:pink_banner",
+        "minecraft:gray_banner",
+        "minecraft:light_gray_banner",
+        "minecraft:cyan_banner",
+        "minecraft:purple_banner",
+        "minecraft:blue_banner",
+        "minecraft:brown_banner",
+        "minecraft:green_banner",
+        "minecraft:red_banner",
+        "minecraft:black_banner"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/devices"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/books"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/buckets"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/banner"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/bundles"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/shulkers"
+        }
+    ]
+}

@@ -1,0 +1,44 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.creative.unobtainable",
+    "icon": "minecraft:vault",
+    "items": [
+        "minecraft:petrified_oak_slab",
+        "minecraft:bedrock",
+        "minecraft:end_portal_frame",
+        "minecraft:spawner",
+        "minecraft:frogspawn",
+        "minecraft:dirt_path",
+        "minecraft:farmland",
+        "minecraft:chorus_plant",
+        "minecraft:reinforced_deepslate",
+        "minecraft:budding_amethyst",
+        "minecraft:vault",
+        "minecraft:trial_spawner",
+        "minecraft:suspicious_sand",
+        "minecraft:suspicious_gravel"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/creative"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/unobtainable"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_passive"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/spawnegg_hostile"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/creative/infested_stone"
+        }
+    ]
+}

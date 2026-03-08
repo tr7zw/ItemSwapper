@@ -182,7 +182,7 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
         ItemList entries = itemGroupManager.getList(itemInHand);
 
         if (entries != null) {
-            if (configManager.getConfig().listsAsPalette) {
+            if (configManager.getConfig().listsAsPalette || entries.isPaletteList()) {
                 openPage(new ItemGroupManager.ListPage(entries));
             } else {
                 openScreen(new ItemListOverlay(entries));

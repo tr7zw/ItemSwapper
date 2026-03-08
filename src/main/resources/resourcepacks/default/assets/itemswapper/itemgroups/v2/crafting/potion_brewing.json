@@ -1,0 +1,47 @@
+{
+    "type": "palette",
+    "priority": 60,
+    "displayName": "text.itemswapper.palette.crafting.potion_brewing",
+    "icon": "minecraft:brewing_stand",
+    "items": [
+        "minecraft:brewing_stand",
+        "minecraft:blaze_rod",
+        "minecraft:blaze_powder",
+        "minecraft:nether_wart",
+        "minecraft:glass_bottle",
+        "minecraft:potion",
+        "minecraft:glowstone_dust",
+        "minecraft:redstone",
+        "minecraft:gunpowder",
+        "minecraft:dragon_breath",
+        "minecraft:fermented_spider_eye",
+        "minecraft:sugar",
+        "minecraft:magma_cream",
+        "minecraft:pufferfish",
+        "minecraft:spider_eye",
+        "minecraft:ghast_tear",
+        "minecraft:glistering_melon_slice",
+        "minecraft:golden_carrot",
+        "minecraft:turtle_helmet",
+        "minecraft:rabbit_foot",
+        "minecraft:phantom_membrane",
+        "minecraft:breeze_rod",
+        "minecraft:cobweb",
+        "minecraft:slime_block",
+        "minecraft:stone"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/mob_drops"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/misc"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/potion_brewing"
+        }
+    ]
+}

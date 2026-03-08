@@ -1,0 +1,48 @@
+{
+    "type": "palette",
+    "priority": 50,
+    "displayName": "text.itemswapper.palette.collectables.banner_patterns",
+    "items": [
+        "minecraft:loom",
+        "minecraft:flower_banner_pattern",
+        "minecraft:creeper_banner_pattern",
+        "minecraft:skull_banner_pattern",
+        "minecraft:mojang_banner_pattern",
+        "minecraft:globe_banner_pattern",
+        "minecraft:piglin_banner_pattern",
+        "minecraft:flow_banner_pattern",
+        "minecraft:bordure_indented_banner_pattern",
+        "minecraft:field_masoned_banner_pattern",
+        "minecraft:guster_banner_pattern"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/heads"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/mount_armor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/horns"
+        }
+    ]
+}
