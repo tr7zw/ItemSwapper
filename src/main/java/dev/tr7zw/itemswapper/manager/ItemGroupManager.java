@@ -30,6 +30,7 @@ public class ItemGroupManager {
         listMapping.clear();
         groupMapping.clear();
         paletteMapping.clear();
+        lastPicked.clear();
     }
 
     public void registerItemGroup(ItemGroup group) {

@@ -48,6 +48,7 @@ public class SwapperResourceLoader implements net.fabricmc.fabric.api.resource.S
         itemGroupModifiers.clear();
         itemListModifiers.clear();
         itemLists.clear();
+        ItemSwapperSharedMod.instance.getItemGroupManager().reset();
         resourceManager.listResources("itemgroups", id -> id.getPath().endsWith(".json")).forEach((id, resourceRef) -> {
             try {
                 InputStream stream = resourceRef.open();
