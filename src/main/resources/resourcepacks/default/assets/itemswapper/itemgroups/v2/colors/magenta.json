@@ -16,5 +16,23 @@
         "minecraft:magenta_banner",
         "minecraft:magenta_bed",
         "minecraft:magenta_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/pink"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/magenta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/purple"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/blue"
+        }
     ]
 }

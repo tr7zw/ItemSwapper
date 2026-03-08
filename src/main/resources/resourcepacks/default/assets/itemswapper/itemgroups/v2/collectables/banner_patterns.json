@@ -1,7 +1,7 @@
 {
     "type": "palette",
     "priority": 50,
-    "displayName": "text.itemswapper.palette.items.banner_patterns",
+    "displayName": "text.itemswapper.palette.collectables.banner_patterns",
     "items": [
         "minecraft:loom",
         "minecraft:flower_banner_pattern",
@@ -18,23 +18,31 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/items/records"
+            "target": "itemswapper:v2/collectables/records"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/items/sherds"
+            "target": "itemswapper:v2/collectables/heads"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/items/smithing"
+            "target": "itemswapper:v2/collectables/sherds"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/items/banner_patterns"
+            "target": "itemswapper:v2/collectables/smithing"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/items/potion_brewing"
+            "target": "itemswapper:v2/collectables/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/mount_armor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/horns"
         }
     ]
 }

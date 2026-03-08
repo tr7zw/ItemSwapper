@@ -22,7 +22,9 @@
         "minecraft:redstone_lamp",
         "minecraft:glass",
         "minecraft:smooth_stone_slab",
-        "minecraft:smooth_stone"
+        "minecraft:smooth_stone",
+        "minecraft:cyan_glazed_terracotta",
+        "minecraft:obsidian"
     ],
     "shortcuts": [
         {

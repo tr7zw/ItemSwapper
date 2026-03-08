@@ -20,5 +20,31 @@
         "minecraft:green_shulker_box",
         "minecraft:red_shulker_box",
         "minecraft:black_shulker_box"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/devices"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/books"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/buckets"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/banner"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/bundles"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/craftables/shulkers"
+        }
     ]
 }

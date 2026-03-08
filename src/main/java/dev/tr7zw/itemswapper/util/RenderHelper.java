@@ -95,6 +95,7 @@ public final class RenderHelper {
         NONE(0), RED(822018048), GRAY(-1879048192), YELLOW(687865610);
 
         public int color;
+
         SlotEffect(int color) {
             this.color = color;
         }

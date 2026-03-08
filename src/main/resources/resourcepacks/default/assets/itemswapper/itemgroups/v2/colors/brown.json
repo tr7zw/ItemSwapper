@@ -16,5 +16,23 @@
         "minecraft:brown_banner",
         "minecraft:brown_bed",
         "minecraft:brown_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/yellow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/orange"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/red"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/brown"
+        }
     ]
 }

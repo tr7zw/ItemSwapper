@@ -1,0 +1,44 @@
+{
+    "type": "list",
+    "priority": 10,
+    "displayName": "text.itemswapper.palette.collectables.heads",
+    "paletteList": true,
+    "items": [
+        "minecraft:player_head",
+        "minecraft:creeper_head",
+        "minecraft:zombie_head",
+        "minecraft:skeleton_skull",
+        "minecraft:wither_skeleton_skull",
+        "minecraft:dragon_head"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/records"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/heads"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/sherds"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/smithing"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/banner_patterns"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/mount_armor"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/collectables/horns"
+        }
+    ]
+}

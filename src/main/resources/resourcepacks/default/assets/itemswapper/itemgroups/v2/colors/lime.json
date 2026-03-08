@@ -16,5 +16,23 @@
         "minecraft:lime_banner",
         "minecraft:lime_bed",
         "minecraft:lime_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/light_blue"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/cyan"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/green"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/lime"
+        }
     ]
 }

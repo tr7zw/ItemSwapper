@@ -16,5 +16,23 @@
         "minecraft:red_banner",
         "minecraft:red_bed",
         "minecraft:red_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/yellow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/orange"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/red"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/brown"
+        }
     ]
 }

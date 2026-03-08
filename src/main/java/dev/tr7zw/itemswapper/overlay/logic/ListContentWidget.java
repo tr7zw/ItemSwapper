@@ -35,9 +35,10 @@ public class ListContentWidget extends ItemGridWidget {
     private void refreshList() {
         entries.clear();
         if (itemSelection.isPaletteList()) {
-            for(int i = 0; i < itemSelection.getItems().length; i++) {
+            for (int i = 0; i < itemSelection.getItems().length; i++) {
                 List<AvailableSlot> availableSlots = resolveItem(i);
-                if(availableSlots.isEmpty() || !dev.tr7zw.transition.mc.ItemUtil.isSame(availableSlots.get(0).item(), itemSelection.getItems()[i].getDefaultInstance())) {
+                if (availableSlots.isEmpty() || !dev.tr7zw.transition.mc.ItemUtil.isSame(availableSlots.get(0).item(),
+                        itemSelection.getItems()[i].getDefaultInstance())) {
                     entries.add(null);
                 } else {
                     entries.add(availableSlots.get(0));
@@ -64,17 +65,21 @@ public class ListContentWidget extends ItemGridWidget {
             boolean overwrideAvailable) {
         AvailableSlot slot = guiSlot.id() < entries.size() ? entries.get(guiSlot.id()) : null;
         if (slot != null && !overwrideAvailable) {
-            SlotEffect effect = itemSelection.isPaletteList() && guiSlot.id() >= itemSelection.getItems().length ? SlotEffect.YELLOW : SlotEffect.NONE;
-            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                    slot.item(), 1, effect, slot.amount().get()));
+            SlotEffect effect = itemSelection.isPaletteList() && guiSlot.id() >= itemSelection.getItems().length
+                    ? SlotEffect.YELLOW
+                    : SlotEffect.NONE;
+            itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player, slot.item(), 1,
+                    effect, slot.amount().get()));
 
         } else if (guiSlot.id() <= entries.size() - 1) {
             if (entries.get(guiSlot.id()) == null) {
                 itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                        itemSelection.getItems()[guiSlot.id()].getDefaultInstance(), 1, !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 0));
+                        itemSelection.getItems()[guiSlot.id()].getDefaultInstance(), 1,
+                        !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, 0));
             } else {
                 itemRenderList.add(() -> RenderHelper.renderSlot(graphics, x + 3, y + 4, minecraft.player,
-                        entries.get(guiSlot.id()).item(), 1, !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE, entries.get(guiSlot.id()).amount().get()));
+                        entries.get(guiSlot.id()).item(), 1, !overwrideAvailable ? SlotEffect.RED : SlotEffect.NONE,
+                        entries.get(guiSlot.id()).amount().get()));
             }
         }
     }
@@ -119,7 +124,9 @@ public class ListContentWidget extends ItemGridWidget {
         AvailableSlot slot = entries.get(selected.id());
         if (slot == null) {
             if (itemSelection.isPaletteList()) {
-                RenderHelper.renderSelectedItemName(ItemUtil.getDisplayname(itemSelection.getItems()[selected.id()].getDefaultInstance()), itemSelection.getItems()[selected.id()].getDefaultInstance(), true, yOffset, maxWidth,
+                RenderHelper.renderSelectedItemName(
+                        ItemUtil.getDisplayname(itemSelection.getItems()[selected.id()].getDefaultInstance()),
+                        itemSelection.getItems()[selected.id()].getDefaultInstance(), true, yOffset, maxWidth,
                         graphics);
             }
             return;

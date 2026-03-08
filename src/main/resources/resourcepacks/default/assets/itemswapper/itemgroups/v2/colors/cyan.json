@@ -16,5 +16,23 @@
         "minecraft:cyan_banner",
         "minecraft:cyan_bed",
         "minecraft:cyan_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/light_blue"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/cyan"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/green"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/lime"
+        }
     ]
 }

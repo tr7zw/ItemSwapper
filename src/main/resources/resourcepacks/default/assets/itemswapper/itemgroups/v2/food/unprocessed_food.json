@@ -19,19 +19,11 @@
     "shortcuts": [
         {
             "type": "link",
-            "target": "itemswapper:v2/crafting/mob_drops"
+            "target": "itemswapper:v2/food/food"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/crafting/food"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/crafting/unprocessed_food"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/crafting/misc"
+            "target": "itemswapper:v2/food/unprocessed_food"
         }
     ]
 }

@@ -36,15 +36,11 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/crafting/food"
-        },
-        {
-            "type": "link",
-            "target": "itemswapper:v2/crafting/unprocessed_food"
-        },
-        {
-            "type": "link",
             "target": "itemswapper:v2/crafting/misc"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/crafting/potion_brewing"
         }
     ]
 }

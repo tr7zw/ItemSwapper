@@ -44,7 +44,23 @@
     "shortcuts": [
         {
             "type": "link",
+            "target": "itemswapper:v2/technical/directory_technical"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/functional/functional"
+        },
+        {
+            "type": "link",
             "target": "itemswapper:v2/tools"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/weapons"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/consumables/consumables"
         }
     ]
 }

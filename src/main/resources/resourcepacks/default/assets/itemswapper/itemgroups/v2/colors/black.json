@@ -16,5 +16,23 @@
         "minecraft:black_banner",
         "minecraft:black_bed",
         "minecraft:black_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/black"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/gray"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/light_gray"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/white"
+        }
     ]
 }

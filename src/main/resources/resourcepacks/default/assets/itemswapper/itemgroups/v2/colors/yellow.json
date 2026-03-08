@@ -16,5 +16,23 @@
         "minecraft:yellow_banner",
         "minecraft:yellow_bed",
         "minecraft:yellow_harness"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/yellow"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/orange"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/red"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colors/brown"
+        }
     ]
 }

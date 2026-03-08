@@ -121,8 +121,14 @@
         },
         {
             "id": "minecraft:music_disc_creator",
-            "name": "text.itemswapper.directory.items",
-            "link": "itemswapper:v2/items/records",
+            "name": "text.itemswapper.directory.collectables",
+            "link": "itemswapper:v2/collectables/records",
+            "actAsLink": true
+        },
+        {
+            "id": "minecraft:spyglass",
+            "name": "text.itemswapper.directory.craftables",
+            "link": "itemswapper:v2/craftables/devices",
             "actAsLink": true
         },
         {
@@ -132,9 +138,9 @@
             "actAsLink": true
         },
         {
-            "id": "minecraft:skeleton_skull",
-            "name": "text.itemswapper.directory.heads",
-            "link": "itemswapper:v2/items/heads",
+            "id": "minecraft:cooked_chicken",
+            "name": "text.itemswapper.directory.crafting",
+            "link": "itemswapper:v2/foods/food",
             "actAsLink": true
         },
         {
