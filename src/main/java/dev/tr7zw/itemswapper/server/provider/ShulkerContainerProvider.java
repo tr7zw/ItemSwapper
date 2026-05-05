@@ -1,4 +1,4 @@
-package dev.tr7zw.itemswapper.provider;
+package dev.tr7zw.itemswapper.server.provider;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,15 +8,15 @@ import java.util.Set;
 import com.google.common.collect.Sets;
 
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
-import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.api.client.ContainerProvider;
+import dev.tr7zw.itemswapper.api.server.*;
+import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-public class ShulkerContainerProvider implements ContainerProvider {
+public class ShulkerContainerProvider implements ServerItemContainerProvider {
 
     private static Set<Item> shulkers = Sets.newHashSet(Items.SHULKER_BOX, Items.BLACK_SHULKER_BOX,
             Items.BLUE_SHULKER_BOX, Items.BROWN_SHULKER_BOX, Items.CYAN_SHULKER_BOX, Items.GRAY_SHULKER_BOX,
@@ -30,16 +30,16 @@ public class ShulkerContainerProvider implements ContainerProvider {
     }
 
     @Override
-    public List<AvailableSlot> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId) {
+    public List<RemoteItem> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId) {
         if (!ItemSwapperSharedMod.instance.getClientUiManager().areShulkersEnabled()) {
             return Collections.emptyList();
         }
         List<ItemStack> shulkerItems = ShulkerHelper.getItems(itemStack);
-        List<AvailableSlot> slots = new ArrayList<>();
+        List<RemoteItem> slots = new ArrayList<>();
         if (shulkerItems != null) {
             for (int x = 0; x < shulkerItems.size(); x++) {
                 if (shulkerItems.get(x).getItem() == item) {
-                    slots.add(new AvailableSlot(slotId, x, shulkerItems.get(x)));
+                    slots.add(new RemoteItem(getId(), shulkerItems.get(x), slotId, x, shulkerItems.get(x).count()));
                     if (limit) {
                         return slots;
                     }
@@ -50,18 +50,23 @@ public class ShulkerContainerProvider implements ContainerProvider {
     }
 
     @Override
-    public NonNullList<AvailableSlot> getItemStacks(ItemStack itemStack, int slotId) {
+    public NonNullList<RemoteItem> getItemStacks(ItemStack itemStack, int slotId) {
         if (!ItemSwapperSharedMod.instance.getClientUiManager().areShulkersEnabled()) {
             return NonNullList.create();
         }
         List<ItemStack> shulkerItems = ShulkerHelper.getItems(itemStack);
-        NonNullList<AvailableSlot> slots = NonNullList.create();
+        NonNullList<RemoteItem> slots = NonNullList.create();
         if (shulkerItems != null) {
             for (int x = 0; x < shulkerItems.size(); x++) {
-                slots.add(new AvailableSlot(slotId, x, shulkerItems.get(x)));
+                slots.add(new RemoteItem(getId(), shulkerItems.get(x), slotId, x, shulkerItems.get(x).count()));
             }
         }
         return slots;
+    }
+
+    @Override
+    public String getId() {
+        return "itemswapper:shulker";
     }
 
 }

@@ -5,9 +5,13 @@ import java.util.*;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
+import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
+import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
@@ -25,6 +29,13 @@ public class PaletteWidget extends ItemGridWidget {
         super(x, y);
         this.itemGroup = itemGroup;
         WidgetUtil.setupDynamicSlots(widgetArea, slots, itemGroup.getItems().length);
+        ClientNetworkUtil.sendPacket(new RequestAvailability(itemGroup.getItems()));
+        remoteUpdate();
+    }
+
+    @Override
+    public void remoteUpdate() {
+        availableSlots.clear();
         for (int i = 0; i < itemGroup.getItems().length; i++) {
             availableSlots.add(resolveItem(i));
         }
@@ -36,7 +47,17 @@ public class PaletteWidget extends ItemGridWidget {
     }
 
     private List<AvailableSlot> getItem(int id) {
-        return id > itemGroup.getItems().length - 1 ? Collections.emptyList() : availableSlots.get(id);
+        if (id > itemGroup.getItems().length - 1) {
+            return Collections.emptyList();
+        }
+        List<AvailableSlot> slots = new ArrayList<>();
+        slots.addAll(availableSlots.get(id));
+        /*ClientSessionSettings settings = ItemSwapperSharedMod.instance.getSessionSettings();
+        RemoteItem remoteItem = settings.getRemoteItemInfo().get(itemGroup.getItems()[id].getItem());
+        if (remoteItem != null) {
+            slots.add(new AvailableSlot(remoteItem));
+        }*/
+        return slots;
     }
 
     @Override

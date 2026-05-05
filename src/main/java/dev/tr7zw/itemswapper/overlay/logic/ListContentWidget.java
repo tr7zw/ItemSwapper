@@ -28,6 +28,14 @@ public class ListContentWidget extends ItemGridWidget {
         super(x, y);
         this.itemSelection = items;
         refreshList();
+        ClientNetworkUtil.sendPacket(new RequestAvailability(itemSelection.getItems()));
+        WidgetUtil.setupDynamicSlots(widgetArea, slots, entries.size());
+    }
+
+    @Override
+    public void remoteUpdate() {
+        refreshList();
+        slots.clear();
         WidgetUtil.setupDynamicSlots(widgetArea, slots, entries.size());
     }
 

@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper;
 
 import dev.tr7zw.itemswapper.compat.*;
 import dev.tr7zw.itemswapper.manager.*;
+import dev.tr7zw.itemswapper.overlay.*;
 import dev.tr7zw.itemswapper.packets.clientbound.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.server.*;
@@ -11,6 +12,7 @@ import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.*;
 import net.fabricmc.fabric.api.resource.*;
 import net.fabricmc.loader.api.*;
+import net.minecraft.client.*;
 import net.minecraft.network.chat.*;
 
 import java.util.*;
@@ -66,6 +68,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             // Server packets
             handle.registerServerCustomPacket(SwapItemPayload.INSTANCE);
             handle.registerServerCustomPacket(RefillItemPayload.INSTANCE);
+            handle.registerServerCustomPacket(RequestAvailability.INSTANCE);
             // Client packets
             handle.registerClientCustomPacket(ShulkerSupportPayload.INSTANCE, payload -> {
                 ItemSwapperSharedMod.instance.getSessionSettings().setEnableShulkers(payload.enabled());
@@ -75,6 +78,12 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             });
             handle.registerClientCustomPacket(DisableModPayload.INSTANCE, payload -> {
                 ItemSwapperSharedMod.instance.getSessionSettings().setModDisabled(payload.enabled());
+            });
+            handle.registerClientCustomPacket(ItemAvailability.INSTANCE, payload -> {
+                ItemSwapperSharedMod.instance.getSessionSettings().updateItemInfo(payload.items());
+                if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+                    overlay.processRemoteUpdate();
+                }
             });
         });
 

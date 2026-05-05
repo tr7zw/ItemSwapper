@@ -303,4 +303,10 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         return true;
     }
 
+    public void processRemoteUpdate() {
+        for (GuiWidget widget : selectionHandler.getWidgets()) {
+            widget.remoteUpdate();
+        }
+    }
+
 }

@@ -1,22 +1,30 @@
-package dev.tr7zw.itemswapper.server;
+package dev.tr7zw.itemswapper.server.manger;
 
 import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.clientbound.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.loader.networking.*;
+import dev.tr7zw.transition.mc.*;
+import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import dev.tr7zw.itemswapper.packets.serverbound.RefillItemPayload;
-import dev.tr7zw.itemswapper.packets.serverbound.SwapItemPayload;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
-import dev.tr7zw.transition.mc.InventoryUtil;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
 
+import java.util.*;
+import java.util.stream.*;
+
+@RequiredArgsConstructor
 public class ServerItemHandler {
 
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
     private static final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
+    private final ServerProviderManager providerManager;
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
         if (configManager.getConfig().disableShulkers) {
@@ -98,4 +106,11 @@ public class ServerItemHandler {
         //? }
     }
 
+    public void processAvailability(ServerPlayer player, RequestAvailability payload) {
+        System.out.println(
+                "Player " + player.getName().getString() + " requested availability for items: " + payload.items());
+        List<RemoteItem> items = providerManager.findRemoteItems(player,
+                payload.items().stream().map(s -> ItemUtil.getItem(McId.create(s).id())).collect(Collectors.toSet()));
+        ServerNetworkUtil.sendPacket(player, new ItemAvailability(items));
+    }
 }

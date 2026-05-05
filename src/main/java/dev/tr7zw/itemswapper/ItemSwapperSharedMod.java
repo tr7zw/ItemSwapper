@@ -10,7 +10,6 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.provider.InstrumentItemNameProvider;
 import dev.tr7zw.itemswapper.provider.PotionNameProvider;
 import dev.tr7zw.itemswapper.provider.RecordNameProvider;
-import dev.tr7zw.itemswapper.provider.ShulkerContainerProvider;
 import lombok.Getter;
 import net.minecraft.world.item.Item;
 
@@ -19,17 +18,17 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     public static ItemSwapperSharedMod instance;
 
     @Getter
+    private final ClientSessionSettings sessionSettings = new ClientSessionSettings();
+    @Getter
     private final ItemGroupManager itemGroupManager = new ItemGroupManager();
     @Getter
-    private final ClientProviderManager clientProviderManager = new ClientProviderManager();
+    private final ClientProviderManager clientProviderManager = new ClientProviderManager(sessionSettings);
     @Getter
     private final BlockTextureManager blockTextureManager = new BlockTextureManager();
     @Getter
     private final ItemManager itemManager = new ItemManager(clientProviderManager, ItemSwapperClientAPI.getInstance());
     private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private final ConfigManager<CacheServerAddresses> serverCache = ConfigHolder.getInstance().getServerCache();
-    @Getter
-    private final ClientSessionSettings sessionSettings = new ClientSessionSettings();
     @Getter
     protected final ClientUiManager clientUiManager = new ClientUiManager(itemGroupManager, configManager,
             sessionSettings, serverCache);
@@ -44,7 +43,6 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     }
 
     private void lateInit() {
-        clientProviderManager.registerContainerProvider(new ShulkerContainerProvider());
         clientProviderManager.registerNameProvider(new PotionNameProvider());
         clientProviderManager.registerNameProvider(new InstrumentItemNameProvider());
         clientProviderManager.registerNameProvider(new RecordNameProvider());

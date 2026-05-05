@@ -11,13 +11,16 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.api.client.ItemProvider;
 import dev.tr7zw.itemswapper.api.client.NameProvider;
+import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.transition.mc.ItemUtil;
+import lombok.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
+@RequiredArgsConstructor
 public class ClientProviderManager {
 
     private final Minecraft minecraft = Minecraft.getInstance();
@@ -25,6 +28,7 @@ public class ClientProviderManager {
     private Set<ItemProvider> lateItemProvider = new HashSet<>();
     private Map<Item, ContainerProvider> containerProvider = new HashMap<>();
     private Set<NameProvider> nameProvider = new HashSet<>();
+    private final ClientSessionSettings sessionSettings;
 
     public void registerEarlyItemProvider(ItemProvider provider) {
         earlyItemProvider.add(provider);
@@ -93,6 +97,14 @@ public class ClientProviderManager {
             }
         }
         handleProvider(getLateItemProvider(), item, limit, ids);
+        for (RemoteItem remote : sessionSettings.getLastReceivedItems()) {
+            if (remote.itemStack().getItem() == item) {
+                addUnstackableItems(ids, new AvailableSlot(remote));
+                if (limit) {
+                    return ids;
+                }
+            }
+        }
         return ids;
     }
 
