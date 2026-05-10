@@ -11,6 +11,7 @@ import net.minecraft.resources.*;
  * 
  * @param enabled
  */
+@Deprecated
 public record ShulkerSupportPayload(boolean enabled) implements CustomPacketPayloadSupport {
 
     public static final ShulkerSupportPayload INSTANCE = new ShulkerSupportPayload(false);

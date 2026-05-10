@@ -33,12 +33,8 @@ public class ServerProviderManager {
             }
             ServerItemContainerProvider provider = getContainerProvider(itemStack.getItem());
             if (provider != null) {
-                NonNullList<RemoteItem> contents = provider.getItemStacks(itemStack, i);
-                for (RemoteItem item : contents) {
-                    if (searchItems.contains(item.itemStack().getItem())) {
-                        ids.add(item);
-                    }
-                }
+                NonNullList<RemoteItem> contents = provider.getItemStacks(player, itemStack, i);
+                ids.addAll(contents.stream().filter(stack -> searchItems.contains(stack.itemStack().getItem())).sorted(Comparator.comparingInt(RemoteItem::count).reversed()).toList());
             }
         }
         return ids;
@@ -62,7 +58,7 @@ public class ServerProviderManager {
         ItemStack container = items.get(targetItem.slot());
         // make sure we have the right provider and that the provider fits to the itemstack
         if (provider != null && provider == getContainerProvider(container.getItem())) {
-            return provider.insertItem(container, itemStack);
+            return provider.insertItem(player, container, itemStack);
         }
         return 0;
     }
@@ -77,7 +73,7 @@ public class ServerProviderManager {
         ItemStack inventoryItem = items.get(inventorySlot);
         if (inventoryItem.isEmpty()) {
             // empty slot, just get item out
-            ItemStack removedItem = provider.removeItem(container, remoteItem);
+            ItemStack removedItem = provider.removeItem(player, container, remoteItem);
             if (removedItem != null) {
                 player.getInventory().setItem(inventorySlot, removedItem);
                 return true;

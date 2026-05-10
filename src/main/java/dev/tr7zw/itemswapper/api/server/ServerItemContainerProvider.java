@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.api.server;
 import dev.tr7zw.itemswapper.api.*;
 import dev.tr7zw.itemswapper.packets.*;
 import net.minecraft.core.*;
+import net.minecraft.server.level.*;
 import net.minecraft.world.item.*;
 
 import java.util.*;
@@ -23,9 +24,9 @@ public interface ServerItemContainerProvider {
      *         Return an {@link Collections#emptyList() emptyList} when nothing is
      *         found/the itemstack can't be used.
      */
-    List<RemoteItem> processItemStack(ItemStack itemStack, Item item, boolean limit, int slotId);
+    List<RemoteItem> processItemStack(ServerPlayer player, ItemStack itemStack, Item item, boolean limit, int slotId);
 
-    NonNullList<RemoteItem> getItemStacks(ItemStack itemStack, int slotId);
+    NonNullList<RemoteItem> getItemStacks(ServerPlayer player, ItemStack itemStack, int slotId);
 
     /**
      *
@@ -34,9 +35,9 @@ public interface ServerItemContainerProvider {
      * @return amount stored away, 0 if nothing was stored or the provider doesn't
      *         exist
      */
-    int insertItem(ItemStack container, ItemStack itemStack);
+    int insertItem(ServerPlayer player, ItemStack container, ItemStack itemStack);
 
     String getId();
 
-    ItemStack removeItem(ItemStack container, RemoteItem remoteItem);
+    ItemStack removeItem(ServerPlayer player, ItemStack container, RemoteItem remoteItem);
 }

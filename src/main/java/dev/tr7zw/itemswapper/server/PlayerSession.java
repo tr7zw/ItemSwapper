@@ -10,6 +10,6 @@ public class PlayerSession {
 
     private final Map<String, Object> data = new HashMap<>();
     private boolean keepLastItem = true;
-    private boolean shulkerSupport = false;
+    private boolean shulkerSupport = true;
 
 }
