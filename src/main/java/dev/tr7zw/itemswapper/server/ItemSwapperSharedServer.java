@@ -13,9 +13,9 @@ public abstract class ItemSwapperSharedServer {
     public static final Logger LOGGER = LogManager.getLogger("ItemSwapper");
     public static ItemSwapperSharedServer INSTANCE;
     private final ServerProviderManager providerManager = new ServerProviderManager();
-    private final ServerItemHandler itemHandler = new ServerItemHandler(providerManager);
     @Getter
     private final ServerPlayerManager playerManager = new ServerPlayerManager();
+    private final ServerItemHandler itemHandler = new ServerItemHandler(providerManager, playerManager);
 
     public void onLoad() {
         INSTANCE = this;
@@ -34,6 +34,10 @@ public abstract class ItemSwapperSharedServer {
                     (payload, player) -> getItemHandler().refillSlot(player, payload));
             handler.registerServerCustomPacket(RequestAvailability.INSTANCE,
                     (payload, player) -> getItemHandler().processAvailability(player, payload));
+            handler.registerServerCustomPacket(EmptySlotPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().storeAwayItem(player, payload.slot()));
+            handler.registerServerCustomPacket(SwitchToItemPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().switchToItem(player, payload));
         });
     }
 

@@ -27,6 +27,16 @@ public interface ServerItemContainerProvider {
 
     NonNullList<RemoteItem> getItemStacks(ItemStack itemStack, int slotId);
 
+    /**
+     *
+     * @param container The container itemstack, for example a shulker box
+     * @param itemStack The itemstack to store, for example cobblestone
+     * @return amount stored away, 0 if nothing was stored or the provider doesn't
+     *         exist
+     */
+    int insertItem(ItemStack container, ItemStack itemStack);
+
     String getId();
 
+    ItemStack removeItem(ItemStack container, RemoteItem remoteItem);
 }

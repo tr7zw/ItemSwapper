@@ -119,6 +119,17 @@ public class PaletteWidget extends ItemGridWidget {
                 ItemSwapperMod.instance.getItemGroupManager().setLastPickedItem(entry.getItem(), itemGroup);
                 return false;
             }
+            List<AvailableSlot> slots = getItem(guiSlot.id());
+            for (AvailableSlot slot : slots) {
+                if (slot.remoteItem() != null) {
+                    if (!minecraft.player.getMainHandItem().isEmpty()) {
+                        ClientNetworkUtil.sendPacket(new EmptySlotPayload(minecraft.player.getInventory().getSelectedSlot()));
+                    }
+                    ClientNetworkUtil.sendPacket(new SwitchToItemPayload(
+                            InventoryUtil.getSelectedId(minecraft.player.getInventory()), slot.remoteItem()));
+                    return false;
+                }
+            }
         }
         return true;
     }

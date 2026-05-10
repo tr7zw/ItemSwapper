@@ -4,17 +4,18 @@ import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.itemswapper.packets.clientbound.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
+import dev.tr7zw.itemswapper.server.*;
 import dev.tr7zw.transition.config.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.*;
 import lombok.*;
+import net.minecraft.world.item.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 
 import java.util.*;
 import java.util.stream.*;
@@ -25,6 +26,7 @@ public class ServerItemHandler {
     private static final Logger network_logger = LogManager.getLogger("ItemSwapper-Network");
     private static final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private final ServerProviderManager providerManager;
+    private final ServerPlayerManager playerManager;
 
     public void swapItem(ServerPlayer player, SwapItemPayload payload) {
         if (configManager.getConfig().disableShulkers) {
@@ -40,6 +42,7 @@ public class ServerItemHandler {
             NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
             if (content != null) {
                 ItemStack tmp = content.get(payload.slot());
+                storeAwayItem(player, InventoryUtil.getSelectedId(player.getInventory()));
                 content.set(payload.slot(), InventoryUtil.getSelected(player.getInventory()));
                 player.getInventory().setItem(InventoryUtil.getSelectedId(player.getInventory()), tmp);
                 ShulkerHelper.setItem(shulker, content);
@@ -47,6 +50,32 @@ public class ServerItemHandler {
         } catch (Throwable th) {
             network_logger.error("Error handeling network packet!", th);
         }
+    }
+
+    public boolean storeAwayItem(ServerPlayer player, int slot) {
+        ItemStack slotItem = player.getInventory().getItem(slot);
+        List<RemoteItem> fittinSlots = providerManager.findRemoteItems(player,
+                Collections.singleton(slotItem.getItem()));
+        int amount = slotItem.getCount();
+        for (RemoteItem remoteItem : fittinSlots) {
+            int inserted = providerManager.insertItem(player, remoteItem, slotItem);
+            slotItem.shrink(inserted);
+            amount -= inserted;
+            if (amount <= 0) {
+                return true;
+            }
+        }
+        // did not find a suitable slot in a matching container, try to put it in any container that can accept it
+        List<RemoteItem> anySlots = providerManager.findRemoteItems(player, Collections.singleton(Items.AIR));
+        for (RemoteItem remoteItem : anySlots) {
+            int inserted = providerManager.insertItem(player, remoteItem, slotItem);
+            slotItem.shrink(inserted);
+            amount -= inserted;
+            if (amount <= 0) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void refillSlot(ServerPlayer player, RefillItemPayload payload) {
@@ -64,6 +93,8 @@ public class ServerItemHandler {
                 // nothing to do
                 return;
             }
+            // TODO: switch to provider system
+            PlayerSession session = playerManager.getSession(player);
             for (int i = 0; i < InventoryUtil.getNonEquipmentItems(player.getInventory()).size(); i++) {
                 ItemStack shulker = InventoryUtil.getNonEquipmentItems(player.getInventory()).get(i);
                 NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
@@ -71,9 +102,11 @@ public class ServerItemHandler {
                     boolean boxChanged = false;
                     for (int entry = 0; entry < content.size(); entry++) {
                         ItemStack boxItem = content.get(entry);
-                        if (isSame(boxItem, target)) {
+                        if (ServerItemUtil.isSame(boxItem, target)) {
                             // same, use to restock
-                            int amount = Math.min(space, boxItem.getCount());
+                            // if keep last item is enabled, leave one item in the box to prevent accidentally emptying it
+                            int backup = session.isKeepLastItem() ? 1 : 0;
+                            int amount = Math.min(space, boxItem.getCount() - backup);
                             target.setCount(target.getCount() + amount);
                             boxItem.setCount(boxItem.getCount() - amount);
                             space -= amount;
@@ -93,24 +126,18 @@ public class ServerItemHandler {
         }
     }
 
-    private boolean isSame(ItemStack a, ItemStack b) {
-        //? if < 1.17.0 {
-
-        // return ItemStack.isSame(a, b);
-        //? } else if <= 1.20.4 {
-
-        /*return ItemStack.isSameItemSameTags(a, b);
-         *///? } else {
-
-        return ItemStack.isSameItemSameComponents(a, b);
-        //? }
-    }
-
     public void processAvailability(ServerPlayer player, RequestAvailability payload) {
         System.out.println(
                 "Player " + player.getName().getString() + " requested availability for items: " + payload.items());
         List<RemoteItem> items = providerManager.findRemoteItems(player,
                 payload.items().stream().map(s -> ItemUtil.getItem(McId.create(s).id())).collect(Collectors.toSet()));
         ServerNetworkUtil.sendPacket(player, new ItemAvailability(items));
+    }
+
+    public void switchToItem(ServerPlayer player, SwitchToItemPayload payload) {
+        if (payload.inventorySlot() < 0 || payload.inventorySlot() >= player.getInventory().getContainerSize()) {
+            return;
+        }
+        providerManager.putIntoSlot(player, payload.remoteItem(), payload.inventorySlot());
     }
 }

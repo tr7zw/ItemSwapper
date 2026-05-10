@@ -13,9 +13,11 @@ import java.util.*;
 
 public class ServerProviderManager {
 
+    private final Map<String, ServerItemContainerProvider> idContainerProvider = new HashMap<>();
     private final Map<Item, ServerItemContainerProvider> containerProvider = new HashMap<>();
 
     public void registerProvider(ServerItemContainerProvider provider) {
+        idContainerProvider.put(provider.getId(), provider);
         for (Item item : provider.getItemHandlers()) {
             containerProvider.put(item, provider);
         }
@@ -46,4 +48,41 @@ public class ServerProviderManager {
         return containerProvider.get(item);
     }
 
+    /**
+     *
+     * @param player
+     * @param targetItem
+     * @param itemStack
+     * @return amount stored away, 0 if nothing was stored or the provider doesn't
+     *         exist
+     */
+    public int insertItem(ServerPlayer player, RemoteItem targetItem, ItemStack itemStack) {
+        ServerItemContainerProvider provider = idContainerProvider.get(targetItem.providerId());
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());
+        ItemStack container = items.get(targetItem.slot());
+        // make sure we have the right provider and that the provider fits to the itemstack
+        if (provider != null && provider == getContainerProvider(container.getItem())) {
+            return provider.insertItem(container, itemStack);
+        }
+        return 0;
+    }
+
+    public boolean putIntoSlot(ServerPlayer player, RemoteItem remoteItem, int inventorySlot) {
+        ServerItemContainerProvider provider = idContainerProvider.get(remoteItem.providerId());
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());
+        ItemStack container = items.get(remoteItem.slot());
+        if (container.isEmpty() || provider == null || provider != getContainerProvider(container.getItem())) {
+            return false;
+        }
+        ItemStack inventoryItem = items.get(inventorySlot);
+        if (inventoryItem.isEmpty()) {
+            // empty slot, just get item out
+            ItemStack removedItem = provider.removeItem(container, remoteItem);
+            if (removedItem != null) {
+                player.getInventory().setItem(inventorySlot, removedItem);
+                return true;
+            }
+        }
+        return false;
+    }
 }

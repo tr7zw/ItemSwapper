@@ -26,6 +26,10 @@ public class ItemManager {
     public boolean grabItem(Item item, boolean ignoreHotbar) {
         List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, false, ignoreHotbar);
         for (AvailableSlot slot : slots) {
+            if (slot.inventory() == -2) {
+                // remote item, not something this method can grab
+                continue;
+            }
             if (slot.inventory() != -1
                     && ShulkerHelper.isShulker(InventoryUtil.getSelected(minecraft.player.getInventory()).getItem())) {
                 // Can't put a shulker into a shulker, so search a different spot
@@ -37,6 +41,9 @@ public class ItemManager {
     }
 
     public boolean grabItem(AvailableSlot slot) {
+        if (slot.inventory() == -2) {
+            return false;
+        }
         ItemSwapperClientAPI.OnSwap event = clientAPI.prepareItemSwapEvent
                 .callEvent(new ItemSwapperClientAPI.OnSwap(slot, new AtomicBoolean()));
         if (event.canceled().get()) {
