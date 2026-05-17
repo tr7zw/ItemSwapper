@@ -9,6 +9,7 @@ import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.*;
@@ -28,7 +29,7 @@ public class ListContentWidget extends ItemGridWidget {
         super(x, y);
         this.itemSelection = items;
         refreshList();
-        ClientNetworkUtil.sendPacket(new RequestAvailability(itemSelection.getItems()));
+        ClientNetworkUtil.sendPacket(new RequestAvailability(ItemListing.of(itemSelection.getItems())));
         WidgetUtil.setupDynamicSlots(widgetArea, slots, entries.size());
     }
 

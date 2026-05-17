@@ -11,6 +11,7 @@ import net.minecraft.resources.*;
  * 
  * @param enabled
  */
+@Deprecated
 public record RefillSupportPayload(boolean enabled) implements CustomPacketPayloadSupport {
 
     public static final RefillSupportPayload INSTANCE = new RefillSupportPayload(true);

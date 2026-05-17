@@ -29,7 +29,7 @@ public record SwitchToItemPayload(int inventorySlot, RemoteItem remoteItem) impl
     }
 
     public SwitchToItemPayload(FriendlyByteBuf buffer) {
-        this(buffer.readInt(), new RemoteItem(buffer));
+        this(buffer.readInt(), RemoteItem.parse(buffer));
     }
 
 }

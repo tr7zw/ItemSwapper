@@ -16,7 +16,7 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
     protected abstract NonNullList<ItemStack> getContent(ItemStack container);
     protected abstract void setContent(ItemStack container, NonNullList<ItemStack> content);
     protected boolean isValidContainer(ServerPlayer player, ItemStack container) {
-        return getItemHandlers().contains(container.getItem());
+        return getItemHandlers().contains(container.getItem()) && container.count() == 1;
     }
 
     @Override

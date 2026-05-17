@@ -14,7 +14,6 @@ import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.item.Items;
 
 public record ClearCurrentSlotShortcut() implements Shortcut {
 
@@ -31,8 +30,7 @@ public record ClearCurrentSlotShortcut() implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        //ItemSwapperSharedMod.instance.getItemManager().grabItem(Items.AIR, true);
-        ClientNetworkUtil.sendPacket(new EmptySlotPayload(minecraft.player.getInventory().getSelectedSlot()));
+        ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(minecraft.player.getInventory().getSelectedSlot());
         if (action == ActionType.SECONDARY_CLICK) {
             overlay.setHideClearSlotShortcut(true);
             // reopen to re-init the UI

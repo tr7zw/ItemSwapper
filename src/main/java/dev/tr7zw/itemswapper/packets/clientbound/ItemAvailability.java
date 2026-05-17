@@ -21,10 +21,7 @@ public record ItemAvailability(List<RemoteItem> items) implements CustomPacketPa
 
     @Override
     public void write(FriendlyByteBuf paramFriendlyByteBuf) {
-        paramFriendlyByteBuf.writeInt(items.size());
-        for (RemoteItem item : items) {
-            item.write(paramFriendlyByteBuf);
-        }
+        RemoteItem.writeList(paramFriendlyByteBuf, items);
     }
 
     @Override
@@ -33,16 +30,9 @@ public record ItemAvailability(List<RemoteItem> items) implements CustomPacketPa
     }
 
     public ItemAvailability(FriendlyByteBuf buffer) {
-        this(parseItems(buffer));
+        this(RemoteItem.parseList(buffer));
     }
 
-    private static List<RemoteItem> parseItems(FriendlyByteBuf buffer) {
-        List<RemoteItem> items = new ArrayList<>();
-        int size = buffer.readInt();
-        for (int i = 0; i < size; i++) {
-            items.add(new RemoteItem(buffer));
-        }
-        return items;
-    }
+
 
 }

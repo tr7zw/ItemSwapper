@@ -16,9 +16,9 @@ import org.apache.logging.log4j.Logger;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
+import org.jspecify.annotations.*;
 
 import java.util.*;
-import java.util.stream.*;
 
 @RequiredArgsConstructor
 public class ServerItemHandler {
@@ -42,7 +42,7 @@ public class ServerItemHandler {
             NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
             if (content != null) {
                 ItemStack tmp = content.get(payload.slot());
-                storeAwayItem(player, InventoryUtil.getSelectedId(player.getInventory()));
+                storeAwayItem(player, InventoryUtil.getSelectedId(player.getInventory()), Collections.emptySet());
                 content.set(payload.slot(), InventoryUtil.getSelected(player.getInventory()));
                 player.getInventory().setItem(InventoryUtil.getSelectedId(player.getInventory()), tmp);
                 ShulkerHelper.setItem(shulker, content);
@@ -52,18 +52,15 @@ public class ServerItemHandler {
         }
     }
 
-    public boolean storeAwayItem(ServerPlayer player, int slot) {
+    public boolean storeAwayItem(ServerPlayer player, int slot, Set<Item> itemSet) {
         ItemStack slotItem = player.getInventory().getItem(slot);
-        List<RemoteItem> fittinSlots = providerManager.findRemoteItems(player,
-                Collections.singleton(slotItem.getItem()));
-        int amount = slotItem.getCount();
-        for (RemoteItem remoteItem : fittinSlots) {
-            int inserted = providerManager.insertItem(player, remoteItem, slotItem);
-            slotItem.shrink(inserted);
-            amount -= inserted;
-            if (amount <= 0) {
-                return true;
-            }
+        // Try putting the item to a matching stack first
+        Integer amount = storeToItem(player, slotItem, Collections.singleton(slotItem.getItem()));
+        if (amount <= 0) return true;
+        // try finding fitting similar items
+        if(!itemSet.isEmpty()) {
+            amount = storeToItem(player, slotItem, itemSet);
+            if (amount <= 0) return true;
         }
         // did not find a suitable slot in a matching container, try to put it in any container that can accept it
         List<RemoteItem> anySlots = providerManager.findRemoteItems(player, Collections.singleton(Items.AIR));
@@ -76,6 +73,20 @@ public class ServerItemHandler {
             }
         }
         return false;
+    }
+
+    private Integer storeToItem(ServerPlayer player, ItemStack slotItem, Set<Item> targetTypes) {
+        List<RemoteItem> fittinSlots = providerManager.findRemoteItems(player, targetTypes);
+        int amount = slotItem.getCount();
+        for (RemoteItem remoteItem : fittinSlots) {
+            int inserted = providerManager.insertItem(player, remoteItem, slotItem);
+            slotItem.shrink(inserted);
+            amount -= inserted;
+            if (amount <= 0) {
+                return amount;
+            }
+        }
+        return amount;
     }
 
     public void refillSlot(ServerPlayer player, RefillItemPayload payload) {
@@ -128,9 +139,9 @@ public class ServerItemHandler {
 
     public void processAvailability(ServerPlayer player, RequestAvailability payload) {
         System.out.println(
-                "Player " + player.getName().getString() + " requested availability for items: " + payload.items());
+                "Player " + player.getName().getString() + " requested availability for itemListing: " + payload.itemListing());
         List<RemoteItem> items = providerManager.findRemoteItems(player,
-                payload.items().stream().map(s -> ItemUtil.getItem(McId.create(s).id())).collect(Collectors.toSet()));
+                payload.itemListing().asItemSet());
         ServerNetworkUtil.sendPacket(player, new ItemAvailability(items));
     }
 

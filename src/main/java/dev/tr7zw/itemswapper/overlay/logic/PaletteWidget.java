@@ -29,7 +29,7 @@ public class PaletteWidget extends ItemGridWidget {
         super(x, y);
         this.itemGroup = itemGroup;
         WidgetUtil.setupDynamicSlots(widgetArea, slots, itemGroup.getItems().length);
-        ClientNetworkUtil.sendPacket(new RequestAvailability(itemGroup.getItems()));
+        ClientNetworkUtil.sendPacket(new RequestAvailability(ItemListing.of(itemGroup.getItems())));
         remoteUpdate();
     }
 
@@ -123,7 +123,7 @@ public class PaletteWidget extends ItemGridWidget {
             for (AvailableSlot slot : slots) {
                 if (slot.remoteItem() != null) {
                     if (!minecraft.player.getMainHandItem().isEmpty()) {
-                        ClientNetworkUtil.sendPacket(new EmptySlotPayload(minecraft.player.getInventory().getSelectedSlot()));
+                        ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(minecraft.player.getInventory().getSelectedSlot());
                     }
                     ClientNetworkUtil.sendPacket(new SwitchToItemPayload(
                             InventoryUtil.getSelectedId(minecraft.player.getInventory()), slot.remoteItem()));

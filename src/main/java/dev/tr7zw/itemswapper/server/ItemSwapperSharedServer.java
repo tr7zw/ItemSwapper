@@ -35,7 +35,7 @@ public abstract class ItemSwapperSharedServer {
             handler.registerServerCustomPacket(RequestAvailability.INSTANCE,
                     (payload, player) -> getItemHandler().processAvailability(player, payload));
             handler.registerServerCustomPacket(EmptySlotPayload.INSTANCE,
-                    (payload, player) -> getItemHandler().storeAwayItem(player, payload.slot()));
+                    (payload, player) -> getItemHandler().storeAwayItem(player, payload.slot(), payload.itemListing().asItemSet()));
             handler.registerServerCustomPacket(SwitchToItemPayload.INSTANCE,
                     (payload, player) -> getItemHandler().switchToItem(player, payload));
         });

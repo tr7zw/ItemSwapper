@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.manager;
 import dev.tr7zw.itemswapper.api.*;
 import dev.tr7zw.itemswapper.api.client.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.*;
+import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.util.*;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -22,6 +23,7 @@ public class ItemManager {
     private final Minecraft minecraft = Minecraft.getInstance();
     private final ClientProviderManager providerManager;
     private final ItemSwapperClientAPI clientAPI;
+    private final ItemGroupManager itemGroupManager;
 
     public boolean grabItem(Item item, boolean ignoreHotbar) {
         List<AvailableSlot> slots = providerManager.findSlotsMatchingItem(item, false, ignoreHotbar);
@@ -61,6 +63,18 @@ public class ItemManager {
         }
         clientAPI.itemSwapSentEvent.callEvent(new ItemSwapperClientAPI.SwapSent(slot));
         return true;
+    }
+
+    public void sendEmptySlotPayload(int slot) {
+        ItemStack item = minecraft.player.getInventory().getItem(slot);
+        if (!item.isEmpty()) {
+            ItemGroup group = itemGroupManager.getItemPage(item.getItem());
+            if (group != null) {
+                ClientNetworkUtil.sendPacket(new EmptySlotPayload(slot, ItemListing.of(group.items())));
+                return;
+            }
+        }
+        ClientNetworkUtil.sendPacket(new EmptySlotPayload(slot, ItemListing.of(new Item[0])));
     }
 
     public Component getDisplayname(ItemStack item) {
