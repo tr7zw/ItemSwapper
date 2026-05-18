@@ -9,5 +9,6 @@ stonecutter {
         replace("PayloadTypeRegistryImpl.PLAY_S2C", "PayloadTypeRegistryImpl.CLIENTBOUND_PLAY")
         replace("PayloadTypeRegistry.playS2C()", "PayloadTypeRegistry.clientboundPlay()")
         replace("PayloadTypeRegistry.playC2S()", "PayloadTypeRegistry.serverboundPlay()")
+        replace(".getCount()", ".count()")
     }
 }

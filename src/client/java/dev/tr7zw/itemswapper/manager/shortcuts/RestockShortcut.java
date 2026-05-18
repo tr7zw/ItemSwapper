@@ -31,7 +31,7 @@ public record RestockShortcut() implements Shortcut {
         List<ItemStack> items = InventoryUtil.getNonEquipmentItems(Minecraft.getInstance().player.getInventory());
         for (int i = 0; i < items.size(); i++) {
             ItemStack item = items.get(i);
-            int space = item.getMaxStackSize() - item.getCount();
+            int space = item.getMaxStackSize() - item.count();
             if (space > 0) {
                 ClientNetworkUtil.sendPacket(new RefillItemPayload(i));
             }

@@ -15,7 +15,7 @@ import net.minecraft.resources.*;
 public record EmptySlotPayload(int slot, ItemListing itemListing) implements CustomPacketPayloadSupport {
 
     public static final EmptySlotPayload INSTANCE = new EmptySlotPayload(0, null);
-    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "empty_slot").id();
+    public static final Identifier ID = McId.create(ItemSwapperBase.MODID, "empty_slot").id();
 
     @Override
     public Identifier id() {

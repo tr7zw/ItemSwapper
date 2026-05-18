@@ -30,7 +30,8 @@ public record ClearCurrentSlotShortcut() implements Shortcut {
 
     @Override
     public boolean invoke(SwitchItemOverlay overlay, ActionType action, int xOffset, int yOffset) {
-        ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(minecraft.player.getInventory().getSelectedSlot());
+        ItemSwapperSharedMod.instance.getItemManager()
+                .sendEmptySlotPayload(minecraft.player.getInventory().getSelectedSlot());
         if (action == ActionType.SECONDARY_CLICK) {
             overlay.setHideClearSlotShortcut(true);
             // reopen to re-init the UI

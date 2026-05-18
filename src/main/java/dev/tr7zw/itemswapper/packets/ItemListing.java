@@ -1,6 +1,5 @@
 package dev.tr7zw.itemswapper.packets;
 
-import dev.tr7zw.itemswapper.manager.itemgroups.*;
 import dev.tr7zw.transition.mc.*;
 import net.minecraft.network.*;
 import net.minecraft.world.item.*;
@@ -14,10 +13,6 @@ public record ItemListing(List<String> items) {
 
     public static ItemListing of(Item... items) {
         return new ItemListing(Arrays.asList(items).stream().map(Item::toString).toList());
-    }
-
-    public static ItemListing of(ItemEntry... items) {
-        return new ItemListing(Arrays.asList(items).stream().map(ItemEntry::getItem).map(Item::toString).toList());
     }
 
     public void write(FriendlyByteBuf paramFriendlyByteBuf) {

@@ -10,7 +10,7 @@ import net.minecraft.resources.*;
 public record SwitchToItemPayload(int inventorySlot, RemoteItem remoteItem) implements CustomPacketPayloadSupport {
 
     public static final SwitchToItemPayload INSTANCE = new SwitchToItemPayload(0, null);
-    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "switch_item").id();
+    public static final Identifier ID = McId.create(ItemSwapperBase.MODID, "switch_item").id();
 
     @Override
     public Identifier id() {

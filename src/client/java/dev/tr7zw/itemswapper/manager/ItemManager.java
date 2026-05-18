@@ -70,11 +70,11 @@ public class ItemManager {
         if (!item.isEmpty()) {
             ItemGroup group = itemGroupManager.getItemPage(item.getItem());
             if (group != null) {
-                ClientNetworkUtil.sendPacket(new EmptySlotPayload(slot, ItemListing.of(group.items())));
+                ClientNetworkUtil.sendPacket(new EmptySlotPayload(slot, new ItemListing(Arrays.asList(group.items()).stream().map(ItemEntry::getItem).map(Item::toString).toList())));
                 return;
             }
         }
-        ClientNetworkUtil.sendPacket(new EmptySlotPayload(slot, ItemListing.of(new Item[0])));
+        ClientNetworkUtil.sendPacket(new EmptySlotPayload(slot, ItemListing.of()));
     }
 
     public Component getDisplayname(ItemStack item) {

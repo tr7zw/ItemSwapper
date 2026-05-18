@@ -6,7 +6,6 @@ import dev.tr7zw.itemswapper.overlay.*;
 import dev.tr7zw.itemswapper.packets.clientbound.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.server.*;
-import dev.tr7zw.transition.loader.*;
 import dev.tr7zw.transition.loader.networking.*;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.*;

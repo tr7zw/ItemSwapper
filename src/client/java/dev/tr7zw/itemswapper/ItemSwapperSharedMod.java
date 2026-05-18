@@ -26,7 +26,8 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     @Getter
     private final BlockTextureManager blockTextureManager = new BlockTextureManager();
     @Getter
-    private final ItemManager itemManager = new ItemManager(clientProviderManager, ItemSwapperClientAPI.getInstance(), itemGroupManager);
+    private final ItemManager itemManager = new ItemManager(clientProviderManager, ItemSwapperClientAPI.getInstance(),
+            itemGroupManager);
     private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private final ConfigManager<CacheServerAddresses> serverCache = ConfigHolder.getInstance().getServerCache();
     @Getter

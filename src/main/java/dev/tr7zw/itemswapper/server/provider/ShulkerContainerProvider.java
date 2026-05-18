@@ -25,7 +25,8 @@ public class ShulkerContainerProvider extends ListContainerProvider {
 
     @Override
     protected boolean isValidContainer(ServerPlayer player, ItemStack container) {
-        return super.isValidContainer(player, container) && ItemSwapperSharedServer.INSTANCE.getPlayerManager().getSession(player).isShulkerSupport();
+        return super.isValidContainer(player, container)
+                && ItemSwapperSharedServer.INSTANCE.getPlayerManager().getSession(player).isShulkerSupport();
     }
 
     @Override

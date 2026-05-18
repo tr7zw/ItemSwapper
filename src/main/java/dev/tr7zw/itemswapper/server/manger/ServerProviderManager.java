@@ -1,7 +1,6 @@
 package dev.tr7zw.itemswapper.server.manger;
 
 import dev.tr7zw.itemswapper.api.*;
-import dev.tr7zw.itemswapper.api.client.*;
 import dev.tr7zw.itemswapper.api.server.*;
 import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.transition.mc.*;
@@ -34,7 +33,8 @@ public class ServerProviderManager {
             ServerItemContainerProvider provider = getContainerProvider(itemStack.getItem());
             if (provider != null) {
                 NonNullList<RemoteItem> contents = provider.getItemStacks(player, itemStack, i);
-                ids.addAll(contents.stream().filter(stack -> searchItems.contains(stack.itemStack().getItem())).sorted(Comparator.comparingInt(RemoteItem::count).reversed()).toList());
+                ids.addAll(contents.stream().filter(stack -> searchItems.contains(stack.itemStack().getItem()))
+                        .sorted(Comparator.comparingInt(RemoteItem::count).reversed()).toList());
             }
         }
         return ids;

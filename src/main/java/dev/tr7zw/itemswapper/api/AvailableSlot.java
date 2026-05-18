@@ -29,7 +29,7 @@ public record AvailableSlot(int inventory, int slot, ItemStack item, AtomicInteg
      * @param item      The item used for rendering/reference
      */
     public AvailableSlot(int inventory, int slot, ItemStack item) {
-        this(inventory, slot, item, new AtomicInteger(item.getCount()), null);
+        this(inventory, slot, item, new AtomicInteger(item.count()), null);
     }
 
     public AvailableSlot(RemoteItem remoteItem) {

@@ -1,6 +1,5 @@
 package dev.tr7zw.itemswapper.server.provider;
 
-import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.api.server.*;
 import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.itemswapper.server.*;
@@ -13,14 +12,18 @@ import java.util.*;
 public abstract class ListContainerProvider implements ServerItemContainerProvider {
 
     public abstract int getMaxSlots(ItemStack container);
+
     protected abstract NonNullList<ItemStack> getContent(ItemStack container);
+
     protected abstract void setContent(ItemStack container, NonNullList<ItemStack> content);
+
     protected boolean isValidContainer(ServerPlayer player, ItemStack container) {
         return getItemHandlers().contains(container.getItem()) && container.count() == 1;
     }
 
     @Override
-    public List<RemoteItem> processItemStack(ServerPlayer player, ItemStack container, Item item, boolean limit, int slotId) {
+    public List<RemoteItem> processItemStack(ServerPlayer player, ItemStack container, Item item, boolean limit,
+            int slotId) {
         if (!isValidContainer(player, container)) {
             return Collections.emptyList();
         }
@@ -66,14 +69,14 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
         }
         NonNullList<ItemStack> containerItems = getContent(container);
         int inserted = 0;
-        int toInsert = itemStack.getCount();
+        int toInsert = itemStack.count();
         if (containerItems != null) {
             // try to insert into existing stack first
             for (int i = 0; i < containerItems.size(); i++) {
                 ItemStack targetStack = containerItems.get(i);
                 if (ServerItemUtil.isSame(targetStack, itemStack)
-                        && targetStack.getCount() < targetStack.getMaxStackSize()) {
-                    int amountToStore = Math.min(toInsert, targetStack.getMaxStackSize() - targetStack.getCount());
+                        && targetStack.count() < targetStack.getMaxStackSize()) {
+                    int amountToStore = Math.min(toInsert, targetStack.getMaxStackSize() - targetStack.count());
                     targetStack.grow(amountToStore);
                     inserted += amountToStore;
                     toInsert -= amountToStore;
@@ -131,9 +134,10 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
                         break;
                     }
                 }
-                if (!hasMore && session.isKeepLastItem() && targetStack.getMaxStackSize() > 1 && targetStack.count() != 1) {
+                if (!hasMore && session.isKeepLastItem() && targetStack.getMaxStackSize() > 1
+                        && targetStack.count() != 1) {
                     // trying to grab the last item you will get it, even with keep last item enabled
-                    removed.setCount(targetStack.getCount() - 1);
+                    removed.setCount(targetStack.count() - 1);
                     targetStack.setCount(1);
                 } else {
                     targetStack.setCount(0);

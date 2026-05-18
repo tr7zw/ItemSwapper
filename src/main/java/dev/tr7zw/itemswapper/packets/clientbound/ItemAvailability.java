@@ -12,7 +12,7 @@ import java.util.*;
 public record ItemAvailability(List<RemoteItem> items) implements CustomPacketPayloadSupport {
 
     public static final ItemAvailability INSTANCE = new ItemAvailability(Collections.emptyList());
-    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "item_availability").id();
+    public static final Identifier ID = McId.create(ItemSwapperBase.MODID, "item_availability").id();
 
     @Override
     public Identifier id() {
@@ -32,7 +32,5 @@ public record ItemAvailability(List<RemoteItem> items) implements CustomPacketPa
     public ItemAvailability(FriendlyByteBuf buffer) {
         this(RemoteItem.parseList(buffer));
     }
-
-
 
 }

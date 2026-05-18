@@ -1,8 +1,6 @@
 package dev.tr7zw.itemswapper.packets;
 
 import com.mojang.brigadier.exceptions.*;
-import com.mojang.serialization.*;
-import net.minecraft.core.registries.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.world.item.*;
@@ -27,7 +25,8 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         if (version != VERSION) {
             throw new RuntimeException("Unsupported version: " + version);
         }
-        return new RemoteItem(buffer.readUtf(), decodeItemStack(buffer.readUtf()), buffer.readInt(), buffer.readInt(), buffer.readInt());
+        return new RemoteItem(buffer.readUtf(), decodeItemStack(buffer.readUtf()), buffer.readInt(), buffer.readInt(),
+                buffer.readInt());
     }
 
     public static List<RemoteItem> parseList(FriendlyByteBuf buffer) {
@@ -53,6 +52,11 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         } catch (CommandSyntaxException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // needed due to Mojang renaming getCount to count in 26.1, makes things simpler
+    public int getCount() {
+        return count;
     }
 
 }

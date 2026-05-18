@@ -127,7 +127,7 @@ public class ClientProviderManager {
     private void addUnstackableItems(List<AvailableSlot> ids, AvailableSlot slot) {
         for (AvailableSlot s : ids) {
             if (ItemUtil.isSame(s.item(), slot.item())) {
-                s.amount().accumulateAndGet(slot.item().getCount(), (i1, i2) -> i1 + i2);
+                s.amount().accumulateAndGet(slot.item().count(), (i1, i2) -> i1 + i2);
                 return;
             }
         }

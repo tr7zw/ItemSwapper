@@ -16,7 +16,6 @@ import org.apache.logging.log4j.Logger;
 import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
-import org.jspecify.annotations.*;
 
 import java.util.*;
 
@@ -56,11 +55,13 @@ public class ServerItemHandler {
         ItemStack slotItem = player.getInventory().getItem(slot);
         // Try putting the item to a matching stack first
         Integer amount = storeToItem(player, slotItem, Collections.singleton(slotItem.getItem()));
-        if (amount <= 0) return true;
+        if (amount <= 0)
+            return true;
         // try finding fitting similar items
-        if(!itemSet.isEmpty()) {
+        if (!itemSet.isEmpty()) {
             amount = storeToItem(player, slotItem, itemSet);
-            if (amount <= 0) return true;
+            if (amount <= 0)
+                return true;
         }
         // did not find a suitable slot in a matching container, try to put it in any container that can accept it
         List<RemoteItem> anySlots = providerManager.findRemoteItems(player, Collections.singleton(Items.AIR));
@@ -77,7 +78,7 @@ public class ServerItemHandler {
 
     private Integer storeToItem(ServerPlayer player, ItemStack slotItem, Set<Item> targetTypes) {
         List<RemoteItem> fittinSlots = providerManager.findRemoteItems(player, targetTypes);
-        int amount = slotItem.getCount();
+        int amount = slotItem.count();
         for (RemoteItem remoteItem : fittinSlots) {
             int inserted = providerManager.insertItem(player, remoteItem, slotItem);
             slotItem.shrink(inserted);
@@ -99,7 +100,7 @@ public class ServerItemHandler {
             if (target == null || target.isEmpty()) {
                 return;
             }
-            int space = target.getMaxStackSize() - target.getCount();
+            int space = target.getMaxStackSize() - target.count();
             if (space <= 0) {
                 // nothing to do
                 return;
@@ -117,9 +118,9 @@ public class ServerItemHandler {
                             // same, use to restock
                             // if keep last item is enabled, leave one item in the box to prevent accidentally emptying it
                             int backup = session.isKeepLastItem() ? 1 : 0;
-                            int amount = Math.min(space, boxItem.getCount() - backup);
-                            target.setCount(target.getCount() + amount);
-                            boxItem.setCount(boxItem.getCount() - amount);
+                            int amount = Math.min(space, boxItem.count() - backup);
+                            target.setCount(target.count() + amount);
+                            boxItem.setCount(boxItem.count() - amount);
                             space -= amount;
                             boxChanged = true;
                             if (space <= 0) {
@@ -138,10 +139,9 @@ public class ServerItemHandler {
     }
 
     public void processAvailability(ServerPlayer player, RequestAvailability payload) {
-        System.out.println(
-                "Player " + player.getName().getString() + " requested availability for itemListing: " + payload.itemListing());
-        List<RemoteItem> items = providerManager.findRemoteItems(player,
-                payload.itemListing().asItemSet());
+        System.out.println("Player " + player.getName().getString() + " requested availability for itemListing: "
+                + payload.itemListing());
+        List<RemoteItem> items = providerManager.findRemoteItems(player, payload.itemListing().asItemSet());
         ServerNetworkUtil.sendPacket(player, new ItemAvailability(items));
     }
 

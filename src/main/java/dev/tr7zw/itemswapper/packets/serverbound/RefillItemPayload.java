@@ -1,9 +1,9 @@
 package dev.tr7zw.itemswapper.packets.serverbound;
 
-import dev.tr7zw.itemswapper.ItemSwapperMod;
+import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.*;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.*;
 import net.minecraft.resources.*;
 
 /**
@@ -14,7 +14,7 @@ import net.minecraft.resources.*;
 public record RefillItemPayload(int slot) implements CustomPacketPayloadSupport {
 
     public static final RefillItemPayload INSTANCE = new RefillItemPayload(0);
-    public static final Identifier ID = McId.create(ItemSwapperMod.MODID, "refill").id();
+    public static final Identifier ID = McId.create(ItemSwapperBase.MODID, "refill").id();
 
     @Override
     public Identifier id() {
