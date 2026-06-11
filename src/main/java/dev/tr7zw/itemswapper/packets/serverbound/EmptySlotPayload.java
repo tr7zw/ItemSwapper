@@ -29,7 +29,7 @@ public record EmptySlotPayload(int slot, ItemListing itemListing) implements Cus
     }
 
     @Override
-    public CustomPacketPayloadSupport read(FriendlyByteBuf friendlyByteBuf) {
+    public EmptySlotPayload read(FriendlyByteBuf friendlyByteBuf) {
         return new EmptySlotPayload(friendlyByteBuf);
     }
 

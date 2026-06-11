@@ -12,8 +12,6 @@ import dev.tr7zw.itemswapper.api.client.ContainerProvider;
 import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
-import dev.tr7zw.itemswapper.packets.serverbound.*;
-import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
@@ -88,7 +86,7 @@ public class ContainerWidget extends ItemGridWidget {
         List<AvailableSlot> slots = getItem(guiSlot.id());
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
-            if (!itemManager.grabItem(slot)) {
+            if (!itemManager.grabLocalItem(slot)) {
                 // interaction canceled by some other mod
                 return true;
             }

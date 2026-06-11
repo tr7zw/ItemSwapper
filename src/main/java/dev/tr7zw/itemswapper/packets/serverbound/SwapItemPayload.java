@@ -31,7 +31,7 @@ public record SwapItemPayload(int inventorySlot, int slot) implements CustomPack
     }
 
     @Override
-    public CustomPacketPayloadSupport read(FriendlyByteBuf friendlyByteBuf) {
+    public SwapItemPayload read(FriendlyByteBuf friendlyByteBuf) {
         return new SwapItemPayload(friendlyByteBuf);
     }
 

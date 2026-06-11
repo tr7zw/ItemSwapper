@@ -29,7 +29,7 @@ public abstract class ItemSwapperSharedServer {
             handler.registerClientCustomPacket(ItemAvailability.INSTANCE);
             // Server packets
             handler.registerServerCustomPacket(SwapItemPayload.INSTANCE,
-                    (payload, player) -> LOGGER.warn("Legacy packet received!"));
+                    (payload, player) -> getItemHandler().swapItem(player, payload));
             handler.registerServerCustomPacket(RefillItemPayload.INSTANCE,
                     (payload, player) -> getItemHandler().refillSlot(player, payload));
             handler.registerServerCustomPacket(RequestAvailability.INSTANCE,
@@ -38,6 +38,8 @@ public abstract class ItemSwapperSharedServer {
                     .storeAwayItem(player, payload.slot(), payload.itemListing().asItemSet()));
             handler.registerServerCustomPacket(SwitchToItemPayload.INSTANCE,
                     (payload, player) -> getItemHandler().switchToItem(player, payload));
+            handler.registerServerCustomPacket(RequestAnyItemPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().switchToAnyItem(player, payload));
         });
     }
 

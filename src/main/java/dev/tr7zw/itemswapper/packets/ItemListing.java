@@ -15,6 +15,10 @@ public record ItemListing(List<String> items) {
         return new ItemListing(Arrays.asList(items).stream().map(Item::toString).toList());
     }
 
+    public static ItemListing of(List<Item> items) {
+        return new ItemListing(items.stream().map(Item::toString).toList());
+    }
+
     public void write(FriendlyByteBuf paramFriendlyByteBuf) {
         paramFriendlyByteBuf.writeByte(VERSION);
         paramFriendlyByteBuf.writeInt(items.size());
@@ -34,6 +38,9 @@ public record ItemListing(List<String> items) {
         }
         List<String> items = new ArrayList<>();
         int size = buffer.readInt();
+        if (size > 1000) {
+            throw new RuntimeException("Too many items: " + size);
+        }
         for (int i = 0; i < size; i++) {
             items.add(buffer.readUtf());
         }

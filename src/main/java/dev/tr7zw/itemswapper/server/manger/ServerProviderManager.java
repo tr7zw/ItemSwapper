@@ -67,7 +67,7 @@ public class ServerProviderManager {
         ServerItemContainerProvider provider = idContainerProvider.get(remoteItem.providerId());
         List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());
         ItemStack container = items.get(remoteItem.slot());
-        if (container.isEmpty() || provider == null || provider != getContainerProvider(container.getItem())) {
+        if (!items.get(inventorySlot).isEmpty() || container.isEmpty() || provider == null || provider != getContainerProvider(container.getItem())) {
             return false;
         }
         ItemStack inventoryItem = items.get(inventorySlot);

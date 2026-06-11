@@ -27,7 +27,7 @@ public record LastItemShortcut(Item lastItem, Page lastPage) implements Shortcut
             ItemSwapperSharedMod.instance.getClientUiManager().openPage(lastPage);
             return true;
         } else {
-            ItemSwapperSharedMod.instance.getItemManager().grabItem(lastItem, true);
+            ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(lastItem, true);
             return false;
         }
     }

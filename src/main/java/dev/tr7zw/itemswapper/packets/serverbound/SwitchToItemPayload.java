@@ -24,7 +24,7 @@ public record SwitchToItemPayload(int inventorySlot, RemoteItem remoteItem) impl
     }
 
     @Override
-    public CustomPacketPayloadSupport read(FriendlyByteBuf friendlyByteBuf) {
+    public SwitchToItemPayload read(FriendlyByteBuf friendlyByteBuf) {
         return new SwitchToItemPayload(friendlyByteBuf);
     }
 

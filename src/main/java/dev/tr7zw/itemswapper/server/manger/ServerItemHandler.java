@@ -139,8 +139,6 @@ public class ServerItemHandler {
     }
 
     public void processAvailability(ServerPlayer player, RequestAvailability payload) {
-        System.out.println("Player " + player.getName().getString() + " requested availability for itemListing: "
-                + payload.itemListing());
         List<RemoteItem> items = providerManager.findRemoteItems(player, payload.itemListing().asItemSet());
         ServerNetworkUtil.sendPacket(player, new ItemAvailability(items));
     }
@@ -150,5 +148,22 @@ public class ServerItemHandler {
             return;
         }
         providerManager.putIntoSlot(player, payload.remoteItem(), payload.inventorySlot());
+    }
+
+    public void switchToAnyItem(ServerPlayer player, RequestAnyItemPayload payload) {
+        if (payload.item() == null || payload.item() == Items.AIR) {
+            return;
+        }
+        List<RemoteItem> items = providerManager.findRemoteItems(player, Collections.singleton(payload.item()));
+        if (items.isEmpty()) {
+            return;
+        }
+        var inv = InventoryUtil.getInventory(player);
+        if (!InventoryUtil.getSelected(inv).isEmpty() && !storeAwayItem(player, InventoryUtil.getSelectedId(inv), payload.emptySlotPayload().itemListing().asItemSet())) {
+            // Slot needs to be empty
+            return;
+        }
+        providerManager.putIntoSlot(player, items.get(0), InventoryUtil.getSelectedId(inv));
+
     }
 }

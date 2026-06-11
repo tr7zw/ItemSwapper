@@ -5,7 +5,6 @@ import java.util.*;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemGroup;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
@@ -29,7 +28,8 @@ public class PaletteWidget extends ItemGridWidget {
         super(x, y);
         this.itemGroup = itemGroup;
         WidgetUtil.setupDynamicSlots(widgetArea, slots, itemGroup.getItems().length);
-        ClientNetworkUtil.sendPacket(new RequestAvailability(new ItemListing(Arrays.asList(itemGroup.getItems()).stream().map(ItemEntry::getItem).map(Item::toString).toList())));
+        ClientNetworkUtil.sendPacket(new RequestAvailability(new ItemListing(
+                Arrays.asList(itemGroup.getItems()).stream().map(ItemEntry::getItem).map(Item::toString).toList())));
         remoteUpdate();
     }
 
@@ -111,7 +111,7 @@ public class PaletteWidget extends ItemGridWidget {
                 ItemSwapperMod.instance.getItemGroupManager().setLastPickedItem(entry.getItem(), itemGroup);
                 return false;
             }
-            boolean changed = ItemSwapperSharedMod.instance.getItemManager().grabItem(entry.getItem(), false);
+            boolean changed = ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(entry.getItem(), false);
             if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(entry.getItem());
                 ItemSwapperSharedMod.instance

@@ -18,7 +18,8 @@ public class ItemSwapperMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "dev.tr7zw.itemswapper.mixin.LitematicaMixin", () -> FabricLoader.getInstance().isModLoaded("litematica") && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT);
+            "dev.tr7zw.itemswapper.mixin.LitematicaMixin", () -> FabricLoader.getInstance().isModLoaded("litematica")
+                    && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT);
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

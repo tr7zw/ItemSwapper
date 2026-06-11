@@ -105,14 +105,14 @@ public class ListContentWidget extends ItemGridWidget {
         }
         AvailableSlot entry = entries.get(guiSlot.id());
         if (entry != null && !entry.item().isEmpty()) {
-            return itemManager.grabItem(entry);
+            return itemManager.grabLocalItem(entry);
         } else if (guiSlot.id() < itemSelection.getItems().length && minecraft.player.isCreative()
                 && configManager.getConfig().creativeCheatMode) {
             // stash away current item, if its not a default item to prevent item loss
             ItemStack itemInHand = GeneralUtil.getPlayer().getMainHandItem();
             if (!itemInHand.isEmpty() && !dev.tr7zw.transition.mc.ItemUtil.isSame(itemInHand,
                     itemInHand.getItem().getDefaultInstance())) {
-                ItemSwapperSharedMod.instance.getItemManager().grabItem(Items.AIR, true);
+                ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(Items.AIR, true);
             }
             minecraft.gameMode.handleCreativeModeItemAdd(
                     itemSelection.getItems()[guiSlot.id()].getDefaultInstance().copy(),

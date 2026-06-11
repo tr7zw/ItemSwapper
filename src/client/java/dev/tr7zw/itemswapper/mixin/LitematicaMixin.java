@@ -1,7 +1,6 @@
 package dev.tr7zw.itemswapper.mixin;
 
 import dev.tr7zw.itemswapper.config.*;
-import dev.tr7zw.transition.config.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -53,7 +52,7 @@ public class LitematicaMixin {
             if (world != null) {
                 BlockState state = world.getBlockState(pos);
                 ItemStack stack = MaterialCache.getInstance().getRequiredBuildItemForState(state, world, pos);
-                ItemSwapperSharedMod.instance.getItemManager().grabItem(stack.getItem(), false);
+                ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(stack.getItem(), false);
                 ci.setReturnValue(true);
                 ci.cancel();
             }

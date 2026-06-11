@@ -24,7 +24,7 @@ public record RequestAvailability(ItemListing itemListing) implements CustomPack
     }
 
     @Override
-    public CustomPacketPayloadSupport read(FriendlyByteBuf friendlyByteBuf) {
+    public RequestAvailability read(FriendlyByteBuf friendlyByteBuf) {
         return new RequestAvailability(friendlyByteBuf);
     }
 

@@ -88,5 +88,7 @@
     "text.itemswapper.showOpenInventoryButton": "Show Open Inventory Button",
     "text.itemswapper.showOpenInventoryButton.tooltip": "Show or hide the open inventory button in the UI.",
     "text.itemswapper.listsAsPalette": "Show Lists As Palette",
-    "text.itemswapper.listsAsPalette.tooltip": "Show item lists as a palette instead of a list view."
+    "text.itemswapper.listsAsPalette.tooltip": "Show item lists as a palette instead of a list view.",
+    "text.itemswapper.sortWithAllPalettes": "Sort with All Palettes",
+    "text.itemswapper.sortWithAllPalettes.tooltip": "When enabled, all linked palettes will be used for storing items away into containers. This will help group items like different logs together, but potentially also sort more unrelated items into the same containers."
 }

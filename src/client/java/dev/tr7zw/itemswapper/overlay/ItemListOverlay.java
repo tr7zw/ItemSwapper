@@ -12,8 +12,6 @@ import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
-import dev.tr7zw.itemswapper.packets.serverbound.*;
-import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.ComponentProvider;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
@@ -179,7 +177,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
-            itemManager.grabItem(slot);
+            itemManager.grabLocalItem(slot);
         }
         return false;
     }

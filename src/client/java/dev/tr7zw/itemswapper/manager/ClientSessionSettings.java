@@ -25,6 +25,8 @@ public class ClientSessionSettings {
         modDisabled = false;
         disabledByPlayer = false;
         bypassAccepted = false;
+        remoteItemInfo.clear();
+        lastReceivedItems.clear();
     }
 
     public void updateItemInfo(List<RemoteItem> items) {

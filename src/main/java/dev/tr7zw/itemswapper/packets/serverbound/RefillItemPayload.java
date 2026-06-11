@@ -27,7 +27,7 @@ public record RefillItemPayload(int slot) implements CustomPacketPayloadSupport 
     }
 
     @Override
-    public CustomPacketPayloadSupport read(FriendlyByteBuf friendlyByteBuf) {
+    public RefillItemPayload read(FriendlyByteBuf friendlyByteBuf) {
         return new RefillItemPayload(friendlyByteBuf);
     }
 

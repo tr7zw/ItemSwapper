@@ -144,6 +144,14 @@ public class ItemGroupManager {
         return list.get(0);
     }
 
+    public List<ItemGroup> getItemPages(Item item) {
+        List<ItemGroup> list = paletteMapping.get(item);
+        if (list == null) {
+            return Collections.emptyList();
+        }
+        return list;
+    }
+
     public void registerListCollection(ItemList items) {
         if (!items.isDisableAutoLink()) {
             for (Item i : items.getItems()) {

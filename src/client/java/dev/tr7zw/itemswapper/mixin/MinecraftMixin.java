@@ -168,7 +168,7 @@ public class MinecraftMixin {
         if (slotId != -1) {
             return;
         }
-        ItemSwapperSharedMod.instance.getItemManager().grabItem(stack.getItem(), false);
+        ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(stack.getItem(), false);
         ci.cancel();
     }
 

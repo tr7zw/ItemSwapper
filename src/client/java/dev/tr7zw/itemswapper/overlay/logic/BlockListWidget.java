@@ -11,7 +11,6 @@ import dev.tr7zw.itemswapper.manager.ItemGroupManager.TexturePage;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.transition.mc.InventoryUtil;
-import dev.tr7zw.itemswapper.util.ItemUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -70,7 +69,7 @@ public class BlockListWidget extends ItemGridWidget {
                         .setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
                 return false;
             }
-            boolean changed = ItemSwapperSharedMod.instance.getItemManager().grabItem(item, false);
+            boolean changed = ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(item, false);
             if (changed) {
                 ItemSwapperSharedMod.instance.setLastItem(item);
                 ItemSwapperSharedMod.instance

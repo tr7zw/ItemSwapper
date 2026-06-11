@@ -103,6 +103,9 @@ public class ConfigScreenProvider {
             options.add(getOnOffOption("text.itemswapper.listsAsPalette",
                     () -> configHolder.getGeneral().getConfig().listsAsPalette,
                     b -> configHolder.getGeneral().getConfig().listsAsPalette = b));
+            options.add(getOnOffOption("text.itemswapper.sortWithAllPalettes",
+                    () -> configHolder.getGeneral().getConfig().sortWithAllPalettes,
+                    b -> configHolder.getGeneral().getConfig().sortWithAllPalettes = b));
 
             options.add(getSplitLine("text.itemswapper.category.misc"));
             options.add(

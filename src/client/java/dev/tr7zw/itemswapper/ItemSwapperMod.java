@@ -70,6 +70,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             handle.registerServerCustomPacket(RequestAvailability.INSTANCE);
             handle.registerServerCustomPacket(EmptySlotPayload.INSTANCE);
             handle.registerServerCustomPacket(SwitchToItemPayload.INSTANCE);
+            handle.registerServerCustomPacket(RequestAnyItemPayload.INSTANCE);
             // Client packets
             handle.registerClientCustomPacket(ShulkerSupportPayload.INSTANCE, payload -> {
                 ItemSwapperSharedMod.instance.getSessionSettings().setEnableShulkers(payload.enabled());
