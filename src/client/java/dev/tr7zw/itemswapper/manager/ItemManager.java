@@ -76,6 +76,17 @@ public class ItemManager {
         return new EmptySlotPayload(slot, ItemListing.of(items));
     }
 
+    public void processRestock() {
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(Minecraft.getInstance().player.getInventory());
+        for (int i = 0; i < items.size(); i++) {
+            ItemStack item = items.get(i);
+            int space = item.getMaxStackSize() - item.count();
+            if (space > 0) {
+                ClientNetworkUtil.sendPacket(new RefillItemPayload(i));
+            }
+        }
+    }
+
     public Component getDisplayname(ItemStack item) {
         if (dev.tr7zw.transition.mc.ItemUtil.hasCustomName(item)) {
             return item.getHoverName().copy();

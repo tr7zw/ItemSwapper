@@ -32,7 +32,7 @@ public abstract class ItemSwapperSharedMod extends ItemSwapperBase {
     private final ConfigManager<CacheServerAddresses> serverCache = ConfigHolder.getInstance().getServerCache();
     @Getter
     protected final ClientUiManager clientUiManager = new ClientUiManager(itemGroupManager, configManager,
-            sessionSettings, serverCache);
+            sessionSettings, serverCache, itemManager);
 
     private boolean lateInitCompleted = false;
 

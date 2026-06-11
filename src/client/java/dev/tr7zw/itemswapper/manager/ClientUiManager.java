@@ -28,9 +28,12 @@ public class ClientUiManager {
     private final ConfigManager<Config> configManager;
     private final ClientSessionSettings sessionSettings;
     private final ConfigManager<CacheServerAddresses> serverCache;
+    private final ItemManager itemManager;
 
     @Getter
     protected KeyMapping keybind = GeneralUtil.createKeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
+            "itemswapper");
+    private KeyMapping keybindRestock = GeneralUtil.createKeyMapping("key.itemswapper.restock", -1,
             "itemswapper");
     @Getter
     protected KeyMapping openInventoryKeybind = GeneralUtil.createKeyMapping("key.itemswapper.openInventory",
@@ -41,6 +44,9 @@ public class ClientUiManager {
     public void initModloader() {
         ModLoaderUtil.registerKeybind(keybind);
         ModLoaderUtil.registerKeybind(openInventoryKeybind);
+        ModLoaderUtil.createBasicKeybind(keybindRestock, () -> {
+            itemManager.processRestock();
+        });
     }
 
     public void clientTick() {
