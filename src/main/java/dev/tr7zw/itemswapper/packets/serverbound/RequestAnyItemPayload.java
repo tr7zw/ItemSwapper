@@ -8,7 +8,8 @@ import net.minecraft.network.*;
 import net.minecraft.resources.*;
 import net.minecraft.world.item.*;
 
-public record RequestAnyItemPayload(Item item, EmptySlotPayload emptySlotPayload) implements CustomPacketPayloadSupport {
+public record RequestAnyItemPayload(Item item, EmptySlotPayload emptySlotPayload)
+        implements CustomPacketPayloadSupport {
 
     public static final RequestAnyItemPayload INSTANCE = new RequestAnyItemPayload(Items.AIR, null);
     public static final Identifier ID = McId.create(ItemSwapperBase.MODID, "request_any_item").id();

@@ -159,7 +159,8 @@ public class ServerItemHandler {
             return;
         }
         var inv = InventoryUtil.getInventory(player);
-        if (!InventoryUtil.getSelected(inv).isEmpty() && !storeAwayItem(player, InventoryUtil.getSelectedId(inv), payload.emptySlotPayload().itemListing().asItemSet())) {
+        if (!InventoryUtil.getSelected(inv).isEmpty() && !storeAwayItem(player, InventoryUtil.getSelectedId(inv),
+                payload.emptySlotPayload().itemListing().asItemSet())) {
             // Slot needs to be empty
             return;
         }

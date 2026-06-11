@@ -11,7 +11,7 @@ import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.itemswapper.packets.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.transition.loader.networking.*;
-import dev.tr7zw.transition.mc.InventoryUtil;
+import dev.tr7zw.transition.mc.*;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
@@ -123,11 +123,12 @@ public class PaletteWidget extends ItemGridWidget {
             for (AvailableSlot slot : slots) {
                 if (slot.remoteItem() != null) {
                     if (!minecraft.player.getMainHandItem().isEmpty()) {
-                        ItemSwapperSharedMod.instance.getItemManager()
-                                .sendEmptySlotPayload(minecraft.player.getInventory().getSelectedSlot());
+                        ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(
+                                InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));
                     }
                     ClientNetworkUtil.sendPacket(new SwitchToItemPayload(
-                            InventoryUtil.getSelectedId(minecraft.player.getInventory()), slot.remoteItem()));
+                            InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())),
+                            slot.remoteItem()));
                     return false;
                 }
             }

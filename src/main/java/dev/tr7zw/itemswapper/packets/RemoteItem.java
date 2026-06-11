@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.packets;
 
 import com.mojang.brigadier.exceptions.*;
+import dev.tr7zw.transition.mc.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
 import net.minecraft.world.item.*;
@@ -14,7 +15,7 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
     public void write(FriendlyByteBuf paramFriendlyByteBuf) {
         paramFriendlyByteBuf.writeByte(VERSION);
         paramFriendlyByteBuf.writeUtf(providerId);
-        paramFriendlyByteBuf.writeUtf(ItemStack.CODEC.encodeStart(NbtOps.INSTANCE, itemStack).getOrThrow().toString());
+        paramFriendlyByteBuf.writeUtf(ItemUtil.encodeItemStack(itemStack));
         paramFriendlyByteBuf.writeInt(slot);
         paramFriendlyByteBuf.writeInt(id);
         paramFriendlyByteBuf.writeInt(count);
@@ -25,8 +26,8 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         if (version != VERSION) {
             throw new RuntimeException("Unsupported version: " + version);
         }
-        return new RemoteItem(buffer.readUtf(), decodeItemStack(buffer.readUtf()), buffer.readInt(), buffer.readInt(),
-                buffer.readInt());
+        return new RemoteItem(buffer.readUtf(), ItemUtil.decodeItemStack(buffer.readUtf()), buffer.readInt(),
+                buffer.readInt(), buffer.readInt());
     }
 
     public static List<RemoteItem> parseList(FriendlyByteBuf buffer) {
@@ -42,15 +43,6 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         buffer.writeInt(items.size());
         for (RemoteItem item : items) {
             item.write(buffer);
-        }
-    }
-
-    private static ItemStack decodeItemStack(String nbtString) {
-        try {
-            return ItemStack.CODEC.decode(NbtOps.INSTANCE, TagParser.parseCompoundFully(nbtString)).getOrThrow()
-                    .getFirst();
-        } catch (CommandSyntaxException e) {
-            throw new RuntimeException(e);
         }
     }
 

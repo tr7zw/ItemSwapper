@@ -34,7 +34,8 @@ public class ItemManager {
             }
             return grabLocalItem(slot);
         }
-        ClientNetworkUtil.sendPacket(new RequestAnyItemPayload(item, createEmptySlotPayload(InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())))));
+        ClientNetworkUtil.sendPacket(new RequestAnyItemPayload(item, createEmptySlotPayload(
+                InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())))));
         return false;
     }
 
@@ -65,7 +66,8 @@ public class ItemManager {
             List<ItemGroup> groups = itemGroupManager.getItemPages(item.getItem());
             if (ConfigHolder.getInstance().getGeneral().getConfig().sortWithAllPalettes) {
                 for (ItemGroup group : groups) {
-                    items.addAll(Arrays.asList(group.items()).stream().map(ItemEntry::getItem).filter(i -> !items.contains(i)).toList());
+                    items.addAll(Arrays.asList(group.items()).stream().map(ItemEntry::getItem)
+                            .filter(i -> !items.contains(i)).toList());
                 }
             } else {
                 items.addAll(Arrays.asList(groups.get(0).items()).stream().map(ItemEntry::getItem).toList());
