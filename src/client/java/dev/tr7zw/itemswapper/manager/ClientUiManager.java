@@ -35,6 +35,8 @@ public class ClientUiManager {
             "itemswapper");
     private KeyMapping keybindRestock = GeneralUtil.createKeyMapping("key.itemswapper.restock", -1,
             "itemswapper");
+    private KeyMapping keybindStoreAway = GeneralUtil.createKeyMapping("key.itemswapper.storeaway", -1,
+            "itemswapper");
     @Getter
     protected KeyMapping openInventoryKeybind = GeneralUtil.createKeyMapping("key.itemswapper.openInventory",
             InputConstants.UNKNOWN.getValue(), "itemswapper");
@@ -46,6 +48,10 @@ public class ClientUiManager {
         ModLoaderUtil.registerKeybind(openInventoryKeybind);
         ModLoaderUtil.createBasicKeybind(keybindRestock, () -> {
             itemManager.processRestock();
+        });
+        ModLoaderUtil.createBasicKeybind(keybindStoreAway, () -> {
+            ItemSwapperSharedMod.instance.getItemManager()
+                    .sendEmptySlotPayload(InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));
         });
     }
 
