@@ -57,8 +57,8 @@ public class LitematicaSupport implements ISchematicPickBlockEventListener {
     }
 
     @Override
-    public SchematicPickBlockEventResult onSchematicPickBlockPrePick(Level level, BlockPos blockPos,
-            BlockState blockState, ItemStack itemStack) {
+    public SchematicPickBlockEventResult onSchematicPickBlockPrePick(Level world, BlockPos pos, BlockState blockState,
+            ItemStack itemStack) {
         if (ConfigHolder.getInstance().getGeneral().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
             ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
                     .getList(GeneralUtil.getPlayer().getMainHandItem().getItem());
@@ -77,16 +77,9 @@ public class LitematicaSupport implements ISchematicPickBlockEventListener {
         }
         // pickblock from shulker
 
-        BlockPos pos;
-        pos = RayTraceUtils.getSchematicWorldTraceIfClosest(GeneralUtil.getWorld(), GeneralUtil.getPlayer(), 6);
-        if (pos != null) {
-            Level world = SchematicWorldHandler.getSchematicWorld();
-            if (world != null) {
-                BlockState state = world.getBlockState(pos);
-                ItemStack stack = MaterialCache.getInstance().getRequiredBuildItemForState(state, world, pos);
-                ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(stack.getItem(), false);
-                return SchematicPickBlockEventResult.CANCEL;
-            }
+        if (pos != null && world != null) {
+            ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(itemStack.getItem(), false);
+            return SchematicPickBlockEventResult.CANCEL;
         }
         return SchematicPickBlockEventResult.SUCCESS;
     }
