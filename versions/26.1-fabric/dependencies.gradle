@@ -3,5 +3,5 @@ dependencies {
     compileOnlyApi 'maven.modrinth:midnightcontrols:AaupPdUl'
     compileOnly 'maven.modrinth:midnightlib:1.8.3+1.21.9-fabric'
     compileOnly 'org.aperlambda:lambdajcommon:1.8.1'
-    compileOnly 'maven.modrinth:litematica:0.27.1'
+    compileOnly 'maven.modrinth:litematica:0.27.7'
 }

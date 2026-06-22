@@ -1,0 +1,7 @@
+dependencies {
+    compileOnlyApi 'maven.modrinth:controlify:3.0.2'
+    compileOnlyApi 'maven.modrinth:midnightcontrols:1.12.1+26.1-fabric'
+    compileOnly 'maven.modrinth:midnightlib:1.9.3+26.2-fabric'
+    compileOnly 'org.aperlambda:lambdajcommon:1.8.1'
+    compileOnly 'maven.modrinth:litematica:0.28.1'
+}

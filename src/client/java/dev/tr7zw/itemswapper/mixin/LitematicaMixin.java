@@ -1,5 +1,10 @@
 package dev.tr7zw.itemswapper.mixin;
 
+import net.minecraft.client.*;
+import org.spongepowered.asm.mixin.*;
+
+//? if < 1.21 {
+/*
 import dev.tr7zw.itemswapper.config.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -60,3 +65,10 @@ public class LitematicaMixin {
     }
 
 }
+*///? } else {
+   // dummy mixin
+@Mixin(Minecraft.class)
+public class LitematicaMixin {
+
+}
+//? }

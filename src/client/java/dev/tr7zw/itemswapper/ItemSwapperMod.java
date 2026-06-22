@@ -62,6 +62,13 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             AmecsAPISupport.getInstance().init();
         });
 
+        //? if >= 1.21 {
+        FabricLoader.getInstance().getModContainer("litematica").ifPresent(mod -> {
+            ItemSwapperBase.LOGGER.info("Adding Litematica support!");
+            LitematicaSupport.init();
+        });
+        //? }
+
         SwapperResourceLoader.ResourceLoaderInit.init();
 
         ClientNetworkUtil.registerPackets(handle -> {
