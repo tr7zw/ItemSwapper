@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.function.Supplier;
 
+import net.fabricmc.api.*;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
@@ -17,7 +18,8 @@ public class ItemSwapperMixinPlugin implements IMixinConfigPlugin {
     private static final Supplier<Boolean> TRUE = () -> true;
 
     private static final Map<String, Supplier<Boolean>> CONDITIONS = ImmutableMap.of(
-            "dev.tr7zw.itemswapper.mixin.LitematicaMixin", () -> FabricLoader.getInstance().isModLoaded("litematica"));
+            "dev.tr7zw.itemswapper.mixin.LitematicaMixin", () -> FabricLoader.getInstance().isModLoaded("litematica")
+                    && FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT);
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {

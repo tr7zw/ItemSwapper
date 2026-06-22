@@ -1,0 +1,204 @@
+package dev.tr7zw.itemswapper.util;
+
+import java.util.List;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import dev.tr7zw.itemswapper.*;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.ItemIcon;
+import dev.tr7zw.itemswapper.manager.itemgroups.Icon.LinkIcon;
+import dev.tr7zw.trender.gui.client.RenderContext;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.util.FormattedCharSequence;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+
+public final class RenderHelper {
+
+    private static final Minecraft minecraft = Minecraft.getInstance();
+    private final static Integer[] colorValues = new Integer[] { 0, 170, 43520, 43690, 11141120, 11141290, 16755200,
+            11184810, 5592405, 5592575, 5635925, 5636095, 16733525, 16733695, 16777045, 16777215, null, null, null,
+            null, null, null };
+
+    //? if >= 1.20.0 {
+
+    public static final int LAYERS_BACKGROUND = 0;
+    public static final int LAYERS_SELECTION = 300;
+    public static final int LAYERS_ITEM = 2000;
+    public static final int LAYERS_TOOLTIP = 3000;
+    public static final int LAYERS_CURSOR = 4000;
+    //? } else {
+    /*
+    public static final int LAYERS_BACKGROUND = 0;
+    public static final int LAYERS_SELECTION = 1;
+    public static final int LAYERS_ITEM = 2;
+    public static final int LAYERS_TOOLTIP = 400;
+    public static final int LAYERS_CURSOR = 450;
+    *///? }
+
+    private RenderHelper() {
+        // private
+    }
+
+    public static void renderUnavailableItem(RenderContext graphics, LivingEntity livingEntity, ItemStack itemStack,
+            int i, int j, int k, SlotEffect effect) {
+        if (itemStack.isEmpty())
+            return;
+        // Unused??
+        //float blitOffset = 0;
+        //BakedModel bakedModel = minecraft.getItemRenderer().getModel(itemStack, null, livingEntity, k);
+        //blitOffset = bakedModel.isGui3d() ? (blitOffset + 50.0F) : (blitOffset + 50.0F);
+        int l = i;
+        int m = j;
+        int color = 0;
+        if (effect != SlotEffect.NONE) {
+            color = effect.color;
+        }
+        // these values need to be fixed when the texture size gets fixed.
+        graphics.fill(l - 1, m - 1, l + 17, m + 17, color);
+        graphics.renderFakeItem(itemStack, l, m);
+        if (k == 0)
+            graphics.renderItemDecorations(minecraft.font, itemStack, l, m);
+        //blitOffset = bakedModel.isGui3d() ? (blitOffset - 50.0F) : (blitOffset - 50.0F);
+    }
+
+    public static void renderGuiItemCount(Font font, String text, int i, int j, int color, RenderContext graphics) {
+        renderGuiItemText(font, text, (i + 19 - 2 - font.width(text)), (j + 6 + 3), color, graphics);
+    }
+
+    public static void renderGuiItemName(Font font, String text, int i, int j, int color, RenderContext graphics) {
+        renderGuiItemText(font, text, (i - font.width(text) / 2), j, color, graphics);
+    }
+
+    public static void renderGuiItemName(Font font, List<FormattedCharSequence> text, int x, int y, int color,
+            RenderContext graphics) {
+        renderGuiItemText(font, text, x, y, color, graphics);
+    }
+
+    public static void renderGuiItemText(Font font, List<FormattedCharSequence> text, int x, int y, int color,
+            RenderContext graphics) {
+        PoseStack poseStack = new PoseStack();
+        for (int line = 0; line < text.size(); line++) {
+            poseStack.translate(0.0D, 0.0D, LAYERS_TOOLTIP);
+            graphics.drawString(font, text.get(line), (x - font.width(text.get(line)) / 2),
+                    y - (font.lineHeight * (text.size() - line)), color, true);
+        }
+    }
+
+    public static void renderGuiItemText(Font font, String text, int i, int j, int color, RenderContext graphics) {
+        graphics.drawString(font, text, i, j, color, true);
+    }
+
+    public enum SlotEffect {
+        NONE(0), RED(822018048), GRAY(-1879048192), YELLOW(687865610);
+
+        public int color;
+
+        SlotEffect(int color) {
+            this.color = color;
+        }
+    }
+
+    public static void renderSlot(RenderContext graphics, int x, int y, Player arg, ItemStack arg2, int k,
+            SlotEffect effect, int count) {
+        if (!arg2.isEmpty()) {
+            //? if < 1.21.6 {
+
+            /*graphics.getPose().pushPose();
+            graphics.getPose().translate(0, 0, 200);
+            *///? }
+            ItemStack copy = arg2.copy();
+            copy.setCount(1);
+            if (effect != SlotEffect.NONE) {
+                RenderHelper.renderUnavailableItem(graphics, arg, copy, x, y, k, effect);
+                //? if < 1.21.6 {
+
+                /*graphics.getPose().popPose();
+                *///? }
+                return;
+            }
+            graphics.renderItem(arg, copy, x, y, k);
+            //? if >= 1.21.5 {
+
+            //? } else if >= 1.21.2 {
+
+            /*com.mojang.blaze3d.systems.RenderSystem.setShader(net.minecraft.client.renderer.CoreShaders.POSITION_COLOR);
+            *///? } else {
+
+            /*com.mojang.blaze3d.systems.RenderSystem
+                    .setShader(net.minecraft.client.renderer.GameRenderer::getPositionColorShader);
+            *///? }
+            graphics.renderItemDecorations(minecraft.font, copy, x, y);
+            int color = count > 64 ? 0xFFFFFF00 : 0xFFFFFFFF;
+            if (count > 1)
+                RenderHelper.renderGuiItemCount(minecraft.font, "" + Math.min(64, count), x, y, color, graphics);
+            //? if < 1.21.6 {
+
+            /*graphics.getPose().popPose();
+            *///? }
+        }
+    }
+
+    public static Component getName(ItemIcon entry) {
+        if (entry == null) {
+            return null;
+        }
+        if (entry.nameOverwrite() != null) {
+            return entry.nameOverwrite();
+        }
+        return entry.item().getHoverName();
+    }
+
+    public static Component getName(LinkIcon entry) {
+        if (entry == null) {
+            return null;
+        }
+        if (entry.nameOverwrite() != null) {
+            return entry.nameOverwrite();
+        }
+        return entry.item().getHoverName();
+    }
+
+    public static void renderSelectedItemName(Component comp, ItemStack arg2, boolean grayOut, int offsetY,
+            int maxWidth, RenderContext graphics) {
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
+        TextColor textColor = arg2.getHoverName().getStyle().getColor();
+        //? if <= 1.20.4 {
+
+        /*ChatFormatting rarityColor = arg2.getRarity().color;
+        *///? } else {
+
+        ChatFormatting rarityColor = arg2.getRarity().color();
+        //? }
+        int color = 0xFFFFFF;
+        if (grayOut) {
+            color = 0xAAAAAA;
+        } else if (textColor != null) {
+            color = textColor.getValue();
+        } else if (rarityColor != null && colorValues[rarityColor.ordinal()] != null) {
+            color = colorValues[rarityColor.ordinal()];
+        }
+        color |= 0xFF000000;
+        RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
+                originY - (offsetY / 2) - 12, color, graphics);
+    }
+
+    public static void renderSelectedEntryName(Component comp, boolean grayOut, int offsetY, int maxWidth,
+            RenderContext graphics) {
+        int originX = minecraft.getWindow().getGuiScaledWidth() / 2;
+        int originY = minecraft.getWindow().getGuiScaledHeight() / 2;
+        int color = 0xFFFFFF;
+        if (grayOut) {
+            color = 0xAAAAAA;
+        }
+        RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,
+                originY - (offsetY / 2) - 12, color, graphics);
+    }
+
+}

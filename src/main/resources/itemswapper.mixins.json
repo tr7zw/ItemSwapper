@@ -8,9 +8,7 @@
         "PlayerListMixin"
     ],
     "client": [
-        "AbstractContainerScreenMixin",
         "ClientLevelMixin",
-        "ContainerScreenMixin",
         "InstrumentItemMixin",
         "KeyboardHandlerMixin",
         "KeyMappingMixin",

@@ -1,0 +1,179 @@
+package dev.tr7zw.itemswapper.mixin;
+
+import dev.tr7zw.itemswapper.*;
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.mc.*;
+import net.minecraft.client.*;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.*;
+import net.minecraft.client.server.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.*;
+import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.injection.*;
+import org.spongepowered.asm.mixin.injection.callback.*;
+
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
+import dev.tr7zw.itemswapper.config.PickBlockMode;
+import dev.tr7zw.itemswapper.manager.SwapperResourceLoader;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
+
+import net.minecraft.server.packs.resources.ReloadableResourceManager;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.phys.HitResult.Type;
+
+@Mixin(Minecraft.class)
+public class MinecraftMixin {
+
+    @Shadow
+    public LocalPlayer player;
+
+    @Shadow
+    public ClientLevel level;
+
+    @Shadow
+    public HitResult hitResult;
+
+    @Redirect(method = "runTick", at = @At(target = "Lnet/minecraft/client/server/IntegratedServer;isPublished()Z", value = "INVOKE", ordinal = 0))
+    private boolean dontPauseSingleplayer(IntegratedServer server, boolean bl) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
+            return true;
+        }
+        return server.isPublished();
+    }
+
+    //? if >= 26.1 {
+
+    @Inject(method = "pickBlockOrEntity", at = @At("HEAD"), cancellable = true)
+    //? } else {
+
+    /*@Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
+    *///? }
+    private void pickBlock(CallbackInfo ci) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
+            ci.cancel();
+        }
+    }
+
+    @Inject(method = "startUseItem", at = @At("HEAD"), cancellable = true)
+    private void startUseItem(CallbackInfo ci) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
+            ci.cancel();
+        }
+    }
+
+    //? if >= 1.21.4 {
+
+    @Unique
+    private ItemStack getHitResultStack(HitResult hitResult, boolean ctrl) {
+        if (hitResult == null)
+            return ItemStack.EMPTY;
+        return switch (hitResult.getType()) {
+        case BLOCK -> {
+            BlockPos pos = ((BlockHitResult) hitResult).getBlockPos();
+            BlockState blockState = this.level.getBlockState(pos);
+            if (blockState.isAir()) {
+                yield ItemStack.EMPTY;
+            }
+            ItemStack itemStack = blockState.getCloneItemStack(this.level, pos, ctrl);
+            if (itemStack.isEmpty()) {
+                yield ItemStack.EMPTY;
+            }
+            //TODO: Was this ever needed?
+            //            BlockEntity blockEntity = blockState.hasBlockEntity() ? level.getBlockEntity(pos) : null;
+            //            if (blockEntity != null) {
+            //                CompoundTag compoundTag = blockEntity.saveCustomOnly(level.registryAccess());
+            //                blockEntity.removeComponentsFromTag(compoundTag); // Deprecated might go bye bye soon
+            //                BlockItem.setBlockEntityData(itemStack, blockEntity.getType(), compoundTag);
+            //                itemStack.applyComponents(blockEntity.collectComponents());
+            //            }
+            yield itemStack;
+        }
+        case ENTITY -> {
+            Entity entity = ((EntityHitResult) hitResult).getEntity();
+            ItemStack itemStack = entity.getPickResult();
+            yield itemStack == null ? ItemStack.EMPTY : itemStack;
+        }
+        default -> ItemStack.EMPTY;
+        };
+    }
+
+    //? if >= 26.1 {
+
+    @Inject(method = "pickBlockOrEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    //? } else if >= 1.21.10 {
+
+    /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    *///? } else {
+
+    /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/screens/Screen;hasControlDown()Z", shift = At.Shift.AFTER), cancellable = true)
+    *///? }
+    private void pickBlockShulkerSupport(CallbackInfo ci) {
+        boolean creative = player.getAbilities().instabuild;
+        //? if >= 1.21.10 {
+
+        boolean controlDown = this.hasControlDown();
+        //? } else {
+
+        /*boolean controlDown = Screen.hasControlDown();
+        *///? }
+        ItemStack stack = getHitResultStack(this.hitResult, controlDown);
+        //? } else {
+
+        /*@Inject(method = "pickBlock", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Inventory;findSlotMatchingItem(Lnet/minecraft/world/item/ItemStack;)I", shift = At.Shift.AFTER), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
+        private void pickBlockShulkerSupport(CallbackInfo ci, boolean creative, BlockEntity blockEntity, ItemStack stack,
+            Type type) {
+        *///? }
+        if (creative) {
+            return;
+        }
+        if (ConfigHolder.getInstance().getGeneral().getConfig().pickblockOnToolsWeapons != PickBlockMode.ALLOW) {
+            ItemList list = ItemSwapperSharedMod.instance.getItemGroupManager()
+                    .getList(player.getMainHandItem().getItem());
+
+            if (list != null && (list.getId().equals(getResourceLocation("itemswapper", "v2/weapons"))
+                    || list.getId().equals(getResourceLocation("itemswapper", "v2/tools")))) {
+                if (ConfigHolder.getInstance().getGeneral()
+                        .getConfig().pickblockOnToolsWeapons == PickBlockMode.PREVENT_ON_TOOL) {
+                    // skip vanilla logic
+                    ci.cancel();
+                }
+                // else it's VANILLA_ON_TOOL, so just do that
+                return;
+            }
+        }
+        int slotId = player.getInventory().findSlotMatchingItem(stack);
+        if (slotId != -1) {
+            return;
+        }
+        ItemSwapperSharedMod.instance.getItemManager().grabLocalItem(stack.getItem(), false);
+        ci.cancel();
+    }
+
+    //? if >= 1.21.10 {
+
+    @Shadow
+    public boolean hasControlDown() {
+        return false;
+    }
+    //? }
+
+}

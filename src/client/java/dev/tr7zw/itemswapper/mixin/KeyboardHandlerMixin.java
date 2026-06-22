@@ -1,0 +1,84 @@
+package dev.tr7zw.itemswapper.mixin;
+
+import dev.tr7zw.itemswapper.config.*;
+import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.mc.*;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
+
+import com.mojang.blaze3d.platform.InputConstants;
+
+import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
+import dev.tr7zw.itemswapper.ItemSwapperUI;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.KeyboardHandler;
+import net.minecraft.client.Minecraft;
+
+@Mixin(KeyboardHandler.class)
+public class KeyboardHandlerMixin {
+
+    @Shadow
+    @Final
+    private Minecraft minecraft;
+
+    private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
+
+    @Inject(method = "keyPress", at = @At("TAIL"), locals = LocalCapture.CAPTURE_FAILHARD)
+    //? if >= 1.21.10 {
+
+    private void keyPress(long l, int i, net.minecraft.client.input.KeyEvent keyEvent, CallbackInfo ci) {
+        InputConstants.Key key = InputConstants.getKey(keyEvent);
+        //? } else {
+
+        /*public void keyPress(long l, int i, int j, int k, int m, CallbackInfo ci) {
+        InputConstants.Key key = InputConstants.getKey(i, j);
+        *///? }
+           // restore movement, simulate "passEvents"
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
+            //? if >= 1.21.10 {
+
+            if (!configManager.getConfig().allowWalkingWithUI
+                    && !(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind().matches(keyEvent)
+                            || ItemSwapperSharedMod.instance.getClientUiManager().getOpenInventoryKeybind()
+                                    .matches(keyEvent))) {
+                return;
+            }
+            //? } else {
+
+            /*if (!configManager.getConfig().allowWalkingWithUI
+                    && !(ItemSwapperSharedMod.instance.getClientUiManager().getKeybind().matches(i, j)
+                            || ItemSwapperSharedMod.instance.getClientUiManager().getOpenInventoryKeybind().matches(i, j))) {
+                return;
+            }
+            *///? }
+               //? if < 1.21.10 {
+
+            /*if (k == 0) {
+                KeyMapping.set(key, false);
+            } else {
+                *///? }
+            boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow()
+            //? if < 1.21.10 {
+
+            /*.getWindow()
+            *///? }
+                    , 292);
+            if (bl2) {
+                KeyMapping.set(key, false);
+            } else {
+                KeyMapping.set(key, true);
+                KeyMapping.click(key);
+            }
+            //? if < 1.21.10 {
+
+            /*}
+            *///? }
+        }
+    }
+
+}

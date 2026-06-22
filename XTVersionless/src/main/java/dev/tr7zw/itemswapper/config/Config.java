@@ -25,5 +25,6 @@ public class Config {
     public boolean rememberPalette = false;
     public boolean showOpenInventoryButton = true;
     public boolean listsAsPalette = false;
+    public boolean sortWithAllPalettes = false;
 
 }

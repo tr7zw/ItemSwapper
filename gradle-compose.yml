@@ -15,6 +15,7 @@ replacements:
   curseforgeid: 694358
   versionlessname: "XTVersionless"
 enabledFlags:
+  - splitEnv
   - autopublish
   - publishFabric
   - modrinth
