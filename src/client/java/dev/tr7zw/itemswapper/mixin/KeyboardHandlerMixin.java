@@ -2,6 +2,7 @@ package dev.tr7zw.itemswapper.mixin;
 
 import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.mc.*;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -38,7 +39,7 @@ public class KeyboardHandlerMixin {
         InputConstants.Key key = InputConstants.getKey(i, j);
         *///? }
            // restore movement, simulate "passEvents"
-        if (this.minecraft.screen instanceof ItemSwapperUI) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
             //? if >= 1.21.10 {
 
             if (!configManager.getConfig().allowWalkingWithUI

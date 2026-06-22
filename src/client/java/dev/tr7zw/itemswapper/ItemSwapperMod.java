@@ -7,6 +7,7 @@ import dev.tr7zw.itemswapper.packets.clientbound.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.server.*;
 import dev.tr7zw.transition.loader.networking.*;
+import dev.tr7zw.transition.mc.*;
 import net.fabricmc.api.*;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.*;
 import net.fabricmc.fabric.api.resource.*;
@@ -83,7 +84,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             });
             handle.registerClientCustomPacket(ItemAvailability.INSTANCE, payload -> {
                 ItemSwapperSharedMod.instance.getSessionSettings().updateItemInfo(payload.items());
-                if (Minecraft.getInstance().screen instanceof SwitchItemOverlay overlay) {
+                if (GeneralUtil.getScreen() instanceof SwitchItemOverlay overlay) {
                     overlay.processRemoteUpdate();
                 }
             });

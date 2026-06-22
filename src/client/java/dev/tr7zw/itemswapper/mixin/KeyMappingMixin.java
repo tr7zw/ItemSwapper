@@ -4,6 +4,7 @@ import java.util.Map;
 
 import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.mc.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +25,7 @@ public class KeyMappingMixin {
 
     @Inject(method = "releaseAll", at = @At("HEAD"), cancellable = true)
     private static void releaseAll(CallbackInfo ci) {
-        if (Minecraft.getInstance().screen instanceof ItemSwapperUI) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
             if (!configManager.getConfig().allowWalkingWithUI) {
                 // stop walking now
                 for (KeyMapping keyMapping : ALL.values())

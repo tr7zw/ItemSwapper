@@ -21,6 +21,9 @@ import net.minecraft.world.item.ItemStack;
 public final class RenderHelper {
 
     private static final Minecraft minecraft = Minecraft.getInstance();
+    private final static Integer[] colorValues = new Integer[] { 0, 170, 43520, 43690, 11141120, 11141290, 16755200,
+            11184810, 5592405, 5592575, 5635925, 5636095, 16733525, 16733695, 16777045, 16777215, null, null, null,
+            null, null, null };
 
     //? if >= 1.20.0 {
 
@@ -178,8 +181,8 @@ public final class RenderHelper {
             color = 0xAAAAAA;
         } else if (textColor != null) {
             color = textColor.getValue();
-        } else if (rarityColor != null && rarityColor.getColor() != null) {
-            color = rarityColor.getColor();
+        } else if (rarityColor != null && colorValues[rarityColor.ordinal()] != null) {
+            color = colorValues[rarityColor.ordinal()];
         }
         color |= 0xFF000000;
         RenderHelper.renderGuiItemName(minecraft.font, minecraft.font.split(comp, maxWidth), originX,

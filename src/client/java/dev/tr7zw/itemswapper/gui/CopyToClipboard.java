@@ -6,6 +6,7 @@ import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 import java.util.Arrays;
 import java.util.List;
 
+import dev.tr7zw.transition.mc.*;
 import org.jetbrains.annotations.NotNull;
 
 import com.google.gson.Gson;
@@ -13,7 +14,6 @@ import com.google.gson.GsonBuilder;
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import dev.tr7zw.itemswapper.ItemSwapperBase;
-import dev.tr7zw.transition.mc.ComponentProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.CommonComponents;
@@ -119,7 +119,7 @@ public class CopyToClipboard extends LegacyTexturedButtonWidget {
     }
 
     public void renderToolTip(@NotNull RenderContext renderContext, int i, int j) {
-        if (this.isHovered && Minecraft.getInstance().screen != null) {
+        if (this.isHovered && GeneralUtil.getScreen() != null) {
             renderContext.renderTooltip(Minecraft.getInstance().font,
                     ComponentProvider.translatable("text.itemswapper.button.copyToClipboard.tooltip"), i, j);
         }

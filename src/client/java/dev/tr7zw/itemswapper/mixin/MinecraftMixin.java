@@ -3,6 +3,7 @@ package dev.tr7zw.itemswapper.mixin;
 import dev.tr7zw.itemswapper.*;
 import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.mc.*;
 import net.minecraft.client.*;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.*;
@@ -43,8 +44,6 @@ import net.minecraft.world.phys.HitResult.Type;
 public class MinecraftMixin {
 
     @Shadow
-    public Screen screen;
-    @Shadow
     public LocalPlayer player;
 
     @Shadow
@@ -55,10 +54,7 @@ public class MinecraftMixin {
 
     @Redirect(method = "runTick", at = @At(target = "Lnet/minecraft/client/server/IntegratedServer;isPublished()Z", value = "INVOKE", ordinal = 0))
     private boolean dontPauseSingleplayer(IntegratedServer server, boolean bl) {
-        if (Minecraft.getInstance().getOverlay() instanceof ItemSwapperUI) {
-            return true;
-        }
-        if (screen instanceof ItemSwapperUI) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
             return true;
         }
         return server.isPublished();
@@ -72,14 +68,14 @@ public class MinecraftMixin {
     /*@Inject(method = "pickBlock", at = @At("HEAD"), cancellable = true)
     *///? }
     private void pickBlock(CallbackInfo ci) {
-        if (screen instanceof ItemSwapperUI) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
             ci.cancel();
         }
     }
 
     @Inject(method = "startUseItem", at = @At("HEAD"), cancellable = true)
     private void startUseItem(CallbackInfo ci) {
-        if (screen instanceof ItemSwapperUI) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI) {
             ci.cancel();
         }
     }

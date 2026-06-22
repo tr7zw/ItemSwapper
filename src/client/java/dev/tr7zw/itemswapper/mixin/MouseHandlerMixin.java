@@ -2,6 +2,8 @@ package dev.tr7zw.itemswapper.mixin;
 
 import dev.tr7zw.itemswapper.config.*;
 import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.mc.*;
+import net.minecraft.client.gui.*;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -35,11 +37,7 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
 
     @Inject(method = "turnPlayer", at = @At("HEAD"), cancellable = true)
     public void turnPlayer(CallbackInfo ci) {
-        if (this.minecraft.getOverlay() instanceof ItemSwapperUI over && over.lockMouse()) {
-            mouseHandler(over);
-            ci.cancel();
-        }
-        if (this.minecraft.screen instanceof ItemSwapperUI over && over.lockMouse()) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI over && over.lockMouse()) {
             mouseHandler(over);
             ci.cancel();
         }
@@ -73,13 +71,26 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
         }
     }
 
+    //? if >= 26.2 {
+
+    @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
+    //? } else {
+    /*
     @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
-    public void grabMouse(Minecraft mc, Screen screen) {
-        if (this.minecraft.screen instanceof ItemSwapperUI && screen == null
+    *///? }
+    public void grabMouse(
+            //? if >= 26.2 {
+            Gui gui,
+            //? } else {
+            /*
+            Minecraft mc,
+            *///? }
+            Screen screen) {
+        if (GeneralUtil.getScreen() instanceof ItemSwapperUI && screen == null
                 && AmecsAPISupport.getInstance().isActive()) {
             // catch this call
         } else {
-            mc.setScreen(screen);
+            GeneralUtil.setScreen(screen);
         }
     }
 

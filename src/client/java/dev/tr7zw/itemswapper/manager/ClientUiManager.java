@@ -33,10 +33,8 @@ public class ClientUiManager {
     @Getter
     protected KeyMapping keybind = GeneralUtil.createKeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
             "itemswapper");
-    private KeyMapping keybindRestock = GeneralUtil.createKeyMapping("key.itemswapper.restock", -1,
-            "itemswapper");
-    private KeyMapping keybindStoreAway = GeneralUtil.createKeyMapping("key.itemswapper.storeaway", -1,
-            "itemswapper");
+    private KeyMapping keybindRestock = GeneralUtil.createKeyMapping("key.itemswapper.restock", -1, "itemswapper");
+    private KeyMapping keybindStoreAway = GeneralUtil.createKeyMapping("key.itemswapper.storeaway", -1, "itemswapper");
     @Getter
     protected KeyMapping openInventoryKeybind = GeneralUtil.createKeyMapping("key.itemswapper.openInventory",
             InputConstants.UNKNOWN.getValue(), "itemswapper");
@@ -50,13 +48,13 @@ public class ClientUiManager {
             itemManager.processRestock();
         });
         ModLoaderUtil.createBasicKeybind(keybindStoreAway, () -> {
-            ItemSwapperSharedMod.instance.getItemManager()
-                    .sendEmptySlotPayload(InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));
+            ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(
+                    InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));
         });
     }
 
     public void clientTick() {
-        Screen screen = minecraft.screen;
+        Screen screen = GeneralUtil.getScreen();
 
         ServerData server = Minecraft.getInstance().getCurrentServer();
 
@@ -67,9 +65,8 @@ public class ClientUiManager {
                     server.ip);
         } else if (keybind.isDown()) {
             if (sessionSettings.isModDisabled()) {
-                minecraft.gui.setOverlayMessage(
-                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED),
-                        false);
+                ClientUtil.sendActionBarMessage(
+                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED));
             } else if (screen instanceof ItemSwapperUI ui) {
                 onPress(ui);
             } else if (screen != null) {
@@ -79,9 +76,8 @@ public class ClientUiManager {
             }
         } else if (openInventoryKeybind.isDown()) {
             if (sessionSettings.isModDisabled()) {
-                minecraft.gui.setOverlayMessage(
-                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED),
-                        false);
+                ClientUtil.sendActionBarMessage(
+                        ComponentProvider.translatable("text.itemswapper.disabled").withStyle(ChatFormatting.RED));
             } else if (screen == null) {
                 openInventoryScreen();
             }
@@ -138,7 +134,7 @@ public class ClientUiManager {
     }
 
     private void openConfirmationScreen() {
-        minecraft.setScreen(new ConfirmScreen(this::acceptBypassCallback,
+        GeneralUtil.setScreen(new ConfirmScreen(this::acceptBypassCallback,
                 ComponentProvider.translatable("text.itemswapper.confirm.title"),
                 ComponentProvider.translatable("text.itemswapper.confirm.description")));
     }
@@ -179,7 +175,7 @@ public class ClientUiManager {
     }
 
     public void openInventoryScreen() {
-        if (minecraft.screen instanceof SwitchItemOverlay overlay) {
+        if (GeneralUtil.getScreen() instanceof SwitchItemOverlay overlay) {
             overlay.openInventory();
             return;
         }
@@ -187,7 +183,7 @@ public class ClientUiManager {
     }
 
     public void openSquareSwitchScreen(ItemGroup group) {
-        if (minecraft.screen instanceof SwitchItemOverlay overlay) {
+        if (GeneralUtil.getScreen() instanceof SwitchItemOverlay overlay) {
             overlay.openItemGroup(group);
             return;
         }
@@ -199,7 +195,7 @@ public class ClientUiManager {
     }
 
     public void openPage(ItemGroupManager.Page page) {
-        if (minecraft.screen instanceof SwitchItemOverlay overlay) {
+        if (GeneralUtil.getScreen() instanceof SwitchItemOverlay overlay) {
             overlay.openPage(page);
             return;
         }
@@ -215,7 +211,7 @@ public class ClientUiManager {
         if (!AmecsAPISupport.getInstance().isActive()) {
             ((ExtendedMouseHandler) minecraft.mouseHandler).keepMouseGrabbed(true);
         }
-        minecraft.setScreen(screen);
+        GeneralUtil.setScreen(screen);
         minecraft.getSoundManager().resume();
         if (AmecsAPISupport.getInstance().isActive()) {
             minecraft.mouseHandler.grabMouse();
@@ -227,7 +223,7 @@ public class ClientUiManager {
     public void onPrimaryClick(@NotNull ItemSwapperUI xtOverlay, boolean forceClose) {
         boolean keepOpen = xtOverlay.onPrimaryClick();
         if (forceClose || !keepOpen) {
-            minecraft.setScreen(null);
+            GeneralUtil.setScreen(null);
             if (!ConfigHolder.getInstance().getGeneral().getConfig().allowWalkingWithUI) {
                 KeyMapping.setAll();
             }
@@ -247,11 +243,7 @@ public class ClientUiManager {
             serverCache.writeConfig();
             ItemSwapperSharedMod.LOGGER.info("Add {} to cached ip-addresses", server.ip);
         }
-        minecraft.setScreen(null);
-    }
-
-    public boolean areShulkersEnabled() {
-        return sessionSettings.isEnableShulkers() && !configManager.getConfig().disableShulkers;
+        GeneralUtil.setScreen(null);
     }
 
     public boolean isEnableRefill() {
