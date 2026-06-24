@@ -43,6 +43,11 @@ public class ShulkerContainerProvider extends ListContainerProvider {
     }
 
     @Override
+    public boolean canStoreinContainer(Item itemstack) {
+        return !shulkers.contains(itemstack.asItem());
+    }
+
+    @Override
     public int getMaxSlots(ItemStack container) {
         return SLOTS_PER_SHULKER;
     }

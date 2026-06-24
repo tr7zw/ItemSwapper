@@ -11,6 +11,8 @@ import java.util.*;
 
 public abstract class ListContainerProvider implements ServerItemContainerProvider {
 
+    public abstract boolean canStoreinContainer(Item itemstack);
+
     public abstract int getMaxSlots(ItemStack container);
 
     protected abstract NonNullList<ItemStack> getContent(ItemStack container);
@@ -24,7 +26,7 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
     @Override
     public List<RemoteItem> processItemStack(ServerPlayer player, ItemStack container, Item item, boolean limit,
             int slotId) {
-        if (!isValidContainer(player, container)) {
+        if (!isValidContainer(player, container) || !canStoreinContainer(item)) {
             return Collections.emptyList();
         }
         List<ItemStack> containerItems = getContent(container);
@@ -64,7 +66,7 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
 
     @Override
     public int insertItem(ServerPlayer player, ItemStack container, ItemStack itemStack) {
-        if (!isValidContainer(player, container)) {
+        if (!isValidContainer(player, container) || !canStoreinContainer(itemStack.getItem())) {
             return 0;
         }
         NonNullList<ItemStack> containerItems = getContent(container);
