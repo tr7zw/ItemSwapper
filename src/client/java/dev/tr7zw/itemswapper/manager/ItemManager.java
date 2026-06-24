@@ -70,7 +70,7 @@ public class ItemManager {
                             .filter(i -> !items.contains(i)).toList());
                 }
             } else {
-                if(!groups.isEmpty()) {
+                if (!groups.isEmpty()) {
                     items.addAll(Arrays.asList(groups.get(0).items()).stream().map(ItemEntry::getItem).toList());
                 }
             }

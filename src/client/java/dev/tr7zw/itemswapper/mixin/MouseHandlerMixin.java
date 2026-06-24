@@ -75,15 +75,15 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
 
     @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gui/Gui;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
     //? } else {
-    /*
-    @Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
+
+    /*@Redirect(method = "grabMouse", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;setScreen(Lnet/minecraft/client/gui/screens/Screen;)V"))
     *///? }
     public void grabMouse(
             //? if >= 26.2 {
             Gui gui,
             //? } else {
-            /*
-            Minecraft mc,
+
+            /*Minecraft mc,
             *///? }
             Screen screen) {
         if (GeneralUtil.getScreen() instanceof ItemSwapperUI && screen == null

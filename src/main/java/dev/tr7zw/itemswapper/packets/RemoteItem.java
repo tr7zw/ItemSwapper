@@ -27,8 +27,8 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         if (version != VERSION) {
             throw new RuntimeException("Unsupported version: " + version);
         }
-        return new RemoteItem(buffer.readUtf(), ItemUtil.decodeItemStack(LevelProvider.getLevel(), buffer.readUtf()), buffer.readInt(),
-                buffer.readInt(), buffer.readInt());
+        return new RemoteItem(buffer.readUtf(), ItemUtil.decodeItemStack(LevelProvider.getLevel(), buffer.readUtf()),
+                buffer.readInt(), buffer.readInt(), buffer.readInt());
     }
 
     public static List<RemoteItem> parseList(FriendlyByteBuf buffer) {

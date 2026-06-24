@@ -107,10 +107,10 @@ public class ServerItemHandler {
             }
             var remoteItems = providerManager.findRemoteItems(player, Collections.singleton(target.getItem()));
             for (RemoteItem remoteItem : remoteItems) {
-                if (remoteItem.getCount() <= 0) {
+                if (remoteItem.count() <= 0) {
                     continue;
                 }
-                int toTake = Math.min(space, remoteItem.getCount());
+                int toTake = Math.min(space, remoteItem.count());
                 int taken = providerManager.takeFromSlot(player, remoteItem, toTake);
                 if (taken > 0) {
                     target.grow(taken);

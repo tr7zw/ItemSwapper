@@ -152,7 +152,7 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
     }
 
     @Override
-    public int takeFromSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, int toTake){
+    public int takeFromSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, int toTake) {
         if (!isValidContainer(player, container)) {
             return 0;
         }

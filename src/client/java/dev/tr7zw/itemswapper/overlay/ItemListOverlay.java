@@ -181,7 +181,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
-            if(slot.remoteItem() != null) {
+            if (slot.remoteItem() != null) {
                 if (!minecraft.player.getMainHandItem().isEmpty()) {
                     ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(
                             InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));

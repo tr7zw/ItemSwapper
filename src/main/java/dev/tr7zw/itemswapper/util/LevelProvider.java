@@ -15,7 +15,7 @@ public class LevelProvider {
         if (l == null) {
             return GeneralUtil.getWorld();
         }
-        return l.findRespawnDimension();
+        return l.getAllLevels().iterator().next();
     }
 
     public static void setServer(MinecraftServer minecraftServer) {

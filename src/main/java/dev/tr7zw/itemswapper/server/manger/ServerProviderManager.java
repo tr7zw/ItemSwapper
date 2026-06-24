@@ -34,7 +34,9 @@ public class ServerProviderManager {
             if (provider != null) {
                 NonNullList<RemoteItem> contents = provider.getItemStacks(player, itemStack, i);
                 ids.addAll(contents.stream().filter(stack -> searchItems.contains(stack.itemStack().getItem()))
-                        .sorted(Comparator.comparing(RemoteItem::slot).thenComparing(Comparator.comparingInt(RemoteItem::id).reversed())).toList());
+                        .sorted(Comparator.comparing(RemoteItem::slot)
+                                .thenComparing(Comparator.comparingInt(RemoteItem::id).reversed()))
+                        .toList());
             }
         }
         return ids;
