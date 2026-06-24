@@ -40,4 +40,6 @@ public interface ServerItemContainerProvider {
     String getId();
 
     ItemStack removeItem(ServerPlayer player, ItemStack container, RemoteItem remoteItem);
+
+    int takeFromSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, int toTake);
 }

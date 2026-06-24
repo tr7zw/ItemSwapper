@@ -49,8 +49,8 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
         }
         List<ItemStack> containerItems = getContent(container);
         NonNullList<RemoteItem> slots = NonNullList.create();
-        if (containerItems != null) {
-            for (int x = 0; x < containerItems.size(); x++) {
+        if (containerItems != null && !containerItems.isEmpty()) {
+            for (int x = containerItems.size() - 1; x >= 0; x--) {
                 slots.add(new RemoteItem(getId(), containerItems.get(x), slotId, x, containerItems.get(x).count()));
             }
         }
@@ -147,5 +147,23 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
             }
         }
         return null;
+    }
+
+    @Override
+    public int takeFromSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, int toTake){
+        if (!isValidContainer(player, container)) {
+            return 0;
+        }
+        NonNullList<ItemStack> containerItems = getContent(container);
+        if (containerItems != null) {
+            ItemStack targetStack = containerItems.get(remoteItem.id());
+            if (targetStack.getItem() == remoteItem.itemStack().getItem()) {
+                int taken = Math.min(toTake, targetStack.count());
+                targetStack.shrink(taken);
+                setContent(container, containerItems);
+                return taken;
+            }
+        }
+        return 0;
     }
 }

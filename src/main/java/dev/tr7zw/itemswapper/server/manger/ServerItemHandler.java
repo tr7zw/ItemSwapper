@@ -105,31 +105,18 @@ public class ServerItemHandler {
                 // nothing to do
                 return;
             }
-            // TODO: switch to provider system
-            PlayerSession session = playerManager.getSession(player);
-            for (int i = 0; i < InventoryUtil.getNonEquipmentItems(player.getInventory()).size(); i++) {
-                ItemStack shulker = InventoryUtil.getNonEquipmentItems(player.getInventory()).get(i);
-                NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
-                if (content != null) {
-                    boolean boxChanged = false;
-                    for (int entry = 0; entry < content.size(); entry++) {
-                        ItemStack boxItem = content.get(entry);
-                        if (ServerItemUtil.isSame(boxItem, target)) {
-                            // same, use to restock
-                            // if keep last item is enabled, leave one item in the box to prevent accidentally emptying it
-                            int backup = session.isKeepLastItem() ? 1 : 0;
-                            int amount = Math.min(space, boxItem.count() - backup);
-                            target.setCount(target.count() + amount);
-                            boxItem.setCount(boxItem.count() - amount);
-                            space -= amount;
-                            boxChanged = true;
-                            if (space <= 0) {
-                                break;
-                            }
-                        }
-                    }
-                    if (boxChanged) {
-                        ShulkerHelper.setItem(shulker, content);
+            var remoteItems = providerManager.findRemoteItems(player, Collections.singleton(target.getItem()));
+            for (RemoteItem remoteItem : remoteItems) {
+                if (remoteItem.getCount() <= 0) {
+                    continue;
+                }
+                int toTake = Math.min(space, remoteItem.getCount());
+                int taken = providerManager.takeFromSlot(player, remoteItem, toTake);
+                if (taken > 0) {
+                    target.grow(taken);
+                    space -= taken;
+                    if (space <= 0) {
+                        break;
                     }
                 }
             }

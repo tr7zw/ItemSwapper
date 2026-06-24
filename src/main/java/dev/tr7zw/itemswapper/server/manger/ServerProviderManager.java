@@ -34,7 +34,7 @@ public class ServerProviderManager {
             if (provider != null) {
                 NonNullList<RemoteItem> contents = provider.getItemStacks(player, itemStack, i);
                 ids.addAll(contents.stream().filter(stack -> searchItems.contains(stack.itemStack().getItem()))
-                        .sorted(Comparator.comparingInt(RemoteItem::count).reversed()).toList());
+                        .sorted(Comparator.comparing(RemoteItem::slot).thenComparing(Comparator.comparingInt(RemoteItem::id).reversed())).toList());
             }
         }
         return ids;
@@ -81,5 +81,15 @@ public class ServerProviderManager {
             }
         }
         return false;
+    }
+
+    public int takeFromSlot(ServerPlayer player, RemoteItem remoteItem, int toTake) {
+        ServerItemContainerProvider provider = idContainerProvider.get(remoteItem.providerId());
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());
+        ItemStack container = items.get(remoteItem.slot());
+        if (container.isEmpty() || provider == null || provider != getContainerProvider(container.getItem())) {
+            return 0;
+        }
+        return provider.takeFromSlot(player, container, remoteItem, toTake);
     }
 }
