@@ -104,7 +104,16 @@ public class ListContentWidget extends ItemGridWidget {
             return true;
         }
         AvailableSlot entry = entries.get(guiSlot.id());
-        if (entry != null && !entry.item().isEmpty()) {
+        if (entry != null && entry.remoteItem() != null) {
+            if (!minecraft.player.getMainHandItem().isEmpty()) {
+                ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(
+                        InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));
+            }
+            ClientNetworkUtil.sendPacket(new SwitchToItemPayload(
+                    InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())),
+                    entry.remoteItem()));
+            return false;
+        } else if (entry != null && !entry.item().isEmpty()) {
             return itemManager.grabLocalItem(entry);
         } else if (guiSlot.id() < itemSelection.getItems().length && minecraft.player.isCreative()
                 && configManager.getConfig().creativeCheatMode) {

@@ -4,8 +4,10 @@ import dev.tr7zw.itemswapper.packets.clientbound.*;
 import dev.tr7zw.itemswapper.packets.serverbound.*;
 import dev.tr7zw.itemswapper.server.manger.*;
 import dev.tr7zw.itemswapper.server.provider.*;
+import dev.tr7zw.itemswapper.util.*;
 import dev.tr7zw.transition.loader.networking.*;
 import lombok.*;
+import net.fabricmc.fabric.api.event.lifecycle.v1.*;
 import org.apache.logging.log4j.*;
 
 public abstract class ItemSwapperSharedServer {
@@ -40,6 +42,9 @@ public abstract class ItemSwapperSharedServer {
                     (payload, player) -> getItemHandler().switchToItem(player, payload));
             handler.registerServerCustomPacket(RequestAnyItemPayload.INSTANCE,
                     (payload, player) -> getItemHandler().switchToAnyItem(player, payload));
+        });
+        ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            LevelProvider.setServer(server);
         });
     }
 

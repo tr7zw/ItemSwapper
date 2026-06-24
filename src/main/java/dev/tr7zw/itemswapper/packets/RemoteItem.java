@@ -1,6 +1,7 @@
 package dev.tr7zw.itemswapper.packets;
 
 import com.mojang.brigadier.exceptions.*;
+import dev.tr7zw.itemswapper.util.*;
 import dev.tr7zw.transition.mc.*;
 import net.minecraft.nbt.*;
 import net.minecraft.network.*;
@@ -15,7 +16,7 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
     public void write(FriendlyByteBuf paramFriendlyByteBuf) {
         paramFriendlyByteBuf.writeByte(VERSION);
         paramFriendlyByteBuf.writeUtf(providerId);
-        paramFriendlyByteBuf.writeUtf(ItemUtil.encodeItemStack(itemStack));
+        paramFriendlyByteBuf.writeUtf(ItemUtil.encodeItemStack(LevelProvider.getLevel(), itemStack));
         paramFriendlyByteBuf.writeInt(slot);
         paramFriendlyByteBuf.writeInt(id);
         paramFriendlyByteBuf.writeInt(count);
@@ -26,7 +27,7 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         if (version != VERSION) {
             throw new RuntimeException("Unsupported version: " + version);
         }
-        return new RemoteItem(buffer.readUtf(), ItemUtil.decodeItemStack(buffer.readUtf()), buffer.readInt(),
+        return new RemoteItem(buffer.readUtf(), ItemUtil.decodeItemStack(LevelProvider.getLevel(), buffer.readUtf()), buffer.readInt(),
                 buffer.readInt(), buffer.readInt());
     }
 

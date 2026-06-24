@@ -91,7 +91,7 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             });
             handle.registerClientCustomPacket(ItemAvailability.INSTANCE, payload -> {
                 ItemSwapperSharedMod.instance.getSessionSettings().updateItemInfo(payload.items());
-                if (GeneralUtil.getScreen() instanceof SwitchItemOverlay overlay) {
+                if (GeneralUtil.getScreen() instanceof ItemSwapperUIAbstractInput overlay) {
                     overlay.processRemoteUpdate();
                 }
             });

@@ -38,11 +38,10 @@ import dev.tr7zw.itemswapper.overlay.logic.InventoryWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ListContentWidget;
 import dev.tr7zw.itemswapper.overlay.logic.PaletteWidget;
 import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
+import dev.tr7zw.itemswapper.util.*;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
-import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.transition.config.*;
-import dev.tr7zw.transition.mc.ComponentProvider;
-import dev.tr7zw.transition.mc.InventoryUtil;
+import dev.tr7zw.transition.mc.*;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import lombok.Getter;
 import lombok.Setter;
@@ -303,6 +302,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         return true;
     }
 
+    @Override
     public void processRemoteUpdate() {
         for (GuiWidget widget : selectionHandler.getWidgets()) {
             widget.remoteUpdate();

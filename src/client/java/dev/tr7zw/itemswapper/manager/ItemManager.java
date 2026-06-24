@@ -70,7 +70,9 @@ public class ItemManager {
                             .filter(i -> !items.contains(i)).toList());
                 }
             } else {
-                items.addAll(Arrays.asList(groups.get(0).items()).stream().map(ItemEntry::getItem).toList());
+                if(!groups.isEmpty()) {
+                    items.addAll(Arrays.asList(groups.get(0).items()).stream().map(ItemEntry::getItem).toList());
+                }
             }
         }
         return new EmptySlotPayload(slot, ItemListing.of(items));

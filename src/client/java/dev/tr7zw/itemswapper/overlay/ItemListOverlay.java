@@ -12,8 +12,11 @@ import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ListPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.Page;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemList;
-import dev.tr7zw.transition.mc.ComponentProvider;
-import dev.tr7zw.transition.mc.InventoryUtil;
+import dev.tr7zw.itemswapper.overlay.logic.*;
+import dev.tr7zw.itemswapper.packets.*;
+import dev.tr7zw.itemswapper.packets.serverbound.*;
+import dev.tr7zw.transition.loader.networking.*;
+import dev.tr7zw.transition.mc.*;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -63,6 +66,7 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
         super(ComponentProvider.empty());
         this.itemSelection = itemSelection;
         refreshList();
+        ClientNetworkUtil.sendPacket(new RequestAvailability(ItemListing.of(itemSelection.getItems())));
     }
 
     @Override
@@ -177,6 +181,16 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
     public boolean onPrimaryClick() {
         if (selectedEntry != 0) {
             AvailableSlot slot = entries.get(selectedEntry);
+            if(slot.remoteItem() != null) {
+                if (!minecraft.player.getMainHandItem().isEmpty()) {
+                    ItemSwapperSharedMod.instance.getItemManager().sendEmptySlotPayload(
+                            InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())));
+                }
+                ClientNetworkUtil.sendPacket(new SwitchToItemPayload(
+                        InventoryUtil.getSelectedId(InventoryUtil.getInventory(GeneralUtil.getPlayer())),
+                        slot.remoteItem()));
+                return false;
+            }
             itemManager.grabLocalItem(slot);
         }
         return false;
@@ -235,6 +249,11 @@ public class ItemListOverlay extends ItemSwapperUIAbstractInput {
             *///? }
             graphics.renderItemDecorations(this.minecraft.font, arg2, x, y);
         }
+    }
+
+    @Override
+    public void processRemoteUpdate() {
+        refreshList();
     }
 
 }

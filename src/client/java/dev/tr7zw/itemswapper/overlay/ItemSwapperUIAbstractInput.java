@@ -83,4 +83,6 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
     }
     *///? }
 
+    public abstract void processRemoteUpdate();
+
 }
