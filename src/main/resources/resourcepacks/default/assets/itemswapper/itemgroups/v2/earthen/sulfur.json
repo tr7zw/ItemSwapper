@@ -1,16 +1,24 @@
 {
     "type": "palette",
     "priority": 45,
-    "displayName": "text.itemswapper.palette.earthen.granite",
-    "icon": "minecraft:polished_granite",
+    "displayName": "text.itemswapper.palette.earthen.sulfur",
+    "icon": "minecraft:sulfur",
     "items": [
-        "minecraft:granite",
-        "minecraft:granite_stairs",
-        "minecraft:granite_slab",
-        "minecraft:granite_wall",
-        "minecraft:polished_granite",
-        "minecraft:polished_granite_stairs",
-        "minecraft:polished_granite_slab"
+        "minecraft:sulfur",
+        "minecraft:sulfur_stairs",
+        "minecraft:sulfur_slab",
+        "minecraft:sulfur_wall",
+        "minecraft:chiseled_sulfur",
+        "minecraft:polished_sulfur",
+        "minecraft:polished_sulfur_stairs",
+        "minecraft:polished_sulfur_slab",
+        "minecraft:polished_sulfur_wall",
+        "minecraft:sulfur_bricks",
+        "minecraft:sulfur_brick_stairs",
+        "minecraft:sulfur_brick_slab",
+        "minecraft:sulfur_brick_wall",
+        "minecraft:potent_sulfur",
+        "minecraft:sulfur_spike"
     ],
     "shortcuts": [
         {

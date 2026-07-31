@@ -1,16 +1,22 @@
 {
     "type": "palette",
     "priority": 45,
-    "displayName": "text.itemswapper.palette.earthen.granite",
-    "icon": "minecraft:polished_granite",
+    "displayName": "text.itemswapper.palette.earthen.cinnabar",
+    "icon": "minecraft:cinnabar",
     "items": [
-        "minecraft:granite",
-        "minecraft:granite_stairs",
-        "minecraft:granite_slab",
-        "minecraft:granite_wall",
-        "minecraft:polished_granite",
-        "minecraft:polished_granite_stairs",
-        "minecraft:polished_granite_slab"
+        "minecraft:cinnabar",
+        "minecraft:cinnabar_stairs",
+        "minecraft:cinnabar_slab",
+        "minecraft:cinnabar_wall",
+        "minecraft:chiseled_cinnabar",
+        "minecraft:polished_cinnabar",
+        "minecraft:polished_cinnabar_stairs",
+        "minecraft:polished_cinnabar_slab",
+        "minecraft:polished_cinnabar_wall",
+        "minecraft:cinnabar_bricks",
+        "minecraft:cinnabar_brick_stairs",
+        "minecraft:cinnabar_brick_slab",
+        "minecraft:cinnabar_brick_wall"
     ],
     "shortcuts": [
         {
