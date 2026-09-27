@@ -62,12 +62,17 @@ public class KeyboardHandlerMixin {
                 KeyMapping.set(key, false);
             } else {
                 *///? }
-            boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow()
-            //? if < 1.21.10 {
+            // F3 logic skipping everything
+            //? if >= 26.3 {
 
-            /*.getWindow()
+            boolean bl2 = InputConstants.isKeyDown(60);
+            //? } else if >= 1.21.10 {
+            /*
+            boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow(), 292);
+            *///? } else {
+
+            /*boolean bl2 = InputConstants.isKeyDown(Minecraft.getInstance().getWindow().getWindow(), 292);
             *///? }
-                    , 292);
             if (bl2) {
                 KeyMapping.set(key, false);
             } else {

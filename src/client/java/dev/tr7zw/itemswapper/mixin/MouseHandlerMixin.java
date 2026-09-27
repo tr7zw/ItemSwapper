@@ -23,14 +23,10 @@ public class MouseHandlerMixin implements ExtendedMouseHandler {
 
     @Shadow
     private Minecraft minecraft;
-    //    @Shadow
-    //    private double lastMouseEventTime = Double.MIN_VALUE;
     @Shadow
     private double accumulatedDX;
     @Shadow
     private double accumulatedDY;
-    @Shadow
-    private int fakeRightMouse;
 
     private final ConfigManager<Config> configManager = ConfigHolder.getInstance().getGeneral();
     private boolean keepMouseGrabbed = false;
