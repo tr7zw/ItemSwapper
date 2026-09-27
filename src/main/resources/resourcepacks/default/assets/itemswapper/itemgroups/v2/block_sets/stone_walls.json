@@ -17,7 +17,12 @@
         "minecraft:deepslate_tile_wall",
         "minecraft:blackstone_wall",
         "minecraft:polished_blackstone_wall",
-        "minecraft:polished_blackstone_brick_wall"
+        "minecraft:polished_blackstone_brick_wall",
+        "minecraft:cinnabar_wall",
+        "minecraft:polished_cinnabar_wall",
+        "minecraft:sulfur_wall",
+        "minecraft:sulfur_brick_wall",
+        "minecraft:polished_sulfur_wall"
     ],
     "shortcuts": [
         {
