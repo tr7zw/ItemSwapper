@@ -33,11 +33,14 @@ public class ClientUiManager {
     @Getter
     protected KeyMapping keybind = GeneralUtil.createKeyMapping("key.itemswapper.itemswitcher", InputConstants.KEY_R,
             "itemswapper");
-    private KeyMapping keybindRestock = GeneralUtil.createKeyMapping("key.itemswapper.restock", -1, "itemswapper");
-    private KeyMapping keybindStoreAway = GeneralUtil.createKeyMapping("key.itemswapper.storeaway", -1, "itemswapper");
+    private final static int KEY_NONE = InputConstants.UNKNOWN.getValue();
+    private KeyMapping keybindRestock = GeneralUtil.createKeyMapping("key.itemswapper.restock", KEY_NONE,
+            "itemswapper");
+    private KeyMapping keybindStoreAway = GeneralUtil.createKeyMapping("key.itemswapper.storeaway", KEY_NONE,
+            "itemswapper");
     @Getter
-    protected KeyMapping openInventoryKeybind = GeneralUtil.createKeyMapping("key.itemswapper.openInventory",
-            InputConstants.UNKNOWN.getValue(), "itemswapper");
+    protected KeyMapping openInventoryKeybind = GeneralUtil.createKeyMapping("key.itemswapper.openInventory", KEY_NONE,
+            "itemswapper");
 
     private boolean pressed = false;
 
