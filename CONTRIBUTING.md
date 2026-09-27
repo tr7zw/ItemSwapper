@@ -14,7 +14,6 @@ Some examples of this:
 - The "English Upside-down" language file can be generated from the normal English file. So a build step that generates this file makes way more sense, than PRing and maintaining such a trivial file.
 
 ## No content falling under Modrinths ``Usage of Generative "AI"`` rule
-
 All PRs must not fall under the [Disclosure of AI generated content](https://modrinth.com/legal/rules#disclosure-of-ai-generated-content) rule by Modrinth. That means:
 - No substantial portion of the code is a product of AI output.
 - No assets that are primarily or entirely a product of AI output.
@@ -23,5 +22,4 @@ All PRs must not fall under the [Disclosure of AI generated content](https://mod
 Also please [Don't be a meat proxy](https://gruhn.me/blog/2026-08-03/).
 
 ## Run a build before the PR
-
 Simply run ``.\gradlew clean build`` before creating the pull request to run the formatter and verify that no other Minecraft versions are broken from the changes.
