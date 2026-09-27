@@ -147,12 +147,15 @@ public class ServerItemHandler {
         if (selected < 0 || selected > 8) {
             return;
         }
-        ItemStack hand = player.getInventory().getItem(selected);
-        ItemStack taken = providerManager.exchangeSlot(player, payload.remoteItem(), hand);
-        if (taken == null) {
-            return;
+        try {
+            ItemStack hand = player.getInventory().getItem(selected);
+            ItemStack taken = providerManager.exchangeSlot(player, payload.remoteItem(), hand);
+            if (taken != null) {
+                player.getInventory().setItem(selected, taken);
+            }
+        } catch (Throwable th) {
+            network_logger.error("Error handling network packet!", th);
         }
-        player.getInventory().setItem(selected, taken);
     }
 
     public void processAvailability(ServerPlayer player, RequestAvailability payload) {

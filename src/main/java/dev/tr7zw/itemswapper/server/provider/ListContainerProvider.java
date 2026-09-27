@@ -171,7 +171,7 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
             containerItems.add(ItemStack.EMPTY);
         }
         ItemStack current = containerItems.get(remoteItem.id());
-        if (current.getItem() != remoteItem.itemStack().getItem()) {
+        if (!ServerItemUtil.isSame(current, remoteItem.itemStack()) || current.count() != remoteItem.count()) {
             return null;
         }
         containerItems.set(remoteItem.id(), hand.copy());
