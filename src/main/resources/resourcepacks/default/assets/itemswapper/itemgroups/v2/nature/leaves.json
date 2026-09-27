@@ -15,6 +15,9 @@
         "minecraft:mangrove_roots",
         "minecraft:muddy_mangrove_roots",
         "minecraft:cherry_leaves",
+        "minecraft:orange_poplar_leaves",
+        "minecraft:yellow_poplar_leaves",
+        "minecraft:red_poplar_leaves",
         "minecraft:pale_oak_leaves"
     ],
     "shortcuts": [

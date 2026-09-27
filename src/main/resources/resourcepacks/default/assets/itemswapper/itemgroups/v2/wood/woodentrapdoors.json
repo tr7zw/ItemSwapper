@@ -14,7 +14,8 @@
         "minecraft:crimson_trapdoor",
         "minecraft:cherry_trapdoor",
         "minecraft:bamboo_trapdoor",
-        "minecraft:pale_oak_trapdoor"
+        "minecraft:pale_oak_trapdoor",
+        "minecraft:poplar_trapdoor"
     ],
     "shortcuts": [
         {

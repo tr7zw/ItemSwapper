@@ -1,0 +1,42 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.stone.cinnabar",
+    "items": [
+        "minecraft:cinnabar",
+        "minecraft:cinnabar_stairs",
+        "minecraft:cinnabar_slab",
+        "minecraft:cinnabar_wall",
+        "minecraft:cinnabar_bricks",
+        "minecraft:cinnabar_brick_stairs",
+        "minecraft:cinnabar_brick_slab",
+        "minecraft:cinnabar_brick_wall",
+        "minecraft:polished_cinnabar",
+        "minecraft:polished_cinnabar_slab",
+        "minecraft:polished_cinnabar_stairs",
+        "minecraft:polished_cinnabar_wall",
+        "minecraft:chiseled_cinnabar"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/stonebrick"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/cobblestone"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/andesite"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/stone/moss"
+        }
+    ]
+}

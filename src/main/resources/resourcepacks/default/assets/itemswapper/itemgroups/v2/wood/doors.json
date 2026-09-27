@@ -14,7 +14,8 @@
         "minecraft:crimson_door",
         "minecraft:cherry_door",
         "minecraft:bamboo_door",
-        "minecraft:pale_oak_door"
+        "minecraft:pale_oak_door",
+        "minecraft:poplar_door"
     ],
     "shortcuts": [
         {

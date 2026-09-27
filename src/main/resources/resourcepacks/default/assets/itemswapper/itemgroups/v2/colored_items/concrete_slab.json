@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.colored_items.concrete_slab",
+    "icon": "minecraft:cyan_concrete_slab",
+    "items": [
+        "minecraft:black_concrete_slab",
+        "minecraft:gray_concrete_slab",
+        "minecraft:light_gray_concrete_slab",
+        "minecraft:white_concrete_slab",
+        "minecraft:pink_concrete_slab",
+        "minecraft:magenta_concrete_slab",
+        "minecraft:purple_concrete_slab",
+        "minecraft:blue_concrete_slab",
+        "minecraft:light_blue_concrete_slab",
+        "minecraft:cyan_concrete_slab",
+        "minecraft:green_concrete_slab",
+        "minecraft:lime_concrete_slab",
+        "minecraft:yellow_concrete_slab",
+        "minecraft:orange_concrete_slab",
+        "minecraft:red_concrete_slab",
+        "minecraft:brown_concrete_slab"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/terracotta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/glazed_terracotta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/powder"
+        },
+                {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/concrete"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/concrete_slab"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/concrete_stairs"
+        }
+    ]
+}

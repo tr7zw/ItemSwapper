@@ -187,7 +187,7 @@ public class ItemGroupManager {
      */
     public void dumpUnmappedItems() {
         ItemSwapperBase.LOGGER.info("All unmapped Items/Blocks:");
-        for (Entry<ResourceKey<Item>, Item> entry : BuiltInRegistries.ITEM.entrySet()) {
+        for (Entry<ResourceKey<Item>, Item> entry : BuiltInRegistries.ITEM.entrySet().stream().sorted(Comparator.comparing(a -> a.getKey().toString())).toList()) {
             if (!(paletteMapping.containsKey(entry.getValue()) || listMapping.containsKey(entry.getValue()))) {
                 ItemSwapperBase.LOGGER.info("Unmapped: {}", entry.getKey());
             }

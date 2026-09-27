@@ -25,7 +25,8 @@
         "minecraft:strider_spawn_egg",
         "minecraft:zombie_horse_spawn_egg",
         "minecraft:skeleton_horse_spawn_egg",
-        "minecraft:camel_husk_spawn_egg"
+        "minecraft:camel_husk_spawn_egg",
+        "minecraft:sulfur_cube_spawn_egg"
     ],
     "shortcuts": [
         {
