@@ -3,12 +3,10 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.OnSwap;
 import dev.tr7zw.itemswapper.api.client.ItemSwapperClientAPI.SwapSent;
-import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.ItemUtil;
@@ -40,8 +38,9 @@ public abstract class InventoryAbstractWidget extends ItemGridWidget {
         if (!slots.isEmpty()) {
             AvailableSlot slot = slots.get(0);
             if (!slot.item().isEmpty()) {
-                overlay.openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null,
-                        new ItemEntry(slot.item().getItem(), null), guiSlot.id() + 9));
+                // The client does not decide whether this item is a container. The server
+                // replies with the contents, or the palette opens if it is not.
+                overlay.requestContainer(slot.item().getItem(), slot.slot());
             }
         }
     }

@@ -31,11 +31,23 @@ public abstract class ItemSwapperUIAbstractInput extends Screen implements ItemS
 
     @Override
     public boolean mouseClicked(net.minecraft.client.input.MouseButtonEvent mouseButtonEvent, boolean bl) {
-        if (mouseButtonEvent.buttonInfo().button() == 0) {
+        int button = mouseButtonEvent.buttonInfo().button();
+        //? if >= 26.3 {
+
+        if (button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_LEFT) {
             ItemSwapperSharedMod.instance.getClientUiManager().onPrimaryClick(this, false);
-        } else if (mouseButtonEvent.buttonInfo().button() == 1 || mouseButtonEvent.buttonInfo().button() == 2) {
+        } else if (button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_RIGHT
+                || button == com.mojang.blaze3d.platform.InputConstants.MOUSE_BUTTON_MIDDLE) {
             onSecondaryClick();
         }
+        //? } else {
+        /*
+        if (button == 0) {
+            ItemSwapperSharedMod.instance.getClientUiManager().onPrimaryClick(this, false);
+        } else if (button == 1 || button == 2) {
+            onSecondaryClick();
+        }
+        *///? }
         return true;
     }
     //? }

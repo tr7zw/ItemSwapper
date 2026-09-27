@@ -82,4 +82,8 @@ public class ShulkerHelper {
         return shulkers.contains(item);
     }
 
+    public static Set<Item> getShulkerItems() {
+        return shulkers;
+    }
+
 }

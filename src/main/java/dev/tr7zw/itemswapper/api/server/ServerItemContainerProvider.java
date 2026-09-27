@@ -42,4 +42,14 @@ public interface ServerItemContainerProvider {
     ItemStack removeItem(ServerPlayer player, ItemStack container, RemoteItem remoteItem);
 
     int takeFromSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, int toTake);
+
+    /**
+     * Exchange {@code hand} with one slot inside the container.
+     *
+     * @return the stack that should be placed in the hand, or null when the
+     *         exchange is rejected
+     */
+    default ItemStack exchangeSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, ItemStack hand) {
+        return null;
+    }
 }

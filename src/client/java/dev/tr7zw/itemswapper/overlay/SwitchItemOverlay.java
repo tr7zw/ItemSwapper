@@ -5,13 +5,16 @@ import java.util.Collections;
 import java.util.List;
 
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
+import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.ItemSwapperUI;
-import dev.tr7zw.itemswapper.api.client.ContainerProvider;
+import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
+import dev.tr7zw.itemswapper.packets.RemoteItem;
+import dev.tr7zw.itemswapper.packets.clientbound.ContainerContentPayload;
+import dev.tr7zw.itemswapper.packets.serverbound.RequestContainerPayload;
 import dev.tr7zw.itemswapper.compat.ControlifySupport;
 import dev.tr7zw.itemswapper.compat.ViveCraftSupport;
 import dev.tr7zw.itemswapper.config.*;
-import dev.tr7zw.itemswapper.manager.ClientProviderManager;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ContainerPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.InventoryPage;
 import dev.tr7zw.itemswapper.manager.ItemGroupManager.ItemGroupPage;
@@ -41,11 +44,13 @@ import dev.tr7zw.itemswapper.overlay.logic.ShortcutListWidget;
 import dev.tr7zw.itemswapper.util.*;
 import dev.tr7zw.itemswapper.util.ColorUtil.UnpackedColor;
 import dev.tr7zw.transition.config.*;
+import dev.tr7zw.transition.loader.networking.*;
 import dev.tr7zw.transition.mc.*;
 import dev.tr7zw.trender.gui.client.RenderContext;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 //? if >= 1.20.0 {
@@ -60,13 +65,14 @@ import com.mojang.blaze3d.vertex.PoseStack;
 public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
 
     private final Minecraft minecraft = Minecraft.getInstance();
-    private final ClientProviderManager providerManager = ItemSwapperSharedMod.instance.getClientProviderManager();
     private final GuiSelectionHandler selectionHandler = new GuiSelectionHandler();
     @Setter
     private int globalXOffset = 0;
     private int globalYOffset = 0;
     @Setter
     private boolean forceAvailable = false;
+    private int containerRequest;
+    private Item pendingContainerItem;
     @Setter
     private boolean hideCursor = false;
     @Setter
@@ -129,6 +135,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     public void openItemGroup(ItemGroup itemGroup) {
+        pendingContainerItem = null;
         selectionHandler.reset();
         lastPages.add(new ItemGroupPage(itemGroup));
         initShortcuts();
@@ -141,6 +148,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     public void openItemList(ItemList items) {
+        pendingContainerItem = null;
         selectionHandler.reset();
         lastPages.add(new ListPage(items));
         initShortcuts();
@@ -156,11 +164,12 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
         if (page instanceof NoPage || (!lastPages.isEmpty() && page.equals(lastPages.get(lastPages.size() - 1)))) {
             return false; // this exact page is already open
         }
+        pendingContainerItem = null;
         switch (page) {
         case ItemGroupPage(var gr) -> openItemGroup(gr);
         case ListPage list -> openItemList(list.items());
         case InventoryPage inv -> openInventory();
-        case ContainerPage(int id) -> openContainer(id);
+        case ContainerPage(int id) -> reopenContainer(id);
         case TexturePage(var color, var sideBase) -> openTexturePallete(color, sideBase);
         case NoPage noPage -> throw new RuntimeException("Unexpected value: " + page);
         }
@@ -172,6 +181,7 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
     }
 
     public void openInventory() {
+        pendingContainerItem = null;
         selectionHandler.reset();
         lastPages.add(new InventoryPage());
         initShortcuts();
@@ -186,26 +196,54 @@ public class SwitchItemOverlay extends ItemSwapperUIAbstractInput {
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
-    public void openContainer(int slotId) {
-        // Check that this is valid
-        ItemStack item = InventoryUtil.getNonEquipmentItems(minecraft.player.getInventory()).get(slotId);
-        ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
-        if (provider == null) {
-            // fallback, reset the UI and open the inventory
-            lastPages.clear();
+    public boolean requestContainer(Item item, int slot) {
+        // No server support means no reply. Open the palette instead of waiting.
+        if (configManager.getConfig().disableShulkers
+                || !ItemSwapperSharedMod.instance.getSessionSettings().isEnableShulkers()) {
+            return openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null, new ItemEntry(item, null),
+                    -1));
+        }
+        pendingContainerItem = item;
+        ClientNetworkUtil.sendPacket(new RequestContainerPayload(++containerRequest, slot));
+        return true;
+    }
+
+    private void reopenContainer(int slotId) {
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(minecraft.player.getInventory());
+        if (slotId < 0 || slotId >= items.size() || items.get(slotId).isEmpty()) {
             openInventory();
             return;
         }
+        if (!requestContainer(items.get(slotId).getItem(), slotId)) {
+            openInventory();
+        }
+    }
+
+    public void handleContainerContent(ContainerContentPayload payload) {
+        if (payload.requestId() != containerRequest || pendingContainerItem == null) {
+            return;
+        }
+        Item item = pendingContainerItem;
+        pendingContainerItem = null;
+        if (payload.container() && !payload.items().isEmpty()) {
+            openRemoteContainer(payload.items());
+            return;
+        }
+        openPage(ItemSwapperMod.instance.getItemGroupManager().getNextPage(null, new ItemEntry(item, null), -1));
+    }
+
+    public void openRemoteContainer(List<RemoteItem> items) {
         selectionHandler.reset();
-        lastPages.add(new ContainerPage(slotId));
+        lastPages.add(new ContainerPage(items.get(0).slot()));
         initShortcuts();
-        ContainerWidget mainWidget = new ContainerWidget(0, 0, slotId);
+        ContainerWidget mainWidget = new ContainerWidget(0, 0, items);
         selectionHandler.addWidget(mainWidget);
         selectionHandler.addWidget(new ShortcutListWidget(null, shortcutList,
                 mainWidget.getWidgetArea().getMouseBoundsX() + ItemSwapperUI.slotSize, 0));
     }
 
     public void openTexturePallete(UnpackedColor[] color, UnpackedColor sideBase) {
+        pendingContainerItem = null;
         selectionHandler.reset();
         lastPages.add(new TexturePage(color, sideBase));
         initShortcuts();

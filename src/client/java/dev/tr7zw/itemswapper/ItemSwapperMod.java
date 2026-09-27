@@ -79,6 +79,8 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
             handle.registerServerCustomPacket(EmptySlotPayload.INSTANCE);
             handle.registerServerCustomPacket(SwitchToItemPayload.INSTANCE);
             handle.registerServerCustomPacket(RequestAnyItemPayload.INSTANCE);
+            handle.registerServerCustomPacket(RequestContainerPayload.INSTANCE);
+            handle.registerServerCustomPacket(ExchangeContainerSlotPayload.INSTANCE);
             // Client packets
             handle.registerClientCustomPacket(ShulkerSupportPayload.INSTANCE, payload -> {
                 ItemSwapperSharedMod.instance.getSessionSettings().setEnableShulkers(payload.enabled());
@@ -93,6 +95,11 @@ public class ItemSwapperMod extends ItemSwapperSharedMod implements ClientModIni
                 ItemSwapperSharedMod.instance.getSessionSettings().updateItemInfo(payload.items());
                 if (GeneralUtil.getScreen() instanceof ItemSwapperUIAbstractInput overlay) {
                     overlay.processRemoteUpdate();
+                }
+            });
+            handle.registerClientCustomPacket(ContainerContentPayload.INSTANCE, payload -> {
+                if (GeneralUtil.getScreen() instanceof SwitchItemOverlay overlay) {
+                    overlay.handleContainerContent(payload);
                 }
             });
         });

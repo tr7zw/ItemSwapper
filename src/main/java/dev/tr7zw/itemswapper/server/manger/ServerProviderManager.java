@@ -85,6 +85,46 @@ public class ServerProviderManager {
         return false;
     }
 
+    /**
+     * @return the container slots, or null when that inventory slot is not an
+     *         openable container
+     */
+    public NonNullList<RemoteItem> contentsOf(ServerPlayer player, int slot) {
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());
+        if (slot < 0 || slot >= items.size()) {
+            return null;
+        }
+        ItemStack container = items.get(slot);
+        if (container.isEmpty()) {
+            return null;
+        }
+        ServerItemContainerProvider provider = getContainerProvider(container.getItem());
+        if (provider == null) {
+            return null;
+        }
+        NonNullList<RemoteItem> contents = provider.getItemStacks(player, container, slot);
+        if (contents.isEmpty()) {
+            return null;
+        }
+        return contents;
+    }
+
+    public ItemStack exchangeSlot(ServerPlayer player, RemoteItem remoteItem, ItemStack hand) {
+        if (remoteItem == null) {
+            return null;
+        }
+        ServerItemContainerProvider provider = idContainerProvider.get(remoteItem.providerId());
+        List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());
+        if (remoteItem.slot() < 0 || remoteItem.slot() >= items.size()) {
+            return null;
+        }
+        ItemStack container = items.get(remoteItem.slot());
+        if (container.isEmpty() || provider == null || provider != getContainerProvider(container.getItem())) {
+            return null;
+        }
+        return provider.exchangeSlot(player, container, remoteItem, hand);
+    }
+
     public int takeFromSlot(ServerPlayer player, RemoteItem remoteItem, int toTake) {
         ServerItemContainerProvider provider = idContainerProvider.get(remoteItem.providerId());
         List<ItemStack> items = InventoryUtil.getNonEquipmentItems(player.getInventory());

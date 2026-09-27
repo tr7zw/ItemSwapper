@@ -13,7 +13,6 @@ import net.minecraft.world.item.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import dev.tr7zw.itemswapper.util.ShulkerHelper;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -33,18 +32,25 @@ public class ServerItemHandler {
             return;
         }
         try {
-            if (ShulkerHelper.isShulker(InventoryUtil.getSelected(player.getInventory()).getItem())) {
-                // Don't try to put a shulker into another shulker
+            NonNullList<RemoteItem> contents = providerManager.contentsOf(player, payload.inventorySlot());
+            if (contents == null) {
                 return;
             }
-            ItemStack shulker = player.getInventory().getItem(payload.inventorySlot());
-            NonNullList<ItemStack> content = ShulkerHelper.getItems(shulker);
-            if (content != null) {
-                ItemStack tmp = content.get(payload.slot());
-                storeAwayItem(player, InventoryUtil.getSelectedId(player.getInventory()), Collections.emptySet());
-                content.set(payload.slot(), InventoryUtil.getSelected(player.getInventory()));
-                player.getInventory().setItem(InventoryUtil.getSelectedId(player.getInventory()), tmp);
-                ShulkerHelper.setItem(shulker, content);
+            RemoteItem target = null;
+            for (RemoteItem remoteItem : contents) {
+                if (remoteItem.id() == payload.slot()) {
+                    target = remoteItem;
+                    break;
+                }
+            }
+            if (target == null) {
+                return;
+            }
+            int selected = InventoryUtil.getSelectedId(player.getInventory());
+            ItemStack taken = providerManager.exchangeSlot(player, target,
+                    InventoryUtil.getSelected(player.getInventory()));
+            if (taken != null) {
+                player.getInventory().setItem(selected, taken);
             }
         } catch (Throwable th) {
             network_logger.error("Error handeling network packet!", th);
@@ -125,8 +131,37 @@ public class ServerItemHandler {
         }
     }
 
+    public void openContainer(ServerPlayer player, RequestContainerPayload payload) {
+        NonNullList<RemoteItem> contents = configManager.getConfig().disableShulkers ? null
+                : providerManager.contentsOf(player, payload.slot());
+        boolean container = contents != null;
+        ServerNetworkUtil.sendPacket(player, new ContainerContentPayload(payload.requestId(), payload.slot(), container,
+                container ? contents : List.of()));
+    }
+
+    public void exchangeContainerSlot(ServerPlayer player, ExchangeContainerSlotPayload payload) {
+        if (configManager.getConfig().disableShulkers) {
+            return;
+        }
+        int selected = payload.selectedSlot();
+        if (selected < 0 || selected > 8) {
+            return;
+        }
+        try {
+            ItemStack hand = player.getInventory().getItem(selected);
+            ItemStack taken = providerManager.exchangeSlot(player, payload.remoteItem(), hand);
+            if (taken != null) {
+                player.getInventory().setItem(selected, taken);
+            }
+        } catch (Throwable th) {
+            network_logger.error("Error handling network packet!", th);
+        }
+    }
+
     public void processAvailability(ServerPlayer player, RequestAvailability payload) {
         List<RemoteItem> items = providerManager.findRemoteItems(player, payload.itemListing().asItemSet());
+        // Empty slots encode as a blank string. Older clients cannot read that on this packet.
+        items.removeIf(remoteItem -> remoteItem.itemStack().isEmpty());
         ServerNetworkUtil.sendPacket(player, new ItemAvailability(items));
     }
 

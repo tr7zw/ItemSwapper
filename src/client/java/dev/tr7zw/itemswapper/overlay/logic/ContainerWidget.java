@@ -3,58 +3,54 @@ package dev.tr7zw.itemswapper.overlay.logic;
 import static dev.tr7zw.transition.mc.GeneralUtil.getResourceLocation;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import dev.tr7zw.itemswapper.ItemSwapperMod;
 import dev.tr7zw.itemswapper.ItemSwapperSharedMod;
 import dev.tr7zw.itemswapper.api.AvailableSlot;
-import dev.tr7zw.itemswapper.api.client.ContainerProvider;
-import dev.tr7zw.itemswapper.manager.*;
 import dev.tr7zw.itemswapper.manager.itemgroups.ItemEntry;
 import dev.tr7zw.itemswapper.overlay.SwitchItemOverlay;
+import dev.tr7zw.itemswapper.packets.RemoteItem;
+import dev.tr7zw.itemswapper.packets.serverbound.ExchangeContainerSlotPayload;
+import dev.tr7zw.transition.loader.networking.ClientNetworkUtil;
 import dev.tr7zw.transition.mc.InventoryUtil;
 import dev.tr7zw.itemswapper.util.RenderHelper;
 import dev.tr7zw.itemswapper.util.RenderHelper.SlotEffect;
 import dev.tr7zw.itemswapper.util.WidgetUtil;
 import dev.tr7zw.trender.gui.client.RenderContext;
-import net.minecraft.core.NonNullList;
 import net.minecraft.resources.*;
-import net.minecraft.world.item.ItemStack;
 
 public class ContainerWidget extends ItemGridWidget {
 
     private static final Identifier BACKGROUND_LOCATION = getResourceLocation("itemswapper",
             "textures/gui/inventory.png");
 
-    private static final ClientProviderManager providerManager = ItemSwapperSharedMod.instance
-            .getClientProviderManager();
-    private static final ItemManager itemManager = ItemSwapperSharedMod.instance.getItemManager();
-    private int slotId;
+    private final List<AvailableSlot> remoteSlots;
 
-    public ContainerWidget(int x, int y, int slotId) {
+    public ContainerWidget(int x, int y, List<RemoteItem> items) {
         super(x, y);
-        this.slotId = slotId;
-        WidgetUtil.setupSlots(widgetArea, slots, 9, 3, false, BACKGROUND_LOCATION);
-        widgetArea.setBackgroundTextureSizeX(168);
-        widgetArea.setBackgroundTextureSizeY(60);
+        this.remoteSlots = items.stream().sorted(Comparator.comparingInt(RemoteItem::id)).map(AvailableSlot::new)
+                .toList();
+        int rows = Math.max(1, (remoteSlots.size() + 8) / 9);
+        WidgetUtil.setupSlots(widgetArea, slots, 9, rows, false, BACKGROUND_LOCATION);
+        if (rows == 3) {
+            widgetArea.setBackgroundTextureSizeX(168);
+            widgetArea.setBackgroundTextureSizeY(60);
+        }
     }
 
-    private NonNullList<AvailableSlot> getItems() {
-        ItemStack item = InventoryUtil.getNonEquipmentItems(minecraft.player.getInventory()).get(slotId);
-        ContainerProvider provider = providerManager.getContainerProvider(item.getItem());
-        if (provider == null) {
-            return NonNullList.create();
+    private AvailableSlot slotAt(int id) {
+        if (id < 0 || id >= remoteSlots.size()) {
+            return null;
         }
-        return provider.getItemStacks(item, slotId);
+        return remoteSlots.get(id);
     }
 
     private List<AvailableSlot> getItem(int id) {
-        NonNullList<AvailableSlot> items = getItems();
-        if (items.size() <= id) {
-            return Collections.emptyList();
-        }
-        if (id != -1 && !items.get(id).item().isEmpty()) {
-            return Collections.singletonList(items.get(id));
+        AvailableSlot slot = slotAt(id);
+        if (slot != null && !slot.item().isEmpty()) {
+            return Collections.singletonList(slot);
         }
         return Collections.emptyList();
     }
@@ -83,18 +79,20 @@ public class ContainerWidget extends ItemGridWidget {
 
     @Override
     public boolean onPrimaryClick(SwitchItemOverlay overlay, GuiSlot guiSlot, int xOffset, int yOffset) {
-        List<AvailableSlot> slots = getItem(guiSlot.id());
-        if (!slots.isEmpty()) {
-            AvailableSlot slot = slots.get(0);
-            if (!itemManager.grabLocalItem(slot)) {
-                // interaction canceled by some other mod
-                return true;
-            }
-            ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
-            ItemSwapperSharedMod.instance.setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
-            return false;
+        AvailableSlot slot = slotAt(guiSlot.id());
+        if (slot == null) {
+            return true;
         }
-        return true;
+        if (slot.remoteItem() == null) {
+            return true;
+        }
+        ClientNetworkUtil.sendPacket(new ExchangeContainerSlotPayload(
+                InventoryUtil.getSelectedId(minecraft.player.getInventory()), slot.remoteItem()));
+        if (!slot.item().isEmpty()) {
+            ItemSwapperSharedMod.instance.setLastItem(slot.item().getItem());
+        }
+        ItemSwapperSharedMod.instance.setLastPage(overlay.getLastPages().get(overlay.getLastPages().size() - 1));
+        return false;
     }
 
     @Override

@@ -29,6 +29,7 @@ public abstract class ItemSwapperSharedServer {
             handler.registerClientCustomPacket(RefillSupportPayload.INSTANCE);
             handler.registerClientCustomPacket(DisableModPayload.INSTANCE);
             handler.registerClientCustomPacket(ItemAvailability.INSTANCE);
+            handler.registerClientCustomPacket(ContainerContentPayload.INSTANCE);
             // Server packets
             handler.registerServerCustomPacket(SwapItemPayload.INSTANCE,
                     (payload, player) -> getItemHandler().swapItem(player, payload));
@@ -42,6 +43,10 @@ public abstract class ItemSwapperSharedServer {
                     (payload, player) -> getItemHandler().switchToItem(player, payload));
             handler.registerServerCustomPacket(RequestAnyItemPayload.INSTANCE,
                     (payload, player) -> getItemHandler().switchToAnyItem(player, payload));
+            handler.registerServerCustomPacket(RequestContainerPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().openContainer(player, payload));
+            handler.registerServerCustomPacket(ExchangeContainerSlotPayload.INSTANCE,
+                    (payload, player) -> getItemHandler().exchangeContainerSlot(player, payload));
         });
         ServerLifecycleEvents.SERVER_STARTING.register(server -> {
             LevelProvider.setServer(server);

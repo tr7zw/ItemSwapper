@@ -40,7 +40,7 @@ public class ItemManager {
     }
 
     public boolean grabLocalItem(AvailableSlot slot) {
-        // Only grab from player inventory, which is -1
+        // Only player inventory slots can be swapped locally. Container slots are remote.
         if (slot.inventory() != -1) {
             return false;
         }

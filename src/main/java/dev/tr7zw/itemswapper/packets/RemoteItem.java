@@ -16,7 +16,12 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
     public void write(FriendlyByteBuf paramFriendlyByteBuf) {
         paramFriendlyByteBuf.writeByte(VERSION);
         paramFriendlyByteBuf.writeUtf(providerId);
-        paramFriendlyByteBuf.writeUtf(ItemUtil.encodeItemStack(LevelProvider.getLevel(), itemStack));
+        // ItemStack.CODEC refuses air. Container grids include empty slots.
+        if (itemStack.isEmpty()) {
+            paramFriendlyByteBuf.writeUtf("");
+        } else {
+            paramFriendlyByteBuf.writeUtf(ItemUtil.encodeItemStack(LevelProvider.getLevel(), itemStack));
+        }
         paramFriendlyByteBuf.writeInt(slot);
         paramFriendlyByteBuf.writeInt(id);
         paramFriendlyByteBuf.writeInt(count);
@@ -27,8 +32,11 @@ public record RemoteItem(String providerId, ItemStack itemStack, int slot, int i
         if (version != VERSION) {
             throw new RuntimeException("Unsupported version: " + version);
         }
-        return new RemoteItem(buffer.readUtf(), ItemUtil.decodeItemStack(LevelProvider.getLevel(), buffer.readUtf()),
-                buffer.readInt(), buffer.readInt(), buffer.readInt());
+        String providerId = buffer.readUtf();
+        String encoded = buffer.readUtf();
+        ItemStack stack = encoded.isEmpty() ? ItemStack.EMPTY
+                : ItemUtil.decodeItemStack(LevelProvider.getLevel(), encoded);
+        return new RemoteItem(providerId, stack, buffer.readInt(), buffer.readInt(), buffer.readInt());
     }
 
     public static List<RemoteItem> parseList(FriendlyByteBuf buffer) {

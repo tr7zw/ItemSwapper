@@ -152,6 +152,34 @@ public abstract class ListContainerProvider implements ServerItemContainerProvid
     }
 
     @Override
+    public ItemStack exchangeSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, ItemStack hand) {
+        if (!isValidContainer(player, container)) {
+            return null;
+        }
+        if (!hand.isEmpty() && !canStoreinContainer(hand.getItem())) {
+            return null;
+        }
+        if (remoteItem.id() < 0 || remoteItem.id() >= getMaxSlots(container)) {
+            return null;
+        }
+        NonNullList<ItemStack> containerItems = getContent(container);
+        if (containerItems == null) {
+            containerItems = NonNullList.create();
+        }
+        // Trailing empty slots are omitted from the stored list and padded on the way out.
+        while (containerItems.size() <= remoteItem.id()) {
+            containerItems.add(ItemStack.EMPTY);
+        }
+        ItemStack current = containerItems.get(remoteItem.id());
+        if (!ServerItemUtil.isSame(current, remoteItem.itemStack()) || current.count() != remoteItem.count()) {
+            return null;
+        }
+        containerItems.set(remoteItem.id(), hand.copy());
+        setContent(container, containerItems);
+        return current;
+    }
+
+    @Override
     public int takeFromSlot(ServerPlayer player, ItemStack container, RemoteItem remoteItem, int toTake) {
         if (!isValidContainer(player, container)) {
             return 0;
