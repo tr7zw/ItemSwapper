@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.wood.poplar",
+    "items": [
+        "minecraft:poplar_log",
+        "minecraft:poplar_wood",
+        "minecraft:stripped_poplar_log",
+        "minecraft:stripped_poplar_wood",
+        "minecraft:poplar_planks",
+        "minecraft:poplar_stairs",
+        "minecraft:poplar_slab",
+        "minecraft:poplar_shelf",
+        "minecraft:poplar_trapdoor",
+        "minecraft:poplar_door",
+        "minecraft:poplar_fence_gate",
+        "minecraft:poplar_fence",
+        "minecraft:poplar_sign",
+        "minecraft:poplar_hanging_sign",
+        "minecraft:poplar_button",
+        "minecraft:poplar_pressure_plate",
+        "minecraft:poplar_boat",
+        "minecraft:poplar_chest_boat",
+        "minecraft:orange_poplar_leaves",
+        "minecraft:yellow_poplar_leaves",
+        "minecraft:red_poplar_leaves"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/poplar"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/jungle"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/mangrove"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/bamboo"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/wood/cherry"
+        }
+    ]
+}

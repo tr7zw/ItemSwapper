@@ -15,6 +15,7 @@
         "minecraft:light_gray_candle",
         "minecraft:light_gray_banner",
         "minecraft:light_gray_bed",
-        "minecraft:light_gray_harness"
+        "minecraft:light_gray_harness",
+        "minecraft:light_gray_cushion"
     ]
 }

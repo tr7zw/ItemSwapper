@@ -1,0 +1,50 @@
+{
+    "type": "palette",
+    "priority": 45,
+    "displayName": "text.itemswapper.palette.colored_items.cushion",
+    "icon": "minecraft:white_cushion",
+    "items": [
+        "minecraft:black_cushion",
+        "minecraft:gray_cushion",
+        "minecraft:light_gray_cushion",
+        "minecraft:white_cushion",
+        "minecraft:pink_cushion",
+        "minecraft:magenta_cushion",
+        "minecraft:purple_cushion",
+        "minecraft:blue_cushion",
+        "minecraft:light_blue_cushion",
+        "minecraft:cyan_cushion",
+        "minecraft:green_cushion",
+        "minecraft:lime_cushion",
+        "minecraft:yellow_cushion",
+        "minecraft:orange_cushion",
+        "minecraft:red_cushion",
+        "minecraft:brown_cushion"
+    ],
+    "shortcuts": [
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/terracotta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/glazed_terracotta"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/powder"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/concrete"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/wool"
+        },
+        {
+            "type": "link",
+            "target": "itemswapper:v2/colored_items/carpets"
+        }
+    ]
+}

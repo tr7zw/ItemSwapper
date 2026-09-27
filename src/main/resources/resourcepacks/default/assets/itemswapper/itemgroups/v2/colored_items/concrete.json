@@ -40,11 +40,11 @@
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/colored_items/wool"
+            "target": "itemswapper:v2/colored_items/concrete_slab"
         },
         {
             "type": "link",
-            "target": "itemswapper:v2/colored_items/carpets"
+            "target": "itemswapper:v2/colored_items/concrete_stairs"
         }
     ]
 }

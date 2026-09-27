@@ -19,7 +19,8 @@
         "minecraft:yellow_bed",
         "minecraft:orange_bed",
         "minecraft:red_bed",
-        "minecraft:brown_bed"
+        "minecraft:brown_bed",
+        "minecraft:straw_bed"
     ],
     "shortcuts": [
         {
